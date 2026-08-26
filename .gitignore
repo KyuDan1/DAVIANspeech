@@ -5,3 +5,6 @@ models/
 data/
 output/
 *.zip
+.checkpoints/
+stems/
+submission/

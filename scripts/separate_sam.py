@@ -34,6 +34,45 @@ def to_mono_16k(waveform: torch.Tensor, source_sr: int) -> torch.Tensor:
     return mono[0]
 
 
+def first_waveform(stem) -> torch.Tensor:
+    """Pull the single item's waveform out of whatever `separate` returned.
+
+    SAM-Audio hands back a per-item list of waveforms; older docs show a
+    batched tensor instead, so accept both and drop the batch dimension.
+    """
+    if isinstance(stem, (list, tuple)):
+        stem = stem[0]
+    stem = stem.detach().cpu()
+    if stem.dim() == 3:            # (batch, channels, samples)
+        stem = stem[0]
+    return stem
+
+
+def load_sam_audio(model_cls, checkpoint: str):
+    """Build SAMAudio from a local checkpoint directory.
+
+    ``SAMAudio.from_pretrained`` goes through huggingface_hub's ModelHubMixin,
+    whose ``_from_pretrained`` here still declares the pre-1.0 keyword-only
+    ``proxies``/``resume_download`` arguments that hub 1.x no longer passes.
+    For a directory the download branch is dead code anyway, so construct the
+    model directly and skip the mixin.
+    """
+    import json
+
+    directory = Path(checkpoint)
+    if not directory.is_dir():
+        return model_cls.from_pretrained(checkpoint)
+
+    with (directory / "config.json").open(encoding="utf-8") as handle:
+        config = model_cls.config_cls(**json.load(handle))
+    model = model_cls(config)
+    state_dict = torch.load(
+        directory / "checkpoint.pt", weights_only=True, map_location="cpu"
+    )
+    model.load_state_dict(state_dict, strict=True)
+    return model
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--test-dir", type=Path, required=True)
@@ -64,7 +103,7 @@ def main():
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
-    model = SAMAudio.from_pretrained(args.checkpoint).eval().to(args.device)
+    model = load_sam_audio(SAMAudio, args.checkpoint).eval().to(args.device)
     processor = SAMAudioProcessor.from_pretrained(args.checkpoint)
     source_sr = processor.audio_sampling_rate
     print(f"{args.checkpoint} loaded, processor rate {source_sr} Hz", flush=True)
@@ -85,10 +124,8 @@ def main():
 
         # The residual is everything the voice prompt did not claim, which is
         # the counterpart of Demucs' summed non-vocal stems.
-        target = torch.as_tensor(result.target).detach().cpu()
-        residual = torch.as_tensor(result.residual).detach().cpu()
-        if target.dim() == 3:      # (batch, channels, samples)
-            target, residual = target[0], residual[0]
+        target = first_waveform(result.target)
+        residual = first_waveform(result.residual)
 
         sf.write(voice_path, to_mono_16k(target, source_sr).numpy(), TARGET_SR)
         sf.write(music_path, to_mono_16k(residual, source_sr).numpy(), TARGET_SR)

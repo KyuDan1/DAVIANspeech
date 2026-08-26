@@ -76,9 +76,23 @@ voice and as music; the competition package ships one, and
 [`configs/component_labels.fallback.json`](configs/component_labels.fallback.json)
 stands in when it is unavailable.
 
-**SAM-Audio** is a gated model. Request access on the
-[model page](https://huggingface.co/facebook/sam-audio-large), log in with
-`huggingface-cli login`, then `pip install git+https://github.com/facebookresearch/sam3.git`.
+**SAM-Audio** is gated (request access on the
+[model page](https://huggingface.co/facebook/sam-audio-large)) and needs its
+own environment — its dependency set cannot coexist with the detector stack.
+See [docs/samaudio-environment.md](docs/samaudio-environment.md); note that
+the model card's install line points at the wrong repository.
+
+It therefore runs as a separate pass that writes stems for the detector to
+pick up:
+
+```bash
+# in the samaudio env
+python scripts/separate_sam.py --test-dir data/test --out-dir stems/sam-large \
+    --checkpoint models/sam-audio-large
+
+# back in the pipeline env
+python src/pipeline.py --separator precomputed --stems-dir stems/sam-large
+```
 
 ## Running
 
