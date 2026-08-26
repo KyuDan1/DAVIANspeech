@@ -169,6 +169,8 @@ def run(args):
 
     print(f"[2/3] Separation ({args.separator}) + XLS-R-2B spoof scoring", flush=True)
     separator_kwargs = {}
+    if args.separator == "precomputed":
+        separator_kwargs["stems_dir"] = args.stems_dir
     if args.separator == "htdemucs" and args.htdemucs_repo:
         # Offline submissions must read the bag from model/htdemucs instead of
         # reaching out to dl.fbaipublicfiles.com.
@@ -212,8 +214,12 @@ def parse_args(argv=None):
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,
                         default=Path("models/xls-r-2b-anti-deepfake"))
-    parser.add_argument("--separator", choices=["htdemucs", "sam-audio"],
+    parser.add_argument("--separator",
+                        choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")
+    parser.add_argument("--stems-dir", type=Path, default=None,
+                        help="Directory of <ID>_voice.wav / <ID>_music.wav "
+                             "for --separator precomputed.")
     parser.add_argument("--htdemucs-repo", type=Path, default=None,
                         help="Local demucs bag directory (offline inference).")
     parser.add_argument("--device", default="cuda")
@@ -228,6 +234,8 @@ def parse_args(argv=None):
     parser.add_argument("--shard-index", type=int, default=0,
                         help="Which shard this process handles (0-based).")
     args = parser.parse_args(argv)
+    if args.separator == "precomputed" and args.stems_dir is None:
+        parser.error("--separator precomputed requires --stems-dir")
     if not 0 <= args.shard_index < args.num_shards:
         parser.error("--shard-index must satisfy 0 <= index < --num-shards")
     return args

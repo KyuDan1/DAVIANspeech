@@ -8,6 +8,7 @@ pipeline swap HTDemucs for SAM-Audio without touching anything downstream.
 from __future__ import annotations
 
 import abc
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -161,9 +162,46 @@ class SamAudioSeparator(Separator):
         )
 
 
+class PrecomputedSeparator(Separator):
+    """Reads stems a previous pass already wrote to disk.
+
+    SAM-Audio's dependency set (numpy<2, torchcodec, perception-models) cannot
+    share an environment with the detector stack, so it runs as a separate
+    pass -- see scripts/separate_sam.py -- and this backend picks up what it
+    left behind.
+    """
+
+    name = "precomputed"
+
+    def __init__(self, stems_dir, device="cuda"):
+        import soundfile as sf
+
+        self._read = sf.read
+        self.stems_dir = Path(stems_dir)
+        if not self.stems_dir.is_dir():
+            raise FileNotFoundError(f"Stems directory not found: {self.stems_dir}")
+
+    def _load(self, path: Path) -> np.ndarray:
+        audio, sample_rate = self._read(path, dtype="float32", always_2d=True)
+        if sample_rate != TARGET_SR:
+            raise ValueError(f"{path} is {sample_rate} Hz, expected {TARGET_SR}")
+        return audio.mean(axis=1).astype(np.float32)
+
+    def separate(self, audio_path):
+        stem = Path(audio_path).stem
+        voice_path = self.stems_dir / f"{stem}_voice.wav"
+        music_path = self.stems_dir / f"{stem}_music.wav"
+        missing = [p for p in (voice_path, music_path) if not p.is_file()]
+        if missing:
+            raise FileNotFoundError(f"Missing stems for {stem}: {missing}")
+        return self._load(voice_path), self._load(music_path)
+
+
 def build_separator(backend: str, device="cuda", **kwargs) -> Separator:
     if backend == "htdemucs":
         return HTDemucsSeparator(device=device, **kwargs)
     if backend == "sam-audio":
         return SamAudioSeparator(device=device, **kwargs)
+    if backend == "precomputed":
+        return PrecomputedSeparator(device=device, **kwargs)
     raise ValueError(f"Unknown separation backend: {backend}")
