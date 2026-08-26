@@ -103,6 +103,33 @@ Score a run against labelled data:
 python src/evaluate.py output/submission.csv data/ground_truth.csv
 ```
 
+## Building the submission
+
+The competition grades code, not predictions: you upload a zip holding
+`script.py` and a `model/` directory, and the organisers run it against a test
+set you never see. `open.zip` ships only three (byte-identical) example clips
+and no labels, so **there is nothing to score locally** — the leaderboard is
+the only evaluator.
+
+```bash
+python scripts/build_submission.py \
+    --xlsr-dir     models/xls-r-2b-anti-deepfake \
+    --panns-dir    models/panns \
+    --htdemucs-dir baseline/model/htdemucs \
+    --output-dir   submission --zip
+```
+
+That lands at **4.41 GiB**, under the 5.0 GiB baseline package, because the
+XLS-R weights ship as fp16 while inference still runs in fp32.
+
+Verify it the way the grader will — from the package root, with no network:
+
+```bash
+cd run_dir && ln -s /path/to/data data
+HTTP_PROXY=http://127.0.0.1:9 HTTPS_PROXY=http://127.0.0.1:9 \
+    python /path/to/submission/script.py
+```
+
 ## Layout
 
 ```

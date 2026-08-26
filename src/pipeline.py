@@ -168,7 +168,12 @@ def run(args):
     torch.cuda.empty_cache()
 
     print(f"[2/3] Separation ({args.separator}) + XLS-R-2B spoof scoring", flush=True)
-    separator = build_separator(args.separator, device=args.device)
+    separator_kwargs = {}
+    if args.separator == "htdemucs" and args.htdemucs_repo:
+        # Offline submissions must read the bag from model/htdemucs instead of
+        # reaching out to dl.fbaipublicfiles.com.
+        separator_kwargs["repo"] = Path(args.htdemucs_repo)
+    separator = build_separator(args.separator, device=args.device, **separator_kwargs)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
@@ -209,6 +214,8 @@ def parse_args(argv=None):
                         default=Path("models/xls-r-2b-anti-deepfake"))
     parser.add_argument("--separator", choices=["htdemucs", "sam-audio"],
                         default="htdemucs")
+    parser.add_argument("--htdemucs-repo", type=Path, default=None,
+                        help="Local demucs bag directory (offline inference).")
     parser.add_argument("--device", default="cuda")
     # 4 s at 16 kHz. The detector was post-trained on 10-13 s crops, but the
     # baseline's 64600-sample window is kept configurable for comparison.
