@@ -1,0 +1,19 @@
+# Install torch/torchaudio first, matched to your CUDA build, e.g.
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+torch>=2.6
+torchaudio>=2.6
+transformers>=4.46
+huggingface_hub>=0.26
+safetensors>=0.4
+numpy>=2.0
+scipy
+librosa>=0.11
+soundfile
+soxr
+pandas
+scikit-learn
+tqdm
+demucs>=4.0            # htdemucs separation backend
+panns_inference>=0.1.1 # Cnn14 audio tagging
+# sam-audio backend (gated model, requires an approved HF account):
+#   pip install git+https://github.com/facebookresearch/sam3.git
