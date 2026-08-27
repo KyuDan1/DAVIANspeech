@@ -49,6 +49,7 @@ def main():
     args = parse_args()
     args.panns_dir = BASE_DIR / "model" / "panns"
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
+    args.sonics_dir = BASE_DIR / "model" / "sonics"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     run(args)
 
@@ -82,6 +83,7 @@ def main():
     parser.add_argument("--xlsr-dir", type=Path, required=True)
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--htdemucs-dir", type=Path, required=True)
+    parser.add_argument("--sonics-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -113,6 +115,9 @@ def main():
     else:
         print("converting model/xlsr to fp16")
         copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
+
+    print("copying model/sonics")
+    shutil.copytree(args.sonics_dir, out / "model" / "sonics")
 
     (out / "script.py").write_text(SCRIPT_TEMPLATE, encoding="utf-8")
     (out / "script.py").chmod(0o755)

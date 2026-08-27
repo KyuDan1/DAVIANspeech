@@ -8,7 +8,7 @@ This is the competition baseline with two of its three stages replaced:
 | --- | --- | --- |
 | Voice / music presence | PANNs Cnn14 | **PANNs Cnn14** (unchanged) |
 | Source separation | HTDemucs | HTDemucs **or SAM-Audio** |
-| Spoof detection | DF-Arena 1B | **XLS-R-2B-AntiDeepfake** |
+| Spoof detection | DF-Arena 1B | **XLS-R-2B + SONICS music ensemble** |
 
 The presence stage is left alone deliberately — it already scores ~0.989 on
 the public leaderboard, so there is nothing to win there.
@@ -19,11 +19,17 @@ INPUT AUDIO
 +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
 |
 +-- Separator --------> voice stem --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
-    (HTDemucs |         music stem --> XLS-R-2B --> MUSIC_FAKE_PROB (MF)
+    (HTDemucs |         music stem --> XLS-R-2B --+
      SAM-Audio)
+                       full audio --> SONICS -----+--> MUSIC_FAKE_PROB (MF)
 
-FILE_FAKE_PROB = max(VP * VF, MP * MF)
+FILE_FAKE_PROB = max(fake probabilities for components with presence >= 0.3)
 ```
+
+SONICS contributes 25% of the music score and XLS-R contributes 75%. Presence
+scores are used as gates rather than multipliers: they are strong ranking
+scores for CPS but are not calibrated probabilities, and multiplication was
+found to damage file EER on music-only and sequential mixed audio.
 
 ## Why the checkpoint is remapped onto transformers
 
@@ -54,18 +60,22 @@ Two details that fail silently if you get them wrong, both taken from
 ## Setup
 
 ```bash
-conda create -n davianspeech -c conda-forge python=3.11
+scripts/setup_environment.sh
 conda activate davianspeech
-pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
-pip install -r requirements.txt
-conda install -c conda-forge ffmpeg   # needed for .m4a / .wma / .aac
 ```
+
+The setup script uses PyTorch 2.8 with CUDA 12.8 and has been
+smoke-tested on NVIDIA B200. `requirements.txt` remains available as a looser,
+hardware-independent dependency list; install PyTorch for the target CUDA
+version before using it.
 
 Fetch the checkpoints:
 
 ```bash
 huggingface-cli download nii-yamagishilab/xls-r-2b-anti-deepfake \
     --local-dir models/xls-r-2b-anti-deepfake          # 8.65 GB
+huggingface-cli download awsaf49/sonics-spectttra-gamma-5s \
+    --local-dir models/sonics-spectttra-gamma-5s       # 69 MB
 curl -L -o 'models/panns/Cnn14_mAP=0.431.pth' \
     'https://zenodo.org/record/3987831/files/Cnn14_mAP%3D0.431.pth?download=1'
 ```
@@ -117,6 +127,12 @@ Score a run against labelled data:
 python src/evaluate.py output/submission.csv data/ground_truth.csv
 ```
 
+Run the model-independent regression tests:
+
+```bash
+python -m pytest -q
+```
+
 ## Building the submission
 
 The competition grades code, not predictions: you upload a zip holding
@@ -130,6 +146,7 @@ python scripts/build_submission.py \
     --xlsr-dir     models/xls-r-2b-anti-deepfake \
     --panns-dir    models/panns \
     --htdemucs-dir baseline/model/htdemucs \
+    --sonics-dir   models/sonics-spectttra-gamma-5s \
     --output-dir   submission --zip
 ```
 

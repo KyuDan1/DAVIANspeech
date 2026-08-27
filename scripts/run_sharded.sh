@@ -6,9 +6,15 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "${ENV_FILE:-$HERE/../env.sh}"
+
+# An optional env file may define cluster-specific paths. With no env file,
+# use the currently activated environment and the repository-local models.
+if [ -n "${ENV_FILE:-}" ]; then
+  source "$ENV_FILE"
+fi
 
 GPUS="${GPUS:-1,2,3,4,5,6,7}"
+PY="${PY:-python}"
 TEST_DIR="${TEST_DIR:-$HERE/data/test}"
 SAMPLE_SUBMISSION="${SAMPLE_SUBMISSION:-$HERE/data/sample_submission.csv}"
 OUTPUT="${OUTPUT:-$HERE/output/submission.csv}"
@@ -24,13 +30,13 @@ pids=()
 for i in "${!GPU_LIST[@]}"; do
   CUDA_VISIBLE_DEVICES="${GPU_LIST[$i]}" \
   PYTHONNOUSERSITE=1 \
-  PATH="$CONDA_ROOT/envs/$ENV_NAME/bin:$PATH" \
   "$PY" "$HERE/src/pipeline.py" \
       --test-dir "$TEST_DIR" \
       --sample-submission "$SAMPLE_SUBMISSION" \
       --output "$SHARD_DIR/shard_$i.csv" \
-      --panns-dir "${PANNS_DIR:-$HERE/../models/panns}" \
-      --xlsr-dir "${XLSR_DIR:-$HERE/../models/xls-r-2b-anti-deepfake}" \
+      --panns-dir "${PANNS_DIR:-$HERE/models/panns}" \
+      --xlsr-dir "${XLSR_DIR:-$HERE/models/xls-r-2b-anti-deepfake}" \
+      --sonics-dir "${SONICS_DIR:-$HERE/models/sonics-spectttra-gamma-5s}" \
       --separator "$SEPARATOR" \
       --num-shards "$N" --shard-index "$i" \
       "$@" > "$SHARD_DIR/shard_$i.log" 2>&1 &
