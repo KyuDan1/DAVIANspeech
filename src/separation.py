@@ -67,10 +67,20 @@ class HTDemucsSeparator(Separator):
     def _load_track(self, audio_path) -> torch.Tensor:
         """Decode to (channels, T) at the model's rate.
 
-        Demucs 4.1 dropped ``demucs.separate.load_track``; this follows what
-        ``demucs.api.Separator`` now does -- sphn first, ffmpeg as the
-        fallback for containers sphn will not open.
+        Demucs <= 4.0 exposes ``demucs.separate.load_track``; prefer it, since
+        that is the decode path the competition baseline runs on. 4.1 removed
+        it in favour of ``demucs.api.Separator``, so fall back to what that
+        does -- sphn first, ffmpeg for containers sphn will not open.
         """
+        try:
+            from demucs.separate import load_track
+
+            return load_track(
+                audio_path, self.model.audio_channels, self.model.samplerate
+            ).float()
+        except ImportError:
+            pass
+
         from demucs.audio import AudioFile, convert_audio
 
         try:

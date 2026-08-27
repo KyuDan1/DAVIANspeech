@@ -58,6 +58,15 @@ if __name__ == "__main__":
 '''
 
 
+SUBMISSION_REQUIREMENTS = """\
+# Intentionally empty. This pipeline imports only what the competition
+# baseline already imports -- librosa, numpy, torch, torchaudio, demucs,
+# panns_inference, transformers, tqdm -- all preinstalled in the grading
+# image. Adding pins here re-resolves that image's scientific stack and
+# breaks the numpy C ABI.
+"""
+
+
 def copy_xlsr_fp16(source_dir: Path, destination_dir: Path) -> None:
     destination_dir.mkdir(parents=True, exist_ok=True)
     tensors = load_file(source_dir / "model.safetensors")
@@ -85,8 +94,10 @@ def main():
     (out / "model").mkdir(parents=True)
 
     print("copying src/")
+    # evaluate.py is a dev tool; it pulls pandas and scikit-learn, which the
+    # pipeline never touches, so keep it out of the grading image's way.
     shutil.copytree(REPO_ROOT / "src", out / "src",
-                    ignore=shutil.ignore_patterns("__pycache__"))
+                    ignore=shutil.ignore_patterns("__pycache__", "evaluate.py"))
 
     print("copying model/panns")
     shutil.copytree(args.panns_dir, out / "model" / "panns",
@@ -105,7 +116,13 @@ def main():
 
     (out / "script.py").write_text(SCRIPT_TEMPLATE, encoding="utf-8")
     (out / "script.py").chmod(0o755)
-    shutil.copy2(REPO_ROOT / "requirements.txt", out / "requirements.txt")
+    # NOT the repo's requirements.txt. That one provisions a dev machine, and
+    # pip-installing it over the grading image mixes numpy-2-built wheels into
+    # a numpy-1 runtime -- "numpy.dtype size changed, Expected 96 ... got 88"
+    # before the first model even loads. The grader preinstalls everything the
+    # baseline imports, and this pipeline imports nothing beyond that set, so
+    # the right answer is to ask for nothing.
+    (out / "requirements.txt").write_text(SUBMISSION_REQUIREMENTS, encoding="utf-8")
 
     total = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())
     print(f"\npackage: {out}  ({total / 2**30:.2f} GiB)")
