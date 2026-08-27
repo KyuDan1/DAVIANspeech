@@ -65,6 +65,6 @@ def test_fake_probability_batches_and_silence():
 
 
 def test_combine_uses_max_fake_among_present_components():
-    assert combine(0.8, 0.4, 0.5, 0.9) == pytest.approx(0.8)
+    assert combine(0.8, 0.4, 0.7, 0.9) == pytest.approx(0.8)
     assert combine(0.8, 0.4, 0.1, 0.9) == pytest.approx(0.4)
     assert combine(0.8, 0.4, 0.1, 0.2) == pytest.approx(0.4)

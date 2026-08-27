@@ -8,6 +8,7 @@ baseline is:
     model/panns/         Cnn14 checkpoint + AudioSet label groups
     model/htdemucs/      demucs bag, loaded offline
     model/xlsr/          XLS-R-2B-AntiDeepfake weights, stored as fp16
+    model/artifactnet/   ArtifactNet ONNX graph + external weights
     requirements.txt
 
 The XLS-R weights are cast to fp16 on the way in: it halves the package
@@ -49,7 +50,7 @@ def main():
     args = parse_args()
     args.panns_dir = BASE_DIR / "model" / "panns"
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
-    args.sonics_dir = BASE_DIR / "model" / "sonics"
+    args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     run(args)
 
@@ -60,11 +61,9 @@ if __name__ == "__main__":
 
 
 SUBMISSION_REQUIREMENTS = """\
-# Intentionally empty. This pipeline imports only what the competition
-# baseline already imports -- librosa, numpy, torch, torchaudio, demucs,
-# panns_inference, transformers, tqdm -- all preinstalled in the grading
-# image. Adding pins here re-resolves that image's scientific stack and
-# breaks the numpy C ABI.
+# ArtifactNet is distributed as an ONNX graph. All other dependencies are
+# already part of the competition image.
+onnxruntime-gpu==1.23.2
 """
 
 
@@ -83,7 +82,7 @@ def main():
     parser.add_argument("--xlsr-dir", type=Path, required=True)
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--htdemucs-dir", type=Path, required=True)
-    parser.add_argument("--sonics-dir", type=Path, required=True)
+    parser.add_argument("--artifactnet-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -116,8 +115,11 @@ def main():
         print("converting model/xlsr to fp16")
         copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
 
-    print("copying model/sonics")
-    shutil.copytree(args.sonics_dir, out / "model" / "sonics")
+    print("copying model/artifactnet")
+    shutil.copytree(
+        args.artifactnet_dir, out / "model" / "artifactnet",
+        ignore=shutil.ignore_patterns(".cache", "__pycache__"),
+    )
 
     (out / "script.py").write_text(SCRIPT_TEMPLATE, encoding="utf-8")
     (out / "script.py").chmod(0o755)

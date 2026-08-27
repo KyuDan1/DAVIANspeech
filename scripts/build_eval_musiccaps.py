@@ -91,7 +91,7 @@ def main():
                     continue
 
                 common = {
-                    "VOICE_FAKE": pd.NA, "VOICE_PRESENT": pd.NA,
+                    "VOICE_FAKE": pd.NA, "VOICE_PRESENT": 0,
                     "MUSIC_PRESENT": 1, "AUDIO_TYPE": "music",
                     "CONDITION": "semantic_pair", "PAIR_ID": pair_id,
                     "SOURCE": "MusicCaps/FakeMusicCaps", "CODEC": "flac16k",

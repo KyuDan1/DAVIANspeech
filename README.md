@@ -8,7 +8,7 @@ This is the competition baseline with two of its three stages replaced:
 | --- | --- | --- |
 | Voice / music presence | PANNs Cnn14 | **PANNs Cnn14** (unchanged) |
 | Source separation | HTDemucs | HTDemucs **or SAM-Audio** |
-| Spoof detection | DF-Arena 1B | **XLS-R-2B + SONICS music ensemble** |
+| Spoof detection | DF-Arena 1B | **XLS-R-2B + ArtifactNet** |
 
 The presence stage is left alone deliberately — it already scores ~0.989 on
 the public leaderboard, so there is nothing to win there.
@@ -21,12 +21,14 @@ INPUT AUDIO
 +-- Separator --------> voice stem --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
     (HTDemucs |         music stem --> XLS-R-2B --+
      SAM-Audio)
-                       full audio --> SONICS -----+--> MUSIC_FAKE_PROB (MF)
+                       full audio --> ArtifactNet-+--> MUSIC_FAKE_PROB (MF)
 
-FILE_FAKE_PROB = max(fake probabilities for components with presence >= 0.3)
+FILE_FAKE_PROB = max(fake probabilities for components with presence >= 0.7)
 ```
 
-SONICS contributes 25% of the music score and XLS-R contributes 75%. Presence
+XLS-R and ArtifactNet contribute 50% each to the music score. ArtifactNet is a
+small codec-residual detector that complements the large learned audio
+classifier. Presence
 scores are used as gates rather than multipliers: they are strong ranking
 scores for CPS but are not calibrated probabilities, and multiplication was
 found to damage file EER on music-only and sequential mixed audio.
@@ -74,8 +76,8 @@ Fetch the checkpoints:
 ```bash
 huggingface-cli download nii-yamagishilab/xls-r-2b-anti-deepfake \
     --local-dir models/xls-r-2b-anti-deepfake          # 8.65 GB
-huggingface-cli download awsaf49/sonics-spectttra-gamma-5s \
-    --local-dir models/sonics-spectttra-gamma-5s       # 69 MB
+huggingface-cli download intrect/artifactnet \
+    --local-dir models/artifactnet                     # 17 MB
 curl -L -o 'models/panns/Cnn14_mAP=0.431.pth' \
     'https://zenodo.org/record/3987831/files/Cnn14_mAP%3D0.431.pth?download=1'
 ```
@@ -146,12 +148,13 @@ python scripts/build_submission.py \
     --xlsr-dir     models/xls-r-2b-anti-deepfake \
     --panns-dir    models/panns \
     --htdemucs-dir baseline/model/htdemucs \
-    --sonics-dir   models/sonics-spectttra-gamma-5s \
+    --artifactnet-dir models/artifactnet \
     --output-dir   submission --zip
 ```
 
-That lands at **4.41 GiB**, under the 5.0 GiB baseline package, because the
-XLS-R weights ship as fp16 while inference still runs in fp32.
+The current archive is **4.09 GiB** (4.43 GiB unpacked), under the competition
+limits, because the XLS-R weights ship as fp16 while inference still runs in
+fp32.
 
 Verify it the way the grader will — from the package root, with no network:
 

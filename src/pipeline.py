@@ -5,10 +5,10 @@
     +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
     |
     +-- Separator --------> voice stem  --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
-        (HTDemucs |         music stem  --> XLS-R-2B --+
-         SAM-Audio)         full audio  --> SONICS -----+--> MUSIC_FAKE_PROB (MF)
+        (HTDemucs |         music stem  --> XLS-R-2B -----+--> MUSIC_FAKE_PROB (MF)
+         SAM-Audio)         full audio  --> ArtifactNet --+
 
-    FILE_FAKE_PROB = max(fake scores for components whose presence >= 0.3)
+    FILE_FAKE_PROB = max(fake scores for components whose presence >= 0.7)
 
 Relative to the competition baseline the presence stage is untouched, while
 DF-Arena 1B is replaced by XLS-R-2B-AntiDeepfake and HTDemucs is optionally
@@ -31,13 +31,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from presence import PannsPresence, extract_segment, segment_starts  # noqa: E402
 from separation import build_separator  # noqa: E402
-from sonics_detector import SonicsMusicDetector  # noqa: E402
+from artifactnet_detector import ArtifactNetMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
 AUDIO_SR = 16_000
 SILENCE_RMS = 1e-5
-PRESENCE_GATE = 0.3
-SONICS_WEIGHT = 0.25
+PRESENCE_GATE = 0.7
+XLSR_MUSIC_WEIGHT = 0.5
+ARTIFACTNET_WEIGHT = 0.5
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -194,9 +195,7 @@ def run(args):
         separator_kwargs["repo"] = Path(args.htdemucs_repo)
     separator = build_separator(args.separator, device=args.device, **separator_kwargs)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
-    music_detector = SonicsMusicDetector.from_checkpoint(
-        args.sonics_dir, device=args.device
-    )
+    artifact_detector = ArtifactNetMusicDetector(args.artifactnet_dir)
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         voice_audio, music_audio = separator.separate(path)
@@ -206,12 +205,11 @@ def run(args):
         music_fake_xlsr = fake_probability(
             detector, music_audio, device, args.window, args.batch_size
         )
-        music_fake_sonics = music_detector.fake_probability(
-            load_audio(path), device=args.device
-        )
+        original_audio = load_audio(path)
+        music_fake_artifact = artifact_detector.fake_probability(original_audio)
         music_fake = (
-            (1 - SONICS_WEIGHT) * music_fake_xlsr
-            + SONICS_WEIGHT * music_fake_sonics
+            XLSR_MUSIC_WEIGHT * music_fake_xlsr
+            + ARTIFACTNET_WEIGHT * music_fake_artifact
         )
         voice_present, music_present = presence[path.stem]
 
@@ -241,8 +239,8 @@ def parse_args(argv=None):
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,
                         default=Path("models/xls-r-2b-anti-deepfake"))
-    parser.add_argument("--sonics-dir", type=Path,
-                        default=Path("models/sonics-spectttra-gamma-5s"))
+    parser.add_argument("--artifactnet-dir", type=Path,
+                        default=Path("models/artifactnet"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")

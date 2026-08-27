@@ -36,7 +36,7 @@ for i in "${!GPU_LIST[@]}"; do
       --output "$SHARD_DIR/shard_$i.csv" \
       --panns-dir "${PANNS_DIR:-$HERE/models/panns}" \
       --xlsr-dir "${XLSR_DIR:-$HERE/models/xls-r-2b-anti-deepfake}" \
-      --sonics-dir "${SONICS_DIR:-$HERE/models/sonics-spectttra-gamma-5s}" \
+      --artifactnet-dir "${ARTIFACTNET_DIR:-$HERE/models/artifactnet}" \
       --separator "$SEPARATOR" \
       --num-shards "$N" --shard-index "$i" \
       "$@" > "$SHARD_DIR/shard_$i.log" 2>&1 &
