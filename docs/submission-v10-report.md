@@ -189,7 +189,8 @@ classifier 대신 대회 규칙과 동일한 component score의 논리 OR를 유
 - 산출물: `submit_moe_v10.zip`
 - 압축 크기: 약 `6.32 GiB` (제한 10GB 이하)
 - 압축 해제 크기: 약 `6.97 GiB` (제한 32GB 이하)
-- 최상위 구조: `model/`, `src/`, `script.py`, `requirements.txt`
+- 최상위 구조: `model/`, `script.py`, `requirements.txt`만 사용
+- Python 소스는 추가 최상위 폴더를 만들지 않고 `model/src/`에 포함
 - 오프라인 환경 변수 `HF_HUB_OFFLINE=1`, `TRANSFORMERS_OFFLINE=1` 적용
 - 패키지 자체 모델 경로만 사용
 - 실제 FLAC 혼합 샘플 1개 end-to-end 추론 성공
@@ -204,8 +205,8 @@ classifier 대신 대회 규칙과 동일한 component score의 논리 OR를 유
 `torchaudio==2.7.1+cu128`의 binary 조합이 깨진 것으로 판단했다.
 
 EAT가 timm에서 사용하는 `to_2tuple`, `trunc_normal_`, `DropPath`, `Mlp`만 순수
-PyTorch 호환 코드로 패키지 안에 구현했다. 수정 ZIP의 `requirements.txt`에는 설치
-패키지가 없으며 서버 기본 torch/torchaudio를 변경하지 않는다. 내장 호환층을 사용한
+PyTorch 호환 코드로 패키지 안에 구현했다. 수정 ZIP의 `requirements.txt`는 0바이트로
+설치 패키지가 없으며 서버 기본 torch/torchaudio를 변경하지 않는다. 내장 호환층을 사용한
 전체 1-file 오프라인 추론과 11개 회귀 테스트를 통과한 뒤 fixed ZIP을 생성했다.
 
 평가 서버에서는 모델을 한 번 초기화한 뒤 1,200개를 연속 처리한다. 기존보다 무거운

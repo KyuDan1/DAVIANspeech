@@ -4,7 +4,7 @@ Produces a directory (and optionally a zip) laid out the way the organisers'
 baseline is:
 
     script.py            entry point, run from the package root
-    src/*.py             pipeline source
+    model/src/*.py       pipeline source (keeps the required top level exact)
     model/panns/         Cnn14 checkpoint + AudioSet label groups
     model/htdemucs/      demucs bag, loaded offline
     model/xlsr/          XLS-R-2B-AntiDeepfake weights, stored as fp16
@@ -78,7 +78,7 @@ os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
 sys.dont_write_bytecode = True
 
 BASE_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(BASE_DIR / "src"))
+sys.path.insert(0, str(BASE_DIR / "model" / "src"))
 
 # Non-default pipeline settings this package ships with, applied after
 # parse_args so the package is self-describing rather than depending on
@@ -90,6 +90,34 @@ from pipeline import parse_args, run  # noqa: E402
 
 def main():
     args = parse_args()
+    audio_extensions = {".aac", ".flac", ".m4a", ".mp3", ".ogg",
+                        ".opus", ".wav", ".wma"}
+    # Documentation revisions have referred to both data/ and open/. Accept
+    # either layout, with or without a test/ child, while keeping files local.
+    input_candidates = [
+        BASE_DIR / "data" / "test",
+        BASE_DIR / "open" / "test",
+        BASE_DIR / "data",
+        BASE_DIR / "open",
+    ]
+    args.test_dir = next(
+        (directory for directory in input_candidates
+         if directory.is_dir() and any(
+             path.is_file() and path.suffix.lower() in audio_extensions
+             for path in directory.iterdir()
+         )),
+        BASE_DIR / "data" / "test",
+    )
+    sample_candidates = [
+        BASE_DIR / "data" / "sample_submission.csv",
+        BASE_DIR / "open" / "sample_submission.csv",
+        BASE_DIR / "sample_submission.csv",
+    ]
+    args.sample_submission = next(
+        (path for path in sample_candidates if path.is_file()),
+        sample_candidates[0],
+    )
+    args.output = BASE_DIR / "output" / "submission.csv"
     args.panns_dir = BASE_DIR / "model" / "panns"
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
     args.xlsr_music_head = BASE_DIR / "model" / "xlsr-music-head.npz"
@@ -119,12 +147,7 @@ if __name__ == "__main__":
 '''
 
 
-SUBMISSION_REQUIREMENTS = """\
-# Intentionally empty: every runtime package is preinstalled by the grader.
-# In particular, do not pip-install torch, torchaudio, torchvision, or timm;
-# doing so can replace the grader's matching CUDA 12.8 binary set. EAT's small
-# timm API surface is provided locally in src/eat_timm_compat.py.
-"""
+SUBMISSION_REQUIREMENTS = ""
 
 
 def copy_xlsr_fp16(source_dir: Path, destination_dir: Path) -> None:
@@ -181,10 +204,10 @@ def main():
         shutil.rmtree(out)
     (out / "model").mkdir(parents=True)
 
-    print("copying src/")
+    print("copying model/src/")
     # evaluate.py is a dev tool; it pulls pandas and scikit-learn, which the
     # pipeline never touches, so keep it out of the grading image's way.
-    shutil.copytree(REPO_ROOT / "src", out / "src",
+    shutil.copytree(REPO_ROOT / "src", out / "model" / "src",
                     ignore=shutil.ignore_patterns("__pycache__", "evaluate.py"))
 
     print("copying model/panns")
