@@ -8,7 +8,7 @@ This is the competition baseline with two of its three stages replaced:
 | --- | --- | --- |
 | Voice / music presence | PANNs Cnn14 | **PANNs Cnn14** (unchanged) |
 | Source separation | HTDemucs | HTDemucs **or SAM-Audio** |
-| Spoof detection | DF-Arena 1B | **XLS-R-2B-AntiDeepfake** |
+| Spoof detection | DF-Arena 1B | **XLS-R-2B + ArtifactNet** |
 
 The presence stage is left alone deliberately — it already scores ~0.989 on
 the public leaderboard, so there is nothing to win there.
@@ -19,11 +19,19 @@ INPUT AUDIO
 +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
 |
 +-- Separator --------> voice stem --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
-    (HTDemucs |         music stem --> XLS-R-2B --> MUSIC_FAKE_PROB (MF)
+    (HTDemucs |         music stem --> XLS-R-2B --+
      SAM-Audio)
+                       full audio --> ArtifactNet-+--> MUSIC_FAKE_PROB (MF)
 
-FILE_FAKE_PROB = max(VP * VF, MP * MF)
+FILE_FAKE_PROB = max(fake probabilities for components with presence >= 0.7)
 ```
+
+XLS-R and ArtifactNet contribute 50% each to the music score. ArtifactNet is a
+small codec-residual detector that complements the large learned audio
+classifier. Presence
+scores are used as gates rather than multipliers: they are strong ranking
+scores for CPS but are not calibrated probabilities, and multiplication was
+found to damage file EER on music-only and sequential mixed audio.
 
 ## Why the checkpoint is remapped onto transformers
 
@@ -54,18 +62,22 @@ Two details that fail silently if you get them wrong, both taken from
 ## Setup
 
 ```bash
-conda create -n davianspeech -c conda-forge python=3.11
+scripts/setup_environment.sh
 conda activate davianspeech
-pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
-pip install -r requirements.txt
-conda install -c conda-forge ffmpeg   # needed for .m4a / .wma / .aac
 ```
+
+The setup script uses PyTorch 2.8 with CUDA 12.8 and has been
+smoke-tested on NVIDIA B200. `requirements.txt` remains available as a looser,
+hardware-independent dependency list; install PyTorch for the target CUDA
+version before using it.
 
 Fetch the checkpoints:
 
 ```bash
 huggingface-cli download nii-yamagishilab/xls-r-2b-anti-deepfake \
     --local-dir models/xls-r-2b-anti-deepfake          # 8.65 GB
+huggingface-cli download intrect/artifactnet \
+    --local-dir models/artifactnet                     # 17 MB
 curl -L -o 'models/panns/Cnn14_mAP=0.431.pth' \
     'https://zenodo.org/record/3987831/files/Cnn14_mAP%3D0.431.pth?download=1'
 ```
@@ -117,6 +129,12 @@ Score a run against labelled data:
 python src/evaluate.py output/submission.csv data/ground_truth.csv
 ```
 
+Run the model-independent regression tests:
+
+```bash
+python -m pytest -q
+```
+
 ## Building the submission
 
 The competition grades code, not predictions: you upload a zip holding
@@ -130,11 +148,13 @@ python scripts/build_submission.py \
     --xlsr-dir     models/xls-r-2b-anti-deepfake \
     --panns-dir    models/panns \
     --htdemucs-dir baseline/model/htdemucs \
+    --artifactnet-dir models/artifactnet \
     --output-dir   submission --zip
 ```
 
-That lands at **4.41 GiB**, under the 5.0 GiB baseline package, because the
-XLS-R weights ship as fp16 while inference still runs in fp32.
+The current archive is **4.09 GiB** (4.43 GiB unpacked), under the competition
+limits, because the XLS-R weights ship as fp16 while inference still runs in
+fp32.
 
 Verify it the way the grader will — from the package root, with no network:
 

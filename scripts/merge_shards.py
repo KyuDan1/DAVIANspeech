@@ -34,7 +34,9 @@ def main():
         )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    result.to_csv(args.output, index=False)
+    # pipeline.py writes through csv.DictWriter, whose default dialect uses
+    # CRLF. Match it so a sharded run is byte-identical to a single process.
+    result.to_csv(args.output, index=False, lineterminator="\r\n")
     print(f"Merged {len(shards)} shards -> {args.output} ({len(result)} rows)")
 
 

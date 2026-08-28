@@ -5,10 +5,10 @@
     +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
     |
     +-- Separator --------> voice stem  --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
-        (HTDemucs |         music stem  --> XLS-R-2B --> MUSIC_FAKE_PROB (MF)
-         SAM-Audio)
+        (HTDemucs |         music stem  --> XLS-R-2B -----+--> MUSIC_FAKE_PROB (MF)
+         SAM-Audio)         full audio  --> ArtifactNet --+
 
-    FILE_FAKE_PROB = max(VP * VF, MP * MF)
+    FILE_FAKE_PROB = max(fake scores for components whose presence >= 0.7)
 
 Relative to the competition baseline the presence stage is untouched, while
 DF-Arena 1B is replaced by XLS-R-2B-AntiDeepfake and HTDemucs is optionally
@@ -31,10 +31,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from presence import PannsPresence, extract_segment, segment_starts  # noqa: E402
 from separation import build_separator  # noqa: E402
+from artifactnet_detector import ArtifactNetMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
 AUDIO_SR = 16_000
 SILENCE_RMS = 1e-5
+PRESENCE_GATE = 0.7
+XLSR_MUSIC_WEIGHT = 0.5
+ARTIFACTNET_WEIGHT = 0.5
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -130,7 +134,21 @@ def fake_probability(detector, audio, device, window, batch_size):
 
 
 def combine(voice_fake, music_fake, voice_present, music_present):
-    return max(voice_present * voice_fake, music_present * music_fake)
+    """File fake probability from component-conditional fake probabilities.
+
+    Presence scores are ranking scores trained for CPS, not calibrated
+    probabilities. Multiplying by them damaged file EER, especially when
+    voice and music occur sequentially. Use them only to suppress clearly
+    absent components, then apply the competition's logical OR as a max.
+    """
+    active = []
+    if voice_present >= PRESENCE_GATE:
+        active.append(voice_fake)
+    if music_present >= PRESENCE_GATE:
+        active.append(music_fake)
+    if active:
+        return max(active)
+    return voice_fake if voice_present >= music_present else music_fake
 
 
 # ---------------------------------------------------------------------------
@@ -177,14 +195,21 @@ def run(args):
         separator_kwargs["repo"] = Path(args.htdemucs_repo)
     separator = build_separator(args.separator, device=args.device, **separator_kwargs)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
+    artifact_detector = ArtifactNetMusicDetector(args.artifactnet_dir)
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         voice_audio, music_audio = separator.separate(path)
         voice_fake = fake_probability(
             detector, voice_audio, device, args.window, args.batch_size
         )
-        music_fake = fake_probability(
+        music_fake_xlsr = fake_probability(
             detector, music_audio, device, args.window, args.batch_size
+        )
+        original_audio = load_audio(path)
+        music_fake_artifact = artifact_detector.fake_probability(original_audio)
+        music_fake = (
+            XLSR_MUSIC_WEIGHT * music_fake_xlsr
+            + ARTIFACTNET_WEIGHT * music_fake_artifact
         )
         voice_present, music_present = presence[path.stem]
 
@@ -214,6 +239,8 @@ def parse_args(argv=None):
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,
                         default=Path("models/xls-r-2b-anti-deepfake"))
+    parser.add_argument("--artifactnet-dir", type=Path,
+                        default=Path("models/artifactnet"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")
@@ -226,7 +253,9 @@ def parse_args(argv=None):
     # 4 s at 16 kHz. The detector was post-trained on 10-13 s crops, but the
     # baseline's 64600-sample window is kept configurable for comparison.
     parser.add_argument("--window", type=int, default=64_000)
-    parser.add_argument("--batch-size", type=int, default=8)
+    # XLS-R-2B needs about 8.2 GiB for one 4-second window but over 70 GiB at
+    # batch 8. Keep the submission-safe default for the 22.4 GiB L4 grader.
+    parser.add_argument("--batch-size", type=int, default=1)
     parser.add_argument("--limit", type=int, default=0,
                         help="Score only the first N files (smoke tests).")
     parser.add_argument("--num-shards", type=int, default=1,
