@@ -12,9 +12,14 @@ import torch
 import torch.nn.functional as F
 import torchaudio
 
+from eat_timm_compat import install_timm_compat
+
 
 def _load_local_model(model_dir: Path, device: torch.device):
     """Load bundled custom code without depending on HF's module cache."""
+    # Do not pip-install timm in the grader: its torch/torchvision dependency
+    # can replace the preinstalled CUDA build and make libtorchaudio.so fail.
+    install_timm_compat()
     package = "davianspeech_eat"
     package_spec = importlib.util.spec_from_file_location(
         package, model_dir / "__init__.py",

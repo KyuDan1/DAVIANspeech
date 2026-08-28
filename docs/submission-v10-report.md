@@ -196,6 +196,18 @@ classifier 대신 대회 규칙과 동일한 component score의 논리 OR를 유
 - 스모크 실행시간: `81.1초` (모델 초기화 포함)
 - 단위/회귀 테스트: `11 passed`
 
+### 평가 서버 설치 오류 수정
+
+최초 v10 ZIP은 EAT custom code를 위해 `timm==1.0.28`을 설치하도록 구성했으나,
+평가 서버에서 `libtorchaudio.so` 로딩 오류가 발생했다. timm의 torch/torchvision
+의존성 해결 과정에서 서버에 기본 설치된 `torch==2.7.1+cu128`과
+`torchaudio==2.7.1+cu128`의 binary 조합이 깨진 것으로 판단했다.
+
+EAT가 timm에서 사용하는 `to_2tuple`, `trunc_normal_`, `DropPath`, `Mlp`만 순수
+PyTorch 호환 코드로 패키지 안에 구현했다. 수정 ZIP의 `requirements.txt`에는 설치
+패키지가 없으며 서버 기본 torch/torchaudio를 변경하지 않는다. 내장 호환층을 사용한
+전체 1-file 오프라인 추론과 11개 회귀 테스트를 통과한 뒤 fixed ZIP을 생성했다.
+
 평가 서버에서는 모델을 한 번 초기화한 뒤 1,200개를 연속 처리한다. 기존보다 무거운
 구조도 시간 제한을 통과한 이력이 있고, 현재 구조는 XLS-R embedding을 여러 head가
 공유해 추가 2B encoder pass를 만들지 않는다.

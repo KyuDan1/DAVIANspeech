@@ -120,9 +120,10 @@ if __name__ == "__main__":
 
 
 SUBMISSION_REQUIREMENTS = """\
-# EAT's remote-code implementation imports timm. All other dependencies are
-# already part of the competition image.
-timm==1.0.28
+# Intentionally empty: every runtime package is preinstalled by the grader.
+# In particular, do not pip-install torch, torchaudio, torchvision, or timm;
+# doing so can replace the grader's matching CUDA 12.8 binary set. EAT's small
+# timm API surface is provided locally in src/eat_timm_compat.py.
 """
 
 
