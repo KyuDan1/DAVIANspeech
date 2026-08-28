@@ -30,6 +30,8 @@ def main() -> None:
                         default=ROOT / "models/xls-r-2b-anti-deepfake")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--window", type=int, default=64_000)
+    parser.add_argument("--max-windows", type=int, default=0,
+                        help="Evenly subsample at most N windows; 0 keeps all.")
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     args = parser.parse_args()
@@ -41,7 +43,13 @@ def main() -> None:
     for path in tqdm(files, desc="XLS-R embeddings"):
         audio = load_audio(path)
         per_window = []
-        for start in segment_starts(len(audio), args.window):
+        starts = segment_starts(len(audio), args.window)
+        if args.max_windows and len(starts) > args.max_windows:
+            indices = np.linspace(
+                0, len(starts) - 1, args.max_windows, dtype=int
+            )
+            starts = [starts[index] for index in np.unique(indices)]
+        for start in starts:
             waveform = torch.from_numpy(
                 extract_segment(audio, start, args.window)
             ).unsqueeze(0).to(device)

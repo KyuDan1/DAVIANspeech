@@ -5,9 +5,8 @@
     +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
     |
     +-- original audio -----------------> XLS-R-2B --------+--> voice/music votes
+    +-- original audio -----------------> EAT -------------+--> music votes
     +-- Separator --------> voice stem  --> XLS-R-2B ------+
-        (HTDemucs |         music stem  --> XLS-R-2B ------+--> MUSIC_FAKE_PROB
-         SAM-Audio)         full audio  --> ArtifactNet ---+
 
     FILE_FAKE_PROB = max(fake scores for components whose presence >= 0.7)
 
@@ -32,8 +31,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from presence import PannsPresence, extract_segment, segment_starts  # noqa: E402
 from separation import build_separator  # noqa: E402
-from artifactnet_detector import ArtifactNetMusicDetector  # noqa: E402
 from eat_detector import EatMusicDetector  # noqa: E402
+from spear_detector import SpearMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
 AUDIO_SR = 16_000
@@ -44,13 +43,15 @@ PRESENCE_GATE = 0.7
 # mixture most of the XLS-R vote and retains stems as complementary evidence.
 RAW_VOICE_WEIGHT = 0.6
 STEM_VOICE_WEIGHT = 0.4
-LEGACY_VOICE_ENSEMBLE_WEIGHT = 0.9
-XLSR_ADAPTED_VOICE_WEIGHT = 0.1
-RAW_LEGACY_MUSIC_WEIGHT = 0.85
-ARTIFACTNET_LEGACY_MUSIC_WEIGHT = 0.15
-LEGACY_MUSIC_ENSEMBLE_WEIGHT = 0.1
-EAT_MUSIC_WEIGHT = 0.4
-XLSR_ADAPTED_MUSIC_WEIGHT = 0.5
+LEGACY_VOICE_ENSEMBLE_WEIGHT = 0.7
+ECHOFAKE_VOICE_WEIGHT = 0.3
+# Cross-dataset maximin weights. The original heads preserve performance on
+# FakeMusicCaps, while Echoes heads cover twelve newer commercial/open models.
+EAT_MUSIC_WEIGHT = 0.225
+XLSR_ADAPTED_MUSIC_WEIGHT = 0.09
+EAT_ECHOES_MUSIC_WEIGHT = 0.225
+XLSR_ECHOES_MUSIC_WEIGHT = 0.36
+SPEAR_MUSIC_WEIGHT = 0.10
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -260,12 +261,22 @@ def run(args):
     xlsr_head = np.load(args.xlsr_music_head)
     xlsr_music_weight = torch.from_numpy(xlsr_head["weight"]).to(device)
     xlsr_music_bias = torch.as_tensor(xlsr_head["bias"], device=device)
-    xlsr_voice_head = np.load(args.xlsr_voice_head)
-    xlsr_voice_weight = torch.from_numpy(xlsr_voice_head["weight"]).to(device)
-    xlsr_voice_bias = torch.as_tensor(xlsr_voice_head["bias"], device=device)
-    artifact_detector = ArtifactNetMusicDetector(args.artifactnet_dir)
+    xlsr_echoes_head = np.load(args.xlsr_echoes_music_head)
+    xlsr_echoes_weight = torch.from_numpy(xlsr_echoes_head["weight"]).to(device)
+    xlsr_echoes_bias = torch.as_tensor(xlsr_echoes_head["bias"], device=device)
+    xlsr_echofake_head = np.load(args.xlsr_echofake_voice_head)
+    xlsr_echofake_weight = torch.from_numpy(
+        xlsr_echofake_head["weight"]
+    ).to(device)
+    xlsr_echofake_bias = torch.as_tensor(
+        xlsr_echofake_head["bias"], device=device
+    )
     eat_detector = EatMusicDetector(
-        args.eat_dir, args.eat_head, device=args.device
+        args.eat_dir, args.eat_head, device=args.device,
+        extra_head_path=args.eat_echoes_head,
+    )
+    spear_detector = SpearMusicDetector(
+        args.spear_dir, args.spear_music_head, device=args.device,
     )
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
@@ -280,27 +291,31 @@ def run(args):
         music_fake_xlsr_adapted = float(torch.sigmoid(
             raw_xlsr_embedding.to(device) @ xlsr_music_weight + xlsr_music_bias
         ))
-        voice_fake_xlsr_adapted = float(torch.sigmoid(
-            raw_xlsr_embedding.to(device) @ xlsr_voice_weight + xlsr_voice_bias
+        music_fake_xlsr_echoes = float(torch.sigmoid(
+            raw_xlsr_embedding.to(device) @ xlsr_echoes_weight + xlsr_echoes_bias
         ))
-        music_fake_artifact = artifact_detector.fake_probability(original_audio)
-        music_fake_eat = eat_detector.fake_probability(original_audio)
+        voice_fake_xlsr_echofake = float(torch.sigmoid(
+            raw_xlsr_embedding.to(device) @ xlsr_echofake_weight
+            + xlsr_echofake_bias
+        ))
+        music_fake_eat, music_fake_eat_echoes = (
+            eat_detector.fake_probabilities(original_audio)
+        )
+        music_fake_spear = spear_detector.fake_probability(original_audio)
         legacy_voice_fake = (
             STEM_VOICE_WEIGHT * voice_fake_stem
             + RAW_VOICE_WEIGHT * raw_fake_xlsr
         )
         voice_fake = (
             LEGACY_VOICE_ENSEMBLE_WEIGHT * legacy_voice_fake
-            + XLSR_ADAPTED_VOICE_WEIGHT * voice_fake_xlsr_adapted
-        )
-        legacy_music_fake = (
-            RAW_LEGACY_MUSIC_WEIGHT * raw_fake_xlsr
-            + ARTIFACTNET_LEGACY_MUSIC_WEIGHT * music_fake_artifact
+            + ECHOFAKE_VOICE_WEIGHT * voice_fake_xlsr_echofake
         )
         music_fake = (
-            LEGACY_MUSIC_ENSEMBLE_WEIGHT * legacy_music_fake
-            + EAT_MUSIC_WEIGHT * music_fake_eat
+            EAT_MUSIC_WEIGHT * music_fake_eat
             + XLSR_ADAPTED_MUSIC_WEIGHT * music_fake_xlsr_adapted
+            + EAT_ECHOES_MUSIC_WEIGHT * music_fake_eat_echoes
+            + XLSR_ECHOES_MUSIC_WEIGHT * music_fake_xlsr_echoes
+            + SPEAR_MUSIC_WEIGHT * music_fake_spear
         )
         if args.artifactnet_weight > 0:
             music_fake_artifact = artifact_detector.fake_probability(original_audio)
@@ -336,13 +351,19 @@ def parse_args(argv=None):
                         default=Path("models/xls-r-2b-anti-deepfake"))
     parser.add_argument("--xlsr-music-head", type=Path,
                         default=Path("model_heads/xlsr-music-head.npz"))
-    parser.add_argument("--xlsr-voice-head", type=Path,
-                        default=Path("model_heads/xlsr-voice-head.npz"))
-    parser.add_argument("--artifactnet-dir", type=Path,
-                        default=Path("models/artifactnet"))
+    parser.add_argument("--xlsr-echoes-music-head", type=Path,
+                        default=Path("model_heads/xlsr-echoes-music-head.npz"))
+    parser.add_argument("--xlsr-echofake-voice-head", type=Path,
+                        default=Path("model_heads/xlsr-echofake-voice-head.npz"))
     parser.add_argument("--eat-dir", type=Path, default=Path("models/eat-base-as2m"))
     parser.add_argument("--eat-head", type=Path,
                         default=Path("model_heads/eat-music-head.npz"))
+    parser.add_argument("--eat-echoes-head", type=Path,
+                        default=Path("model_heads/eat-echoes-music-head.npz"))
+    parser.add_argument("--spear-dir", type=Path,
+                        default=Path("models/spear-xlarge-speech-audio-v2"))
+    parser.add_argument("--spear-music-head", type=Path,
+                        default=Path("model_heads/spear-v3-music-head.npz"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")

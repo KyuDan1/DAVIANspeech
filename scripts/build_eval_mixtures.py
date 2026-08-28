@@ -26,6 +26,13 @@ def rms(audio):
     return max(float(np.sqrt(np.mean(audio.astype(np.float64) ** 2))), 1e-6)
 
 
+def audio_path(directory: Path, sample_id: str) -> Path:
+    matches = list((directory / "audio").glob(f"{sample_id}.*"))
+    if len(matches) != 1:
+        raise ValueError(f"Expected one audio file for {sample_id}: {matches}")
+    return matches[0]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--voice-dir", type=Path, required=True)
@@ -51,8 +58,8 @@ def main():
                 for repetition in range(args.per_combination):
                     voice_id = rng.choice(voice_by_label[voice_fake])
                     music_id = rng.choice(music_by_label[music_fake])
-                    voice = load_four_seconds(args.voice_dir / "audio" / f"{voice_id}.flac")
-                    music = load_four_seconds(args.music_dir / "audio" / f"{music_id}.flac")
+                    voice = load_four_seconds(audio_path(args.voice_dir, voice_id))
+                    music = load_four_seconds(audio_path(args.music_dir, music_id))
                     length = min(len(voice), len(music), 4 * SR)
                     voice, music = voice[:length], music[:length]
                     snr_db = [-6, 0, 6][repetition % 3]

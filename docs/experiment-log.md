@@ -218,3 +218,27 @@ presence gate = 0.7
 
 여섯 split 평균 ADS는 `0.7927`, 최악 ADS는 `0.7530`이다. SONICS는 maximin
 최적 가중치가 0이어서 최종 추론 경로에서 제거했다.
+
+## SPEAR XLarge v2 원본 혼합음 전문가
+
+`marcoyang/spear-xlarge-speech-audio-v2`(Apache-2.0)는 음성 184k시간과 일반
+오디오 13k시간으로 학습된 600M Zipformer다. 분리 과정에서 생성 흔적이
+손실될 가능성을 피하기 위해 stem이 아니라 16kHz 원본 오디오만 입력하고,
+13개 계층의 평균 pooling 표현에 선형 music-fake head를 학습했다.
+
+12개 음악 생성기를 하나씩 통째로 제외하는 Echoes leave-one-generator-out
+평가에서 최적 중간 계층의 평균 Music EER은 `0.069`, 최악 생성기는 `0.178`로
+나왔다. competition_v3로 학습한 head는 독립 competition_v2에서 Music EER
+`0.007`, Echoes 전체에서 `0.130`이었다. 반면 EchoFake 미지 음성 생성기 및
+재녹음 평가에서는 Voice EER `0.100`으로 기존 XLS-R MoE `0.070`보다 나빠
+음성 전문가로는 채택하지 않았다.
+
+SPEAR 단독은 외부 동시/순차 혼합셋에서 Music EER `0.355`로 약했지만 기존
+MoE와 상관이 낮아 10% 결합 시 `0.220 → 0.210`으로 개선됐다. 1,200개 진단셋
+두 곳에서도 ADS가 각각 `0.93356 → 0.94470`, `0.92565 → 0.94184`로 상승했다.
+따라서 v6은 기존 음악 전문가 합을 90%로 축소하고 SPEAR 원본음 전문가에
+10%를 배정한다. 음성 경로와 HTDemucs 보조 stem 경로는 변경하지 않는다.
+
+평가 서버의 `transformers==4.57.6`에서 Hugging Face custom-code 캐시가 상대
+import 파일을 누락하는 문제도 재현했다. EAT와 SPEAR 모두 번들 디렉터리를
+직접 Python package로 로드하도록 바꿔 오프라인 캐시에 의존하지 않게 했다.

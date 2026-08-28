@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import importlib.util
+import sys
 from pathlib import Path
 
 import librosa
@@ -9,7 +11,24 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torchaudio
-from transformers import AutoModel
+
+
+def _load_local_model(model_dir: Path, device: torch.device):
+    """Load bundled custom code without depending on HF's module cache."""
+    package = "davianspeech_eat"
+    package_spec = importlib.util.spec_from_file_location(
+        package, model_dir / "__init__.py",
+        submodule_search_locations=[str(model_dir)],
+    )
+    module = importlib.util.module_from_spec(package_spec)
+    sys.modules[package] = module
+    model_spec = importlib.util.spec_from_file_location(
+        f"{package}.modeling_eat", model_dir / "modeling_eat.py"
+    )
+    modeling = importlib.util.module_from_spec(model_spec)
+    sys.modules[model_spec.name] = modeling
+    model_spec.loader.exec_module(modeling)
+    return modeling.EATModel.from_pretrained(model_dir).eval().to(device)
 
 
 class EatMusicDetector:
@@ -19,14 +38,17 @@ class EatMusicDetector:
     NORM_MEAN = -4.268
     NORM_STD = 4.569
 
-    def __init__(self, model_dir, head_path, device="cuda"):
+    def __init__(self, model_dir, head_path, device="cuda", extra_head_path=None):
         self.device = torch.device(device)
-        self.model = AutoModel.from_pretrained(
-            Path(model_dir), trust_remote_code=True, local_files_only=True
-        ).eval().to(self.device)
+        self.model = _load_local_model(Path(model_dir), self.device)
         head = np.load(head_path)
         self.weight = torch.from_numpy(head["weight"]).to(self.device)
         self.bias = torch.as_tensor(head["bias"], device=self.device)
+        self.extra_weight = self.extra_bias = None
+        if extra_head_path is not None:
+            extra = np.load(extra_head_path)
+            self.extra_weight = torch.from_numpy(extra["weight"]).to(self.device)
+            self.extra_bias = torch.as_tensor(extra["bias"], device=self.device)
 
     @classmethod
     def _crop(cls, audio: np.ndarray) -> np.ndarray:
@@ -53,8 +75,15 @@ class EatMusicDetector:
         return (mel - cls.NORM_MEAN) / (cls.NORM_STD * 2)
 
     @torch.inference_mode()
-    def fake_probability(self, audio: np.ndarray) -> float:
+    def fake_probabilities(self, audio: np.ndarray) -> tuple[float, ...]:
         mel = self._fbank(audio)[None, None].to(self.device)
         embedding = self.model.extract_features(mel)[:, 0]
         logit = embedding.float() @ self.weight + self.bias
-        return float(torch.sigmoid(logit)[0])
+        probabilities = [float(torch.sigmoid(logit)[0])]
+        if self.extra_weight is not None:
+            extra_logit = embedding.float() @ self.extra_weight + self.extra_bias
+            probabilities.append(float(torch.sigmoid(extra_logit)[0]))
+        return tuple(probabilities)
+
+    def fake_probability(self, audio: np.ndarray) -> float:
+        return self.fake_probabilities(audio)[0]

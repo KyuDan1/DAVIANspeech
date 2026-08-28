@@ -8,9 +8,8 @@ baseline is:
     model/panns/         Cnn14 checkpoint + AudioSet label groups
     model/htdemucs/      demucs bag, loaded offline
     model/xlsr/          XLS-R-2B-AntiDeepfake weights, stored as fp16
-    model/artifactnet/   ArtifactNet ONNX graph + external weights
     model/eat/           EAT-base general-audio encoder
-    model/eat-head.npz   fitted music-forensics linear head
+    model/*-head.npz     cross-dataset linear detector heads
     requirements.txt
 
 The XLS-R weights are cast to fp16 on the way in: it halves the package
@@ -94,10 +93,13 @@ def main():
     args.panns_dir = BASE_DIR / "model" / "panns"
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
     args.xlsr_music_head = BASE_DIR / "model" / "xlsr-music-head.npz"
-    args.xlsr_voice_head = BASE_DIR / "model" / "xlsr-voice-head.npz"
-    args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
+    args.xlsr_echoes_music_head = BASE_DIR / "model" / "xlsr-echoes-music-head.npz"
+    args.xlsr_echofake_voice_head = BASE_DIR / "model" / "xlsr-echofake-voice-head.npz"
     args.eat_dir = BASE_DIR / "model" / "eat"
     args.eat_head = BASE_DIR / "model" / "eat-head.npz"
+    args.eat_echoes_head = BASE_DIR / "model" / "eat-echoes-head.npz"
+    args.spear_dir = BASE_DIR / "model" / "spear"
+    args.spear_music_head = BASE_DIR / "model" / "spear-music-head.npz"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     for name, value in PIPELINE_OVERRIDES.items():
         if not hasattr(args, name):
@@ -114,9 +116,8 @@ if __name__ == "__main__":
 
 
 SUBMISSION_REQUIREMENTS = """\
-# ArtifactNet is distributed as an ONNX graph. All other dependencies are
+# EAT's remote-code implementation imports timm. All other dependencies are
 # already part of the competition image.
-onnxruntime-gpu==1.23.2
 timm==1.0.28
 """
 
@@ -135,12 +136,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--xlsr-dir", type=Path, required=True)
     parser.add_argument("--xlsr-music-head", type=Path, required=True)
-    parser.add_argument("--xlsr-voice-head", type=Path, required=True)
+    parser.add_argument("--xlsr-echoes-music-head", type=Path, required=True)
+    parser.add_argument("--xlsr-echofake-voice-head", type=Path, required=True)
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--htdemucs-dir", type=Path, required=True)
-    parser.add_argument("--artifactnet-dir", type=Path, required=True)
     parser.add_argument("--eat-dir", type=Path, required=True)
     parser.add_argument("--eat-head", type=Path, required=True)
+    parser.add_argument("--eat-echoes-head", type=Path, required=True)
+    parser.add_argument("--spear-dir", type=Path, required=True)
+    parser.add_argument("--spear-music-head", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -189,12 +193,12 @@ def main():
         print("converting model/xlsr to fp16")
         copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
     shutil.copy2(args.xlsr_music_head, out / "model" / "xlsr-music-head.npz")
-    shutil.copy2(args.xlsr_voice_head, out / "model" / "xlsr-voice-head.npz")
-
-    print("copying model/artifactnet")
-    shutil.copytree(
-        args.artifactnet_dir, out / "model" / "artifactnet",
-        ignore=shutil.ignore_patterns(".cache", "__pycache__"),
+    shutil.copy2(
+        args.xlsr_echoes_music_head, out / "model" / "xlsr-echoes-music-head.npz"
+    )
+    shutil.copy2(
+        args.xlsr_echofake_voice_head,
+        out / "model" / "xlsr-echofake-voice-head.npz",
     )
     print("copying model/eat + music head")
     shutil.copytree(
@@ -202,6 +206,13 @@ def main():
         ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"),
     )
     shutil.copy2(args.eat_head, out / "model" / "eat-head.npz")
+    shutil.copy2(args.eat_echoes_head, out / "model" / "eat-echoes-head.npz")
+    print("copying model/spear + music head")
+    shutil.copytree(
+        args.spear_dir, out / "model" / "spear",
+        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"),
+    )
+    shutil.copy2(args.spear_music_head, out / "model" / "spear-music-head.npz")
 
     script = SCRIPT_TEMPLATE.replace("{overrides!r}", repr(overrides))
     if args.probe_column:
