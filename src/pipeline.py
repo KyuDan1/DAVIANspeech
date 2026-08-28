@@ -108,12 +108,39 @@ def load_audio(path: Path) -> np.ndarray:
 # Spoof scoring
 # ---------------------------------------------------------------------------
 
-def fake_probability(detector, audio, device, window, batch_size):
-    """Max P(fake) over fixed windows, batched onto the GPU.
+def pool_window_scores(scores: np.ndarray, method: str, temperature: float) -> float:
+    """Reduce per-window P(fake) to one file-level score.
 
-    A file is fake if *any* part of it is, so windows are pooled with max --
-    the same rule the baseline used for DF-Arena.
+    ``max`` is the obvious operator -- a file is fake if any window is -- but it
+    is badly length-biased. Measured on genuine Korean speech, mean max rises
+    0.033 -> 0.316 going from a 4 s file to a 60 s one, purely because 15 draws
+    give the tail 15 chances instead of one. Entries here span 4-60 s, so under
+    max the score partly encodes duration rather than authenticity, and that
+    costs real EER wherever the classes overlap.
+
+    ``logmeanexp`` is a soft max: it still reacts to a single confident window,
+    but averages over the rest, which cut the same length drift to 0.033 -> 0.087
+    with no loss of separation on either whole-file or 4 s spliced-in fakes.
     """
+    if scores.size == 0:
+        return 0.0
+    if method == "max":
+        return float(scores.max())
+    if method == "mean":
+        return float(scores.mean())
+    if method == "topk":
+        k = min(3, scores.size)
+        return float(np.sort(scores)[-k:].mean())
+    if method == "logmeanexp":
+        scaled = temperature * np.clip(scores, 0.0, 1.0)
+        peak = scaled.max()
+        return float((peak + np.log(np.mean(np.exp(scaled - peak)))) / temperature)
+    raise ValueError(f"Unknown pooling method: {method}")
+
+
+def fake_probability(detector, audio, device, window, batch_size,
+                     pooling="max", temperature=5.0):
+    """P(fake) for one stem, pooled over fixed windows."""
     if audio.size == 0:
         return 0.0
     rms = float(np.sqrt(np.mean(np.square(audio, dtype=np.float64))))
@@ -126,11 +153,11 @@ def fake_probability(detector, audio, device, window, batch_size):
         for start in segment_starts(audio.size, window)
     ])
 
-    best = 0.0
+    scores = []
     for offset in range(0, len(windows), batch_size):
         chunk = torch.from_numpy(windows[offset:offset + batch_size]).to(device)
-        best = max(best, float(detector.fake_probability(chunk).max()))
-    return best
+        scores.extend(detector.fake_probability(chunk).tolist())
+    return pool_window_scores(np.asarray(scores), pooling, temperature)
 
 
 def combine(voice_fake, music_fake, voice_present, music_present):
@@ -200,10 +227,12 @@ def run(args):
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         voice_audio, music_audio = separator.separate(path)
         voice_fake = fake_probability(
-            detector, voice_audio, device, args.window, args.batch_size
+            detector, voice_audio, device, args.window, args.batch_size,
+            args.pooling, args.temperature
         )
         music_fake_xlsr = fake_probability(
-            detector, music_audio, device, args.window, args.batch_size
+            detector, music_audio, device, args.window, args.batch_size,
+            args.pooling, args.temperature
         )
         original_audio = load_audio(path)
         music_fake_artifact = artifact_detector.fake_probability(original_audio)
@@ -256,6 +285,11 @@ def parse_args(argv=None):
     # XLS-R-2B needs about 8.2 GiB for one 4-second window but over 70 GiB at
     # batch 8. Keep the submission-safe default for the 22.4 GiB L4 grader.
     parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--pooling", choices=["max", "mean", "topk", "logmeanexp"],
+                        default="max",
+                        help="How per-window scores become a file score.")
+    parser.add_argument("--temperature", type=float, default=5.0,
+                        help="logmeanexp sharpness; higher approaches max.")
     parser.add_argument("--limit", type=int, default=0,
                         help="Score only the first N files (smoke tests).")
     parser.add_argument("--num-shards", type=int, default=1,
