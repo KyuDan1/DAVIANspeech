@@ -48,6 +48,16 @@ def main():
     rng = np.random.default_rng(args.seed)
     voice_truth = pd.read_csv(args.voice_dir / "truth.csv")
     music_truth = pd.read_csv(args.music_dir / "truth.csv")
+    # Source datasets may themselves contain mixed examples. Components used
+    # to synthesize this diagnostic must be isolated single-component files.
+    if {"VOICE_PRESENT", "MUSIC_PRESENT"}.issubset(voice_truth.columns):
+        voice_truth = voice_truth[
+            (voice_truth.VOICE_PRESENT == 1) & (voice_truth.MUSIC_PRESENT == 0)
+        ]
+    if {"VOICE_PRESENT", "MUSIC_PRESENT"}.issubset(music_truth.columns):
+        music_truth = music_truth[
+            (music_truth.MUSIC_PRESENT == 1) & (music_truth.VOICE_PRESENT == 0)
+        ]
     if args.exclude_truth:
         excluded = pd.read_csv(args.exclude_truth)
         voice_truth = voice_truth[

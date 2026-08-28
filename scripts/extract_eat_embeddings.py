@@ -17,11 +17,11 @@ import torch
 import torch.nn.functional as F
 import torchaudio
 from tqdm import tqdm
-from transformers import AutoModel
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from pipeline import find_audio_files  # noqa: E402
+from eat_detector import _load_local_model  # noqa: E402
 
 SAMPLE_RATE = 16_000
 TARGET_SECONDS = 6
@@ -67,9 +67,7 @@ def main() -> None:
     args = parser.parse_args()
 
     files = find_audio_files(args.test_dir)[args.shard_index::args.num_shards]
-    model = AutoModel.from_pretrained(
-        args.model_dir, trust_remote_code=True, local_files_only=True
-    ).eval().to(args.device)
+    model = _load_local_model(args.model_dir, torch.device(args.device))
     ids, embeddings = [], []
     for offset in tqdm(range(0, len(files), args.batch_size), desc="EAT"):
         batch_files = files[offset:offset + args.batch_size]

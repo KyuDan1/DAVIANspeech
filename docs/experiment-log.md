@@ -266,3 +266,32 @@ if SPEAR_MIXTURE_PRESENT_PROB >= 0.8:
 `0.734`보다 `0.0835` 상승했다. 외부 혼합셋의 v7 File/Voice/Music EER은
 각각 `0.210/0.170/0.145`이며, ADS는 `0.8175`다. 직접 학습한 file head는
 다른 도메인 과적합이 커서 사용하지 않고 component score의 논리 OR를 유지한다.
+
+## v8 생성기 제외 감사와 보수적 혼합 결합
+
+v7의 높은 원본-ID holdout 성능을 다시 검증하기 위해 fake 생성기를 하나씩
+통째로 학습에서 제외했다. 이 엄격한 조건에서 SPEAR mixed voice/music head는
+각각 평균 EER `0.457/0.498`로 거의 chance였다. 생성기 지문 과적합으로
+판단해 v7의 60% voice 가중치를 그대로 제출하지 않았다. dev→open 음성 생성기,
+FakeMusicCaps→Echoes 음악 생성기 교차 학습도 SPEAR `0.460/0.475`, XLS-R
+`0.475/0.465`로 실패했다.
+
+HTDemucs의 music stem도 원본 MoE Music EER `0.21`보다 나쁜 XLS-R `0.325`,
+EAT 최적 결합 `0.25`를 기록했다. 이는 분리 과정이 music fake 흔적을 보존하지
+못한다는 가설을 지지하므로 music stem detector는 추가하지 않았다.
+
+최종 v8은 생성기 제외 평가에서 순위를 거의 바꾸지 않고 voice 최악 EER도
+소폭 낮춘 보수적 20% 가중치만 사용한다. mixture router가 양성이면 두 성분이
+존재한다는 강한 증거이므로, PANNs가 한 성분을 놓쳐도 File score는 두 component
+score의 `max`로 계산한다.
+
+```text
+if SPEAR_MIXTURE_PRESENT_PROB >= 0.8:
+    VOICE_FAKE = 0.80 × existing + 0.20 × SPEAR_mixed_voice
+    MUSIC_FAKE = 0.80 × existing + 0.20 × SPEAR_mixed_music
+    FILE_FAKE = max(VOICE_FAKE, MUSIC_FAKE)
+```
+
+재구성 검증의 ADS는 competition_v2 `0.9498`, competition_v3 `0.9503`, 외부
+혼합 `0.8095`다. CPS `0.98917`을 그대로 대입한 최악 조건 예상 total은 약
+`0.827`이지만, 목표 달성 여부는 실제 비공개 제출 점수로만 판정한다.

@@ -53,7 +53,7 @@ EAT_ECHOES_MUSIC_WEIGHT = 0.225
 XLSR_ECHOES_MUSIC_WEIGHT = 0.36
 SPEAR_MUSIC_WEIGHT = 0.10
 MIXTURE_GATE = 0.80
-MIXTURE_VOICE_WEIGHT = 0.60
+MIXTURE_VOICE_WEIGHT = 0.20
 MIXTURE_MUSIC_WEIGHT = 0.20
 
 PREDICTION_COLUMNS = [
@@ -345,9 +345,16 @@ def run(args):
                 + MIXTURE_MUSIC_WEIGHT * mixed_music_fake
             )
 
-        row["FILE_FAKE_PROB"] = round(
-            combine(voice_fake, music_fake, voice_present, music_present), 10
+        # The high-specificity SPEAR router is substantially more reliable at
+        # identifying mixtures than thresholding two independently calibrated
+        # PANNs ranking scores. For a routed mixture both components are known
+        # to exist, so implement the competition's logical OR directly.
+        file_fake = (
+            max(voice_fake, music_fake)
+            if mixture_present >= MIXTURE_GATE
+            else combine(voice_fake, music_fake, voice_present, music_present)
         )
+        row["FILE_FAKE_PROB"] = round(file_fake, 10)
         row["VOICE_FAKE_PROB"] = round(voice_fake, 10)
         row["MUSIC_FAKE_PROB"] = round(music_fake, 10)
         row["VOICE_PRESENT_PROB"] = round(voice_present, 10)
