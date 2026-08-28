@@ -103,6 +103,7 @@ def main():
     args.spear_mixed_voice_head = BASE_DIR / "model" / "spear-mixed-voice-head.npz"
     args.spear_mixed_music_head = BASE_DIR / "model" / "spear-mixed-music-head.npz"
     args.spear_mixture_present_head = BASE_DIR / "model" / "spear-mixture-present-head.npz"
+    args.fourier_music_head = BASE_DIR / "model" / "fourier-music-head.npz"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     for name, value in PIPELINE_OVERRIDES.items():
         if not hasattr(args, name):
@@ -151,6 +152,7 @@ def main():
     parser.add_argument("--spear-mixed-voice-head", type=Path, required=True)
     parser.add_argument("--spear-mixed-music-head", type=Path, required=True)
     parser.add_argument("--spear-mixture-present-head", type=Path, required=True)
+    parser.add_argument("--fourier-music-head", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -229,6 +231,7 @@ def main():
         args.spear_mixture_present_head,
         out / "model" / "spear-mixture-present-head.npz",
     )
+    shutil.copy2(args.fourier_music_head, out / "model" / "fourier-music-head.npz")
 
     script = SCRIPT_TEMPLATE.replace("{overrides!r}", repr(overrides))
     if args.probe_column:

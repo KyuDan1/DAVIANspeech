@@ -315,3 +315,34 @@ VOICE_FAKE = 0.70 × existing_voice + 0.30 × XLSR_EchoFake(voice_stem)
 
 음악 stem은 앞선 실험대로 사용하지 않는다. v9 최악 진단 ADS `0.8453`에 현재
 CPS를 적용한 예상 total은 약 `0.859`다.
+
+## v10 Fourier music fakeprint 전문가
+
+SPEAR/XLS-R/EAT가 모두 신경망 표현을 사용하므로 서로 다른 종류의 증거를
+추가하기 위해 Deezer의 ISMIR 2025 논문 *A Fourier Explanation of AI-music
+Artifacts*와 공식 CC BY-NC 4.0 구현을 적용했다. 대회 입력은 16kHz이므로 원
+구현의 5--16kHz 분석 대역을 5--7.99kHz로 제한했다. 원본 혼합음의 평균 Fourier
+스펙트럼에서 local lower hull을 제거한 고주파 잔차를 fakeprint로 사용한다.
+분리 stem은 사용하지 않으므로 HTDemucs가 생성 흔적을 지울 위험도 없다.
+
+Echoes 음악 생성기 12종을 하나씩 통째로 제외한 leave-one-generator-out
+검증에서 평균 Music EER은 `0.0356`, 최악 Music EER은 `0.1188`이었다. 독립
+외부 혼합셋에서 Fourier 단독 Music EER은 `0.105`였다. 여러 도메인에 대한
+maximin 탐색 결과 기존 music MoE 90%와 Fourier 10%를 결합했다. 더 큰 비중은
+FakeMusicCaps 계열의 성능을 훼손해 사용하지 않았다.
+
+| 평가셋 | v9 ADS | v10 ADS |
+| --- | ---: | ---: |
+| competition_v2 재구성 | 0.94227 | 0.93953 |
+| competition_v3 재구성 | 0.94060 | 0.93976 |
+| 외부 혼합 400개 | 0.84533 | 0.86200 |
+
+외부 혼합에서 File/Voice/Music EER은 각각 `0.130/0.185/0.120`이다. v9보다
+File EER은 `0.1483 → 0.130`, Music EER은 `0.145 → 0.120`으로 개선됐고
+Voice EER은 유지됐다. CPS `0.98917`을 가정한 최악 진단셋 예상 total은
+`0.8747`이다. 이는 로컬 추정치이며 목표 달성은 실제 비공개 평가로 확인한다.
+
+출처:
+
+- 논문: <https://arxiv.org/abs/2506.19108>
+- 공식 구현: <https://github.com/deezer/ismir25-ai-music-detector>

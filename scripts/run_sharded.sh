@@ -47,6 +47,7 @@ for i in "${!GPU_LIST[@]}"; do
       --spear-mixed-voice-head "${SPEAR_MIXED_VOICE_HEAD:-$HERE/model_heads/spear-mixed-voice_fake-head.npz}" \
       --spear-mixed-music-head "${SPEAR_MIXED_MUSIC_HEAD:-$HERE/model_heads/spear-mixed-music_fake-head.npz}" \
       --spear-mixture-present-head "${SPEAR_MIXTURE_PRESENT_HEAD:-$HERE/model_heads/spear-mixture-present-head.npz}" \
+      --fourier-music-head "${FOURIER_MUSIC_HEAD:-$HERE/model_heads/fourier-echoes-music-head.npz}" \
       --separator "$SEPARATOR" \
       --num-shards "$N" --shard-index "$i" \
       "$@" > "$SHARD_DIR/shard_$i.log" 2>&1 &

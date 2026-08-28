@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from presence import PannsPresence, extract_segment, segment_starts  # noqa: E402
 from separation import build_separator  # noqa: E402
 from eat_detector import EatMusicDetector  # noqa: E402
+from fourier_detector import FourierMusicDetector  # noqa: E402
 from spear_detector import SpearMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
@@ -53,6 +54,7 @@ XLSR_ADAPTED_MUSIC_WEIGHT = 0.09
 EAT_ECHOES_MUSIC_WEIGHT = 0.225
 XLSR_ECHOES_MUSIC_WEIGHT = 0.36
 SPEAR_MUSIC_WEIGHT = 0.10
+FOURIER_MUSIC_WEIGHT = 0.10
 MIXTURE_GATE = 0.80
 MIXTURE_VOICE_WEIGHT = 0.20
 MIXTURE_MUSIC_WEIGHT = 0.20
@@ -286,6 +288,7 @@ def run(args):
             args.spear_mixture_present_head,
         ),
     )
+    fourier_detector = FourierMusicDetector(args.fourier_music_head)
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         original_audio = load_audio(path)
@@ -326,6 +329,7 @@ def run(args):
          mixture_present) = (
             spear_detector.fake_probabilities(original_audio)
         )
+        music_fake_fourier = fourier_detector.fake_probability(original_audio)
         legacy_voice_fake = (
             STEM_VOICE_WEIGHT * voice_fake_stem
             + RAW_VOICE_WEIGHT * raw_fake_xlsr
@@ -362,6 +366,10 @@ def run(args):
                 (1 - MIXTURE_MUSIC_WEIGHT) * music_fake
                 + MIXTURE_MUSIC_WEIGHT * mixed_music_fake
             )
+        music_fake = (
+            (1 - FOURIER_MUSIC_WEIGHT) * music_fake
+            + FOURIER_MUSIC_WEIGHT * music_fake_fourier
+        )
 
         # The high-specificity SPEAR router is substantially more reliable at
         # identifying mixtures than thresholding two independently calibrated
@@ -417,6 +425,8 @@ def parse_args(argv=None):
                         default=Path("model_heads/spear-mixed-music_fake-head.npz"))
     parser.add_argument("--spear-mixture-present-head", type=Path,
                         default=Path("model_heads/spear-mixture-present-head.npz"))
+    parser.add_argument("--fourier-music-head", type=Path,
+                        default=Path("model_heads/fourier-echoes-music-head.npz"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")
