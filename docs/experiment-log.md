@@ -346,3 +346,16 @@ Voice EER은 유지됐다. CPS `0.98917`을 가정한 최악 진단셋 예상 to
 
 - 논문: <https://arxiv.org/abs/2506.19108>
 - 공식 구현: <https://github.com/deezer/ismir25-ai-music-detector>
+
+### v10 실제 비공개 평가 결과
+
+설치 충돌을 제거한 v10 fixed의 실제 결과는 Score `0.7075886349`, ADS
+`0.6763015873`, CPS `0.9891720635`였다. 이전 실제 제출의 ADS `0.707531746`보다
+`0.031230159` 하락했다. CPS가 소수점 이하까지 동일하므로 presence 경로가 아니라
+fake ranking MoE의 비공개 도메인 역일반화가 원인이다.
+
+로컬 외부 혼합 ADS `0.862`와 실제 ADS의 방향이 반대였으므로 기존 합성 혼합셋을
+더 이상 제출 선택의 단독 근거로 사용하지 않는다. 다음 제출은 v10에서 Fourier
+10%만 제거한 v9 fixed로 정해 Fourier의 실제 기여를 한 번에 분리한다. v9도
+회복하지 못하면 Echoes/SPEAR/EchoFake 적응 head를 제거한 실제 검증 제출로
+거슬러 올라간다.
