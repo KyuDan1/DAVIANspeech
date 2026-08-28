@@ -100,6 +100,9 @@ def main():
     args.eat_echoes_head = BASE_DIR / "model" / "eat-echoes-head.npz"
     args.spear_dir = BASE_DIR / "model" / "spear"
     args.spear_music_head = BASE_DIR / "model" / "spear-music-head.npz"
+    args.spear_mixed_voice_head = BASE_DIR / "model" / "spear-mixed-voice-head.npz"
+    args.spear_mixed_music_head = BASE_DIR / "model" / "spear-mixed-music-head.npz"
+    args.spear_mixture_present_head = BASE_DIR / "model" / "spear-mixture-present-head.npz"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     for name, value in PIPELINE_OVERRIDES.items():
         if not hasattr(args, name):
@@ -145,6 +148,9 @@ def main():
     parser.add_argument("--eat-echoes-head", type=Path, required=True)
     parser.add_argument("--spear-dir", type=Path, required=True)
     parser.add_argument("--spear-music-head", type=Path, required=True)
+    parser.add_argument("--spear-mixed-voice-head", type=Path, required=True)
+    parser.add_argument("--spear-mixed-music-head", type=Path, required=True)
+    parser.add_argument("--spear-mixture-present-head", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -213,6 +219,16 @@ def main():
         ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"),
     )
     shutil.copy2(args.spear_music_head, out / "model" / "spear-music-head.npz")
+    shutil.copy2(
+        args.spear_mixed_voice_head, out / "model" / "spear-mixed-voice-head.npz"
+    )
+    shutil.copy2(
+        args.spear_mixed_music_head, out / "model" / "spear-mixed-music-head.npz"
+    )
+    shutil.copy2(
+        args.spear_mixture_present_head,
+        out / "model" / "spear-mixture-present-head.npz",
+    )
 
     script = SCRIPT_TEMPLATE.replace("{overrides!r}", repr(overrides))
     if args.probe_column:

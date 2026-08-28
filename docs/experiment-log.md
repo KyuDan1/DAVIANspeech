@@ -242,3 +242,27 @@ MoE와 상관이 낮아 10% 결합 시 `0.220 → 0.210`으로 개선됐다. 1,2
 평가 서버의 `transformers==4.57.6`에서 Hugging Face custom-code 캐시가 상대
 import 파일을 누락하는 문제도 재현했다. EAT와 SPEAR 모두 번들 디렉터리를
 직접 Python package로 로드하도록 바꿔 오프라인 캐시에 의존하지 않게 했다.
+
+## v7 혼합 전용 MoE
+
+v6의 가장 약한 외부 혼합셋은 File/Voice/Music EER이 각각
+`0.280/0.300/0.220`, ADS가 `0.734`였다. 기존 검증 혼합에 쓰인 음성 및 음악
+원본 ID를 모두 제외하고 별도의 800개 학습 혼합을 만들었다. real/fake 성분
+네 조합, simultaneous/sequential, SNR -6/0/+6을 균형화했다.
+
+SPEAR 중간 표현에 학습한 혼합 전용 voice/music head를 기존 MoE와 결합했다.
+또한 이 head를 단일 성분에 잘못 적용하지 않도록, 같은 SPEAR embedding에
+mixture-presence head를 학습했다. 학습·검증의 성분 원본을 완전히 분리했을 때
+mixture 분류 EER은 `0.0050`, ROC-AUC는 `0.99975`였다. competition_v2/v3의
+별도 도메인에서도 EER `0.0082/0.0042`를 기록했다.
+
+```text
+if SPEAR_MIXTURE_PRESENT_PROB >= 0.8:
+    VOICE_FAKE = 0.40 × existing + 0.60 × SPEAR_mixed_voice
+    MUSIC_FAKE = 0.80 × existing + 0.20 × SPEAR_mixed_music
+```
+
+세 진단 도메인에 대한 maximin ADS는 `0.927/0.923/0.8175`로, 이전 최악값
+`0.734`보다 `0.0835` 상승했다. 외부 혼합셋의 v7 File/Voice/Music EER은
+각각 `0.210/0.170/0.145`이며, ADS는 `0.8175`다. 직접 학습한 file head는
+다른 도메인 과적합이 커서 사용하지 않고 component score의 논리 OR를 유지한다.

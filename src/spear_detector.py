@@ -33,16 +33,23 @@ def _load_local_model(model_dir: Path, device: torch.device):
 
 class SpearMusicDetector:
     def __init__(self, model_dir: Path, head_path: Path, device="cuda",
-                 window=160_000, max_windows=3):
+                 window=160_000, max_windows=3, extra_head_paths=()):
         self.device = torch.device(device)
         self.model = _load_local_model(Path(model_dir), self.device)
         head = np.load(head_path)
         self.weight = torch.from_numpy(head["weight"]).to(self.device)
         self.bias = torch.as_tensor(head["bias"], device=self.device)
+        self.extra_heads = []
+        for path in extra_head_paths:
+            extra = np.load(path)
+            self.extra_heads.append((
+                torch.from_numpy(extra["weight"]).to(self.device),
+                torch.as_tensor(extra["bias"], device=self.device),
+            ))
         self.window = window
         self.max_windows = max_windows
 
-    def fake_probability(self, audio: np.ndarray) -> float:
+    def fake_probabilities(self, audio: np.ndarray) -> tuple[float, ...]:
         starts = segment_starts(len(audio), self.window)
         if self.max_windows and len(starts) > self.max_windows:
             indices = np.linspace(0, len(starts) - 1, self.max_windows, dtype=int)
@@ -60,4 +67,11 @@ class SpearMusicDetector:
                     for hidden in output["hidden_states"]
                 ], dim=-1))
         file_embedding = torch.cat(embeddings).mean(dim=0)
-        return float(torch.sigmoid(file_embedding @ self.weight + self.bias))
+        heads = [(self.weight, self.bias), *self.extra_heads]
+        return tuple(
+            float(torch.sigmoid(file_embedding @ weight + bias))
+            for weight, bias in heads
+        )
+
+    def fake_probability(self, audio: np.ndarray) -> float:
+        return self.fake_probabilities(audio)[0]

@@ -40,11 +40,22 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--per-combination", type=int, default=10)
     parser.add_argument("--seed", type=int, default=20260827)
+    parser.add_argument("--exclude-truth", type=Path,
+                        help="Mixture truth whose component source IDs must not be reused.")
+    parser.add_argument("--id-prefix", default="mixed")
     args = parser.parse_args()
 
     rng = np.random.default_rng(args.seed)
     voice_truth = pd.read_csv(args.voice_dir / "truth.csv")
     music_truth = pd.read_csv(args.music_dir / "truth.csv")
+    if args.exclude_truth:
+        excluded = pd.read_csv(args.exclude_truth)
+        voice_truth = voice_truth[
+            ~voice_truth.ID.isin(set(excluded.VOICE_SOURCE_ID.astype(str)))
+        ]
+        music_truth = music_truth[
+            ~music_truth.ID.isin(set(excluded.MUSIC_SOURCE_ID.astype(str)))
+        ]
     voice_by_label = {label: group.ID.tolist() for label, group in voice_truth.groupby("VOICE_FAKE")}
     music_by_label = {label: group.ID.tolist() for label, group in music_truth.groupby("MUSIC_FAKE")}
     audio_dir = args.output_dir / "audio"
@@ -71,7 +82,7 @@ def main():
                     peak = max(float(np.max(np.abs(mixed))), 1.0)
                     mixed = (mixed / peak).astype(np.float32)
 
-                    sample_id = f"mixed_{index:04d}"
+                    sample_id = f"{args.id_prefix}_{index:04d}"
                     sf.write(audio_dir / f"{sample_id}.flac", mixed, SR)
                     records.append({
                         "ID": sample_id, "FILE_FAKE": max(voice_fake, music_fake),

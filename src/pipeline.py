@@ -52,6 +52,9 @@ XLSR_ADAPTED_MUSIC_WEIGHT = 0.09
 EAT_ECHOES_MUSIC_WEIGHT = 0.225
 XLSR_ECHOES_MUSIC_WEIGHT = 0.36
 SPEAR_MUSIC_WEIGHT = 0.10
+MIXTURE_GATE = 0.80
+MIXTURE_VOICE_WEIGHT = 0.60
+MIXTURE_MUSIC_WEIGHT = 0.20
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -277,6 +280,10 @@ def run(args):
     )
     spear_detector = SpearMusicDetector(
         args.spear_dir, args.spear_music_head, device=args.device,
+        extra_head_paths=(
+            args.spear_mixed_voice_head, args.spear_mixed_music_head,
+            args.spear_mixture_present_head,
+        ),
     )
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
@@ -301,7 +308,10 @@ def run(args):
         music_fake_eat, music_fake_eat_echoes = (
             eat_detector.fake_probabilities(original_audio)
         )
-        music_fake_spear = spear_detector.fake_probability(original_audio)
+        (music_fake_spear, mixed_voice_fake, mixed_music_fake,
+         mixture_present) = (
+            spear_detector.fake_probabilities(original_audio)
+        )
         legacy_voice_fake = (
             STEM_VOICE_WEIGHT * voice_fake_stem
             + RAW_VOICE_WEIGHT * raw_fake_xlsr
@@ -322,6 +332,18 @@ def run(args):
             music_fake = ((1 - args.artifactnet_weight) * music_fake
                           + args.artifactnet_weight * music_fake_artifact)
         voice_present, music_present = presence[path.stem]
+        # A dedicated raw-mixture expert recovers artifacts masked by the
+        # other component. It is never applied to obvious single-component
+        # audio, where its training distribution would be inappropriate.
+        if mixture_present >= MIXTURE_GATE:
+            voice_fake = (
+                (1 - MIXTURE_VOICE_WEIGHT) * voice_fake
+                + MIXTURE_VOICE_WEIGHT * mixed_voice_fake
+            )
+            music_fake = (
+                (1 - MIXTURE_MUSIC_WEIGHT) * music_fake
+                + MIXTURE_MUSIC_WEIGHT * mixed_music_fake
+            )
 
         row["FILE_FAKE_PROB"] = round(
             combine(voice_fake, music_fake, voice_present, music_present), 10
@@ -364,6 +386,12 @@ def parse_args(argv=None):
                         default=Path("models/spear-xlarge-speech-audio-v2"))
     parser.add_argument("--spear-music-head", type=Path,
                         default=Path("model_heads/spear-v3-music-head.npz"))
+    parser.add_argument("--spear-mixed-voice-head", type=Path,
+                        default=Path("model_heads/spear-mixed-voice_fake-head.npz"))
+    parser.add_argument("--spear-mixed-music-head", type=Path,
+                        default=Path("model_heads/spear-mixed-music_fake-head.npz"))
+    parser.add_argument("--spear-mixture-present-head", type=Path,
+                        default=Path("model_heads/spear-mixture-present-head.npz"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")

@@ -44,6 +44,9 @@ for i in "${!GPU_LIST[@]}"; do
       --eat-echoes-head "${EAT_ECHOES_HEAD:-$HERE/model_heads/eat-echoes-music-head.npz}" \
       --spear-dir "${SPEAR_DIR:-$HERE/models/spear-xlarge-speech-audio-v2}" \
       --spear-music-head "${SPEAR_MUSIC_HEAD:-$HERE/model_heads/spear-v3-music-head.npz}" \
+      --spear-mixed-voice-head "${SPEAR_MIXED_VOICE_HEAD:-$HERE/model_heads/spear-mixed-voice_fake-head.npz}" \
+      --spear-mixed-music-head "${SPEAR_MIXED_MUSIC_HEAD:-$HERE/model_heads/spear-mixed-music_fake-head.npz}" \
+      --spear-mixture-present-head "${SPEAR_MIXTURE_PRESENT_HEAD:-$HERE/model_heads/spear-mixture-present-head.npz}" \
       --separator "$SEPARATOR" \
       --num-shards "$N" --shard-index "$i" \
       "$@" > "$SHARD_DIR/shard_$i.log" 2>&1 &
