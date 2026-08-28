@@ -176,9 +176,13 @@ class XlsrAntiDeepfake(nn.Module):
 
     def forward(self, waveform: torch.Tensor) -> torch.Tensor:
         """waveform: (B, T) already normalized -> logits (B, 2)."""
-        hidden = self.ssl(waveform).last_hidden_state       # (B, frames, 1920)
-        pooled = hidden.mean(dim=1)                         # AdaptiveAvgPool1d(1)
+        pooled = self.embedding(waveform)
         return self.proj_fc(pooled)
+
+    def embedding(self, waveform: torch.Tensor) -> torch.Tensor:
+        """Return the paper's mean-pooled 1920-D AntiDeepfake representation."""
+        hidden = self.ssl(waveform).last_hidden_state       # (B, frames, 1920)
+        return hidden.mean(dim=1)                            # AdaptiveAvgPool1d(1)
 
     @torch.inference_mode()
     def fake_probability(self, waveform: torch.Tensor) -> torch.Tensor:

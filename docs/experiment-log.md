@@ -16,6 +16,109 @@ ADS만으로 File/Voice/Music EER 각각을 복원할 수는 없다. 알 수 있
 
 이전 제출보다 가중 EER이 `0.00357` 감소해 방향은 맞았지만 개선 폭은 작았다.
 
+## 실제 평가 0.7356958 이후: 분리 전 원본 병렬 전문가
+
+실제 평가 결과는 Score `0.7356957778`, ADS `0.707531746`, CPS
+`0.9891720635`였다. CPS를 그대로 유지하면서 Score `0.8`에 도달하려면 ADS
+`0.778980882`가 필요하므로 ADS를 약 `0.07145` 높여야 한다.
+
+분리기가 생성 artifact를 지우거나 자체 artifact를 만들 수 있다는 가설을 검증하기
+위해, 동일한 XLS-R detector를 HTDemucs stem과 분리 전 원본에 각각 적용했다.
+competition_v3에서 music stem XLS-R의 music-only EER은 `0.557`이었지만 원본
+XLS-R은 `0.413`이었다. mixed의 Music EER도 `0.458` 대 `0.433`으로 원본이
+더 안정적이었다.
+
+두 개의 독립적인 1,200-file suite와 calibration/validation/holdout 여섯 split에서
+maximin 탐색한 조합은 다음과 같다.
+
+```text
+VOICE_FAKE = 0.40 × XLS-R(voice stem) + 0.60 × XLS-R(original)
+MUSIC_FAKE = 0.12 × XLS-R(music stem)
+           + 0.48 × XLS-R(original)
+           + 0.40 × ArtifactNet(original)
+presence gate = 0.7
+FILE_FAKE = max(active component fake scores)
+```
+
+| 방법 | v2 전체 ADS | v3 전체 ADS | 여섯 split 평균 | 여섯 split 최저 |
+| --- | ---: | ---: | ---: | ---: |
+| 기존 stem/ArtifactNet 50:50 | 0.8133 | 0.7625 | 0.7927 | 0.7153 |
+| 원본 병렬 전문가 | 0.8262 | 0.7747 | 0.8065 | 0.7629 |
+
+파일 점수에 원본 XLS-R을 한 번 더 직접 섞는 방식은 일부 split을 악화시켜
+기각했다. 분리는 최종 판단의 유일한 입력이 아니라 보조 전문가로만 남겼다.
+
+## EAT 일반 오디오 전문가와 AntiDeepfake 음악 head
+
+`xls-r-2b-anti-deepfake`는 56,000시간의 실제 음성과 18,000시간의 가짜 음성으로
+post-training된 speech 모델이다. 분리 music stem에 공개 speech head를 그대로
+적용하는 것보다 원본에 적용하는 편이 나았지만 Music EER은 여전히 약 `0.41`이었다.
+논문이 권장하는 task-specific adaptation을 시험하기 위해 encoder를 고정하고
+mean-pooled 1,920차원 representation 위의 음악 head만 학습하는 경로를 추가했다.
+
+동시에 AT-ADD Track 2 우승 방법을 따라 general-audio SSL인 EAT-base의 원본 6초
+CLS representation에 L2-regularized linear music head를 학습했다. 미사용 split의
+EAT Music EER은 v2 validation/holdout `0.086/0.070`, v3
+validation/holdout `0.101/0.149`였다. fake generator 하나를 통째로 학습에서
+제외한 검증은 generator별 `0.128~0.308`로 더 어려웠다. 이 차이를 고려해 EAT
+단독 대신 다음의 보수적 결합을 채택했다.
+
+```text
+MUSIC_FAKE = 0.60 × previous raw/stem/ArtifactNet ensemble
+           + 0.40 × EAT(original 6-second center crop)
+```
+
+| EAT weight | v2 validation | v2 holdout | v3 validation | v3 holdout | 최저 |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 0.8550 | 0.8611 | 0.7678 | 0.7629 | 0.7629 |
+| 0.40 | 0.9313 | 0.9345 | 0.8847 | 0.8703 | 0.8703 |
+
+파일별 원본만 입력하므로 비공개 평가 파일 간 통계나 적응은 사용하지 않는다.
+
+최종 MoE에서 music-stem XLS-R의 실효 가중치는 `1.2%`에 불과했다. 이 경로를
+제거하고 legacy 10% 내부를 원본 XLS-R `85%`, ArtifactNet `15%`로 재탐색하자
+미사용 네 split ADS는 `0.9493/0.9577/0.9345/0.9037`로 최저점이 오히려
+`0.9001 → 0.9037` 개선됐다. 따라서 최종 제출은 music stem에 2B encoder를
+실행하지 않아 XLS-R 추론량을 기존 세 pass에서 두 pass로 줄인다.
+
+### 제출 패키지 전체 실행 검증
+
+최종 `submit_moe_v3` 디렉터리의 FP16 XLS-R과 오프라인 모델 경로를 그대로 사용해
+competition_v3 1,200개를 단일 B200에서 실행했다. 총 실행시간은 `796초`였고
+누락·디코딩·VRAM 오류 없이 submission CSV 1,200행을 생성했다. 패키지 출력의
+전체 성능은 ADS `0.94801`, CPS `0.97334`, Score `0.95055`였다. 이전 실제 제출은
+더 무거운 파일당 3-pass XLS-R 구조로 평가 서버 시간 제한을 통과했으므로, 2-pass
+XLS-R와 90M EAT를 사용하는 최종 구조는 기존 제출보다 실행시간 위험이 낮다.
+
+AntiDeepfake 1,920차원 representation에 같은 방식의 음악 head를 학습하자 미사용
+split Music EER은 `0.070~0.149`였다. 최종 세 전문가 maximin 결합은 다음과 같다.
+
+```text
+MUSIC_FAKE = 0.10 × legacy(raw/stem/ArtifactNet)
+           + 0.40 × EAT music head
+           + 0.50 × adapted AntiDeepfake XLS-R music head
+```
+
+이 결합의 미사용 split ADS는 v2 validation/holdout `0.9493/0.9630`, v3
+validation/holdout `0.9381/0.9001`이었다. leave-one-generator-out Music EER은
+`0.096~0.266`으로 legacy의 `0.257~0.326`보다 모든 다섯 generator에서 같거나
+낮았다. adapted head는 기존 원본 XLS-R pass의 pooled embedding을 재사용하므로
+2B encoder를 한 번 더 실행하지 않는다.
+
+같은 representation에 voice 전용 linear head도 학습했다. 미사용 네 split의
+Voice EER은 `0.000/0.0116/0.000/0.000`이었지만, 합성 평가셋과 비공개 평가셋의
+차이를 고려하면 이 수치를 그대로 신뢰하기 어렵다. 따라서 공개 speech head를
+대체하지 않고 다음처럼 10%만 섞었다.
+
+```text
+VOICE_FAKE = 0.90 × legacy(released head on raw + voice stem)
+           + 0.10 × adapted AntiDeepfake XLS-R voice head
+```
+
+가중치 10%에서 미사용 split ADS는 `0.9493/0.9643/0.9345/0.9071`로, adapted
+head를 쓰지 않은 경우의 `0.9493/0.9577/0.9345/0.9037`보다 최저 성능이
+개선됐다. 이 head 역시 원본 XLS-R embedding을 재사용해 추론시간을 늘리지 않는다.
+
 ## competition_v2
 
 ### 구성

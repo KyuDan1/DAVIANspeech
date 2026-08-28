@@ -8,3 +8,4 @@ output/
 .checkpoints/
 stems/
 submission/
+submit_*/
