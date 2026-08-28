@@ -295,3 +295,23 @@ if SPEAR_MIXTURE_PRESENT_PROB >= 0.8:
 재구성 검증의 ADS는 competition_v2 `0.9498`, competition_v3 `0.9503`, 외부
 혼합 `0.8095`다. CPS `0.98917`을 그대로 대입한 최악 조건 예상 total은 약
 `0.827`이지만, 목표 달성 여부는 실제 비공개 제출 점수로만 판정한다.
+
+## v9 voice-stem adapted head 공유
+
+v8의 병목은 외부 혼합 Voice EER `0.260`이었다. HTDemucs voice stem은 이미
+released XLS-R head에 사용하지만, EchoFake에 적응한 head는 원본 embedding에만
+적용하고 있었다. 동일한 stem XLS-R pass에서 mean embedding을 함께 회수해
+적응 head를 적용하면 encoder 추론 횟수는 늘지 않는다.
+
+순수 EchoFake open-set에서 현재 voice 결합 EER `0.045`가 stem-adapted 30%
+추가 시 `0.025`로 개선됐다. 외부 혼합에서는 Voice EER `0.260 → 0.185`,
+File EER `0.190 → 0.1483`, ADS `0.8095 → 0.8453`이었다. 같은 30%에서
+competition_v2/v3 ADS도 `0.9423/0.9406`을 유지했다. 40% 이상은 두 로컬
+도메인을 더 크게 훼손해 30%를 maximin 선택으로 사용한다.
+
+```text
+VOICE_FAKE = 0.70 × existing_voice + 0.30 × XLSR_EchoFake(voice_stem)
+```
+
+음악 stem은 앞선 실험대로 사용하지 않는다. v9 최악 진단 ADS `0.8453`에 현재
+CPS를 적용한 예상 total은 약 `0.859`다.

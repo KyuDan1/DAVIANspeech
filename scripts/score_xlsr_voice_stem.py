@@ -7,13 +7,14 @@ import csv
 import sys
 from pathlib import Path
 
+import numpy as np
 import torch
 from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from pipeline import fake_probability, find_audio_files  # noqa: E402
+from pipeline import fake_probability_and_embedding, find_audio_files  # noqa: E402
 from separation import HTDemucsSeparator  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
@@ -26,6 +27,8 @@ def main() -> None:
                         default=ROOT / "models/xls-r-2b-anti-deepfake")
     parser.add_argument("--htdemucs-dir", type=Path,
                         default=ROOT / "models/htdemucs")
+    parser.add_argument("--adapted-head", type=Path,
+                        default=ROOT / "model_heads/xlsr-echofake-voice-head.npz")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--window", type=int, default=64_000)
     parser.add_argument("--num-shards", type=int, default=1)
@@ -36,15 +39,29 @@ def main() -> None:
     device = torch.device(args.device)
     separator = HTDemucsSeparator(device=args.device, repo=args.htdemucs_dir)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
+    head = np.load(args.adapted_head)
+    adapted_weight = torch.from_numpy(head["weight"]).to(device)
+    adapted_bias = torch.as_tensor(head["bias"], device=device)
     rows = []
     for path in tqdm(files, desc=f"stem-xlsr-{args.shard_index}"):
         voice, _ = separator.separate(path)
-        score = fake_probability(detector, voice, device, args.window, 1)
-        rows.append({"ID": path.stem, "XLSR_VOICE_STEM_PROB": round(score, 10)})
+        score, embedding = fake_probability_and_embedding(
+            detector, voice, device, args.window, 1
+        )
+        adapted = float(torch.sigmoid(
+            embedding.to(device) @ adapted_weight + adapted_bias
+        ))
+        rows.append({
+            "ID": path.stem,
+            "XLSR_VOICE_STEM_PROB": round(score, 10),
+            "XLSR_VOICE_STEM_ADAPTED_PROB": round(adapted, 10),
+        })
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["ID", "XLSR_VOICE_STEM_PROB"])
+        writer = csv.DictWriter(handle, fieldnames=[
+            "ID", "XLSR_VOICE_STEM_PROB", "XLSR_VOICE_STEM_ADAPTED_PROB",
+        ])
         writer.writeheader()
         writer.writerows(rows)
     print(f"Saved {len(rows)} scores to {args.output}")

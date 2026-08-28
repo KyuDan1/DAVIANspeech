@@ -45,6 +45,7 @@ RAW_VOICE_WEIGHT = 0.6
 STEM_VOICE_WEIGHT = 0.4
 LEGACY_VOICE_ENSEMBLE_WEIGHT = 0.7
 ECHOFAKE_VOICE_WEIGHT = 0.3
+ADAPTED_STEM_VOICE_WEIGHT = 0.30
 # Cross-dataset maximin weights. The original heads preserve performance on
 # FakeMusicCaps, while Echoes heads cover twelve newer commercial/open models.
 EAT_MUSIC_WEIGHT = 0.225
@@ -289,9 +290,22 @@ def run(args):
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         original_audio = load_audio(path)
         voice_audio, _ = separator.separate(path)
-        voice_fake_stem = fake_probability(
-            detector, voice_audio, device, args.window, args.batch_size
-        )
+        voice_rms = float(np.sqrt(np.mean(
+            np.square(voice_audio, dtype=np.float64)
+        ))) if voice_audio.size else 0.0
+        if voice_rms < SILENCE_RMS:
+            voice_fake_stem = 0.0
+            voice_fake_stem_adapted = 0.0
+        else:
+            voice_fake_stem, voice_stem_embedding = (
+                fake_probability_and_embedding(
+                    detector, voice_audio, device, args.window, args.batch_size
+                )
+            )
+            voice_fake_stem_adapted = float(torch.sigmoid(
+                voice_stem_embedding.to(device) @ xlsr_echofake_weight
+                + xlsr_echofake_bias
+            ))
         raw_fake_xlsr, raw_xlsr_embedding = fake_probability_and_embedding(
             detector, original_audio, device, args.window, args.batch_size
         )
@@ -319,6 +333,10 @@ def run(args):
         voice_fake = (
             LEGACY_VOICE_ENSEMBLE_WEIGHT * legacy_voice_fake
             + ECHOFAKE_VOICE_WEIGHT * voice_fake_xlsr_echofake
+        )
+        voice_fake = (
+            (1 - ADAPTED_STEM_VOICE_WEIGHT) * voice_fake
+            + ADAPTED_STEM_VOICE_WEIGHT * voice_fake_stem_adapted
         )
         music_fake = (
             EAT_MUSIC_WEIGHT * music_fake_eat
