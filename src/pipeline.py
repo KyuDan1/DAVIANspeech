@@ -54,10 +54,12 @@ XLSR_ADAPTED_MUSIC_WEIGHT = 0.09
 EAT_ECHOES_MUSIC_WEIGHT = 0.225
 XLSR_ECHOES_MUSIC_WEIGHT = 0.36
 SPEAR_MUSIC_WEIGHT = 0.10
-FOURIER_MUSIC_WEIGHT = 0.10
+FOURIER_MUSIC_WEIGHT = 0.30
 MIXTURE_GATE = 0.80
-MIXTURE_VOICE_WEIGHT = 0.20
-MIXTURE_MUSIC_WEIGHT = 0.20
+MIXTURE_VOICE_WEIGHT = 0.30
+# The final desired routed-music weights are base/mixed/Fourier = .6/.1/.3.
+# Fourier is applied after this blend, hence 1/7 * .7 = .1.
+MIXTURE_MUSIC_WEIGHT = 1.0 / 7.0
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -290,6 +292,7 @@ def run(args):
     )
     fourier_detector = FourierMusicDetector(args.fourier_music_head)
 
+    diagnostic_rows = []
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         original_audio = load_audio(path)
         voice_audio, _ = separator.separate(path)
@@ -349,10 +352,8 @@ def run(args):
             + XLSR_ECHOES_MUSIC_WEIGHT * music_fake_xlsr_echoes
             + SPEAR_MUSIC_WEIGHT * music_fake_spear
         )
-        if args.artifactnet_weight > 0:
-            music_fake_artifact = artifact_detector.fake_probability(original_audio)
-            music_fake = ((1 - args.artifactnet_weight) * music_fake
-                          + args.artifactnet_weight * music_fake_artifact)
+        voice_fake_before_mixture = voice_fake
+        music_fake_before_mixture = music_fake
         voice_present, music_present = presence[path.stem]
         # A dedicated raw-mixture expert recovers artifacts masked by the
         # other component. It is never applied to obvious single-component
@@ -385,6 +386,31 @@ def run(args):
         row["MUSIC_FAKE_PROB"] = round(music_fake, 10)
         row["VOICE_PRESENT_PROB"] = round(voice_present, 10)
         row["MUSIC_PRESENT_PROB"] = round(music_present, 10)
+        if args.diagnostic_output is not None:
+            diagnostic_rows.append({
+                "ID": path.stem,
+                "voice_present": voice_present,
+                "music_present": music_present,
+                "voice_rms": voice_rms,
+                "raw_fake_xlsr": raw_fake_xlsr,
+                "voice_fake_stem": voice_fake_stem,
+                "voice_fake_xlsr_echofake": voice_fake_xlsr_echofake,
+                "voice_fake_stem_adapted": voice_fake_stem_adapted,
+                "voice_fake_before_mixture": voice_fake_before_mixture,
+                "music_fake_xlsr_adapted": music_fake_xlsr_adapted,
+                "music_fake_xlsr_echoes": music_fake_xlsr_echoes,
+                "music_fake_eat": music_fake_eat,
+                "music_fake_eat_echoes": music_fake_eat_echoes,
+                "music_fake_spear": music_fake_spear,
+                "music_fake_fourier": music_fake_fourier,
+                "music_fake_before_mixture": music_fake_before_mixture,
+                "mixed_voice_fake": mixed_voice_fake,
+                "mixed_music_fake": mixed_music_fake,
+                "mixture_present": mixture_present,
+                "voice_fake_final": voice_fake,
+                "music_fake_final": music_fake,
+                "file_fake_final": file_fake,
+            })
 
     print(f"[3/3] Writing {args.output}", flush=True)
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -393,6 +419,20 @@ def run(args):
         writer.writeheader()
         writer.writerows(rows)
     print(f"Saved {len(rows)} predictions to {args.output}")
+    if args.diagnostic_output is not None:
+        args.diagnostic_output.parent.mkdir(parents=True, exist_ok=True)
+        with args.diagnostic_output.open(
+            "w", encoding="utf-8", newline=""
+        ) as handle:
+            writer = csv.DictWriter(
+                handle, fieldnames=list(diagnostic_rows[0])
+            )
+            writer.writeheader()
+            writer.writerows(diagnostic_rows)
+        print(
+            f"Saved {len(diagnostic_rows)} diagnostics to "
+            f"{args.diagnostic_output}"
+        )
 
 
 def parse_args(argv=None):
@@ -401,6 +441,11 @@ def parse_args(argv=None):
     parser.add_argument("--sample-submission", type=Path,
                         default=Path("data/sample_submission.csv"))
     parser.add_argument("--output", type=Path, default=Path("output/submission.csv"))
+    parser.add_argument(
+        "--diagnostic-output", type=Path, default=None,
+        help="Optional per-expert CSV for offline ablations. Never required "
+             "by the submission path.",
+    )
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,
                         default=Path("models/xls-r-2b-anti-deepfake"))

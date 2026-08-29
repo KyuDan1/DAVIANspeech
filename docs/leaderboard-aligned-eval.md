@@ -159,3 +159,20 @@ stem 경로에 남는다. 다음 ablation은 separator 전체 교체보다 `raw-
 - generator/source group 단위 OOF로 gate 학습; 파일 간 통계는 추론에서 사용하지 않음
 - 후보 선택 기준은 세 축의 worst-case ADS 개선과 실제 실행시간 60분 이내
 
+## v11 coarse routing 후보
+
+v10 diagnostic dump를 두 혼합셋에서 수집하고 0.1 간격의 작은 convex grid만
+탐색했다. 네 혼합 조건 중 최악의 변화량을 최대화한 조합은 다음과 같다.
+
+- routed voice: base 0.7 + mixture expert 0.3
+- routed music: base 0.6 + mixture expert 0.1 + Fourier 0.3
+
+v10의 실효 weight는 각각 `0.8/0.2`, `0.72/0.18/0.1`이었다. 새 조합은 두
+데이터셋의 sequential/simultaneous 네 조건을 모두 개선했으며, 조건별 ADS는
+`[0.8993, 0.8703, 0.8580, 0.6573]`에서
+`[0.9080, 0.8793, 0.8680, 0.6960]`으로 변했다. 최소 개선은 +0.0087이다.
+
+별도의 source-disjoint 음악 prospective 절반에서는 Music EER가 0.27에서
+0.11로 감소했다(alignment 0.30→0.08). Fourier 단독 EER가 0.03/0.01로 매우
+강하지만 실제 v9→v10 이득은 +0.00121에 그쳤으므로, Fourier 단독으로 바꾸지 않고
+0.3까지만 보수적으로 올렸다. 이것이 다음 실제 제출에서 검증할 v11 후보다.
