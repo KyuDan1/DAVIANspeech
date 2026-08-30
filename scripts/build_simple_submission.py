@@ -9,7 +9,11 @@ from pathlib import Path
 from build_submission import copy_xlsr_fp16
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCES = ["simple_pipeline.py", "presence.py", "fourier_detector.py", "xlsr_antideepfake.py"]
+SOURCES = [
+    "simple_pipeline.py", "presence.py", "fourier_detector.py",
+    "xlsr_antideepfake.py", "spear_detector.py", "eat_detector.py",
+    "eat_timm_compat.py", "sonics_detector.py",
+]
 
 SCRIPT = '''#!/usr/bin/env python3
 import os, sys
@@ -34,6 +38,11 @@ def main():
     args.fourier_music_head = base / "model" / "fourier-music-head.npz"
     args.xlsr_mixed_voice_head = base / "model" / "xlsr-mixed-voice-head.npz"
     args.music_segment_weight = 0.7
+    args.spear_dir = base / "model" / "spear"
+    args.spear_mixture_head = base / "model" / "spear-mixture-present-head.npz"
+    args.eat_dir = base / "model" / "eat"
+    args.eat_phone_head = base / "model" / "eat-phone-head.npz"
+    args.sonics_dir = base / "model" / "sonics"
     run(args)
 if __name__ == "__main__": main()
 '''
@@ -45,6 +54,11 @@ def main():
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--fourier-music-head", type=Path, required=True)
     parser.add_argument("--xlsr-mixed-voice-head", type=Path, required=True)
+    parser.add_argument("--spear-dir", type=Path)
+    parser.add_argument("--spear-mixture-head", type=Path)
+    parser.add_argument("--eat-dir", type=Path)
+    parser.add_argument("--eat-phone-head", type=Path)
+    parser.add_argument("--sonics-dir", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--zip", action="store_true")
     args = parser.parse_args()
@@ -58,6 +72,17 @@ def main():
     copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
     shutil.copy2(args.fourier_music_head, out / "model" / "fourier-music-head.npz")
     shutil.copy2(args.xlsr_mixed_voice_head, out / "model" / "xlsr-mixed-voice-head.npz")
+    if args.spear_dir:
+        shutil.copytree(args.spear_dir, out / "model" / "spear",
+                        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"))
+        shutil.copy2(args.spear_mixture_head, out / "model" / "spear-mixture-present-head.npz")
+    if args.eat_dir:
+        shutil.copytree(args.eat_dir, out / "model" / "eat",
+                        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"))
+        shutil.copy2(args.eat_phone_head, out / "model" / "eat-phone-head.npz")
+    if args.sonics_dir:
+        shutil.copytree(args.sonics_dir, out / "model" / "sonics",
+                        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"))
     (out / "script.py").write_text(SCRIPT, encoding="utf-8")
     (out / "requirements.txt").write_text("", encoding="utf-8")
     total = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())

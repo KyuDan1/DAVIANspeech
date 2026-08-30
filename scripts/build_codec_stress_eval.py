@@ -10,6 +10,11 @@ import numpy as np
 import pandas as pd
 import soundfile as sf
 
+import sys
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from data_guard import identity_tokens  # noqa: E402
+
 
 VARIANTS = ("wav", "flac", "mp3", "ogg", "telephone8k")
 EXTENSIONS = {"wav": ".wav", "flac": ".flac", "mp3": ".mp3", "ogg": ".ogg", "telephone8k": ".wav"}
@@ -21,8 +26,14 @@ def main():
     parser.add_argument("--truth", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--variants", nargs="+", choices=VARIANTS, default=list(VARIANTS))
+    parser.add_argument("--exclude-truth", type=Path, nargs="+", default=[])
     args = parser.parse_args()
     truth = pd.read_csv(args.truth, dtype={"ID": str})
+    excluded = set()
+    for path in args.exclude_truth:
+        excluded.update(identity_tokens(pd.read_csv(path, dtype=str)))
+    if excluded:
+        truth = truth[~truth.ID.astype(str).isin(excluded)].copy()
     source = {path.stem: path for path in args.input_dir.iterdir() if path.is_file()}
     audio_dir = args.output_dir / "audio"; audio_dir.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -40,6 +51,11 @@ def main():
             rows.append({**row, "ID": sample_id, "PARENT_ID": row["ID"], "STRESS_VARIANT": variant})
     args.output_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(args.output_dir / "truth.csv", index=False)
+    sample = pd.DataFrame({"ID": [row["ID"] for row in rows]})
+    for column in ("FILE_FAKE_PROB", "VOICE_FAKE_PROB", "MUSIC_FAKE_PROB",
+                   "VOICE_PRESENT_PROB", "MUSIC_PRESENT_PROB"):
+        sample[column] = 0.5
+    sample.to_csv(args.output_dir / "sample_submission.csv", index=False)
     print(f"Created {len(rows)} variants in {audio_dir}")
 
 

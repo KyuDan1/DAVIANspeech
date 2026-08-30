@@ -12,6 +12,9 @@ development:
   - data/eval/source_disjoint_mixed_v1/truth.csv
   - data/eval/source_disjoint_mixed_equal_v1/truth.csv
   - data/eval/source_disjoint_music_v1/truth.csv
+  - data/eval/asvspoof_voice_wav_dev_v1/truth.csv
+  - data/eval/external_mixed_v1_telephone_v1/truth.csv
+  - data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv
 
 ood_holdout:
   - data/eval/suno_vocals_v1/truth.csv
@@ -19,6 +22,8 @@ ood_holdout:
 
 stress_eval:
   - data/eval/source_disjoint_music_telephone_v1/truth.csv
+  - data/eval/source_disjoint_mixed_equal_v1_telephone_v1/truth.csv
+  - data/eval/asvspoof_voice_telephone_dev_v1/truth.csv
 
 locked_eval:
   - data/eval/source_disjoint_mixed_locked_v1/truth.csv
