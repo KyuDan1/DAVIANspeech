@@ -9,6 +9,12 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from data_guard import assert_no_locked_eval_leakage  # noqa: E402
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -17,7 +23,13 @@ def main() -> None:
     parser.add_argument("--label", default="MUSIC_FAKE")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--c", type=float, required=True)
+    parser.add_argument(
+        "--partition-config", type=Path,
+        default=ROOT / "configs/data_partitions.yaml",
+    )
     args = parser.parse_args()
+
+    assert_no_locked_eval_leakage(args.truth, args.partition_config)
 
     vectors: dict[str, np.ndarray] = {}
     for path in args.embeddings:

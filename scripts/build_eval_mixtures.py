@@ -43,8 +43,11 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--per-combination", type=int, default=10)
     parser.add_argument("--seed", type=int, default=20260827)
-    parser.add_argument("--exclude-truth", type=Path,
-                        help="Mixture truth whose component source IDs must not be reused.")
+    parser.add_argument(
+        "--exclude-truth", type=Path, nargs="+",
+        help="One or more mixture truth files whose component source IDs must "
+             "not be reused.",
+    )
     parser.add_argument("--id-prefix", default="mixed")
     parser.add_argument(
         "--equal-duration", type=float, default=0.0,
@@ -67,7 +70,10 @@ def main():
             (music_truth.MUSIC_PRESENT == 1) & (music_truth.VOICE_PRESENT == 0)
         ]
     if args.exclude_truth:
-        excluded = pd.read_csv(args.exclude_truth)
+        excluded = pd.concat(
+            [pd.read_csv(path) for path in args.exclude_truth],
+            ignore_index=True,
+        )
         voice_truth = voice_truth[
             ~voice_truth.ID.isin(set(excluded.VOICE_SOURCE_ID.astype(str)))
         ]

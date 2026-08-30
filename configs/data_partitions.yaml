@@ -1,0 +1,19 @@
+# Data roles are part of the experiment protocol, not suggestions.
+# Anything under locked_eval must never be used to fit a model, a threshold,
+# an ensemble weight, or a router.  It may be scored once after a candidate is
+# frozen from train/development data.
+train:
+  - data/eval/external_mixed_train_v1/truth.csv
+  - data/eval/mixed_devvoice_train_v1/truth.csv
+  - data/eval/mixed_fmc_music_train_v1/truth.csv
+
+development:
+  - data/eval/external_mixed_v1/truth.csv
+  - data/eval/source_disjoint_mixed_v1/truth.csv
+  - data/eval/source_disjoint_mixed_equal_v1/truth.csv
+  - data/eval/source_disjoint_music_v1/truth.csv
+  - data/eval/suno_vocals_v1/truth.csv
+
+locked_eval:
+  - data/eval/source_disjoint_mixed_locked_v1/truth.csv
+
