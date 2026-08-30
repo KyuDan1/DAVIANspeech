@@ -150,14 +150,46 @@ if __name__ == "__main__":
 SUBMISSION_REQUIREMENTS = ""
 
 
-def copy_xlsr_fp16(source_dir: Path, destination_dir: Path) -> None:
+def copy_xlsr_fp16(
+    source_dir: Path,
+    destination_dir: Path,
+    max_shard_size: int = 2 * 1024**3,
+) -> None:
+    """Convert XLS-R to fp16 and keep every ZIP member below 4 GiB.
+
+    Some upload validators interpret the ZIP64 size sentinel of a single file
+    larger than 4 GiB as an enormous extracted archive.  The original fp16
+    checkpoint is about 4.326 GB, just over that boundary, so write ordinary
+    safetensors shards instead.  ``XlsrAntiDeepfake`` loads either this layout
+    or the legacy single-file layout.
+    """
     destination_dir.mkdir(parents=True, exist_ok=True)
     tensors = load_file(source_dir / "model.safetensors")
     converted = {
         name: (tensor.half() if tensor.is_floating_point() else tensor)
         for name, tensor in tensors.items()
     }
-    save_file(converted, str(destination_dir / "model.safetensors"))
+
+    shards: list[dict[str, torch.Tensor]] = []
+    current: dict[str, torch.Tensor] = {}
+    current_size = 0
+    for name, tensor in converted.items():
+        tensor_size = tensor.numel() * tensor.element_size()
+        if current and current_size + tensor_size > max_shard_size:
+            shards.append(current)
+            current = {}
+            current_size = 0
+        if tensor_size > max_shard_size:
+            raise ValueError(f"single XLS-R tensor exceeds shard limit: {name}")
+        current[name] = tensor
+        current_size += tensor_size
+    if current:
+        shards.append(current)
+
+    count = len(shards)
+    for index, shard in enumerate(shards, 1):
+        path = destination_dir / f"model-{index:05d}-of-{count:05d}.safetensors"
+        save_file(shard, str(path))
 
 
 def main():

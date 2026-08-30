@@ -106,9 +106,18 @@ source separation과 stem은 어느 경로에서도 사용하지 않는다. SPEA
 
 ## 제출 산출물
 
-- `submit_routed_v14.zip`
+- `submit_routed_v14_fixed.zip`
 - 압축 크기: 6.31 GiB
 - 압축 해제 크기: 6.96 GiB
 - `requirements.txt`: 0 bytes (평가 서버 기본 torch/torchaudio 보존)
 - 정상 mixed와 전화 mixed를 패키지 내부 모델만으로 end-to-end 재실행
 - ZIP 무결성 검사 통과
+
+최초 ZIP은 fp16 XLS-R checkpoint 하나가 4 GiB를 31 MB 정도 넘었다. ZIP 자체와
+압축 해제 크기는 정상이어도 DACON 업로드 검사기가 이 ZIP64 단일 엔트리를 손상 또는
+32 GB 초과로 판정했다. 최종본은 모델 값은 바꾸지 않고 XLS-R를 각각 2 GiB 이하인
+safetensors 세 개로 나눴다. 815개 tensor가 최초 checkpoint와 bit-exact함을
+확인했고, shard loader로 실제 GPU 추론한 뒤 DACON API 제출 성공 응답을 확인했다.
+
+- 최대 ZIP 엔트리: 2,387,980,808 bytes (SPEAR)
+- SHA-256: `d3749c4e417bd9c8fee87ca451bbee574dec8bba2b0a8ca6dc2a023fca227209`

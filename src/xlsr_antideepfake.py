@@ -126,7 +126,20 @@ class XlsrAntiDeepfake(nn.Module):
     @classmethod
     def from_checkpoint(cls, model_dir, device="cuda", dtype=torch.float32):
         model = cls()
-        raw = load_file(Path(model_dir) / "model.safetensors")
+        model_dir = Path(model_dir)
+        single = model_dir / "model.safetensors"
+        checkpoint_files = [single] if single.is_file() else sorted(
+            model_dir.glob("model-*-of-*.safetensors")
+        )
+        if not checkpoint_files:
+            raise FileNotFoundError(f"no XLS-R safetensors checkpoint in {model_dir}")
+        raw = {}
+        for checkpoint_file in checkpoint_files:
+            shard = load_file(checkpoint_file)
+            duplicate = raw.keys() & shard.keys()
+            if duplicate:
+                raise ValueError(f"duplicate XLS-R keys across shards: {sorted(duplicate)[:5]}")
+            raw.update(shard)
 
         target = model.ssl.state_dict()
         converted, unmapped = {}, []
