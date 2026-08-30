@@ -164,6 +164,24 @@ HTTP_PROXY=http://127.0.0.1:9 HTTPS_PROXY=http://127.0.0.1:9 \
     python /path/to/submission/script.py
 ```
 
+## Measuring where the loss is
+
+The leaderboard reports only `0.5*File + 0.2*Voice + 0.3*Music`, so a submission
+tells you "better" or "worse" and nothing about which term moved. Pinning one
+probability column to a constant fixes that column's EER at exactly 0.5 and
+leaves the others alone, so the drop from an unprobed run names the term:
+
+```bash
+python scripts/build_submission.py --probe-column MUSIC_FAKE_PROB ...
+python scripts/decode_probes.py --anchor 0.7083888889 \
+    --music-probe 0.6698174603 --voice-probe 0.6515
+```
+
+Run against the current pipeline this gave **File 0.2741, Music 0.3714,
+Voice 0.2156** — see [docs/probe-decomposition.md](docs/probe-decomposition.md)
+for the submissions, the derivation, and why the anchor has to be the same
+package.
+
 ## Layout
 
 ```
@@ -174,6 +192,12 @@ src/pipeline.py            end-to-end inference, sharding-aware
 src/evaluate.py            ROC-AUC and EER per probability column
 scripts/run_sharded.sh     multi-GPU fan-out
 scripts/merge_shards.py    reassemble shards in submission order
+scripts/build_eval_korean.py  Korean voice eval set from FLEURS + synthetic fakes
+scripts/gen_fake_audio8.py    Korean fakes via Audio8-TTS speaker cloning
+scripts/build_mixtures.py     speech+music mixtures for separator comparison
+scripts/run_eval_set.sh       score an eval set and print the diagnostic table
+scripts/submit_dacon.py       upload a 4.4 GB zip from this machine
+scripts/decode_probes.py      leaderboard ADS readings -> component EERs
 ```
 
 ## Licensing
