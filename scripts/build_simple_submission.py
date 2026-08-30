@@ -32,6 +32,8 @@ def main():
     args.panns_dir = base / "model" / "panns"
     args.xlsr_dir = base / "model" / "xlsr"
     args.fourier_music_head = base / "model" / "fourier-music-head.npz"
+    args.xlsr_mixed_voice_head = base / "model" / "xlsr-mixed-voice-head.npz"
+    args.music_segment_weight = 0.7
     run(args)
 if __name__ == "__main__": main()
 '''
@@ -42,6 +44,7 @@ def main():
     parser.add_argument("--xlsr-dir", type=Path, required=True)
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--fourier-music-head", type=Path, required=True)
+    parser.add_argument("--xlsr-mixed-voice-head", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--zip", action="store_true")
     args = parser.parse_args()
@@ -54,6 +57,7 @@ def main():
     shutil.copytree(args.panns_dir, out / "model" / "panns", ignore=shutil.ignore_patterns("__pycache__"))
     copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
     shutil.copy2(args.fourier_music_head, out / "model" / "fourier-music-head.npz")
+    shutil.copy2(args.xlsr_mixed_voice_head, out / "model" / "xlsr-mixed-voice-head.npz")
     (out / "script.py").write_text(SCRIPT, encoding="utf-8")
     (out / "requirements.txt").write_text("", encoding="utf-8")
     total = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())

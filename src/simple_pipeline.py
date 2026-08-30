@@ -1,7 +1,7 @@
 """Separation-free competition pipeline selected on source-disjoint eval data.
 
-Voice fake: released NII XLS-R-2B AntiDeepfake head on the original waveform.
-Music fake: high-frequency Fourier fakeprint head on the original waveform.
+Voice fake: released NII head plus a domain-balanced mixed-audio linear head.
+Music fake: domain-balanced Fourier head with temporal multiple-instance pooling.
 File fake: logical OR implemented as max(component scores).
 Presence: unchanged PANNs baseline.
 """
@@ -15,6 +15,7 @@ from pathlib import Path
 import librosa
 import numpy as np
 import torch
+from scipy.special import expit, logit
 from tqdm import tqdm
 
 from fourier_detector import FourierMusicDetector
@@ -40,11 +41,20 @@ def voice_fake_probability(model, audio, device, window=64_000, batch_size=1):
         extract_segment(audio, start, window)
         for start in segment_starts(audio.size, window)
     ])
-    best = 0.0
+    best, embeddings = 0.0, []
     for offset in range(0, len(windows), batch_size):
         batch = torch.from_numpy(windows[offset:offset + batch_size]).to(device)
-        best = max(best, float(model.fake_probability(batch).max()))
-    return best
+        with torch.inference_mode():
+            pooled = model.embedding(model.normalize(batch))
+            probabilities = torch.softmax(model.proj_fc(pooled).float(), dim=-1)[:, 0]
+        best = max(best, float(probabilities.max()))
+        embeddings.append(pooled.float().cpu().numpy())
+    return best, np.concatenate(embeddings).mean(axis=0)
+
+
+def blend_logits(first, second, second_weight):
+    values = np.clip([first, second], 1e-7, 1 - 1e-7)
+    return float(expit((1 - second_weight) * logit(values[0]) + second_weight * logit(values[1])))
 
 
 def run(args):
@@ -66,6 +76,7 @@ def run(args):
         args.xlsr_dir, device=args.device, dtype=torch.float32
     )
     music_model = FourierMusicDetector(args.fourier_music_head)
+    voice_head = np.load(args.xlsr_mixed_voice_head) if args.xlsr_mixed_voice_head else None
     device = torch.device(args.device)
 
     output_rows = []
@@ -73,10 +84,24 @@ def run(args):
         sample_id = str(sample["ID"])
         audio = load_audio(audio_by_id[sample_id])
         voice_present, music_present = presence.predict(audio)
-        voice_fake = voice_fake_probability(
+        released_voice, voice_embedding = voice_fake_probability(
             voice_model, audio, device, args.window, args.batch_size
         )
-        music_fake = music_model.fake_probability(audio)
+        if voice_head is None:
+            voice_fake = released_voice
+        else:
+            adapted_voice = float(expit(
+                voice_embedding @ voice_head["weight"] + float(voice_head["bias"])
+            ))
+            voice_fake = blend_logits(
+                released_voice, adapted_voice, float(voice_head["blend_new"])
+            )
+        whole_music = music_model.fake_probability(audio)
+        segment_music = max(
+            music_model.fake_probability(extract_segment(audio, start, args.music_segment))
+            for start in segment_starts(len(audio), args.music_segment)
+        )
+        music_fake = blend_logits(whole_music, segment_music, args.music_segment_weight)
         output_rows.append({
             "ID": sample_id,
             "FILE_FAKE_PROB": max(voice_fake, music_fake),
@@ -101,9 +126,12 @@ def parse_args(argv=None):
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path, default=Path("models/xls-r-2b-anti-deepfake"))
     parser.add_argument("--fourier-music-head", type=Path, default=Path("model_heads/fourier-echoes-music-head.npz"))
+    parser.add_argument("--xlsr-mixed-voice-head", type=Path, default=None)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--window", type=int, default=64_000)
     parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--music-segment", type=int, default=64_000)
+    parser.add_argument("--music-segment-weight", type=float, default=0.0)
     return parser.parse_args(argv)
 
 

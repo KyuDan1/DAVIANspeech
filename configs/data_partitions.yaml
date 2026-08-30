@@ -12,8 +12,13 @@ development:
   - data/eval/source_disjoint_mixed_v1/truth.csv
   - data/eval/source_disjoint_mixed_equal_v1/truth.csv
   - data/eval/source_disjoint_music_v1/truth.csv
+
+ood_holdout:
   - data/eval/suno_vocals_v1/truth.csv
+  - data/eval/suno_vocals_codec_stress_v1/truth.csv
+
+stress_eval:
+  - data/eval/source_disjoint_music_telephone_v1/truth.csv
 
 locked_eval:
   - data/eval/source_disjoint_mixed_locked_v1/truth.csv
-

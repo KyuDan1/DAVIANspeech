@@ -29,9 +29,14 @@ def assert_no_locked_eval_leakage(
     config = yaml.safe_load(partition_config.read_text("utf-8"))
     config_dir = partition_config.resolve().parent
     root = config_dir.parent if config_dir.name == "configs" else config_dir
-    locked_paths = [root / path for path in config.get("locked_eval", [])]
+    protected_roles = ("locked_eval", "ood_holdout", "stress_eval")
+    locked_paths = [
+        root / path
+        for role in protected_roles
+        for path in config.get(role, [])
+    ]
     if not locked_paths:
-        raise ValueError("Partition config must contain at least one locked_eval")
+        raise ValueError("Partition config must contain protected evaluation data")
 
     train_tokens = identity_tokens(pd.read_csv(training_truth, dtype=str))
     locked_tokens: set[str] = set()
