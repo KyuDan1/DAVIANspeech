@@ -17,9 +17,12 @@ PREDICTION_COLUMNS = [
 ]
 
 
-def load_four_seconds(path):
+def load_seconds(path, seconds):
     audio, _ = librosa.load(path, sr=SR, mono=True, dtype=np.float32)
-    return audio[:4 * SR]
+    samples = int(seconds * SR)
+    if len(audio) < samples:
+        audio = np.tile(audio, int(np.ceil(samples / max(len(audio), 1))))
+    return audio[:samples]
 
 
 def rms(audio):
@@ -43,6 +46,11 @@ def main():
     parser.add_argument("--exclude-truth", type=Path,
                         help="Mixture truth whose component source IDs must not be reused.")
     parser.add_argument("--id-prefix", default="mixed")
+    parser.add_argument(
+        "--equal-duration", type=float, default=0.0,
+        help="If positive, make both simultaneous and sequential mixtures this "
+             "many seconds long (avoids duration leakage).",
+    )
     args = parser.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -79,9 +87,20 @@ def main():
                 for repetition in range(args.per_combination):
                     voice_id = rng.choice(voice_by_label[voice_fake])
                     music_id = rng.choice(music_by_label[music_fake])
-                    voice = load_four_seconds(audio_path(args.voice_dir, voice_id))
-                    music = load_four_seconds(audio_path(args.music_dir, music_id))
-                    length = min(len(voice), len(music), 4 * SR)
+                    component_seconds = (
+                        args.equal_duration
+                        if mode == "simultaneous" and args.equal_duration
+                        else args.equal_duration / 2
+                        if args.equal_duration
+                        else 4.0
+                    )
+                    voice = load_seconds(
+                        audio_path(args.voice_dir, voice_id), component_seconds
+                    )
+                    music = load_seconds(
+                        audio_path(args.music_dir, music_id), component_seconds
+                    )
+                    length = min(len(voice), len(music))
                     voice, music = voice[:length], music[:length]
                     snr_db = [-6, 0, 6][repetition % 3]
                     voice = voice * (rms(music) / rms(voice)) * (10 ** (snr_db / 20))
