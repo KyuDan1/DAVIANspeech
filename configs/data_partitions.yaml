@@ -33,3 +33,4 @@ locked_eval:
   - data/eval/echoes_fma_paired_v3/truth.csv
   - data/eval/factorial_eval_1200_v2/truth.csv
   - data/eval/factorial_eval_1200_v2/truth_locked.csv
+  - data/eval/yue_cross_component_audit_v1/truth.csv

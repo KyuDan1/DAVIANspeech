@@ -49,14 +49,23 @@ def main() -> None:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--window", type=int, default=160_000)
     parser.add_argument("--max-windows", type=int, default=3)
+    parser.add_argument(
+        "--preserve-windows", action="store_true",
+        help="Also store the individual window embeddings and a validity mask "
+             "for temporal pooling experiments.",
+    )
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     args = parser.parse_args()
+    if args.max_windows < 0:
+        parser.error("--max-windows cannot be negative")
+    if args.preserve_windows and args.max_windows == 0:
+        parser.error("--preserve-windows requires a positive --max-windows")
 
     files = find_audio_files(args.test_dir)[args.shard_index::args.num_shards]
     device = torch.device(args.device)
     model = load_spear(args.model_dir, device)
-    ids, vectors = [], []
+    ids, vectors, window_vectors, window_masks = [], [], [], []
     for path in tqdm(files, desc="SPEAR embeddings"):
         audio = load_audio(path)
         starts = segment_starts(len(audio), args.window)
@@ -79,12 +88,27 @@ def main() -> None:
             )
             per_window.append(pooled.cpu().numpy()[0])
         ids.append(path.stem)
+        per_window = np.asarray(per_window, dtype=np.float32)
         vectors.append(np.mean(per_window, axis=0))
+        if args.preserve_windows:
+            padded = np.zeros(
+                (args.max_windows, per_window.shape[1]), dtype=np.float32
+            )
+            mask = np.zeros(args.max_windows, dtype=bool)
+            padded[:len(per_window)] = per_window
+            mask[:len(per_window)] = True
+            window_vectors.append(padded)
+            window_masks.append(mask)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
-        args.output, ids=np.asarray(ids), embeddings=np.asarray(vectors, dtype=np.float32)
-    )
+    payload = {
+        "ids": np.asarray(ids),
+        "embeddings": np.asarray(vectors, dtype=np.float32),
+    }
+    if args.preserve_windows:
+        payload["window_embeddings"] = np.asarray(window_vectors, dtype=np.float32)
+        payload["window_mask"] = np.asarray(window_masks, dtype=bool)
+    np.savez_compressed(args.output, **payload)
     print(f"Saved {len(ids)} SPEAR embeddings to {args.output}")
 
 

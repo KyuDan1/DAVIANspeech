@@ -364,3 +364,42 @@ v9 fixed의 실제 결과는 Score `0.7064957778`, ADS `0.6750873016`, CPS
 `0.9891720635`, 실행시간 `33분 10초`였다. v10보다 ADS가 `0.0012142857`
 낮으므로 Fourier 10%는 큰 회귀의 원인이 아니며 오히려 극소폭 보완했다. 다음
 이분 탐색 지점은 혼합 전용 head와 voice-stem 적응을 도입하기 전인 v6이다.
+
+## Factorial v2 cross-component probing과 평가셋 정렬 감사
+
+음성/음악 단독, 완전 동시, 부분 중첩, 순차 조건에서 RR/RF/FR/FF를 균형화한
+`factorial_eval_1200_v2` 1,200개를 구축했다. 학습 혼합셋과 exact source ID
+교차는 없지만, 음악 생성기 family는 Echoes와 겹친다.
+
+SPEAR 13개 latent layer를 고정하고 head만 학습한 결과 얕은 layer 2/3의 최악
+component EER이 `0.38`로 가장 낮았다. layer 2 joint RR/RF/FR/FF probe는 chance
+`0.25` 대비 balanced accuracy `0.44`, component 평균/최악 EER `0.323/0.380`을
+기록했다. layer attention, dynamic attention, 3-layer MLP, 단순 window max pooling은
+이를 개선하지 못했다. 공개 XLS-R speech head는 music-only EER `0.32`였지만 혼합
+Music EER `0.44–0.48`로 일반적인 music detector가 되지 못했다.
+
+가장 중요한 감사 결과는 모델 순서 역전이다. 같은 factorial 평가에서 anchor/v10
+ADS는 `0.6441/0.7001`이지만 실제 비공개 ADS는 `0.7075/0.6763`이다. 따라서
+Echoes 계열 평가에서 좋아진 기존 SPEAR mixed-music 20% 결합은 제출 후보에서
+제외했다. 현재 locked도 반복 확인되어 audit split으로 강등한다. 다음 모델 선택은
+Echoes 밖의 음악 생성기 family로 새 generator-disjoint locked tier를 만든 뒤
+재개한다. 상세 내용은 `docs/cross-component-probing-results.md`에 기록했다.
+
+### YuE generator-disjoint audit와 10% fusion 후보
+
+Apache-2.0 YuE를 별도 환경에서 실행해 12초 native instrumental 8개와 유효 vocal
+6개를 생성했다. YuE 모델 자체의 두 codec stream을 사용했으며 source separation은
+적용하지 않았다. 동시/부분/순차 RR/RF/FR/FF primary 96개, music-only 16개,
+native vocal stress 12개를 구성했다.
+
+Anchor는 music-only EER `0.125`였지만 혼합 Music EER은 동시 `0.50`, 부분
+`0.3125`, 순차 `0.4375`였다. RR 대 RF File EER은 부분/순차 모두 `0.50`으로,
+RR 대 FR `0.25/0.25`보다 나빴다. 공개 XLS-R speech head의 YuE primary Music
+EER은 `0.521`로 직접 재사용이 실패했다. SPEAR joint file과 mixed-music head는
+각각 File/Music EER `0.208/0.104`로 새 생성기에서도 보완성을 보였다.
+
+Anchor File/Music에 SPEAR joint/music을 각각 10%만 결합하면 ADS가
+competition_v2 `0.80177→0.80784`, competition_v3 `0.92565→0.92797`, factorial
+`0.64413→0.65454`, YuE primary `0.66458→0.68681`로 네 bank에서 모두 개선됐다.
+20%는 competition_v3를 악화시켜 제외했다. 다음 실제 제출 후보는 voice/CPS를 전혀
+바꾸지 않는 이 단일 10% ablation이다.

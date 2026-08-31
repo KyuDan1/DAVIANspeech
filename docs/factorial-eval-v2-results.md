@@ -6,9 +6,10 @@
 component fake ranking**이다. 특히 `가짜 음성 + 진짜 음악`에서 파일 판별이 가장
 불안정하다. 음악 단독도 음성 단독보다 훨씬 어렵다.
 
-전체 균형 점수는 실제 비공개 데이터의 클래스 비율을 가정하지 않으므로 제출 점수
-예측에 사용하지 않는다. 아래 원자 대조 EER과 split 간 재현성을 모델 선택 기준으로
-사용한다.
+다만 이 평가셋은 기존 모델이 학습한 Echoes 음악 생성기 계열을 포함한다. 역사적
+anchor와 v10을 그대로 재실행했을 때 **실제 리더보드와 모델 순서가 반대로** 나왔다.
+따라서 전체 점수뿐 아니라 아래 원자 대조 EER도 현재는 현상 분석용이며, 제출 모델
+선택이나 ensemble weight 조정에는 사용하지 않는다.
 
 ## 평가셋
 
@@ -33,7 +34,8 @@ component fake ranking**이다. 특히 `가짜 음성 + 진짜 음악`에서 파
 - 혼합: SNR -10/-5/0/5/10 dB, 부분 중첩 25/50/75%, 양쪽 순서
 - 분리 모델은 데이터 생성 과정에 사용하지 않음
 
-화자와 FMA 원곡 그룹의 split 교차는 모두 0건이다. 모든 1,200개 파일은 16 kHz,
+화자와 FMA 원곡 그룹의 split 교차는 모두 0건이다. 혼합 head 학습셋 세 곳과의
+`VOICE_SOURCE_ID`, `MUSIC_SOURCE_ID` 정확 일치도 각각 0건이다. 모든 1,200개 파일은 16 kHz,
 4~60초, mono/stereo 조건을 통과했다. 평가셋은 학습·calibration·ensemble weight
 탐색에 넣지 않는다.
 
@@ -42,12 +44,31 @@ component fake ranking**이다. 특히 `가짜 음성 + 진짜 음악`에서 파
 측정하지만 완전한 unseen-generator 평가는 아니다. 새 음악 생성기 자료가 생기면
 locked bank에 별도 generator-disjoint tier로 추가해야 한다.
 
+## 리더보드 정렬 감사
+
+동일한 1,200개 파일에 역사적 anchor와 제출된 v10 코드를 정확히 재실행했다.
+
+| 모델 | 로컬 Score | 로컬 ADS | 실제 Score | 실제 ADS |
+| --- | ---: | ---: | ---: | ---: |
+| anchor 계열 | 0.6791 | 0.6441 | 0.7357 | 0.7075 |
+| v10 fixed | 0.7295 | 0.7001 | 0.7076 | 0.6763 |
+
+로컬에서는 v10이 anchor보다 Score `+0.0504`, ADS `+0.0560` 높지만 실제에서는
+Score `-0.0281`, ADS `-0.0312` 낮다. 단순한 점수 오차가 아니라 **모델 선택 순서가
+뒤집혔다**. Echoes 계열에 맞춘 EAT/XLS-R/SPEAR head가 같은 생성기 계열의 새 파일에
+잘 작동한 것이 가장 유력하다. source ID disjoint는 generator disjoint를 보장하지
+않는다.
+
+또한 실험 과정에서 dev뿐 아니라 holdout/locked 결과까지 이미 여러 차례 확인했다.
+그러므로 현재 `locked`도 더 이상 미관측 최종 검증셋이 아니라 audit split으로
+취급한다. Echoes 밖의 생성기로 새 locked tier를 만들기 전에는 어떤 로컬 개선도
+제출 개선 예상치로 변환하지 않는다.
+
 ## 현재 파이프라인 결과
 
 현재 로컬 `src/pipeline.py`를 7 GPU shard로 실행했다. 전체 참고 결과는
 File/Voice/Music EER `0.2959/0.2419/0.3410`, ADS `0.7014`, CPS `0.9941`,
-Score `0.7307`이다. 실제 최고 제출의 `0.7365`와 수치가 가깝지만 한 번의 일치는
-정렬의 증거가 아니며, 실제 점수 추정치로 해석하지 않는다.
+Score `0.7307`이다. 위 순서 역전 감사 때문에 이 값은 실제 점수 추정치가 아니다.
 
 | 형태 | File EER | Voice EER | Music EER | ADS |
 | --- | ---: | ---: | ---: | ---: |
@@ -108,13 +129,14 @@ dev에서 현재 score와 원본 XLS-R를 50:50으로 합치면 평균/최악이
 
 ## 다음 우선순위
 
-1. 평가셋을 건드리지 않고 별도 train 원천으로 완전 동시 혼합을 만든다.
-2. 원본 오디오의 짧은 시간 구간별 embedding을 유지한 채 voice/music별 attention
-   pooling head를 학습한다. 분리 출력은 주 입력이 아니라 보조 expert로만 둔다.
-3. dev에서만 weight/router를 선택하고 holdout 및 locked의 최악 대조 EER이 함께
-   낮아질 때만 채택한다.
-4. 음악은 Echoes 밖의 새 생성기 instrumental을 확보해 generator-disjoint tier를
-   만든다.
+1. Echoes 밖의 YuE instrumental 8곡으로 첫 audit tier를 만들었다. 다음에는
+   LeVo/HeartMuLa를 추가하고 한 family는 열어보지 않은 locked로 남긴다.
+2. 새 tier를 만들기 전에는 기존 anchor를 제출 기준으로 유지하고, 현재 평가셋은
+   RR/RF/FR/FF 오류 분석에만 사용한다.
+3. 새 train 원천으로 완전 동시 혼합을 만들고 원본 오디오의 짧은 patch별 embedding에
+   voice/music query attention을 학습한다. 분리 출력은 보조 expert로만 둔다.
+4. dev에서만 weight/router를 선택하고 holdout을 한 번 확인한다. 새 locked는 최종
+   후보 한 개에만 사용한다.
 5. 보컬 포함 생성 음악의 voice presence를 별도 vocal detector 또는 시간 구간별
    PANNs 집계로 보완한다.
 

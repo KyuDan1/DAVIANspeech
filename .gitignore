@@ -9,5 +9,6 @@ output/
 stems/
 submission/
 submit_*/
-reports/**/shards/
+reports/**/shards*/
 reports/**/*.txt
+reports/**/submission.csv
