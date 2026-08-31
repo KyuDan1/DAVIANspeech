@@ -8,6 +8,7 @@ train:
   - data/eval/mixed_fmc_music_train_v1/truth.csv
 
 development:
+  - data/eval/factorial_eval_1200_v2/truth_dev.csv
   - data/eval/external_mixed_v1/truth.csv
   - data/eval/source_disjoint_mixed_v1/truth.csv
   - data/eval/source_disjoint_mixed_equal_v1/truth.csv
@@ -17,6 +18,7 @@ development:
   - data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv
 
 ood_holdout:
+  - data/eval/factorial_eval_1200_v2/truth_holdout.csv
   - data/eval/suno_vocals_v1/truth.csv
   - data/eval/suno_vocals_codec_stress_v1/truth.csv
 
@@ -27,3 +29,7 @@ stress_eval:
 
 locked_eval:
   - data/eval/source_disjoint_mixed_locked_v1/truth.csv
+  - data/eval/multigen_voice_v2/truth.csv
+  - data/eval/echoes_fma_paired_v3/truth.csv
+  - data/eval/factorial_eval_1200_v2/truth.csv
+  - data/eval/factorial_eval_1200_v2/truth_locked.csv

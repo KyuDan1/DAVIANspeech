@@ -9,3 +9,5 @@ output/
 stems/
 submission/
 submit_*/
+reports/**/shards/
+reports/**/*.txt

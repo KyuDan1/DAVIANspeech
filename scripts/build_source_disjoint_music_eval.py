@@ -56,12 +56,21 @@ def _write_audio(payload: bytes, destination: Path, seconds: float, key: str) ->
     sf.write(destination, audio, SR, format="FLAC", subtype="PCM_16")
 
 
-def _select_sonics(zip_file: ZipFile, metadata: pd.DataFrame, pairs: int, seed: int):
+def _select_sonics(
+    zip_file: ZipFile,
+    metadata: pd.DataFrame,
+    pairs: int,
+    seed: int,
+    excluded_groups: set[str],
+):
     archive = {
         Path(name).stem: name for name in zip_file.namelist()
         if name.lower().endswith((".mp3", ".wav", ".flac"))
     }
     rows = metadata[metadata["filename"].isin(archive)].copy()
+    rows = rows[
+        ~rows["id"].map(lambda value: f"sonics_{int(value)}").isin(excluded_groups)
+    ]
     rows["split_rank"] = rows["split"].map({"test": 0, "valid": 1, "train": 2})
     # One fake rendition per source song prevents near-duplicate leakage.
     rows = rows.sort_values(["split_rank", "id", "filename"]).drop_duplicates("id")
@@ -88,6 +97,15 @@ def main() -> None:
     parser.add_argument("--pairs", type=int, default=200)
     parser.add_argument("--seconds", type=float, default=12.0)
     parser.add_argument("--seed", type=int, default=20260829)
+    parser.add_argument("--id-prefix", default="sdm")
+    parser.add_argument(
+        "--splits", nargs="+", default=["alignment", "prospective"],
+        help="Split names assigned round-robin after deterministic sampling.",
+    )
+    parser.add_argument(
+        "--exclude-truth", type=Path, nargs="+", default=[],
+        help="Truth CSVs whose GROUP_IDs must not be sampled again.",
+    )
     args = parser.parse_args()
     if args.pairs % 2:
         raise ValueError("--pairs must be even for balanced Suno/Udio sampling")
@@ -96,13 +114,20 @@ def main() -> None:
     audio_dir.mkdir(parents=True, exist_ok=True)
     truth_rows = []
     sonics_metadata = pd.read_csv(args.sonics_metadata, low_memory=False)
+    excluded_groups: set[str] = set()
+    for truth_path in args.exclude_truth:
+        excluded = pd.read_csv(truth_path, dtype=str)
+        if "GROUP_ID" in excluded:
+            excluded_groups.update(excluded["GROUP_ID"].dropna())
 
     with ZipFile(args.sonics_zip) as sonics_zip:
         selected = _select_sonics(
-            sonics_zip, sonics_metadata, args.pairs, args.seed
+            sonics_zip, sonics_metadata, args.pairs, args.seed, excluded_groups
         )
+        if len(selected) != args.pairs:
+            raise RuntimeError(f"Only selected {len(selected)}/{args.pairs} SONICS tracks")
         for index, row in selected.iterrows():
-            identifier = f"sdm_fake_{index:04d}"
+            identifier = f"{args.id_prefix}_fake_{index:04d}"
             _write_audio(
                 sonics_zip.read(row["archive_name"]),
                 audio_dir / f"{identifier}.flac", args.seconds, identifier,
@@ -113,12 +138,15 @@ def main() -> None:
                 "AUDIO_TYPE": "music", "SOURCE": f"SONICS-{row['source']}",
                 "CONDITION": "source_disjoint", "GENERATOR": row["algorithm"],
                 "CODEC": "common_flac16k", "GROUP_ID": f"sonics_{int(row['id'])}",
-                "SPLIT": "alignment" if index % 2 == 0 else "prospective",
+                "SPLIT": args.splits[index % len(args.splits)],
             })
 
     with ZipFile(args.fma_zip) as fma_zip:
         candidates = sorted(
-            name for name in fma_zip.namelist() if name.lower().endswith(".mp3")
+            name for name in fma_zip.namelist()
+            if name.lower().endswith(".mp3")
+            and Path(name).stem not in excluded_groups
+            and f"fma_{int(Path(name).stem):06d}" not in excluded_groups
         )
         rng = np.random.default_rng(args.seed)
         order = rng.permutation(len(candidates))
@@ -127,7 +155,7 @@ def main() -> None:
             if written >= args.pairs:
                 break
             archive_name = candidates[int(position)]
-            identifier = f"sdm_real_{written:04d}"
+            identifier = f"{args.id_prefix}_real_{written:04d}"
             try:
                 _write_audio(
                     fma_zip.read(archive_name), audio_dir / f"{identifier}.flac",
@@ -141,7 +169,7 @@ def main() -> None:
                 "AUDIO_TYPE": "music", "SOURCE": "FMA",
                 "CONDITION": "source_disjoint", "GENERATOR": "real",
                 "CODEC": "common_flac16k", "GROUP_ID": Path(archive_name).stem,
-                "SPLIT": "alignment" if written % 2 == 0 else "prospective",
+                "SPLIT": args.splits[written % len(args.splits)],
             })
             written += 1
     if written != args.pairs:
