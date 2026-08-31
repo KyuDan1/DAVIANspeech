@@ -79,6 +79,11 @@ sys.dont_write_bytecode = True
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR / "src"))
 
+# Non-default pipeline settings this package ships with, applied after
+# parse_args so the package is self-describing rather than depending on
+# whatever the defaults happen to be.
+PIPELINE_OVERRIDES = {overrides!r}
+
 from pipeline import parse_args, run  # noqa: E402
 
 
@@ -88,6 +93,10 @@ def main():
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
     args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
+    for name, value in PIPELINE_OVERRIDES.items():
+        if not hasattr(args, name):
+            raise SystemExit(f"pipeline has no option {name}")
+        setattr(args, name, value)
     run(args)
     if PROBE_COLUMN:
         apply_probe(args.output)
@@ -125,11 +134,23 @@ def main():
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
     parser.add_argument("--zip", action="store_true")
+    parser.add_argument("--set", action="append", default=[], metavar="NAME=VALUE",
+                        help="Pipeline option to pin in the shipped script.py, "
+                             "e.g. --set music_source=original")
     parser.add_argument("--probe-column", default="",
                         choices=["", "MUSIC_FAKE_PROB", "VOICE_FAKE_PROB",
                                  "FILE_FAKE_PROB"],
                         help="Pin this column to 0.5 to measure its EER term.")
     args = parser.parse_args()
+
+    overrides = {}
+    for item in args.set:
+        name, _, raw = item.partition("=")
+        try:
+            value = float(raw) if "." in raw else int(raw)
+        except ValueError:
+            value = raw
+        overrides[name.strip()] = value
 
     out = args.output_dir
     if out.exists():
@@ -163,7 +184,7 @@ def main():
         ignore=shutil.ignore_patterns(".cache", "__pycache__"),
     )
 
-    script = SCRIPT_TEMPLATE
+    script = SCRIPT_TEMPLATE.replace("{overrides!r}", repr(overrides))
     if args.probe_column:
         # Insert the probe helper above main() so script.py stays one file.
         probe = PROBE_TEMPLATE.format(probe_column=args.probe_column)

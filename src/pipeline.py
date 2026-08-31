@@ -222,7 +222,11 @@ def run(args):
         separator_kwargs["repo"] = Path(args.htdemucs_repo)
     separator = build_separator(args.separator, device=args.device, **separator_kwargs)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
-    artifact_detector = ArtifactNetMusicDetector(args.artifactnet_dir)
+    # Only construct it when it is actually weighted: with codec history held
+    # constant it scored EER 0.50-0.60 -- chance or worse -- so it is off by
+    # default, and skipping it also drops the slowest stage in the pipeline.
+    artifact_detector = (ArtifactNetMusicDetector(args.artifactnet_dir)
+                         if args.artifactnet_weight > 0 else None)
 
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         voice_audio, music_audio = separator.separate(path)
@@ -230,16 +234,22 @@ def run(args):
             detector, voice_audio, device, args.window, args.batch_size,
             args.pooling, args.temperature
         )
-        music_fake_xlsr = fake_probability(
-            detector, music_audio, device, args.window, args.batch_size,
+        original_audio = load_audio(path)
+        # Separation is not free for the music branch. What marks an AI track is
+        # largely its synthetic vocal, and HTDemucs routes that into the voice
+        # stem, so scoring the music stem throws the evidence away. Measured on
+        # three corpora, full audio beats the stem every time:
+        # GTZAN x SONICS 0.235 vs 0.455, GTZAN x pop-AI 0.550 vs 0.613,
+        # MusicCaps x FakeMusicCaps 0.360 vs 0.366.
+        music_input = music_audio if args.music_source == "stem" else original_audio
+        music_fake = fake_probability(
+            detector, music_input, device, args.window, args.batch_size,
             args.pooling, args.temperature
         )
-        original_audio = load_audio(path)
-        music_fake_artifact = artifact_detector.fake_probability(original_audio)
-        music_fake = (
-            XLSR_MUSIC_WEIGHT * music_fake_xlsr
-            + ARTIFACTNET_WEIGHT * music_fake_artifact
-        )
+        if args.artifactnet_weight > 0:
+            music_fake_artifact = artifact_detector.fake_probability(original_audio)
+            music_fake = ((1 - args.artifactnet_weight) * music_fake
+                          + args.artifactnet_weight * music_fake_artifact)
         voice_present, music_present = presence[path.stem]
 
         row["FILE_FAKE_PROB"] = round(
@@ -290,6 +300,12 @@ def parse_args(argv=None):
                         help="How per-window scores become a file score.")
     parser.add_argument("--temperature", type=float, default=5.0,
                         help="logmeanexp sharpness; higher approaches max.")
+    parser.add_argument("--music-source", choices=["stem", "original"],
+                        default="stem",
+                        help="What the XLS-R music score is computed on.")
+    parser.add_argument("--artifactnet-weight", type=float,
+                        default=ARTIFACTNET_WEIGHT,
+                        help="Blend weight for ArtifactNet; 0 disables it.")
     parser.add_argument("--limit", type=int, default=0,
                         help="Score only the first N files (smoke tests).")
     parser.add_argument("--num-shards", type=int, default=1,
