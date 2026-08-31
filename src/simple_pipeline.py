@@ -20,6 +20,7 @@ from tqdm import tqdm
 
 from fourier_detector import FourierMusicDetector
 from presence import PannsPresence, extract_segment, segment_starts
+from telephone_router import TelephoneRouter
 from xlsr_antideepfake import XlsrAntiDeepfake
 
 AUDIO_EXTENSIONS = {".aac", ".flac", ".m4a", ".mp3", ".ogg", ".opus", ".wav", ".wma"}
@@ -98,6 +99,9 @@ def run(args):
         args.xlsr_dir, device=args.device, dtype=torch.float32
     )
     music_model = FourierMusicDetector(args.fourier_music_head)
+    telephone_router = (
+        TelephoneRouter(args.telephone_router) if args.telephone_router else None
+    )
     voice_head = np.load(args.xlsr_mixed_voice_head) if args.xlsr_mixed_voice_head else None
     router = None
     if args.spear_dir and args.spear_mixture_head:
@@ -113,7 +117,14 @@ def run(args):
         sample_id = str(sample["ID"])
         audio = load_audio(audio_by_id[sample_id])
         band_ratio = high_band_energy_ratio(audio)
-        is_phone = band_ratio < args.phone_band_threshold
+        phone_probability = (
+            telephone_router.probability(audio) if telephone_router is not None
+            else float(band_ratio < args.phone_band_threshold)
+        )
+        phone_threshold = (
+            telephone_router.threshold if telephone_router is not None else 0.5
+        )
+        is_phone = phone_probability >= phone_threshold
         voice_present, music_present = presence.predict(audio)
         mixture_present = router.fake_probability(audio) if router is not None else 1.0
         released_voice, voice_embedding = voice_fake_probability(
@@ -181,6 +192,7 @@ def run(args):
             "regular_music": regular_music, "eat_music": eat_music,
             "sonics_music": sonics_music, "music_fake": music_fake,
             "mixture_present": mixture_present, "is_phone": int(is_phone),
+            "phone_probability": phone_probability,
             "route": route,
             "high_band_ratio": band_ratio,
         })
@@ -229,6 +241,7 @@ def parse_args(argv=None):
     parser.add_argument("--single-voice-min", type=float, default=0.4)
     parser.add_argument("--single-music-max", type=float, default=0.075)
     parser.add_argument("--phone-band-threshold", type=float, default=3e-6)
+    parser.add_argument("--telephone-router", type=Path, default=None)
     parser.add_argument("--phone-adapted-voice-weight", type=float, default=0.7)
     parser.add_argument("--phone-sonics-weight", type=float, default=0.8)
     parser.add_argument("--phone-music-bias", type=float, default=1.5)

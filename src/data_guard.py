@@ -63,7 +63,11 @@ def main():
         config = yaml.safe_load(args.config.read_text("utf-8"))
         config_dir = args.config.resolve().parent
         root = config_dir.parent if config_dir.name == "configs" else config_dir
-        paths = [root / path for path in config.get("train", [])]
+        paths = [
+            root / path
+            for role in ("train", "router_train")
+            for path in config.get(role, [])
+        ]
     if not paths:
         raise ValueError("No training truth files were declared")
     for path in paths:

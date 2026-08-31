@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCES = [
     "simple_pipeline.py", "presence.py", "fourier_detector.py",
     "xlsr_antideepfake.py", "spear_detector.py", "eat_detector.py",
-    "eat_timm_compat.py", "sonics_detector.py",
+    "eat_timm_compat.py", "sonics_detector.py", "telephone_router.py",
 ]
 
 SCRIPT = '''#!/usr/bin/env python3
@@ -43,6 +43,7 @@ def main():
     args.eat_dir = base / "model" / "eat"
     args.eat_phone_head = base / "model" / "eat-phone-head.npz"
     args.sonics_dir = base / "model" / "sonics"
+    args.telephone_router = base / "model" / "telephone-router.npz"
     run(args)
 if __name__ == "__main__": main()
 '''
@@ -59,6 +60,7 @@ def main():
     parser.add_argument("--eat-dir", type=Path)
     parser.add_argument("--eat-phone-head", type=Path)
     parser.add_argument("--sonics-dir", type=Path)
+    parser.add_argument("--telephone-router", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--zip", action="store_true")
     args = parser.parse_args()
@@ -83,6 +85,7 @@ def main():
     if args.sonics_dir:
         shutil.copytree(args.sonics_dir, out / "model" / "sonics",
                         ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"))
+    shutil.copy2(args.telephone_router, out / "model" / "telephone-router.npz")
     (out / "script.py").write_text(SCRIPT, encoding="utf-8")
     (out / "requirements.txt").write_text("", encoding="utf-8")
     total = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())

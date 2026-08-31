@@ -7,6 +7,13 @@ train:
   - data/eval/mixed_devvoice_train_v1/truth.csv
   - data/eval/mixed_fmc_music_train_v1/truth.csv
 
+# Source components used only for the telephone/narrowband router.  They are
+# already represented in the authorized training mixtures or are independent
+# music training sources; data_guard.py was run before feature extraction.
+router_train:
+  - data/eval/phone_router_voice_train_v1/truth.csv
+  - data/eval/multigen_music_v2/truth.csv
+
 development:
   - data/eval/factorial_eval_1200_v2/truth_dev.csv
   - data/eval/external_mixed_v1/truth.csv
@@ -34,3 +41,4 @@ locked_eval:
   - data/eval/factorial_eval_1200_v2/truth.csv
   - data/eval/factorial_eval_1200_v2/truth_locked.csv
   - data/eval/yue_cross_component_audit_v1/truth.csv
+  - data/eval/phone_router_librispeech_final_v1/truth.csv
