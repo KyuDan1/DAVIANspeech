@@ -248,6 +248,7 @@ locked에 통과시킨다. 실제 제출은 anchor에 한 변화만 더하는 �
 
 - SPEAR layer/joint probe: `scripts/probe_spear_latents.py`
 - SPEAR window 보존 추출: `scripts/extract_spear_embeddings.py --preserve-windows`
+- anchor 배포 fusion: `src/anchor_spear_fusion.py --weight 0.10`
 - layer 결과: `reports/factorial_v2_probes/component_layers_dev.csv`
 - joint 결과: `reports/factorial_v2_probes/four_class_layers_dev.csv`
 - exact anchor: `reports/factorial_v2_anchor/diagnostic.csv`
