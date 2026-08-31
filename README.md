@@ -182,6 +182,12 @@ Voice 0.2156** — see [docs/probe-decomposition.md](docs/probe-decomposition.md
 for the submissions, the derivation, and why the anchor has to be the same
 package.
 
+**The local eval set does not predict the leaderboard.** Scored on the same two
+configurations it ranks them in the opposite order, on both Music and File —
+see [docs/local-eval-validity.md](docs/local-eval-validity.md). Treat local
+numbers as non-evidence until a candidate set has reproduced a known
+leaderboard ordering.
+
 ## Layout
 
 ```
