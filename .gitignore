@@ -17,3 +17,4 @@ reports/telephone_router_v2/**/*.joblib
 reports/telephone_router_v2/**/telephone-router.npz
 reports/telephone_router_v2/model_v[1-4]*/
 reports/telephone_router_v2/locked_metrics.csv
+reports/lme_spear_v1_smoke/
