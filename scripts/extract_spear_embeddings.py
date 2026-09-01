@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from pipeline import find_audio_files, load_audio  # noqa: E402
 from presence import extract_segment, segment_starts  # noqa: E402
+from telephone_channel import apply_channel  # noqa: E402
 
 
 def load_spear(model_dir: Path, device: torch.device):
@@ -47,6 +48,11 @@ def main() -> None:
     parser.add_argument("--model-dir", type=Path,
                         default=ROOT / "models/spear-xlarge-speech-audio-v2")
     parser.add_argument("--device", default="cuda")
+    parser.add_argument(
+        "--channel-variant", default="clean",
+        help="Optional deterministic telephone-channel canonicalization.",
+    )
+    parser.add_argument("--ffmpeg", type=Path, default=Path("ffmpeg"))
     parser.add_argument("--window", type=int, default=160_000)
     parser.add_argument("--max-windows", type=int, default=3)
     parser.add_argument(
@@ -68,6 +74,11 @@ def main() -> None:
     ids, vectors, window_vectors, window_masks = [], [], [], []
     for path in tqdm(files, desc="SPEAR embeddings"):
         audio = load_audio(path)
+        if args.channel_variant != "clean":
+            audio = apply_channel(
+                audio, args.channel_variant, ffmpeg=args.ffmpeg,
+                key=sum(path.stem.encode("utf-8")),
+            )
         starts = segment_starts(len(audio), args.window)
         if args.max_windows and len(starts) > args.max_windows:
             indices = np.linspace(0, len(starts) - 1, args.max_windows, dtype=int)
