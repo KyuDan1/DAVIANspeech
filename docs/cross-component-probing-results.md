@@ -255,3 +255,19 @@ locked에 통과시킨다. 실제 제출은 anchor에 한 변화만 더하는 �
 - exact v10: `reports/factorial_v2_v10_exact/diagnostic.csv`
 - YuE audit: `reports/yue_audit_anchor/factorial_contrasts.csv`
 - fusion grid: `reports/cross_component_fusion/fusion_grid.csv`
+
+## v15 배포 의존성 수정
+
+`submit_anchor_spear_v15.zip`은 anchor 내부의 ArtifactNet ONNX 그래프를 그대로
+사용하지만 `requirements.txt`가 비어 있어 평가 서버에서
+`ModuleNotFoundError: onnxruntime`가 발생했다. 점수 계산 코드와 모든 모델 파일은
+그대로 유지하고, 과거 실행 성공 패키지와 동일한
+`onnxruntime-gpu==1.23.2` 한 줄만 복구한 파일은
+`submit_anchor_spear_v15_ort_fixed.zip`이다.
+
+- 압축 크기: 6.1538 GiB
+- 압축 해제 크기: 6.6529 GiB
+- SHA-256: `08a064c9176c4da7e435632b7ce9a0d92e48b99801bfc231a2e731efb14fc4fa`
+- 원본 대비 변경: `requirements.txt`만 변경; 나머지 38개 member의 크기와 CRC 동일
+- 검증: Python 3.11, NumPy 1.26.4에서 ONNX Runtime 1.23.2 설치, 그래프 로드 및
+  추론, ZIP 전체 CRC 검사 통과
