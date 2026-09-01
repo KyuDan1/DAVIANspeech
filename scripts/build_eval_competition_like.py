@@ -76,16 +76,13 @@ def load_mono(path, seconds=None, rng=None):
     return audio[:want]
 
 
-def normalise(audio, destination: Path):
-    """One 64 kbps MP3 generation, identical for every clip in the set."""
-    audio = audio / max(np.abs(audio).max(), 1e-9) * 0.9
-    with tempfile.TemporaryDirectory() as work:
-        raw, encoded = Path(work) / "raw.wav", Path(work) / "enc.mp3"
-        sf.write(raw, audio.astype(np.float32), SR)
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(raw),
-                        "-ar", str(SR), "-ac", "1", "-b:a", "64k", str(encoded)], check=True)
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(encoded),
-                        "-ar", str(SR), "-ac", "1", str(destination)], check=True)
+def write_normalised(audio, seconds, rng, destination: Path):
+    """Peak-normalising is not enough -- see src/eval_normalise for what leaked."""
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+    from eval_normalise import normalise as full_normalise
+
+    sf.write(destination, full_normalise(audio, seconds, rng), SR)
 
 
 def mix(speech, music, snr_db):
@@ -146,22 +143,24 @@ def main():
     for name, count, vp, mp, vf, mf in CATEGORIES:
         for index in range(count):
             clip_id = f"{name}_{index:04d}"
+            # One duration draw shared by every category: if real and fake clips
+            # come from different length distributions, length becomes the label.
             seconds = duration()
             if name.startswith("speech"):
-                audio = load_mono(pick(reals if vf == 0 else fakes), seconds, rng)
+                audio = load_mono(pick(reals if vf == 0 else fakes), None, rng)
             elif name.startswith("mix"):
                 speech = load_mono(pick(reals if vf == 0 else fakes), seconds, rng)
                 bed_pool = instrumental if mf == 0 else fake_beds
                 bed = load_mono(pick(bed_pool), seconds, rng)
                 audio = mix(speech, bed, float(rng.choice(args.snr)))
             elif name == "music_real":
-                audio = load_mono(pick(instrumental), seconds, rng)
+                audio = load_mono(pick(instrumental), None, rng)
             elif name == "music_fake":
-                audio = load_mono(pick(fake_beds), seconds, rng)
+                audio = load_mono(pick(fake_beds), None, rng)
             else:
-                audio = load_mono(pick(songs), seconds, rng)
+                audio = load_mono(pick(songs), None, rng)
 
-            normalise(audio, audio_dir / f"{clip_id}.wav")
+            write_normalised(audio, seconds, rng, audio_dir / f"{clip_id}.wav")
             rows.append({
                 "ID": clip_id, "source_path": str((audio_dir / f"{clip_id}.wav").resolve()),
                 "FILE_FAKE": int(bool(vf) or bool(mf)),
