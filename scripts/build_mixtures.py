@@ -37,8 +37,15 @@ def main():
                         help="JSON list of readable music wav paths")
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--generator", default="audio8")
+    parser.add_argument("--fake-music-dir", type=Path, default=None,
+                        help="Instrumental generated beds; enables the two cells "
+                             "where the music itself is fake.")
     parser.add_argument("--count", type=int, default=40)
-    parser.add_argument("--snr", type=float, nargs="+", default=[5.0, 0.0, -5.0])
+    # The old {+5,0,-5} only probes where the VOICE branch breaks, which is when
+    # music is loud. The music branch breaks at the other end, when the bed is
+    # quiet, so the grid has to reach up.
+    parser.add_argument("--snr", type=float, nargs="+",
+                        default=[20.0, 15.0, 10.0, 5.0, 0.0, -5.0])
     parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()
 
@@ -51,29 +58,48 @@ def main():
     if len(usable) < args.count:
         print(f"warning: only {len(usable)} of {args.count} ids have a {args.generator} fake")
 
+    fake_music_paths = []
+    if args.fake_music_dir:
+        fake_music_paths = sorted(str(p) for p in args.fake_music_dir.glob("*.wav"))
+        print(f"instrumental fake beds: {len(fake_music_paths)}")
+
     args.out_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     for item in usable:
-        for label, source in (("real", args.pool / "real" / f"{item['id']}.wav"),
-                              ("fake", fake_dir / f"{item['id']}.wav")):
+        for voice_label, source in (("real", args.pool / "real" / f"{item['id']}.wav"),
+                                    ("fake", fake_dir / f"{item['id']}.wav")):
             speech = load(source)
-            # One music bed per (utterance, label) so the pair differs only in
-            # which speech went in, not in which song was laid under it.
-            music = load(music_paths[rng.integers(len(music_paths))], speech.size)
-            for snr in args.snr:
-                power_ratio = (speech ** 2).mean() / max((music ** 2).mean(), 1e-12)
-                scale = np.sqrt(power_ratio / 10 ** (snr / 10))
-                mix = speech + scale * music
-                mix = mix / max(np.abs(mix).max(), 1e-9) * 0.9
-                name = f"{item['id']}_{label}_snr{int(snr):+d}"
-                sf.write(args.out_dir / f"{name}.wav", mix.astype(np.float32), SR)
-                rows.append({"ID": name, "SOURCE_ID": item["id"], "VOICE_FAKE": int(label == "fake"),
-                             "SNR": snr, "GENERATOR": args.generator if label == "fake" else "bonafide",
-                             "DURATION": round(mix.size / SR, 2)})
+            beds = [("real", music_paths)]
+            if fake_music_paths:
+                beds.append(("fake", fake_music_paths))
+            for music_label, pool_paths in beds:
+                # One bed per (utterance, voice label, music label) so a pair
+                # differs only in the axis under test, never in which track
+                # happened to be drawn.
+                music = load(pool_paths[rng.integers(len(pool_paths))], speech.size)
+                for snr in args.snr:
+                    power_ratio = (speech ** 2).mean() / max((music ** 2).mean(), 1e-12)
+                    scale = np.sqrt(power_ratio / 10 ** (snr / 10))
+                    mix = speech + scale * music
+                    mix = mix / max(np.abs(mix).max(), 1e-9) * 0.9
+                    name = (f"{item['id']}_v{voice_label}_m{music_label}"
+                            f"_snr{int(snr):+d}")
+                    sf.write(args.out_dir / f"{name}.wav", mix.astype(np.float32), SR)
+                    rows.append({
+                        "ID": name, "SOURCE_ID": item["id"],
+                        "VOICE_FAKE": int(voice_label == "fake"),
+                        "MUSIC_FAKE": int(music_label == "fake"),
+                        "SNR": snr,
+                        "GENERATOR": args.generator if voice_label == "fake" else "bonafide",
+                        "MUSIC_GENERATOR": "musicgen" if music_label == "fake" else "gtzan",
+                        "DURATION": round(mix.size / SR, 2)})
 
     (args.out_dir / "index.json").write_text(json.dumps(rows, indent=1), encoding="utf-8")
     print(f"wrote {len(rows)} mixtures to {args.out_dir}")
-    print(f"  {len(usable)} utterances x 2 labels x {len(args.snr)} SNR levels")
+    import collections
+    cells = collections.Counter((r["VOICE_FAKE"], r["MUSIC_FAKE"]) for r in rows)
+    for (vf, mf), n in sorted(cells.items()):
+        print(f"  voice={'fake' if vf else 'real'} music={'fake' if mf else 'real'}: {n}")
 
 
 if __name__ == "__main__":

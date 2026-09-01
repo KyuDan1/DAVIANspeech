@@ -38,16 +38,28 @@ PREDICTION_COLUMNS = [
 ]
 
 # (name, count, VOICE_PRESENT, MUSIC_PRESENT, VOICE_FAKE, MUSIC_FAKE)
+#
 # None means "component absent" and must reach truth.csv as NA, never 0: the
 # metric subsets on PRESENT, and a 0 would inject a negative that the pipeline
 # happily scores above real positives.
+#
+# The organisers define the categories as: 음성 = speech or vocals only,
+# 음악 = accompaniment/instruments with no vocals, 혼합 = both, and explicitly
+# "보컬은 음성 성분으로 분류합니다. 따라서 보컬과 반주가 함께 포함된 노래는 혼합
+# 오디오에 해당합니다." A sung track is therefore VOICE_PRESENT=1 AND
+# MUSIC_PRESENT=1, and an AI song has both components fake. Labelling songs as
+# music-only drops them out of the voice subset entirely, which is what an
+# earlier version of this file did.
 CATEGORIES = [
     ("speech_real",       150, 1, 0, 0,    None),
     ("speech_fake",       150, 1, 0, 1,    None),
     ("mix_real_real",      80, 1, 1, 0,    0),
     ("mix_fake_real",      80, 1, 1, 1,    0),
+    ("mix_real_fake",      80, 1, 1, 0,    1),
+    ("mix_fake_fake",      80, 1, 1, 1,    1),
     ("music_real",        120, 0, 1, None, 0),
-    ("song_ai",           200, 0, 1, None, 1),
+    ("music_fake",        120, 0, 1, None, 1),
+    ("song_ai",           200, 1, 1, 1,    1),
 ]
 
 
@@ -89,6 +101,8 @@ def main():
     parser.add_argument("--music-panns", type=Path, required=True,
                         help="korean_eval/music/panns.json, used to keep sung tracks out of music_real")
     parser.add_argument("--songs-dir", type=Path, required=True, help="SONICS mp3 directory")
+    parser.add_argument("--fake-music-dir", type=Path, required=True,
+                        help="Instrumental generated beds (scripts/gen_fake_music.py)")
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=17)
     parser.add_argument("--snr", type=float, nargs="+", default=[10.0, 5.0, 0.0, -5.0])
@@ -108,6 +122,9 @@ def main():
     # PANNs voice score keeps sung tracks out of the "music, no voice" cell.
     instrumental = [r["path"] for r in panns if r["voice"] < 0.2]
     songs = sorted(args.songs_dir.glob("*.mp3"))
+    fake_beds = sorted(str(p) for p in args.fake_music_dir.glob("*.wav"))
+    if not fake_beds:
+        raise SystemExit(f"no instrumental fakes under {args.fake_music_dir}")
     print(f"pool: {len(reals)} real speech, {len(fakes)} fake speech, "
           f"{len(instrumental)} instrumental music, {len(songs)} AI songs")
 
@@ -134,10 +151,13 @@ def main():
                 audio = load_mono(pick(reals if vf == 0 else fakes), seconds, rng)
             elif name.startswith("mix"):
                 speech = load_mono(pick(reals if vf == 0 else fakes), seconds, rng)
-                bed = load_mono(pick(instrumental), seconds, rng)
+                bed_pool = instrumental if mf == 0 else fake_beds
+                bed = load_mono(pick(bed_pool), seconds, rng)
                 audio = mix(speech, bed, float(rng.choice(args.snr)))
             elif name == "music_real":
                 audio = load_mono(pick(instrumental), seconds, rng)
+            elif name == "music_fake":
+                audio = load_mono(pick(fake_beds), seconds, rng)
             else:
                 audio = load_mono(pick(songs), seconds, rng)
 
