@@ -92,6 +92,9 @@ def main():
     # A trivial feature within this of the detector means the set is not
     # measuring what it claims to.
     parser.add_argument("--fail-margin", type=float, default=0.03)
+    parser.add_argument("--strata", type=int, default=4,
+                        help="Quantile bins used to neutralise a leaking feature.")
+    parser.add_argument("--min-stratum", type=int, default=40)
     args = parser.parse_args()
 
     truth = pd.read_csv(args.truth, dtype={"ID": str})
@@ -151,6 +154,52 @@ def main():
             verdict = "LEAKING" if best_eer < 0.40 else ("weak leak" if best_eer < 0.45 else "ok")
             print(f"   best trivial {best_eer:.4f} vs 0.5 expected   -> {verdict}")
         print()
+
+    if detector is not None:
+        print("=" * 58)
+        print("Stratified check -- is the detector reading the leaking cue?\n")
+        print("A cue that cannot be normalised away can still be neutralised by")
+        print("comparing only clips that share it. If the detector holds up when")
+        print("the cue no longer separates the classes, its signal is independent")
+        print("of the cue and the set is usable along that axis.\n")
+        for label, prediction in LABELS.items():
+            if label not in frame or prediction not in frame:
+                continue
+            subset = frame.dropna(subset=[label])
+            if subset[label].nunique() < 2 or label not in worst_overall:
+                continue
+            _, cue = worst_overall[label]
+            bins = pd.qcut(subset[cue], args.strata, labels=False, duplicates="drop")
+            print(f"{label}  (cue: {cue})")
+            print(f"   {'stratum':<12}{'n':>5}{'cue EER':>10}{'detector':>11}")
+            print(f"   {'all':<12}{len(subset):>5}"
+                  f"{min(official_eer(subset[label], subset[cue]), 1 - official_eer(subset[label], subset[cue])):>10.4f}"
+                  f"{official_eer(subset[label], subset[prediction]):>11.4f}")
+            held = []
+            for value in sorted(pd.unique(bins.dropna())):
+                part = subset[bins == value]
+                if len(part) < args.min_stratum or part[label].nunique() < 2:
+                    continue
+                cue_eer = official_eer(part[label], part[cue])
+                cue_eer = min(cue_eer, 1 - cue_eer)
+                det_eer = official_eer(part[label], part[prediction])
+                held.append((cue_eer, det_eer))
+                print(f"   {'q' + str(int(value)):<12}{len(part):>5}{cue_eer:>10.4f}{det_eer:>11.4f}")
+            if held:
+                overall = official_eer(subset[label], subset[prediction])
+                mean_cue = float(np.mean([c for c, _ in held]))
+                mean_det = float(np.mean([d for _, d in held]))
+                # The cue has to actually weaken inside strata, or the split did
+                # not neutralise anything and the comparison says nothing.
+                if mean_cue < 0.40:
+                    note = "inconclusive -- cue survives stratification"
+                elif mean_det <= overall + args.fail_margin:
+                    note = "USABLE -- detector holds with the cue neutralised"
+                else:
+                    note = "NOT USABLE -- detector was riding the cue"
+                print(f"   -> cue {mean_cue:.4f}, detector {mean_det:.4f} "
+                      f"(was {overall:.4f}): {note}")
+            print()
 
     print("=" * 58)
     for label, (value, name) in worst_overall.items():
