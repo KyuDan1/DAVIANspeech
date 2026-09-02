@@ -19,9 +19,43 @@ from tqdm import tqdm
 try:  # package import in tests; flat import in the offline submission
     from .eat_presence import EatPresence, fuse_music_probe, fuse_presence
     from .pipeline import find_audio_files, load_audio, order_by_submission
+    from .telephone_router import TelephoneRouter
 except ImportError:  # pragma: no cover - exercised by script.py
     from eat_presence import EatPresence, fuse_music_probe, fuse_presence
     from pipeline import find_audio_files, load_audio, order_by_submission
+    from telephone_router import TelephoneRouter
+
+
+def latent_linear_probability(
+    matrix: np.ndarray, mask: np.ndarray, checkpoint,
+    temperature: float = 5.0,
+) -> float:
+    """Score one frozen EAT statistics matrix without importing sklearn."""
+    values = matrix.astype(np.float32)
+    valid = mask[:, None, None]
+    count = max(int(mask.sum()), 1)
+    view_mean = (values * valid).sum(axis=0) / count
+    view_max = np.where(valid, values, -np.inf).max(axis=0)
+    features = np.concatenate((view_mean, view_max), axis=0).reshape(-1)
+    features = np.clip(
+        (features - checkpoint["mean"]) / checkpoint["std"], -8, 8
+    )
+    decision = (
+        features @ checkpoint["coefficient"].reshape(-1)
+        + checkpoint["intercept"].item()
+    ) / temperature
+    return float(1 / (1 + np.exp(-np.clip(decision, -60, 60))))
+
+
+def logit_fuse_presence(base: float, expert: float, weight: float) -> float:
+    """Interpolate odds while retaining ranking resolution near 0 and 1."""
+    base = float(np.clip(base, 1e-5, 1 - 1e-5))
+    expert = float(np.clip(expert, 1e-5, 1 - 1e-5))
+    mixed = (
+        (1 - weight) * (np.log(base) - np.log1p(-base))
+        + weight * (np.log(expert) - np.log1p(-expert))
+    )
+    return float(1 / (1 + np.exp(-mixed)))
 
 
 def combine_with_gate(voice: float, music: float, voice_present: float,
@@ -49,6 +83,9 @@ def apply_eat_presence_fusion(
     presence_head_path: Path | None = None,
     music_probe_weight: float = 0.40,
     statistics_output_path: Path | None = None,
+    phone_voice_head_path: Path | None = None,
+    telephone_router_path: Path | None = None,
+    phone_voice_weight: float = 0.50,
 ) -> None:
     """Rewrite presence ranks and optionally refresh File score.
 
@@ -66,9 +103,14 @@ def apply_eat_presence_fusion(
     }
     if not required.issubset(columns):
         raise ValueError(f"Submission is missing {sorted(required - set(columns))}")
-    for value in (voice_weight, music_weight, file_gate, music_probe_weight):
+    for value in (
+        voice_weight, music_weight, file_gate, music_probe_weight,
+        phone_voice_weight,
+    ):
         if not 0 <= value <= 1:
             raise ValueError("fusion weights and gate must lie in [0, 1]")
+    if (phone_voice_head_path is None) != (telephone_router_path is None):
+        raise ValueError("phone Voice head and telephone router must be provided together")
 
     audio_files = order_by_submission(find_audio_files(test_dir), rows)
     gc.collect()
@@ -77,14 +119,23 @@ def apply_eat_presence_fusion(
         eat_dir, labels_dir, device=device,
         presence_head_path=presence_head_path,
     )
+    phone_checkpoint = (
+        np.load(phone_voice_head_path, allow_pickle=False)
+        if phone_voice_head_path is not None else None
+    )
+    telephone_router = (
+        TelephoneRouter(telephone_router_path)
+        if telephone_router_path is not None else None
+    )
+    telephone_count = 0
     statistic_ids, statistics, statistic_masks = [], [], []
     for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
         paths = audio_files[offset:offset + 8]
         audios = [load_audio(path) for path in paths]
         audio_set = [detector.predict_audio_set(audio) for audio in audios]
         latent = detector.latent_statistics_batch(audios)
-        for row, path, (eat_voice, eat_music), (matrix, mask, probe_music) in zip(
-            rows[offset:offset + 8], paths, audio_set, latent
+        for row, path, audio, (eat_voice, eat_music), (matrix, mask, probe_music) in zip(
+            rows[offset:offset + 8], paths, audios, audio_set, latent
         ):
             voice_present, music_present = fuse_presence(
                 float(row["VOICE_PRESENT_PROB"]),
@@ -95,6 +146,14 @@ def apply_eat_presence_fusion(
                 music_present = fuse_music_probe(
                     music_present, probe_music, music_probe_weight
                 )
+            if telephone_router is not None and telephone_router.is_narrowband(audio):
+                phone_voice = latent_linear_probability(
+                    matrix, mask, phone_checkpoint
+                )
+                voice_present = logit_fuse_presence(
+                    voice_present, phone_voice, phone_voice_weight
+                )
+                telephone_count += 1
             if update_file_score:
                 row["FILE_FAKE_PROB"] = round(combine_with_gate(
                     float(row["VOICE_FAKE_PROB"]), float(row["MUSIC_FAKE_PROB"]),
@@ -125,3 +184,5 @@ def apply_eat_presence_fusion(
             view_mask=np.stack(statistic_masks),
             stream=np.asarray("eat"), channel=np.asarray("clean"),
         )
+    if telephone_router is not None:
+        print(f"telephone Voice presence routed {telephone_count}/{len(rows)} files")

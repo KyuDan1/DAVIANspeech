@@ -62,6 +62,9 @@ def main():
         presence_head_path=BASE_DIR / "model" / "eat-presence-head-v1.npz",
         music_probe_weight=0.40,
         statistics_output_path=eat_stats,
+        phone_voice_head_path=BASE_DIR / "model" / "phone-voice-presence-head.npz",
+        telephone_router_path=BASE_DIR / "model" / "telephone-router.npz",
+        phone_voice_weight=0.10,
     )
     apply_fusion_with_stats(
         args.test_dir, args.output, BASE_DIR / "model" / "spear",
@@ -104,12 +107,20 @@ def main() -> None:
         "eat_detector.py", "eat_timm_compat.py", "eat_presence.py",
         "eat_presence_fusion.py", "dual_domain_stats.py", "dual_domain_head.py",
         "dual_domain_inference.py", "spear_detector.py",
-        "anchor_spear_stats_fusion.py",
+        "anchor_spear_stats_fusion.py", "telephone_router.py",
     ):
         replace_file(ROOT / "src" / name, args.output / "model" / "src" / name)
     replace_file(
         ROOT / "reports/presence_probe_v1/presence_head.npz",
         args.output / "model/eat-presence-head-v1.npz",
+    )
+    replace_file(
+        ROOT / "reports/phone_presence_probe_v2/phone_voice_presence_head.npz",
+        args.output / "model/phone-voice-presence-head.npz",
+    )
+    replace_file(
+        ROOT / "model_heads/telephone-router-narrowband-v1.npz",
+        args.output / "model/telephone-router.npz",
     )
     dual_dir = args.output / "model" / "dual-domain"
     dual_dir.mkdir()

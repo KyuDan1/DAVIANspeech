@@ -15,6 +15,7 @@ train:
 router_train:
   - data/eval/phone_router_voice_train_v1/truth.csv
   - data/eval/multigen_music_presence_train_v1/truth.csv
+  - data/eval/phone_presence_factorial_train_v1/truth.csv
 
 development:
   - data/eval/mixfake_music_dev_v1/truth.csv
