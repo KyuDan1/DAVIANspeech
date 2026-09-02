@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build v18 by adding a low-weight channel/component-invariant head to v17."""
+"""Build v18/v19 with one or more channel/component-invariant heads."""
 
 from __future__ import annotations
 
@@ -98,9 +98,9 @@ def main():
     )
     apply_dual_domain_fusion(
         args.output, eat_stats, spear_stats,
-        [BASE_DIR / "model" / "channel-invariant" / "dual_domain_head.pt"],
-        device=args.device, file_weight=0.05,
-        voice_weight=0.05, music_weight=0.05,
+        sorted((BASE_DIR / "model" / "channel-invariant").glob("seed_*.pt")),
+        device=args.device, file_weight=__INVARIANT_WEIGHT__,
+        voice_weight=__INVARIANT_WEIGHT__, music_weight=__INVARIANT_WEIGHT__,
     )
     for path in (eat_stats, spear_stats):
         path.unlink(missing_ok=True)
@@ -116,7 +116,17 @@ def main() -> None:
     parser.add_argument("--base", type=Path,
                         default=ROOT / "temporal_mert_fakeprint_v17")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--checkpoint", type=Path, nargs="+",
+        default=[ROOT / "models" / "channel-invariant-v1" / "dual_domain_head.pt"],
+    )
+    parser.add_argument("--invariant-weight", type=float, default=0.05)
     args = parser.parse_args()
+    if not 0 <= args.invariant_weight <= 1:
+        parser.error("--invariant-weight must be in [0, 1]")
+    missing = [str(path) for path in args.checkpoint if not path.is_file()]
+    if missing:
+        parser.error(f"checkpoint not found: {', '.join(missing)}")
     if args.output.exists():
         raise FileExistsError(f"Refusing to overwrite {args.output}")
     shutil.copytree(
@@ -130,11 +140,12 @@ def main() -> None:
         shutil.copy2(ROOT / "src" / name, source / name)
     invariant = args.output / "model" / "channel-invariant"
     invariant.mkdir(parents=True)
-    shutil.copy2(
-        ROOT / "models" / "channel-invariant-v1" / "dual_domain_head.pt",
-        invariant / "dual_domain_head.pt",
+    for index, checkpoint in enumerate(args.checkpoint):
+        shutil.copy2(checkpoint, invariant / f"seed_{index:02d}.pt")
+    entrypoint = ENTRYPOINT.replace(
+        "__INVARIANT_WEIGHT__", repr(float(args.invariant_weight))
     )
-    (args.output / "script.py").write_text(ENTRYPOINT, encoding="utf-8")
+    (args.output / "script.py").write_text(entrypoint, encoding="utf-8")
     print(f"Built {args.output}")
 
 
