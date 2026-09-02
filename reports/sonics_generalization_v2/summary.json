@@ -1,0 +1,102 @@
+{
+  "stage_metrics": [
+    {
+      "DATASET": "factorial_eval_1200_v2_holdout",
+      "STAGE": "anchor",
+      "FILE_EER": 0.3276363636363636,
+      "VOICE_EER": 0.26857142857142857,
+      "MUSIC_EER": 0.34857142857142853,
+      "ADS": 0.6778961038961039
+    },
+    {
+      "DATASET": "factorial_eval_1200_v2_holdout",
+      "STAGE": "temporal",
+      "FILE_EER": 0.2781818181818182,
+      "VOICE_EER": 0.24,
+      "MUSIC_EER": 0.29714285714285715,
+      "ADS": 0.7237662337662338
+    },
+    {
+      "DATASET": "factorial_eval_1200_v2_holdout",
+      "STAGE": "v17",
+      "FILE_EER": 0.28,
+      "VOICE_EER": 0.24,
+      "MUSIC_EER": 0.2914285714285715,
+      "ADS": 0.7245714285714285
+    },
+    {
+      "DATASET": "factorial_eval_1200_v2_holdout",
+      "STAGE": "v19",
+      "FILE_EER": 0.24763636363636365,
+      "VOICE_EER": 0.23428571428571432,
+      "MUSIC_EER": 0.28,
+      "ADS": 0.7453246753246753
+    },
+    {
+      "DATASET": "phone_factorial_1200_v1",
+      "STAGE": "anchor",
+      "FILE_EER": 0.31000000000000005,
+      "VOICE_EER": 0.1825,
+      "MUSIC_EER": 0.4175,
+      "ADS": 0.6832499999999999
+    },
+    {
+      "DATASET": "phone_factorial_1200_v1",
+      "STAGE": "temporal",
+      "FILE_EER": 0.2975714285714286,
+      "VOICE_EER": 0.1725,
+      "MUSIC_EER": 0.40249999999999997,
+      "ADS": 0.6959642857142857
+    },
+    {
+      "DATASET": "phone_factorial_1200_v1",
+      "STAGE": "v17",
+      "FILE_EER": 0.2917142857142857,
+      "VOICE_EER": 0.1725,
+      "MUSIC_EER": 0.39,
+      "ADS": 0.7026428571428571
+    },
+    {
+      "DATASET": "phone_factorial_1200_v1",
+      "STAGE": "v19",
+      "FILE_EER": 0.2582857142857143,
+      "VOICE_EER": 0.15500000000000003,
+      "MUSIC_EER": 0.36,
+      "ADS": 0.731857142857143
+    },
+    {
+      "DATASET": "yue_cross_component_audit_v1",
+      "STAGE": "anchor",
+      "FILE_EER": 0.34578804347826086,
+      "VOICE_EER": 0.1479166666666667,
+      "MUSIC_EER": 0.3709677419354839,
+      "ADS": 0.686232322346891
+    },
+    {
+      "DATASET": "yue_cross_component_audit_v1",
+      "STAGE": "temporal",
+      "FILE_EER": 0.281929347826087,
+      "VOICE_EER": 0.12083333333333335,
+      "MUSIC_EER": 0.22580645161290325,
+      "ADS": 0.7671267239364188
+    },
+    {
+      "DATASET": "yue_cross_component_audit_v1",
+      "STAGE": "v17",
+      "FILE_EER": 0.281929347826087,
+      "VOICE_EER": 0.12083333333333335,
+      "MUSIC_EER": 0.19354838709677422,
+      "ADS": 0.7768041432912576
+    },
+    {
+      "DATASET": "yue_cross_component_audit_v1",
+      "STAGE": "v19",
+      "FILE_EER": 0.18070652173913043,
+      "VOICE_EER": 0.10208333333333333,
+      "MUSIC_EER": 0.17741935483870966,
+      "ADS": 0.8360042660121552
+    }
+  ],
+  "sweep_records": 66,
+  "conclusion": "rejected: no non-trivial weight improves Factorial, phone, and YuE together"
+}
