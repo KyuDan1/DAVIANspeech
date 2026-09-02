@@ -12,7 +12,10 @@ import torch
 import torch.nn.functional as F
 import torchaudio
 
-from eat_timm_compat import install_timm_compat
+try:  # package import in tests; flat import in the offline submission
+    from .eat_timm_compat import install_timm_compat
+except ImportError:  # pragma: no cover - exercised by script.py
+    from eat_timm_compat import install_timm_compat
 
 
 def _load_local_model(model_dir: Path, device: torch.device):
