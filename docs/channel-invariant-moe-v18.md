@@ -4,8 +4,12 @@
 voice↔music counterfactual consistency로 학습한 작은 EAT/SPEAR head를 logit 5%로
 결합한다. 추가 backbone 추론 없이 v17이 만든 통계를 재사용한다.
 
-`channel_invariant_moe_v18.zip`은 2026-09-02 DACON API 제출에 성공했다. 현재 실제
-채점 결과를 기다리고 있으며, 결과 확인 전에는 새 anchor로 간주하지 않는다.
+`channel_invariant_moe_v18.zip`은 2026-09-02 DACON API 제출에 성공했다. 공개
+리더보드에 표시된 결과는 Total 약 `0.76163`, ADS 약 `0.73634`, CPS 약
+`0.98930`이다. 직전 v16 공개 행 `0.75058/0.72406/0.98930` 대비 Total 약
+`+0.01105`, ADS 약 `+0.01228`이며 invariant head가 실제 평가에도 전이됐다.
+공개 행은 소수점 다섯 자리 표시값이므로 제출 목록의 전체 정밀도와 약간 다를 수
+있다.
 
 ## 1. 왜 telephone router 대신 invariance인가
 
