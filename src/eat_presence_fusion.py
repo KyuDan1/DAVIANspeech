@@ -48,6 +48,7 @@ def apply_eat_presence_fusion(
     update_file_score: bool = False,
     presence_head_path: Path | None = None,
     music_probe_weight: float = 0.40,
+    statistics_output_path: Path | None = None,
 ) -> None:
     """Rewrite presence ranks and optionally refresh File score.
 
@@ -76,24 +77,35 @@ def apply_eat_presence_fusion(
         eat_dir, labels_dir, device=device,
         presence_head_path=presence_head_path,
     )
-    for row, path in zip(rows, tqdm(audio_files, desc="EAT presence")):
-        eat_voice, eat_music, probe_music = detector.predict_with_probe(load_audio(path))
-        voice_present, music_present = fuse_presence(
-            float(row["VOICE_PRESENT_PROB"]),
-            float(row["MUSIC_PRESENT_PROB"]), eat_voice, eat_music,
-            voice_weight=voice_weight, music_weight=music_weight,
-        )
-        if probe_music is not None:
-            music_present = fuse_music_probe(
-                music_present, probe_music, music_probe_weight
+    statistic_ids, statistics, statistic_masks = [], [], []
+    for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
+        paths = audio_files[offset:offset + 8]
+        audios = [load_audio(path) for path in paths]
+        audio_set = [detector.predict_audio_set(audio) for audio in audios]
+        latent = detector.latent_statistics_batch(audios)
+        for row, path, (eat_voice, eat_music), (matrix, mask, probe_music) in zip(
+            rows[offset:offset + 8], paths, audio_set, latent
+        ):
+            voice_present, music_present = fuse_presence(
+                float(row["VOICE_PRESENT_PROB"]),
+                float(row["MUSIC_PRESENT_PROB"]), eat_voice, eat_music,
+                voice_weight=voice_weight, music_weight=music_weight,
             )
-        if update_file_score:
-            row["FILE_FAKE_PROB"] = round(combine_with_gate(
-                float(row["VOICE_FAKE_PROB"]), float(row["MUSIC_FAKE_PROB"]),
-                voice_present, music_present, gate=file_gate,
-            ), 10)
-        row["VOICE_PRESENT_PROB"] = round(voice_present, 10)
-        row["MUSIC_PRESENT_PROB"] = round(music_present, 10)
+            if probe_music is not None:
+                music_present = fuse_music_probe(
+                    music_present, probe_music, music_probe_weight
+                )
+            if update_file_score:
+                row["FILE_FAKE_PROB"] = round(combine_with_gate(
+                    float(row["VOICE_FAKE_PROB"]), float(row["MUSIC_FAKE_PROB"]),
+                    voice_present, music_present, gate=file_gate,
+                ), 10)
+            row["VOICE_PRESENT_PROB"] = round(voice_present, 10)
+            row["MUSIC_PRESENT_PROB"] = round(music_present, 10)
+            if statistics_output_path is not None:
+                statistic_ids.append(path.stem)
+                statistics.append(matrix)
+                statistic_masks.append(mask)
     del detector
     gc.collect()
     torch.cuda.empty_cache()
@@ -104,3 +116,12 @@ def apply_eat_presence_fusion(
         writer.writeheader()
         writer.writerows(rows)
     temporary.replace(submission_path)
+    if statistics_output_path is not None:
+        statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.stack(statistics),
+            view_mask=np.stack(statistic_masks),
+            stream=np.asarray("eat"), channel=np.asarray("clean"),
+        )

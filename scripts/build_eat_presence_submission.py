@@ -1,4 +1,4 @@
-"""Overlay decoupled EAT presence fusion onto the verified LME+SPEAR package."""
+"""Build the decoupled CPS and frozen dual-domain ADS ensemble package."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 
 ENTRYPOINT = '''#!/usr/bin/env python3
-"""DACON entry point: LME+SPEAR ADS with decoupled EAT presence fusion."""
+"""DACON entry point: LME+SPEAR, decoupled CPS, dual-domain ADS ensemble."""
 
 import os
 import sys
@@ -24,7 +24,8 @@ sys.dont_write_bytecode = True
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR / "model" / "src"))
 
-from anchor_spear_fusion import apply_fusion  # noqa: E402
+from anchor_spear_stats_fusion import apply_fusion_with_stats  # noqa: E402
+from dual_domain_inference import apply_dual_domain_fusion  # noqa: E402
 from eat_presence_fusion import apply_eat_presence_fusion  # noqa: E402
 from pipeline import parse_args, run  # noqa: E402
 
@@ -49,6 +50,8 @@ def main():
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
     args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
+    eat_stats = BASE_DIR / "output" / ".eat_dual_stats.npz"
+    spear_stats = BASE_DIR / "output" / ".spear_dual_stats.npz"
 
     run(args)
     apply_eat_presence_fusion(
@@ -58,13 +61,22 @@ def main():
         update_file_score=False,
         presence_head_path=BASE_DIR / "model" / "eat-presence-head-v1.npz",
         music_probe_weight=0.40,
+        statistics_output_path=eat_stats,
     )
-    apply_fusion(
+    apply_fusion_with_stats(
         args.test_dir, args.output, BASE_DIR / "model" / "spear",
         BASE_DIR / "model" / "spear-mixed-music-head.npz",
         BASE_DIR / "model" / "spear-cross-component-joint-v1.npz",
-        device=args.device, weight=0.10,
+        device=args.device, weight=0.10, statistics_output_path=spear_stats,
     )
+    apply_dual_domain_fusion(
+        args.output, eat_stats, spear_stats,
+        sorted((BASE_DIR / "model" / "dual-domain").glob("seed_*.pt")),
+        device=args.device, file_weight=0.50,
+        voice_weight=0.30, music_weight=0.50,
+    )
+    eat_stats.unlink(missing_ok=True)
+    spear_stats.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
@@ -84,14 +96,28 @@ def main() -> None:
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f"Refusing to overwrite {args.output}")
-    shutil.copytree(args.base, args.output, copy_function=os.link)
-    for name in ("eat_detector.py", "eat_timm_compat.py", "eat_presence.py",
-                 "eat_presence_fusion.py", "dual_domain_stats.py"):
+    shutil.copytree(
+        args.base, args.output, copy_function=os.link,
+        ignore=shutil.ignore_patterns("data", "open", "output", "__pycache__"),
+    )
+    for name in (
+        "eat_detector.py", "eat_timm_compat.py", "eat_presence.py",
+        "eat_presence_fusion.py", "dual_domain_stats.py", "dual_domain_head.py",
+        "dual_domain_inference.py", "spear_detector.py",
+        "anchor_spear_stats_fusion.py",
+    ):
         replace_file(ROOT / "src" / name, args.output / "model" / "src" / name)
     replace_file(
         ROOT / "reports/presence_probe_v1/presence_head.npz",
         args.output / "model/eat-presence-head-v1.npz",
     )
+    dual_dir = args.output / "model" / "dual-domain"
+    dual_dir.mkdir()
+    for seed in (20260902, 20260903, 20260904):
+        replace_file(
+            ROOT / f"reports/dual_domain_head_v2_mixfake/seed_{seed}/dual_domain_head.pt",
+            dual_dir / f"seed_{seed}.pt",
+        )
     shutil.copytree(
         ROOT / "models/eat-base-as2m", args.output / "model" / "eat",
         copy_function=os.link,

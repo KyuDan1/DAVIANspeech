@@ -9,7 +9,14 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from presence import extract_segment, segment_starts
+try:  # package import in tests; flat import in the offline submission
+    from .dual_domain_stats import (
+        crop_or_pad, pad_views, sequence_statistics, temporal_starts,
+    )
+    from .presence import extract_segment, segment_starts
+except ImportError:  # pragma: no cover - exercised by script.py
+    from dual_domain_stats import crop_or_pad, pad_views, sequence_statistics, temporal_starts
+    from presence import extract_segment, segment_starts
 
 
 def _load_local_model(model_dir: Path, device: torch.device):
@@ -115,6 +122,41 @@ class SpearCrossComponentDetector(SpearMusicDetector):
             "music": float(probabilities[1] + probabilities[3]),
             "music_expert": float(music_probability),
         }
+
+    @torch.inference_mode()
+    def dual_domain_statistics(self, audio: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        """Return training-compatible start/middle/end latent statistics."""
+        return self.dual_domain_statistics_batch([audio])[0]
+
+    @torch.inference_mode()
+    def dual_domain_statistics_batch(
+        self, audios: list[np.ndarray]
+    ) -> list[tuple[np.ndarray, np.ndarray]]:
+        """Batch views exactly as the training feature extractor does."""
+        grouped_views = []
+        for audio in audios:
+            starts = temporal_starts(len(audio), self.window, self.max_windows or 3)
+            grouped_views.append([
+                crop_or_pad(audio, start, self.window) for start in starts
+            ])
+        waveform = torch.from_numpy(np.stack([
+            view for views in grouped_views for view in views
+        ])).to(self.device)
+        lengths = torch.full(
+            (len(waveform),), self.window, dtype=torch.long, device=self.device
+        )
+        output = self.model(waveform, lengths)
+        layers = torch.stack(output["hidden_states"], dim=1)
+        stats = sequence_statistics(layers)
+        result, offset = [], 0
+        for views in grouped_views:
+            count = len(views)
+            result.append(pad_views(
+                [stats[index] for index in range(offset, offset + count)], 3,
+                (13, 4, self.dimension),
+            ))
+            offset += count
+        return result
 
 
 def fuse_cross_component_scores(
