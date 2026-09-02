@@ -115,7 +115,7 @@ class SofiaMertDetector:
         self.head.load_sofia_state(state)
 
     @torch.inference_mode()
-    def _score_24k(self, audio_24k: np.ndarray) -> float:
+    def _embed_24k(self, audio_24k: np.ndarray) -> torch.Tensor:
         audio = np.asarray(audio_24k, dtype=np.float32)
         # Match the released SOFIA loader's per-file peak normalization before
         # the MERT feature extractor applies zero-mean/unit-variance scaling.
@@ -136,10 +136,13 @@ class SofiaMertDetector:
             raise RuntimeError("MERT did not return hidden states")
         # SOFIA G1-MERT release uses layer_mean: temporal mean for every layer,
         # followed by an unweighted mean over all hidden layers.
-        embedding = torch.stack(output.hidden_states).mean(dim=2).mean(dim=0)
+        return torch.stack(output.hidden_states).mean(dim=2).mean(dim=0)
+
+    def _score_24k(self, audio_24k: np.ndarray) -> float:
+        embedding = self._embed_24k(audio_24k)
         return float(self.head(embedding).softmax(dim=-1)[0, 1].float().cpu())
 
-    def score_path(self, path: Path) -> float:
+    def _prepare_path_24k(self, path: Path) -> np.ndarray:
         # Reproduce SOFIA's released two-stage torchaudio path without importing
         # libtorchaudio.so (which has failed on the competition worker before).
         audio, source_rate = librosa.load(
@@ -152,7 +155,13 @@ class SofiaMertDetector:
         waveform = waveform / waveform.abs().max().clamp_min(1e-9)
         waveform = _sinc_resample(waveform, 44_100, self.SAMPLE_RATE)
         waveform = waveform.mean(dim=0)
-        return self._score_24k(waveform.numpy())
+        return waveform.numpy()
+
+    def embed_path(self, path: Path) -> np.ndarray:
+        return self._embed_24k(self._prepare_path_24k(path)).float().cpu().numpy()[0]
+
+    def score_path(self, path: Path) -> float:
+        return self._score_24k(self._prepare_path_24k(path))
 
     def score(self, audio_16k: np.ndarray) -> float:
         """Compatibility helper; prefer :meth:`score_path` when a file exists."""

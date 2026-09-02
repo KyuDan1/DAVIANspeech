@@ -98,6 +98,13 @@ factorial dev/holdout Music EER가 각각 0.491/0.440, phone 0.535로 일반화�
 Music EER 0.494~0.577이었다. 음악-only를 가정한 likelihood detector를 mixture에
 그대로 적용하는 방식은 채택하지 않았다.
 
+MERT의 frozen 768차원 원본-mixture embedding 17,924개로 Voice/Music/File
+linear head도 별도로 학습했다. base와 두 consistency 설정의 독립 audit ADS는
+factorial holdout `0.6259~0.6362`, phone `0.5961~0.6056`, YuE
+`0.6850~0.7309`였다. 일부 YuE 개선과 달리 factorial·phone이 기존 dual-domain
+head를 크게 밑돌아 제출에는 넣지 않았다. 공개 SOFIA head의 낮은 비중 결합만
+유지한다.
+
 ## 실행 검증
 
 13개 60초 Suno 파일로 제출 `script.py` 전체를 실행해 다음을 확인했다.
