@@ -11,8 +11,10 @@ import torch
 
 try:  # package import in tests; flat import in the offline submission
     from .dual_domain_head import DualDomainHead
+    from .invariant_dual_domain_head import InvariantDualDomainHead
 except ImportError:  # pragma: no cover - exercised by script.py
     from dual_domain_head import DualDomainHead
+    from invariant_dual_domain_head import InvariantDualDomainHead
 
 
 def _load_statistics(path: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -57,7 +59,12 @@ def apply_dual_domain_fusion(
     member_predictions = []
     for path in checkpoint_paths:
         checkpoint = torch.load(path, map_location="cpu", weights_only=False)
-        model = DualDomainHead(**checkpoint["config"]).to(target_device)
+        model_class = (
+            InvariantDualDomainHead
+            if checkpoint.get("model_type") == "invariant"
+            else DualDomainHead
+        )
+        model = model_class(**checkpoint["config"]).to(target_device)
         model.load_state_dict(checkpoint["model"])
         model.eval()
         normal = checkpoint["normalization"]

@@ -2,8 +2,10 @@
 
 2026-09-02 기준. 이 후보는 실제 최고점 `lme_spear_v1`의 구조를 유지하면서,
 서로 다른 실패 원인을 보는 세 종류의 **원본 오디오 expert**를 작은 비중으로
-결합한다. 음성·음악을 stem으로 분리하지 않으며 전화 채널도 ADS hard route로
-별도 보정하지 않는다.
+결합한다. 새 expert들은 stem을 만들지 않지만 실제 최고점의 legacy XLS-R anchor는
+HTDemucs voice stem을 계속 사용한다. 따라서 전체가 완전 무분리인 것은 아니며,
+원본 branch가 분리 과정에서 약해질 수 있는 단서를 보완한다. 전화 채널에는 ADS
+hard route를 별도 적용하지 않는다.
 
 ## 1. 현재 기준점과 이번 변경
 
@@ -127,7 +129,8 @@ ASVspoof benchmark의 고성능을 대회 일반성으로 바로 해석하면 �
 - RR/RF/FR/FF와 concurrent/partial/sequential/sparse를 각각 보고 전체 평균으로
   약점을 숨기지 않음
 - 실제 비공개 test에서는 파일별 독립 추론만 수행하며 test 통계로 학습·보정하지 않음
-- 모든 expert는 원본 오디오를 입력받고 Demucs/SAM-Audio stem을 생성하지 않음
+- 새 temporal/MERT/fakeprint expert는 원본 오디오를 입력받음
+- 실제 최고점 legacy XLS-R branch의 HTDemucs stem은 유지하되 새 separator는 추가하지 않음
 
 ## 7. 배포 검증
 
