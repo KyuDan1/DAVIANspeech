@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from dual_domain_head import DualDomainHead  # noqa: E402
+from invariant_dual_domain_head import InvariantDualDomainHead  # noqa: E402
 from train_dual_domain_head import (  # noqa: E402
     evaluate_banks,
     load_bank,
@@ -33,7 +34,11 @@ LOCKED_NAMES = {
 
 def load_model(path: Path, device: torch.device):
     checkpoint = torch.load(path, map_location="cpu", weights_only=False)
-    model = DualDomainHead(**checkpoint["config"]).to(device)
+    model_class = (
+        InvariantDualDomainHead
+        if checkpoint.get("model_type") == "invariant" else DualDomainHead
+    )
+    model = model_class(**checkpoint["config"]).to(device)
     model.load_state_dict(checkpoint["model"])
     model.eval()
     values = checkpoint["normalization"]

@@ -1,0 +1,10 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/invariant_dual_domain_v2/dec_n1/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.7016725557392196,
+  "mean_ads": 0.7199165400498676,
+  "worst_ads": 0.6834285714285715
+}
