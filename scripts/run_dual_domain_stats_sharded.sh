@@ -22,7 +22,7 @@ mkdir -p "$destination"
 
 training_args=()
 case "$dataset" in
-  external_mixed_train_v1|mixed_devvoice_train_v1|mixed_fmc_music_train_v1|\
+  temporal_mixed_train_v1|temporal_mixed_train_v2|external_mixed_train_v1|mixed_devvoice_train_v1|mixed_fmc_music_train_v1|\
   phone_router_voice_train_v1|multigen_music_presence_train_v1|\
   phone_presence_factorial_train_v1)
     training_args=(--training-truth "$truth")

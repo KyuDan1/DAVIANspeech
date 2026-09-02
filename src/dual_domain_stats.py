@@ -37,6 +37,39 @@ def temporal_starts(num_samples: int, crop_samples: int, max_views: int = 3) -> 
     return sorted({int(value) for value in candidates})
 
 
+def interval_view_targets(
+    num_samples: int,
+    crop_samples: int,
+    voice_interval: tuple[int, int],
+    music_interval: tuple[int, int],
+    voice_fake: int,
+    music_fake: int,
+    max_views: int = 3,
+    minimum_overlap_samples: int = 1_600,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Create local voice/music/file labels for deterministic crop views.
+
+    A component contributes to a view only when at least 100 ms overlaps by
+    default. This prevents a one-frame boundary touch from turning an entire
+    6--10 second crop positive.
+    """
+    starts = temporal_starts(num_samples, crop_samples, max_views)
+    targets = np.zeros((max_views, 3), dtype=np.float32)
+    mask = np.zeros(max_views, dtype=bool)
+    intervals = (voice_interval, music_interval)
+    labels = (int(voice_fake), int(music_fake))
+    for view, start in enumerate(starts):
+        end = min(start + crop_samples, num_samples)
+        mask[view] = True
+        local = []
+        for (component_start, component_end), label in zip(intervals, labels):
+            overlap = max(0, min(end, component_end) - max(start, component_start))
+            local.append(float(label and overlap >= minimum_overlap_samples))
+        targets[view, 0], targets[view, 1] = local
+        targets[view, 2] = max(local)
+    return targets, mask
+
+
 def crop_or_pad(audio: np.ndarray, start: int, samples: int) -> np.ndarray:
     """Take one crop and zero-pad short inputs without repeating artefacts."""
     audio = np.asarray(audio, dtype=np.float32)

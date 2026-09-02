@@ -3,6 +3,8 @@
 # an ensemble weight, or a router.  It may be scored once after a candidate is
 # frozen from train/development data.
 train:
+  - data/eval/temporal_mixed_train_v2/truth.csv
+  - data/eval/temporal_mixed_train_v1/truth.csv
   - data/eval/external_mixed_train_v1/truth.csv
   - data/eval/mixed_devvoice_train_v1/truth.csv
   - data/eval/mixed_fmc_music_train_v1/truth.csv
