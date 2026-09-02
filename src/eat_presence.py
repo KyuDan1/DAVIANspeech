@@ -11,8 +11,10 @@ import torch
 
 try:  # package import in tests; flat import in the offline submission
     from .eat_detector import EatMusicDetector, _load_local_model
+    from .dual_domain_stats import sequence_statistics
 except ImportError:  # pragma: no cover - exercised by script.py
     from eat_detector import EatMusicDetector, _load_local_model
+    from dual_domain_stats import sequence_statistics
 
 
 class EatPresence:
@@ -20,7 +22,10 @@ class EatPresence:
 
     SAMPLES = EatMusicDetector.SAMPLES
 
-    def __init__(self, model_dir: Path, labels_dir: Path, device: str = "cuda"):
+    def __init__(
+        self, model_dir: Path, labels_dir: Path, device: str = "cuda",
+        presence_head_path: Path | None = None,
+    ):
         self.device = torch.device(device)
         self.model = _load_local_model(Path(model_dir), self.device)
         labels_dir = Path(labels_dir)
@@ -35,6 +40,18 @@ class EatPresence:
         self.music_indices = torch.tensor(
             [index[label] for label in groups["music"]], device=self.device
         )
+        self.probe_mean = self.probe_std = None
+        self.probe_music_weight = self.probe_music_bias = None
+        if presence_head_path is not None:
+            checkpoint = np.load(presence_head_path)
+            self.probe_mean = torch.from_numpy(checkpoint["mean"]).to(self.device)
+            self.probe_std = torch.from_numpy(checkpoint["std"]).to(self.device)
+            self.probe_music_weight = torch.from_numpy(
+                checkpoint["music_coefficient"].reshape(-1)
+            ).to(self.device)
+            self.probe_music_bias = torch.as_tensor(
+                checkpoint["music_intercept"].item(), device=self.device
+            )
 
     @classmethod
     def temporal_views(cls, audio: np.ndarray) -> list[np.ndarray]:
@@ -46,13 +63,31 @@ class EatPresence:
 
     @torch.inference_mode()
     def predict(self, audio: np.ndarray) -> tuple[float, float]:
+        voice, music, _ = self.predict_with_probe(audio)
+        return voice, music
+
+    @torch.inference_mode()
+    def predict_with_probe(self, audio: np.ndarray) -> tuple[float, float, float | None]:
+        """Return AudioSet evidence and optional frozen latent music probe."""
         features = torch.stack([
             EatMusicDetector._fbank(view) for view in self.temporal_views(audio)
         ])[:, None].to(self.device)
-        probabilities = torch.sigmoid(self.model(features))
+        tokens = self.model.extract_features(features)
+        embedding = self.model.model.fc_norm(tokens[:, 0])
+        probabilities = torch.sigmoid(self.model.model.head(embedding))
         voice = probabilities.index_select(1, self.voice_indices).max()
         music = probabilities.index_select(1, self.music_indices).max()
-        return float(voice), float(music)
+        probe = None
+        if self.probe_music_weight is not None:
+            # Match the leakage-guarded training cache: per-view token
+            # statistics were stored as float16 before view aggregation.
+            stats = sequence_statistics(tokens[:, 1:]).half().float()
+            features = torch.cat((stats.mean(dim=0), stats.max(dim=0).values)).flatten()
+            features = ((features - self.probe_mean) / self.probe_std).clamp_(-8, 8)
+            logit = features @ self.probe_music_weight + self.probe_music_bias
+            # Temperature avoids float saturation/ties while preserving rank.
+            probe = float(torch.sigmoid(logit / 5.0))
+        return float(voice), float(music), probe
 
 
 def fuse_presence(
@@ -60,10 +95,17 @@ def fuse_presence(
     panns_music: float,
     eat_voice: float,
     eat_music: float,
-    voice_weight: float = 0.30,
+    voice_weight: float = 0.35,
     music_weight: float = 0.90,
 ) -> tuple[float, float]:
     """Conservative score fusion; thresholds are deliberately handled elsewhere."""
     voice = (1 - voice_weight) * panns_voice + voice_weight * eat_voice
     music = (1 - music_weight) * panns_music + music_weight * eat_music
     return float(np.clip(voice, 0, 1)), float(np.clip(music, 0, 1))
+
+
+def fuse_music_probe(base_music: float, probe_music: float,
+                     probe_weight: float = 0.40) -> float:
+    """Blend content evidence with a source-disjoint latent presence probe."""
+    result = (1 - probe_weight) * base_music + probe_weight * probe_music
+    return float(np.clip(result, 0, 1))

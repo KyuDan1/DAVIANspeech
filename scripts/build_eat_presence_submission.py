@@ -1,4 +1,4 @@
-"""Overlay train-free EAT presence fusion onto the verified LME+SPEAR package."""
+"""Overlay decoupled EAT presence fusion onto the verified LME+SPEAR package."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 
 ENTRYPOINT = '''#!/usr/bin/env python3
-"""DACON entry point: LME anchor + EAT presence + SPEAR fake fusion."""
+"""DACON entry point: LME+SPEAR ADS with decoupled EAT presence fusion."""
 
 import os
 import sys
@@ -54,7 +54,10 @@ def main():
     apply_eat_presence_fusion(
         args.test_dir, args.output, BASE_DIR / "model" / "eat",
         BASE_DIR / "model" / "panns", device=args.device,
-        voice_weight=0.30, music_weight=0.90, file_gate=0.60,
+        voice_weight=0.35, music_weight=0.90, file_gate=0.60,
+        update_file_score=False,
+        presence_head_path=BASE_DIR / "model" / "eat-presence-head-v1.npz",
+        music_probe_weight=0.40,
     )
     apply_fusion(
         args.test_dir, args.output, BASE_DIR / "model" / "spear",
@@ -83,8 +86,12 @@ def main() -> None:
         raise FileExistsError(f"Refusing to overwrite {args.output}")
     shutil.copytree(args.base, args.output, copy_function=os.link)
     for name in ("eat_detector.py", "eat_timm_compat.py", "eat_presence.py",
-                 "eat_presence_fusion.py"):
+                 "eat_presence_fusion.py", "dual_domain_stats.py"):
         replace_file(ROOT / "src" / name, args.output / "model" / "src" / name)
+    replace_file(
+        ROOT / "reports/presence_probe_v1/presence_head.npz",
+        args.output / "model/eat-presence-head-v1.npz",
+    )
     shutil.copytree(
         ROOT / "models/eat-base-as2m", args.output / "model" / "eat",
         copy_function=os.link,

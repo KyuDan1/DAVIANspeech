@@ -6,15 +6,18 @@ train:
   - data/eval/external_mixed_train_v1/truth.csv
   - data/eval/mixed_devvoice_train_v1/truth.csv
   - data/eval/mixed_fmc_music_train_v1/truth.csv
+  - data/eval/mixfake_music_train_v1/truth.csv
+  - data/eval/telephone_mixed_train_v1/truth.csv
 
 # Source components used only for the telephone/narrowband router.  They are
 # already represented in the authorized training mixtures or are independent
 # music training sources; data_guard.py was run before feature extraction.
 router_train:
   - data/eval/phone_router_voice_train_v1/truth.csv
-  - data/eval/multigen_music_v2/truth.csv
+  - data/eval/multigen_music_presence_train_v1/truth.csv
 
 development:
+  - data/eval/mixfake_music_dev_v1/truth.csv
   - data/eval/factorial_eval_1200_v2/truth_dev.csv
   - data/eval/external_mixed_v1/truth.csv
   - data/eval/source_disjoint_mixed_v1/truth.csv
@@ -23,6 +26,7 @@ development:
   - data/eval/asvspoof_voice_wav_dev_v1/truth.csv
   - data/eval/external_mixed_v1_telephone_v1/truth.csv
   - data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv
+  - data/eval/telephone_mixed_dev_v1/truth.csv
 
 ood_holdout:
   - data/eval/factorial_eval_1200_v2/truth_holdout.csv

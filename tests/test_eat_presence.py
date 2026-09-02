@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.eat_presence import EatPresence, fuse_presence
+from src.eat_presence import EatPresence, fuse_music_probe, fuse_presence
 from src.eat_presence_fusion import combine_with_gate
 
 
@@ -19,6 +19,11 @@ def test_temporal_views_cover_start_middle_and_end():
 
 def test_presence_fusion_and_file_gate_are_independent():
     voice, music = fuse_presence(0.8, 0.2, 0.4, 1.0)
-    assert np.isclose(voice, 0.68)
+    assert np.isclose(voice, 0.66)
     assert np.isclose(music, 0.92)
     assert combine_with_gate(0.1, 0.9, voice, music, gate=0.6) == 0.9
+
+
+def test_music_probe_fusion_is_bounded_and_weighted():
+    assert np.isclose(fuse_music_probe(0.2, 0.7), 0.4)
+    assert fuse_music_probe(2.0, 2.0) == 1.0

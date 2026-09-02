@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from evaluate_diagnostic import score_frame  # noqa: E402
 
-VOICE_WEIGHT = 0.30
+VOICE_WEIGHT = 0.35
 MUSIC_WEIGHT = 0.90
 
 

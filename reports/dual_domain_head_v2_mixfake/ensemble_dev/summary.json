@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/dual_domain_head_v2_mixfake/seed_20260902/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/dual_domain_head_v2_mixfake/seed_20260903/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/dual_domain_head_v2_mixfake/seed_20260904/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.8082730519480519,
+  "mean_ads": 0.8412993506493507,
+  "worst_ads": 0.7752467532467532
+}
