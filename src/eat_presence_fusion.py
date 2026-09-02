@@ -86,6 +86,7 @@ def apply_eat_presence_fusion(
     phone_voice_head_path: Path | None = None,
     telephone_router_path: Path | None = None,
     phone_voice_weight: float = 0.50,
+    telephone_ids_output_path: Path | None = None,
 ) -> None:
     """Rewrite presence ranks and optionally refresh File score.
 
@@ -128,6 +129,7 @@ def apply_eat_presence_fusion(
         if telephone_router_path is not None else None
     )
     telephone_count = 0
+    telephone_ids = []
     statistic_ids, statistics, statistic_masks = [], [], []
     for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
         paths = audio_files[offset:offset + 8]
@@ -154,6 +156,7 @@ def apply_eat_presence_fusion(
                     voice_present, phone_voice, phone_voice_weight
                 )
                 telephone_count += 1
+                telephone_ids.append(path.stem)
             if update_file_score:
                 row["FILE_FAKE_PROB"] = round(combine_with_gate(
                     float(row["VOICE_FAKE_PROB"]), float(row["MUSIC_FAKE_PROB"]),
@@ -186,3 +189,9 @@ def apply_eat_presence_fusion(
         )
     if telephone_router is not None:
         print(f"telephone Voice presence routed {telephone_count}/{len(rows)} files")
+        if telephone_ids_output_path is not None:
+            telephone_ids_output_path.parent.mkdir(parents=True, exist_ok=True)
+            np.savez(
+                telephone_ids_output_path,
+                ids=np.asarray(telephone_ids),
+            )

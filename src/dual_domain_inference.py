@@ -43,8 +43,9 @@ def apply_dual_domain_fusion(
     file_weight: float = 0.50,
     voice_weight: float = 0.30,
     music_weight: float = 0.50,
+    routed_ids_path: Path | None = None,
 ) -> None:
-    """Apply the development-frozen logit ensemble without hard routing."""
+    """Apply the frozen ensemble, optionally only to pre-routed file IDs."""
     eat_ids, eat, eat_mask = _load_statistics(eat_statistics_path)
     spear_ids, spear, spear_mask = _load_statistics(spear_statistics_path)
     if set(eat_ids) != set(spear_ids):
@@ -103,14 +104,24 @@ def apply_dual_domain_fusion(
         rows = list(reader)
     if {row["ID"] for row in rows} != set(expert_by_id):
         raise ValueError("Submission/statistic IDs differ")
+    routed_ids = None
+    if routed_ids_path is not None:
+        routed_ids = set(np.load(routed_ids_path, allow_pickle=False)["ids"].astype(str))
+        unknown = routed_ids - set(expert_by_id)
+        if unknown:
+            raise ValueError(f"Unknown routed statistic IDs: {sorted(unknown)[:5]}")
     weights = {
         "VOICE_FAKE_PROB": (0, voice_weight),
         "MUSIC_FAKE_PROB": (1, music_weight),
         "FILE_FAKE_PROB": (2, file_weight),
     }
     for row in rows:
+        if routed_ids is not None and row["ID"] not in routed_ids:
+            continue
         score = expert_by_id[row["ID"]]
         for column, (index, weight) in weights.items():
+            if weight <= 0:
+                continue
             row[column] = round(float(_fuse(
                 np.asarray([float(row[column])]),
                 np.asarray([score[index]]), weight,
