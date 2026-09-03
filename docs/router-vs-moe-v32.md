@@ -265,7 +265,12 @@ exact v18 대비 ADS 변화는 dev `+0.0474`, factorial `+0.0336`, phone
 해제 7,920,458,124 bytes, 112개 엔트리이며 최상위 구조·중복·전체 CRC와
 clean/Opus narrow-band/mixed CUDA smoke를 통과했다. SHA-256은
 `573eaedd503d5f300b88a8ee77c2bba672689a22bd201205b11f1732a711df61`이다.
-2026-09-04 KST에 DACON API 성공 응답을 확인했으며 실제 점수는 채점 중이다.
+2026-09-04 KST에 DACON API 성공 응답을 확인했다. 실제 채점도 총점
+`0.7616379312`, ADS `0.7363412698`, CPS `0.9893078836`으로 v18/v32/v33과
+정확히 같았고 공개 행 시간은 `2026-09-04 01:30:48 KST`로 갱신됐다. 로컬에서
+네 audit 축이 모두 크게 좋아졌어도 hidden EER 순위는 하나도 바뀌지 않았다.
+따라서 후속 후보는 이 EAT/SPEAR residual의 가중치를 더 조절하지 않고, 다른
+representation과 학습 원천을 가진 새 전문가에서 시작해야 한다.
 
 ## 10. 중간 표현 attention router 직접 비교
 
