@@ -8,15 +8,18 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
+from torch.nn import functional as F
 
 try:  # package import in tests; flat import in the offline submission
     from .eat_detector import EatMusicDetector, _load_local_model
     from .dual_domain_stats import (
         crop_or_pad, pad_views, sequence_statistics, temporal_starts,
     )
+    from .eat_hierarchical import hierarchical_statistics
 except ImportError:  # pragma: no cover - exercised by script.py
     from eat_detector import EatMusicDetector, _load_local_model
     from dual_domain_stats import crop_or_pad, pad_views, sequence_statistics, temporal_starts
+    from eat_hierarchical import hierarchical_statistics
 
 
 class EatPresence:
@@ -91,8 +94,10 @@ class EatPresence:
 
     @torch.inference_mode()
     def latent_statistics_batch(
-        self, audios: list[np.ndarray]
-    ) -> list[tuple[np.ndarray, np.ndarray, float | None]]:
+        self,
+        audios: list[np.ndarray],
+        hierarchical_projection: torch.Tensor | None = None,
+    ) -> list[tuple]:
         """Batch latent views exactly as the training feature extractor does."""
         grouped_views = []
         for audio in audios:
@@ -104,8 +109,21 @@ class EatPresence:
             EatMusicDetector._fbank(view)
             for views in grouped_views for view in views
         ])[:, None].to(self.device)
-        tokens = self.model.extract_features(features)[:, 1:]
-        statistics = sequence_statistics(tokens)
+        hierarchical = None
+        if hierarchical_projection is None:
+            tokens = self.model.extract_features(features)[:, 1:]
+            statistics = sequence_statistics(tokens)
+        else:
+            all_statistics = hierarchical_statistics(self.model, features)
+            statistics = all_statistics[:, -1, :4]
+            projection = hierarchical_projection.to(
+                device=features.device, dtype=torch.float32
+            )
+            if projection.ndim != 2 or projection.shape[0] != all_statistics.shape[-1]:
+                raise ValueError("hierarchical EAT projection has incompatible shape")
+            hierarchical = F.layer_norm(
+                all_statistics, (all_statistics.shape[-1],)
+            ) @ projection
         result, offset = [], 0
         for views in grouped_views:
             count = len(views)
@@ -113,7 +131,16 @@ class EatPresence:
                 [statistics[index] for index in range(offset, offset + count)],
                 3, (4, 768),
             )
-            result.append((matrix, mask, self.probe_from_statistics(matrix, mask)))
+            item = (matrix, mask, self.probe_from_statistics(matrix, mask))
+            if hierarchical is not None:
+                hierarchical_matrix, hierarchical_mask = pad_views(
+                    [hierarchical[index] for index in range(offset, offset + count)],
+                    3, tuple(hierarchical.shape[1:]),
+                )
+                if not np.array_equal(mask, hierarchical_mask):
+                    raise RuntimeError("EAT hierarchical view mask mismatch")
+                item = (*item, hierarchical_matrix)
+            result.append(item)
             offset += count
         return result
 

@@ -83,6 +83,8 @@ def apply_eat_presence_fusion(
     presence_head_path: Path | None = None,
     music_probe_weight: float = 0.40,
     statistics_output_path: Path | None = None,
+    hierarchical_statistics_output_path: Path | None = None,
+    hierarchical_checkpoint_path: Path | None = None,
     phone_voice_head_path: Path | None = None,
     telephone_router_path: Path | None = None,
     phone_voice_weight: float = 0.50,
@@ -112,6 +114,14 @@ def apply_eat_presence_fusion(
             raise ValueError("fusion weights and gate must lie in [0, 1]")
     if (phone_voice_head_path is None) != (telephone_router_path is None):
         raise ValueError("phone Voice head and telephone router must be provided together")
+    if (hierarchical_statistics_output_path is None) != (hierarchical_checkpoint_path is None):
+        raise ValueError(
+            "hierarchical statistics output and checkpoint must be provided together"
+        )
+    if hierarchical_statistics_output_path is not None and statistics_output_path is None:
+        raise ValueError(
+            "hierarchical EAT statistics require the standard statistics output"
+        )
 
     audio_files = order_by_submission(find_audio_files(test_dir), rows)
     gc.collect()
@@ -131,14 +141,28 @@ def apply_eat_presence_fusion(
     telephone_count = 0
     telephone_ids = []
     statistic_ids, statistics, statistic_masks = [], [], []
+    hierarchical_values = []
+    hierarchical_projection = None
+    if hierarchical_checkpoint_path is not None:
+        checkpoint = torch.load(
+            hierarchical_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        if checkpoint.get("model_type") != "hierarchical_eat_music":
+            raise ValueError("invalid hierarchical EAT checkpoint")
+        hierarchical_projection = torch.from_numpy(
+            np.asarray(checkpoint["projection"], dtype=np.float32)
+        )
     for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
         paths = audio_files[offset:offset + 8]
         audios = [load_audio(path) for path in paths]
         audio_set = [detector.predict_audio_set(audio) for audio in audios]
-        latent = detector.latent_statistics_batch(audios)
-        for row, path, audio, (eat_voice, eat_music), (matrix, mask, probe_music) in zip(
+        latent = detector.latent_statistics_batch(
+            audios, hierarchical_projection=hierarchical_projection
+        )
+        for row, path, audio, (eat_voice, eat_music), latent_item in zip(
             rows[offset:offset + 8], paths, audios, audio_set, latent
         ):
+            matrix, mask, probe_music = latent_item[:3]
             voice_present, music_present = fuse_presence(
                 float(row["VOICE_PRESENT_PROB"]),
                 float(row["MUSIC_PRESENT_PROB"]), eat_voice, eat_music,
@@ -168,6 +192,8 @@ def apply_eat_presence_fusion(
                 statistic_ids.append(path.stem)
                 statistics.append(matrix)
                 statistic_masks.append(mask)
+            if hierarchical_statistics_output_path is not None:
+                hierarchical_values.append(latent_item[3])
     del detector
     gc.collect()
     torch.cuda.empty_cache()
@@ -186,6 +212,18 @@ def apply_eat_presence_fusion(
             statistics=np.stack(statistics),
             view_mask=np.stack(statistic_masks),
             stream=np.asarray("eat"), channel=np.asarray("clean"),
+        )
+    if hierarchical_statistics_output_path is not None:
+        if len(hierarchical_values) != len(statistic_ids):
+            raise RuntimeError(
+                "hierarchical EAT statistics require the standard statistics output"
+            )
+        hierarchical_statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            hierarchical_statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.stack(hierarchical_values),
+            view_mask=np.stack(statistic_masks),
         )
     if telephone_router is not None:
         print(f"telephone Voice presence routed {telephone_count}/{len(rows)} files")
