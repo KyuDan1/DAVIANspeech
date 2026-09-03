@@ -115,3 +115,37 @@ v32의 로컬 결과는 router를 작은 보정기로 쓰는 것이 hard expert 
 Voice/Music/CPS는 그대로이므로, 실제 제출 결과가 바뀌면 File EER 변화로 직접
 해석할 수 있다. 이후에는 leaderboard 결과를 기준으로 로컬 File 개선폭의 전이율을
 계산해야 한다.
+
+## 6. 실제 제출과 v33 Music residual
+
+2026-09-04 KST 자정에 v32를 `v32_router.zip`이라는 짧은 별칭으로 API
+제출했다. DACON API의 파일명 길이 제한 때문에 원래 긴 파일명은 업로드 전에
+거절됐고, 동일 inode/SHA-256 파일을 짧은 이름으로 다시 보내 성공 응답을
+확인했다. 채점 결과가 나오면 v18 대비 변화는 File EER 전이율로 해석한다.
+
+그동안 exact-v18 anchor에 기존 SPEAR temporal-bin Music head를 독립적으로
+결합했다. 이 head는 eval bank에 학습하지 않았으며 원본 오디오의 시간축
+representation만 사용한다. `MUSIC_FAKE_PROB` 외의 열은 수정하지 않는다.
+
+| 후보 | dev ADS 변화 | factorial 변화 | phone 변화 | YuE 변화 |
+|---|---:|---:|---:|---:|
+| File router만(v32) | +0.0324 | +0.0200 | +0.0400 | +0.0132 |
+| Music 50%만 | +0.0240 | +0.0120 | +0.0503 | +0.0097 |
+| File router + Music 50%(v33) | **+0.0564** | **+0.0320** | **+0.0903** | **+0.0229** |
+
+Music 가중치 0.6과 전화 구간 0.7이 로컬 평균은 가장 높았지만, 실제 제출에서
+큰 보조 가중치가 역전된 전례가 있어 v33은 전 구간 0.5로 제한했다. 세 seed를
+확률/로짓 평균한 voting도 phone에서는 약간 개선됐으나 factorial에서는 가장
+좋은 단일 seed보다 나빠 채택하지 않았다. 따라서 현재 결론은 다음과 같다.
+
+1. hard expert selection은 사용하지 않는다.
+2. 검증된 v18 soft MoE를 anchor로 보존한다.
+3. File에는 phone router로 20/25% residual만 허용한다.
+4. Music에는 domain router 없이 독립 residual 50%를 적용한다.
+
+준비된 다음 후보는 `v18_attention_music_v33_fixed.zip`이다. 기존 SPEAR pass가
+생성한 statistics를 두 head가 공유하므로 backbone 호출은 늘지 않는다. ZIP은
+7,054,152,976 bytes, 해제 약 7.91GB, 116개 엔트리이며 중복 0, 전체 CRC 오류
+0이다. 전체 테스트 92개와 clean/phone/mixed 3파일 GPU 스모크를 통과했다.
+SHA-256은
+`319abd23c9f739f9275d066ed6a82dc18d1705b50c104f5fb831c8c188f4b8a9`이다.

@@ -10,10 +10,17 @@ import torch
 
 try:  # package import in tests; flat import in the offline submission
     from .spear_temporal_bin_head import SpearTemporalBinHead
-    from .presence_weighted_file_fusion import component_file_evidence
 except ImportError:  # pragma: no cover - exercised by script.py
     from spear_temporal_bin_head import SpearTemporalBinHead
-    from presence_weighted_file_fusion import component_file_evidence
+
+
+def _component_file_evidence(*args, **kwargs):
+    """Load the v28-only dependency only when its fusion path is requested."""
+    try:
+        from .presence_weighted_file_fusion import component_file_evidence
+    except ImportError:  # pragma: no cover - exercised by script.py
+        from presence_weighted_file_fusion import component_file_evidence
+    return component_file_evidence(*args, **kwargs)
 
 
 def _logit(values: np.ndarray) -> np.ndarray:
@@ -94,7 +101,7 @@ def apply_spear_temporal_bin_fusion(
         score = float(expert_by_id[row["ID"]])
         fused = _sigmoid((1 - music_weight) * _logit(anchor) + music_weight * _logit(score))
         row["MUSIC_FAKE_PROB"] = round(float(fused), 10)
-        old_evidence = component_file_evidence(
+        old_evidence = _component_file_evidence(
             float(row["VOICE_FAKE_PROB"]), anchor,
             float(row["VOICE_PRESENT_PROB"]), float(row["MUSIC_PRESENT_PROB"]),
             presence_logit_weight,
@@ -106,7 +113,7 @@ def apply_spear_temporal_bin_fusion(
             _logit(old_file)
             - base_file_consistency_weight * _logit(old_evidence)
         ) / (1 - base_file_consistency_weight)
-        new_evidence = component_file_evidence(
+        new_evidence = _component_file_evidence(
             float(row["VOICE_FAKE_PROB"]), float(fused),
             float(row["VOICE_PRESENT_PROB"]), float(row["MUSIC_PRESENT_PROB"]),
             presence_logit_weight,
@@ -120,6 +127,46 @@ def apply_spear_temporal_bin_fusion(
             + file_consistency_update_weight * _logit(recomputed)
         )
         row["FILE_FAKE_PROB"] = round(float(updated_file), 10)
+    temporary = submission_path.with_suffix(".tmp.csv")
+    with temporary.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer.writeheader(); writer.writerows(rows)
+    temporary.replace(submission_path)
+
+
+def apply_spear_temporal_bin_music_only(
+    submission_path: Path, statistics_path: Path, checkpoint_path: Path,
+    device: str = "cuda", music_weight: float = 0.50,
+) -> None:
+    """Fuse only Music, preserving File/Voice/Presence predictions exactly.
+
+    This is intentionally separate from ``apply_spear_temporal_bin_fusion``:
+    the latter also refreshes a v28-specific File-consistency term.  Exact-v18
+    ablations need a component-only residual whose leaderboard effect can be
+    attributed to Music EER alone.
+    """
+    if not 0 <= music_weight <= 1:
+        raise ValueError("music_weight must be in [0, 1]")
+    ids, expert = predict_temporal_bin_music(
+        statistics_path, checkpoint_path, device=device
+    )
+    if len(set(ids)) != len(ids):
+        raise ValueError("duplicate temporal-bin IDs")
+    expert_by_id = dict(zip(ids, expert))
+    with submission_path.open(encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        columns = list(reader.fieldnames or [])
+        rows = list(reader)
+    if set(row["ID"] for row in rows) != set(expert_by_id):
+        raise ValueError("submission and temporal-bin IDs differ")
+    for row in rows:
+        anchor = float(row["MUSIC_FAKE_PROB"])
+        score = float(expert_by_id[row["ID"]])
+        fused = _sigmoid(
+            (1 - music_weight) * _logit(anchor)
+            + music_weight * _logit(score)
+        )
+        row["MUSIC_FAKE_PROB"] = round(float(fused), 10)
     temporary = submission_path.with_suffix(".tmp.csv")
     with temporary.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=columns)
