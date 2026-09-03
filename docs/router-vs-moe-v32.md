@@ -321,3 +321,21 @@ AI가 실제 악기 샘플을 배열하거나 composition만 생성한 음악은
 뒤에는 `music-only → 장기구조 expert`, `speech-only → XLS-R`, `mixed → soft MoE`
 형태의 reject-option router를 다시 검토할 수 있다. 지금처럼 전문가들이 거의 같은
 EAT/SPEAR 통계와 구조를 공유할 때는 gate보다 균등투표의 일반성이 높다.
+
+마지막으로 같은 invariant head를 입력 stream별로 강제로 분해해
+`Voice→SPEAR-only`, `Music→EAT-only`, `File→joint` routing도 확인했다. 이것은
+hidden-domain routing 논문의 branch 구성을 현재 모델에 가장 가깝게 옮긴 실험이다.
+
+| 방식 | dev 평균 변화 | dev 최악 | locked 평균 변화 | locked 최악 |
+|---|---:|---:|---:|---:|
+| hard axis route | -0.0151 | -0.0290 | -0.0090 | -0.0160 |
+| 25% soft axis route | -0.0035 | -0.0180 | -0.0009 | -0.0069 |
+| 50% soft axis route | -0.0055 | -0.0190 | +0.0003 | -0.0091 |
+| joint uniform MoE | 0 | 0 | 0 | 0 |
+
+v18에 30% 결합한 25% soft route도 factorial `-0.0057`, phone `-0.0065`,
+YuE `-0.0097 ADS`였다. EAT와 SPEAR는 각각 music/speech prior가 강하지만 실제
+mixture에서는 반대 stream도 authenticity 단서를 제공한다. 따라서 입력 stream을
+잘라 전문가를 만드는 방식도 기각한다. 새로운 architecture로 독립 학습한
+Speech-XLSR와 Music-EAT처럼 진짜로 다른 전문가가 준비되기 전에는 joint input을
+유지한다.
