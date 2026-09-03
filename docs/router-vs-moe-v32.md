@@ -267,10 +267,24 @@ clean/Opus narrow-band/mixed CUDA smoke를 통과했다. SHA-256은
 `573eaedd503d5f300b88a8ee77c2bba672689a22bd201205b11f1732a711df61`이다.
 2026-09-04 KST에 DACON API 성공 응답을 확인했다. 실제 채점도 총점
 `0.7616379312`, ADS `0.7363412698`, CPS `0.9893078836`으로 v18/v32/v33과
-정확히 같았고 공개 행 시간은 `2026-09-04 01:30:48 KST`로 갱신됐다. 로컬에서
-네 audit 축이 모두 크게 좋아졌어도 hidden EER 순위는 하나도 바뀌지 않았다.
-따라서 후속 후보는 이 EAT/SPEAR residual의 가중치를 더 조절하지 않고, 다른
-representation과 학습 원천을 가진 새 전문가에서 시작해야 한다.
+정확히 같았고 공개 행 시간은 `2026-09-04 01:30:48 KST`로 갱신됐다. 다만 w30은
+세 authenticity 열을 동시에 바꾸므로 ADS 동률만으로 세 EER이 각각 동률이라고
+말할 수 없다. 축별 개선/악화가 상쇄됐을 가능성이 남아 있다. 로컬 축 분해에서는
+File 30%가 네 audit 모두 `+0.0153~+0.0629 ADS`, Music 30%가
+`+0.0120~+0.0705`, Voice 30%는 YuE에서 `-0.0054`였다. 다음 진단은 Voice를
+제외한 File+Music 30%로 이 상쇄 가설을 검증한다. 이마저 실제로 중립이면 이후
+후보는 가중치 조절을 끝내고 다른 representation/학습 원천의 새 전문가에서
+시작한다.
+
+이 축 분리 후보는 `v18_inv4_fm30.zip`으로 패키징했다. exact v18에 paired v4
+ensemble을 File과 Music에만 30% 결합하고 Voice weight는 0으로 두었다. 따라서
+직전 w30과 비교해 유일한 코드 차이는 `voice_weight=0.3 → 0.0`이다. 압축 크기
+7,063,621,167 bytes, ZIP 내부 해제 크기 7,920,458,124 bytes, 112개 엔트리이며
+최상위 구조, 중복, 전체 CRC 검사를 통과했다. clean/Opus narrow-band/mixed 3파일
+전체 CUDA entrypoint도 성공했고 출력은 모두 finite `[0, 1]` 범위였다. w30과
+비교하면 File/Music/CPS는 부동소수점 오차 수준까지 같고 Voice만 변경됐다.
+SHA-256은
+`80cad304c0b881f55145871edd218df55a919956d5287e77af7dfb8fee5743ea`이다.
 
 ## 10. 중간 표현 attention router 직접 비교
 
