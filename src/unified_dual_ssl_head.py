@@ -171,13 +171,13 @@ class UnifiedDualSSLHead(nn.Module):
         mask = torch.cat((eat_token_mask, spear_token_mask), dim=1)
         return tokens, mask
 
-    def forward(
+    def _pooled_embedding(
         self,
         eat: torch.Tensor,
         spear: torch.Tensor,
         eat_mask: torch.Tensor,
         spear_mask: torch.Tensor,
-    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    ) -> torch.Tensor:
         tokens, mask = self._tokens(eat, spear, eat_mask, spear_mask)
         batch, tasks, count, width = tokens.shape
         expanded_mask = mask[:, None].expand(-1, tasks, -1).reshape(batch * tasks, count)
@@ -195,11 +195,33 @@ class UnifiedDualSSLHead(nn.Module):
         second = torch.einsum("bqt,bqtd->bqd", attention, hidden.square())
         std = (second - mean.square()).clamp_min(1e-5).sqrt()
         maximum = hidden.masked_fill(~mask[:, None, :, None], -1e4).max(dim=2).values
-        pooled = torch.cat((mean, std, maximum), dim=-1)
+        return torch.cat((mean, std, maximum), dim=-1)
+
+    def forward_with_embedding(
+        self,
+        eat: torch.Tensor,
+        spear: torch.Tensor,
+        eat_mask: torch.Tensor,
+        spear_mask: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Return predictions and the task-wise pre-classifier embedding."""
+        pooled = self._pooled_embedding(eat, spear, eat_mask, spear_mask)
         task_logits = self.classifier(pooled).squeeze(-1)
         presence_logits = self.presence_head(pooled[:, :2]).squeeze(-1)
         joint_logits = self.joint_head(pooled[:, 2])
-        return task_logits, presence_logits, joint_logits
+        return task_logits, presence_logits, joint_logits, pooled
+
+    def forward(
+        self,
+        eat: torch.Tensor,
+        spear: torch.Tensor,
+        eat_mask: torch.Tensor,
+        spear_mask: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        task, presence, joint, _ = self.forward_with_embedding(
+            eat, spear, eat_mask, spear_mask
+        )
+        return task, presence, joint
 
     def probabilities(self, task_logits: torch.Tensor) -> torch.Tensor:
         direct = task_logits.sigmoid()

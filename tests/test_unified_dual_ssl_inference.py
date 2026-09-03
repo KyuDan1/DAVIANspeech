@@ -5,7 +5,9 @@ import numpy as np
 import torch
 
 from src.unified_dual_ssl_head import UnifiedDualSSLHead
-from src.unified_dual_ssl_inference import apply_unified_music_fusion
+from src.unified_dual_ssl_inference import (
+    apply_unified_music_fusion, predict_unified_music, predict_unified_tasks,
+)
 
 
 def test_unified_music_fusion_changes_only_music(tmp_path: Path):
@@ -55,10 +57,14 @@ def test_unified_music_fusion_changes_only_music(tmp_path: Path):
         writer = csv.DictWriter(handle, fieldnames=columns)
         writer.writeheader()
         writer.writerows(original)
+    expert_path = tmp_path / "expert.npz"
     apply_unified_music_fusion(
         submission, eat_path, spear_path, [checkpoint], device="cpu",
-        music_weight=.2,
+        music_weight=.2, expert_output_path=expert_path,
     )
+    with np.load(expert_path, allow_pickle=False) as archive:
+        assert np.array_equal(archive["ids"], ids)
+        assert archive["probabilities"].shape == (2, 3)
     with submission.open(newline="") as handle:
         updated = list(csv.DictReader(handle))
     for before, after in zip(original, updated):
@@ -67,3 +73,20 @@ def test_unified_music_fusion_changes_only_music(tmp_path: Path):
                 assert float(after[column]) != before[column]
             else:
                 assert float(after[column]) == before[column]
+
+    with np.load(eat_path, allow_pickle=False) as eat, np.load(
+        spear_path, allow_pickle=False
+    ) as spear:
+        order = np.asarray([1, 0])
+        tasks, task_metadata = predict_unified_tasks(
+            eat["statistics"], spear["features"][order], eat["view_mask"],
+            spear["mask"][order], [checkpoint], device="cpu",
+        )
+        music, music_metadata = predict_unified_music(
+            eat["statistics"], spear["features"][order], eat["view_mask"],
+            spear["mask"][order], [checkpoint], device="cpu",
+        )
+    np.testing.assert_array_equal(tasks[:, 1], music)
+    for left, right in zip(task_metadata[:3], music_metadata[:3]):
+        np.testing.assert_array_equal(left, right)
+    assert task_metadata[3] == music_metadata[3]

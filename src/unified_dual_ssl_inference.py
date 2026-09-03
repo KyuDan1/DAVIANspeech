@@ -38,7 +38,7 @@ def _metadata(checkpoint: dict) -> tuple[np.ndarray, np.ndarray, np.ndarray, int
 
 
 @torch.inference_mode()
-def predict_unified_music(
+def predict_unified_tasks(
     eat_statistics: np.ndarray,
     spear_features: np.ndarray,
     eat_mask: np.ndarray,
@@ -47,7 +47,13 @@ def predict_unified_music(
     device: str = "cuda",
     batch_size: int = 128,
 ) -> tuple[np.ndarray, tuple[np.ndarray, np.ndarray, np.ndarray, int]]:
-    """Return an equal-logit checkpoint ensemble and its feature metadata."""
+    """Return Voice/Music/File probabilities from an equal-logit ensemble.
+
+    Voice and Music use their native task logits.  File first applies the
+    head's trained component-OR calibration, then converts that probability
+    back to a logit before checkpoint averaging.  This exactly preserves the
+    historical Music path while exposing the other two expert decisions.
+    """
     if not checkpoint_paths:
         raise ValueError("at least one unified checkpoint is required")
     if len(eat_statistics) != len(spear_features):
@@ -81,10 +87,34 @@ def predict_unified_music(
                 torch.from_numpy(eat_mask[offset:end]).to(target),
                 torch.from_numpy(spear_mask[offset:end]).to(target),
             )
-            logits.append(task_logits[:, 1].float().cpu().numpy())
+            task_logits = task_logits.float().cpu().numpy()
+            probabilities = model.probabilities(
+                torch.from_numpy(task_logits)
+            ).numpy()
+            # Native logits are retained for the direct component heads.  The
+            # calibrated File probability does not have a native equivalent.
+            task_logits[:, 2] = _logit(probabilities[:, 2])
+            logits.append(task_logits)
         member_logits.append(np.concatenate(logits))
         del model
     return _sigmoid(np.mean(member_logits, axis=0)), expected_metadata
+
+
+def predict_unified_music(
+    eat_statistics: np.ndarray,
+    spear_features: np.ndarray,
+    eat_mask: np.ndarray,
+    spear_mask: np.ndarray,
+    checkpoint_paths: list[Path],
+    device: str = "cuda",
+    batch_size: int = 128,
+) -> tuple[np.ndarray, tuple[np.ndarray, np.ndarray, np.ndarray, int]]:
+    """Backward-compatible Music-only view of :func:`predict_unified_tasks`."""
+    probability, metadata = predict_unified_tasks(
+        eat_statistics, spear_features, eat_mask, spear_mask,
+        checkpoint_paths, device=device, batch_size=batch_size,
+    )
+    return probability[:, 1], metadata
 
 
 def apply_unified_music_fusion(
@@ -96,6 +126,7 @@ def apply_unified_music_fusion(
     music_weight: float = .20,
     mixed_music_weight: float | None = None,
     mixed_presence_threshold: float = .70,
+    expert_output_path: Path | None = None,
 ) -> None:
     """Fuse only Music; File, Voice, and both presence columns stay bit-exact.
 
@@ -125,10 +156,11 @@ def apply_unified_music_fusion(
         raise ValueError("EAT and SPEAR statistic IDs differ")
     spear_by_id = {item: index for index, item in enumerate(spear_ids)}
     order = np.asarray([spear_by_id[item] for item in eat_ids], dtype=np.int64)
-    expert, metadata = predict_unified_music(
+    task_expert, metadata = predict_unified_tasks(
         eat_statistics, spear_features[order], eat_mask, spear_mask[order],
         checkpoint_paths, device=device,
     )
+    expert = task_expert[:, 1]
     if not np.array_equal(eat_projection, metadata[0]):
         raise ValueError("EAT cache projection differs from unified checkpoint")
     if not np.array_equal(spear_projection, metadata[1]):
@@ -136,6 +168,14 @@ def apply_unified_music_fusion(
     if not np.array_equal(spear_layers, metadata[2]) or spear_bins != metadata[3]:
         raise ValueError("SPEAR cache layout differs from unified checkpoint")
     expert_by_id = dict(zip(eat_ids, expert))
+    if expert_output_path is not None:
+        expert_output_path = Path(expert_output_path)
+        expert_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            expert_output_path,
+            ids=eat_ids,
+            probabilities=task_expert.astype(np.float32),
+        )
 
     with submission_path.open(encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)

@@ -19,7 +19,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from evaluate_diagnostic import score_frame  # noqa: E402
 from train_spear_temporal_bin_mil import load_archive  # noqa: E402
-from train_unified_dual_ssl_head import load_block, move_block_to_device, predict  # noqa: E402
+from train_unified_dual_ssl_head import (  # noqa: E402
+    load_block, load_eat, move_block_to_device, predict, truth_for,
+)
 from unified_dual_ssl_head import UnifiedDualSSLHead  # noqa: E402
 
 
@@ -55,7 +57,16 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--batch-size", type=int, default=512)
+    parser.add_argument(
+        "--stream-mode", choices=("joint", "eat"), default="joint",
+        help="Use the full dual-SSL expert or its EAT-only specialist path.",
+    )
+    parser.add_argument(
+        "--save-latents", action="store_true",
+        help="Save the task-wise pre-classifier embeddings for MoE routing.",
+    )
     args = parser.parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=True)
 
     device = torch.device(args.device)
     models = [load_model(path, device) for path in args.checkpoint]
@@ -64,16 +75,58 @@ def main() -> None:
         for key in ("eat_projection", "spear_projection", "spear_layers"):
             if not np.array_equal(reference[key], checkpoint[key]):
                 raise ValueError(f"checkpoint metadata differs for {key}")
-    spear_cache = load_archive(args.spear_cache_root)
+    spear_cache = (
+        load_archive(args.spear_cache_root) if args.stream_mode == "joint" else None
+    )
     records, all_predictions = [], []
     for name in args.datasets:
-        frame, block = load_block(
-            args.eat_cache_root, spear_cache, name, "audit"
-        )
+        if args.stream_mode == "joint":
+            frame, block = load_block(
+                args.eat_cache_root, spear_cache, name, "audit"
+            )
+        else:
+            frame = truth_for(name, "audit")
+            frame["DATASET"] = name
+            eat = load_eat(args.eat_cache_root, name, frame)
+            config = reference["config"]
+            count = len(frame)
+            block = {
+                **eat,
+                "spear": np.zeros((
+                    count, config["maximum_views"], config["maximum_bins"],
+                    config["spear_layers"], config["spear_stats"],
+                    config["spear_dimension"],
+                ), dtype=np.float16),
+                "spear_mask": np.zeros((
+                    count, config["maximum_views"], config["maximum_bins"]
+                ), dtype=bool),
+            }
         block = move_block_to_device(block, device)
-        fake_members, presence_members = [], []
+        fake_members, presence_members, latent_members = [], [], []
         for model, _ in models:
-            fake, presence = predict(model, block, device, args.batch_size)
+            if args.save_latents:
+                fake_chunks, presence_chunks, latent_chunks = [], [], []
+                for offset in range(0, len(frame), args.batch_size):
+                    stop = min(offset + args.batch_size, len(frame))
+                    with torch.inference_mode():
+                        task, presence_logit, _joint, pooled = model.forward_with_embedding(
+                            block["eat"][offset:stop],
+                            block["spear"][offset:stop],
+                            block["eat_mask"][offset:stop],
+                            block["spear_mask"][offset:stop],
+                        )
+                    fake_chunks.append(model.probabilities(task).cpu().numpy())
+                    presence_chunks.append(
+                        presence_logit.sigmoid().cpu().numpy()
+                    )
+                    latent_chunks.append(
+                        pooled.flatten(1).float().cpu().numpy()
+                    )
+                fake = np.concatenate(fake_chunks)
+                presence = np.concatenate(presence_chunks)
+                latent_members.append(np.concatenate(latent_chunks))
+            else:
+                fake, presence = predict(model, block, device, args.batch_size)
             fake_members.append(fake)
             presence_members.append(presence)
         fake = expit(np.mean([
@@ -97,9 +150,15 @@ def main() -> None:
         current = prediction.reset_index().rename(columns={"index": "ID"})
         current.insert(0, "DATASET", name)
         all_predictions.append(current)
+        if args.save_latents:
+            np.savez_compressed(
+                args.output_dir / f"{name}_latent.npz",
+                ids=frame.ID.to_numpy(dtype=str),
+                latent=np.mean(latent_members, axis=0).astype(np.float16),
+                latent_members=np.stack(latent_members).astype(np.float16),
+            )
         print(json.dumps(record, allow_nan=True), flush=True)
 
-    args.output_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(records).to_csv(args.output_dir / "metrics.csv", index=False)
     pd.concat(all_predictions).to_csv(
         args.output_dir / "predictions.csv", index=False
