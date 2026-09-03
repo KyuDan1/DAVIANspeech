@@ -70,3 +70,30 @@ def test_joint_fusion_rejects_invalid_weight(tmp_path: Path):
             tmp_path / "missing.csv", tmp_path / "missing.npz",
             tmp_path / "missing.pt", file_weight=1.1,
         )
+
+
+def test_joint_fusion_routes_phone_weights(tmp_path: Path, monkeypatch):
+    submission = tmp_path / "submission.csv"
+    pd.DataFrame({
+        "ID": ["clean", "phone"], "FILE_FAKE_PROB": [.5, .5],
+        "VOICE_FAKE_PROB": [.5, .5], "MUSIC_FAKE_PROB": [.5, .5],
+        "VOICE_PRESENT_PROB": [.5, .5], "MUSIC_PRESENT_PROB": [.5, .5],
+    }).to_csv(submission, index=False)
+    monkeypatch.setattr(
+        "src.spear_temporal_joint_inference.predict_temporal_joint",
+        lambda *args, **kwargs: (
+            np.asarray(["clean", "phone"]),
+            np.full((2, 5), .9, dtype=np.float32),
+        ),
+    )
+    routed = tmp_path / "phone_ids.npz"
+    np.savez(routed, ids=np.asarray(["phone"]))
+    apply_spear_temporal_joint_fusion(
+        submission, tmp_path / "stats.npz", tmp_path / "head.pt",
+        device="cpu", file_weight=.1, voice_weight=.2,
+        telephone_ids_path=routed, phone_file_weight=.4,
+        phone_voice_weight=.35,
+    )
+    result = pd.read_csv(submission).set_index("ID")
+    assert result.loc["phone", "FILE_FAKE_PROB"] > result.loc["clean", "FILE_FAKE_PROB"]
+    assert result.loc["phone", "VOICE_FAKE_PROB"] > result.loc["clean", "VOICE_FAKE_PROB"]

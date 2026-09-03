@@ -8,7 +8,7 @@ import copy
 import json
 import random
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -22,7 +22,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from data_guard import assert_no_locked_eval_leakage  # noqa: E402
 from evaluate_diagnostic import score_frame  # noqa: E402
 from spear_temporal_joint_head import (  # noqa: E402
-    SpearTemporalJointHead, joint_temporal_loss,
+    SpearTemporalJointAttentionHead, SpearTemporalJointHead,
+    joint_temporal_loss,
 )
 from train_spear_temporal_bin_mil import (  # noqa: E402
     DEV_DEFAULT, TRAIN_DEFAULT, _overlaps, align, concatenate, load_archive,
@@ -99,6 +100,60 @@ def joint_sample_weights(frame: pd.DataFrame) -> np.ndarray:
     return weights / weights.mean()
 
 
+def component_pairs(
+    frame: pd.DataFrame, source_column: str, target_column: str,
+    nuisance_column: str,
+) -> np.ndarray:
+    """Pair the same labelled component while the other component changes."""
+    groups: dict[tuple[str, int], dict[int, list[int]]] = defaultdict(
+        lambda: defaultdict(list)
+    )
+    for index, row in frame.iterrows():
+        source = row.get(source_column)
+        target, nuisance = row.get(target_column), row.get(nuisance_column)
+        if pd.isna(source) or pd.isna(target) or pd.isna(nuisance):
+            continue
+        groups[(str(source), int(target))][int(nuisance)].append(index)
+    pairs: list[tuple[int, int]] = []
+    for nuisance_groups in groups.values():
+        if len(nuisance_groups) < 2:
+            continue
+        keys = sorted(nuisance_groups)
+        for nuisance in keys:
+            alternatives = [
+                item for other in keys if other != nuisance
+                for item in nuisance_groups[other]
+            ]
+            for offset, item in enumerate(nuisance_groups[nuisance]):
+                pairs.append((item, alternatives[offset % len(alternatives)]))
+    return np.asarray(pairs, dtype=np.int64).reshape(-1, 2)
+
+
+def channel_pairs(frame: pd.DataFrame) -> np.ndarray:
+    """Pair telephone/codec children with the exact clean parent if present."""
+    by_id = {str(item): index for index, item in enumerate(frame.ID)}
+    pairs = []
+    for index, parent in enumerate(frame.get("PARENT_ID", pd.Series(index=frame.index))):
+        if pd.notna(parent) and str(parent) in by_id:
+            candidate = by_id[str(parent)]
+            targets = ("FILE_FAKE", "VOICE_FAKE", "MUSIC_FAKE")
+            if all(
+                pd.isna(frame.iloc[index][name]) or pd.isna(frame.iloc[candidate][name])
+                or int(frame.iloc[index][name]) == int(frame.iloc[candidate][name])
+                for name in targets
+            ):
+                pairs.append((index, candidate))
+    return np.asarray(pairs, dtype=np.int64).reshape(-1, 2)
+
+
+def pair_loss(first: torch.Tensor, pairs: torch.Tensor) -> torch.Tensor:
+    if not len(pairs):
+        return first.new_zeros(())
+    return torch.nn.functional.smooth_l1_loss(
+        first[pairs[:, 0]], first[pairs[:, 1]]
+    )
+
+
 @torch.inference_mode()
 def predict(model, block, device):
     features = block["features"].reshape(
@@ -144,6 +199,9 @@ def main() -> None:
     parser.add_argument("--dev-datasets", nargs="+", default=list(DEV_DEFAULT))
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--hidden", type=int, default=96)
+    parser.add_argument("--architecture", choices=("mlp", "attention"), default="mlp")
+    parser.add_argument("--attention-layers", type=int, default=2)
+    parser.add_argument("--attention-heads", type=int, default=4)
     parser.add_argument("--dropout", type=float, default=.15)
     parser.add_argument("--temperature", type=float, default=5.0)
     parser.add_argument("--epochs", type=int, default=500)
@@ -154,6 +212,8 @@ def main() -> None:
     parser.add_argument("--local-weight", type=float, default=.25)
     parser.add_argument("--presence-weight", type=float, default=.15)
     parser.add_argument("--file-weight", type=float, default=.50)
+    parser.add_argument("--component-consistency", type=float, default=0.0)
+    parser.add_argument("--channel-consistency", type=float, default=0.0)
     parser.add_argument("--seed", type=int, default=20260909)
     args = parser.parse_args()
     for name in args.train_datasets:
@@ -174,9 +234,18 @@ def main() -> None:
     dimension = features.shape[-1]
     mean, std = normalization(features, train["mask"])
     device = torch.device(args.device)
-    model = SpearTemporalJointHead(
+    model_class = (
+        SpearTemporalJointAttentionHead
+        if args.architecture == "attention" else SpearTemporalJointHead
+    )
+    extra = (
+        {"layers": args.attention_layers, "heads": args.attention_heads}
+        if args.architecture == "attention" else {}
+    )
+    model = model_class(
         dimension, torch.from_numpy(mean), torch.from_numpy(std),
         hidden=args.hidden, dropout=args.dropout, temperature=args.temperature,
+        **extra,
     ).to(device)
     x = torch.from_numpy(features.copy()).to(device)
     mask = torch.from_numpy(train["mask"].copy()).to(device)
@@ -195,6 +264,17 @@ def main() -> None:
                     "voice_present", "music_present")
     }
     weights = torch.from_numpy(joint_sample_weights(train_frame)).to(device)
+    voice_pairs = torch.from_numpy(component_pairs(
+        train_frame, "VOICE_SOURCE_ID", "VOICE_FAKE", "MUSIC_FAKE"
+    )).to(device)
+    music_pairs = torch.from_numpy(component_pairs(
+        train_frame, "MUSIC_SOURCE_ID", "MUSIC_FAKE", "VOICE_FAKE"
+    )).to(device)
+    codec_pairs = torch.from_numpy(channel_pairs(train_frame)).to(device)
+    print({
+        "voice_pairs": len(voice_pairs), "music_pairs": len(music_pairs),
+        "channel_pairs": len(codec_pairs),
+    }, flush=True)
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
     )
@@ -212,6 +292,20 @@ def main() -> None:
             local_weight=args.local_weight, presence_weight=args.presence_weight,
             file_weight=args.file_weight,
         )
+        component_consistency = .5 * (
+            pair_loss(outputs[1], voice_pairs) + pair_loss(outputs[2], music_pairs)
+        )
+        channel_consistency = (
+            pair_loss(outputs[0], codec_pairs)
+            + pair_loss(outputs[1], codec_pairs)
+            + pair_loss(outputs[2], codec_pairs)
+        ) / 3
+        loss = (
+            loss + args.component_consistency * component_consistency
+            + args.channel_consistency * channel_consistency
+        )
+        terms["component_consistency"] = component_consistency.detach()
+        terms["channel_consistency"] = channel_consistency.detach()
         optimizer.zero_grad(set_to_none=True); loss.backward(); optimizer.step()
         if epoch % args.eval_every:
             continue
@@ -242,6 +336,9 @@ def main() -> None:
             "feature_dimension": dimension, "hidden": args.hidden,
             "dropout": args.dropout, "temperature": args.temperature,
             "minimum_presence_weight": model.minimum_presence_weight,
+            "architecture": args.architecture,
+            "attention_layers": args.attention_layers,
+            "attention_heads": args.attention_heads,
         },
         "projection": cache["__metadata__"]["projection"],
         "layers": cache["__metadata__"]["layers"],

@@ -1,9 +1,23 @@
 import torch
 
 from src.spear_temporal_joint_head import (
+    SpearTemporalJointAttentionHead,
     SpearTemporalJointHead,
     joint_temporal_loss,
 )
+
+
+def test_attention_head_shapes():
+    model = SpearTemporalJointAttentionHead(
+        6, torch.zeros(6), torch.ones(6), hidden=8,
+        dropout=0, layers=1, heads=2,
+    )
+    features = torch.zeros(2, 3, 8, 6)
+    mask = torch.ones(2, 3, 8, dtype=torch.bool)
+    logits, outputs = model(features, mask)
+    assert logits.shape == (2, 24, 4)
+    assert len(outputs) == 5
+    assert all(value.shape == (2,) for value in outputs)
 
 
 def test_joint_temporal_head_shapes_and_loss():

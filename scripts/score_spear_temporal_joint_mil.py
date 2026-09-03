@@ -17,7 +17,9 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from evaluate_diagnostic import score_frame  # noqa: E402
-from spear_temporal_joint_head import SpearTemporalJointHead  # noqa: E402
+from spear_temporal_joint_head import (  # noqa: E402
+    SpearTemporalJointAttentionHead, SpearTemporalJointHead,
+)
 from train_spear_temporal_bin_mil import align, load_archive, truth  # noqa: E402
 from train_spear_temporal_joint_mil import predict  # noqa: E402
 
@@ -37,11 +39,20 @@ def main() -> None:
     ):
         raise ValueError("audit cache projection differs from the joint head")
     config, state = checkpoint["config"], checkpoint["model"]
-    model = SpearTemporalJointHead(
+    model_class = (
+        SpearTemporalJointAttentionHead
+        if config.get("architecture") == "attention" else SpearTemporalJointHead
+    )
+    extra = (
+        {"layers": config["attention_layers"], "heads": config["attention_heads"]}
+        if config.get("architecture") == "attention" else {}
+    )
+    model = model_class(
         config["feature_dimension"], state["mean"], state["std"],
         hidden=config["hidden"], dropout=config["dropout"],
         temperature=config["temperature"],
         minimum_presence_weight=config["minimum_presence_weight"],
+        **extra,
     ).to(args.device)
     model.load_state_dict(state, strict=True); model.eval()
     rows, predictions = [], []

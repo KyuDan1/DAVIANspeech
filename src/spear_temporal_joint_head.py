@@ -77,6 +77,62 @@ class SpearTemporalJointHead(nn.Module):
         return logits, self.aggregate(logits, flat_mask)
 
 
+class SpearTemporalJointAttentionHead(SpearTemporalJointHead):
+    """Model interactions between adjacent bins before component-wise pooling."""
+
+    def __init__(
+        self, feature_dimension: int, mean: torch.Tensor, std: torch.Tensor,
+        hidden: int = 96, dropout: float = .15, temperature: float = 5.0,
+        minimum_presence_weight: float = .05, layers: int = 2,
+        heads: int = 4, maximum_views: int = 3, maximum_bins: int = 8,
+    ) -> None:
+        super().__init__(
+            feature_dimension, mean, std, hidden=hidden, dropout=dropout,
+            temperature=temperature,
+            minimum_presence_weight=minimum_presence_weight,
+        )
+        if hidden % heads:
+            raise ValueError("hidden dimension must be divisible by attention heads")
+        if layers <= 0 or maximum_views <= 0 or maximum_bins <= 0:
+            raise ValueError("attention dimensions must be positive")
+        del self.network
+        self.maximum_views = int(maximum_views)
+        self.maximum_bins = int(maximum_bins)
+        self.input_projection = nn.Sequential(
+            nn.Linear(feature_dimension, hidden), nn.LayerNorm(hidden), nn.GELU(),
+        )
+        self.view_embedding = nn.Parameter(torch.zeros(maximum_views, hidden))
+        self.bin_embedding = nn.Parameter(torch.zeros(maximum_bins, hidden))
+        nn.init.trunc_normal_(self.view_embedding, std=.02)
+        nn.init.trunc_normal_(self.bin_embedding, std=.02)
+        layer = nn.TransformerEncoderLayer(
+            d_model=hidden, nhead=heads, dim_feedforward=3 * hidden,
+            dropout=dropout, activation="gelu", batch_first=True,
+            norm_first=True,
+        )
+        self.context = nn.TransformerEncoder(
+            layer, num_layers=layers, norm=nn.LayerNorm(hidden)
+        )
+        self.output = nn.Linear(hidden, 4)
+
+    def forward(self, features: torch.Tensor, mask: torch.Tensor):
+        if features.ndim != 4 or mask.shape != features.shape[:3]:
+            raise ValueError("attention head expects [batch, view, bin, feature]")
+        batch, views, bins, _ = features.shape
+        if views > self.maximum_views or bins > self.maximum_bins:
+            raise ValueError("attention positional embedding is too short")
+        normalized = ((features.float() - self.mean) / self.std).clamp_(-8, 8)
+        hidden = self.input_projection(normalized)
+        hidden = hidden + self.view_embedding[:views, None] + self.bin_embedding[None, :bins]
+        flat_mask = mask.reshape(batch, views * bins).bool()
+        hidden = self.context(
+            hidden.reshape(batch, views * bins, -1),
+            src_key_padding_mask=~flat_mask,
+        )
+        logits = self.output(hidden)
+        return logits, self.aggregate(logits, flat_mask)
+
+
 def joint_temporal_loss(
     logits: torch.Tensor,
     outputs: tuple[torch.Tensor, ...],
