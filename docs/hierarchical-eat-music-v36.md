@@ -201,3 +201,19 @@ generator를 통째로 제외한 leave-one-generator-out에서 이득이 있을 
 
 현재 단계의 핵심은 전문가 개수보다 **서로 다른 오류를 내는 표현**, router의
 정확도보다 **오분류되어도 anchor를 망가뜨리지 않는 soft 결합**이다.
+
+## 9. 제출 패키지 검증
+
+- 파일: `hierarchical_eat_router_v36b_submit.zip`
+- 압축 크기: 7,056,033,590 bytes
+- 압축 해제 크기: 7,911,945,702 bytes
+- ZIP entry: 113개, 중복 0개
+- 최상위 구조: `model/`, `script.py`, `requirements.txt`만 존재
+- 전체 CRC: 오류 없음
+- 전체 test suite: 98개 통과
+- clean/Opus narrow-band phone/mixed 3파일 CUDA 스모크: 통과
+- SHA-256: `fb0c4810db4ecf0e51660c92e403f666d6a29423c77aa3096d4cac6c453eaae6`
+
+압축 10GB 및 해제 32GB 제한을 모두 만족한다. `requirements.txt`에는 평가
+서버 기본 패키지를 중복 지정하지 않고, v18에서 실제 실행에 필요했던
+`onnxruntime-gpu==1.23.2`만 유지했다.
