@@ -1,0 +1,9 @@
+{
+  "best_epoch": 7,
+  "selection": 0.7797051767676767,
+  "mean_ads": 0.8293324314574314,
+  "worst_ads": 0.730077922077922,
+  "music_pairs": 5481,
+  "voice_pairs": 7126,
+  "channel_pairs": 7800
+}

@@ -149,3 +149,51 @@ Music 가중치 0.6과 전화 구간 0.7이 로컬 평균은 가장 높았지만
 0이다. 전체 테스트 92개와 clean/phone/mixed 3파일 GPU 스모크를 통과했다.
 SHA-256은
 `319abd23c9f739f9275d066ed6a82dc18d1705b50c104f5fb831c8c188f4b8a9`이다.
+
+## 7. v34: router 대신 channel/component-invariant soft MoE
+
+v33 다음에는 EAT와 SPEAR의 이미 계산된 통계를 함께 읽는 네 개의
+channel/component-invariant head를 비교했다. 네 head는 서로 다른 seed와 규제를
+사용하지만 별도 backbone pass는 필요하지 않는다. 학습에는 train partition만
+사용했고 factorial dev/holdout, phone factorial, YuE audit는 학습과 checkpoint
+선택에서 제외했다.
+
+전화 파일에만 결합 비중을 높이는 router도 직접 비교했다. 전 구간 10% 결합과
+non-phone 10%/phone 12.5% 결합의 ADS 변화는 다음과 같았다.
+
+| 결합 | dev | factorial | phone | YuE |
+|---|---:|---:|---:|---:|
+| 고정 10% MoE | +0.0090 | +0.0057 | +0.0400 | +0.0151 |
+| 전화 router 10/12.5% | +0.0061 | +0.0057 | +0.0433 | +0.0151 |
+
+router는 phone에서 `+0.0034`를 더 얻는 대신 dev에서 `-0.0029`를 잃었다. 평균
+이득은 거의 같고 unseen test의 전화 비율에 의존하므로 고정 soft MoE를 선택했다.
+출력축별 maximin 탐색에서는 File/Voice/Music weight `0.125/0.20/0.10`이 네
+평가축 모두 양의 방향이었다.
+
+| 평가축 | v33 ADS | v34 ADS | 변화 |
+|---|---:|---:|---:|
+| dev | 0.754286 | 0.763247 | +0.008961 |
+| factorial holdout | 0.777506 | 0.785506 | +0.008000 |
+| phone factorial | 0.824107 | 0.866429 | +0.042321 |
+| YuE cross-component | 0.851373 | 0.871598 | +0.020225 |
+
+특히 phone의 File/Voice/Music EER은 각각
+`0.1783/0.1675/0.1775 → 0.1341/0.1450/0.1250`으로 낮아졌다. 현재 가장 어려운
+`fake voice + real music`과 real-real의 File EER도 factorial에서
+`0.3733 → 0.3467`, phone에서 `0.2700 → 0.2600`으로 작게 개선됐다. 다만 YuE의
+Voice EER은 일부 악화되어 큰 가중치나 hard selection은 사용하지 않았다.
+
+따라서 현재 architecture 원칙은 다음과 같다.
+
+1. domain/content router가 base expert를 교체하지 않는다.
+2. 원본 mixture의 latent token 내부에서는 component-presence attention을 soft
+   router로 사용한다.
+3. 파일 수준에서는 독립 seed와 representation을 낮은 가중치로 투표한다.
+4. 전화 router는 여러 평가축에서 손실이 없는 residual의 작은 비중 조절에만 쓴다.
+
+배포 후보 `v34_invariant.zip`은 압축 7,065,350,643 bytes, ZIP 내부 해제
+7,922,543,971 bytes, 121개 엔트리다. 최상위 구조와 중복 검사를 통과했고 전체
+CRC 오류는 없다. clean/Opus narrow-band phone/mixed 3파일 CUDA smoke를 통과했으며
+CPS는 v33과 동일하고 ADS 세 열만 의도대로 달라졌다. SHA-256은
+`61ae6380ca33978476e97830ff48d968f1a7d6e4ff84cee2fea99661b507df34`이다.

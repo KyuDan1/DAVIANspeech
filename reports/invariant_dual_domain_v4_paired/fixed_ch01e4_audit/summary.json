@@ -1,0 +1,19 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/invariant_dual_domain_v4_paired/seed00_fixedteacher_lr1e4/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/invariant_dual_domain_v4_paired/seed00_ch01/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/invariant_dual_domain_v4_paired/seed01_ch01/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/invariant_dual_domain_v4_paired/seed02_ch01/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.7984754470926456,
+  "mean_ads": 0.8253145305489274,
+  "worst_ads": 0.7716363636363637
+}

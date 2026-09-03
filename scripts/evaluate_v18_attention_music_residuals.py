@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from evaluate_codec_invariant_fusion import AUDITS, fuse, reconstruct_v18  # noqa: E402
-from evaluate_diagnostic import score_frame  # noqa: E402
+from evaluate_diagnostic import official_eer, score_frame  # noqa: E402
 from evaluate_presence_weighted_file_fusion import reconstruct_dev_v18  # noqa: E402
 
 
@@ -47,6 +47,75 @@ def select(frame: pd.DataFrame, dataset: str, ids: pd.Index) -> pd.DataFrame:
     return block.loc[ids]
 
 
+def cross_component_diagnostics(
+    dataset: str, method: str, truth: pd.DataFrame, prediction: pd.DataFrame,
+) -> list[dict]:
+    """Report the mixed cases hidden by one aggregate component EER."""
+    frame = truth.join(prediction)
+    rows = [{
+        "DATASET": dataset, "METHOD": method, "GROUP": "ALL",
+        "VALUE": "ALL", **score_frame(frame),
+    }]
+    for column in ("AUDIO_TYPE", "MIX_MODE", "CHANNEL", "CONDITION"):
+        if column not in frame:
+            continue
+        for value, group in frame.groupby(column, dropna=False):
+            if len(group) >= 10:
+                rows.append({
+                    "DATASET": dataset, "METHOD": method,
+                    "GROUP": column, "VALUE": str(value),
+                    **score_frame(group),
+                })
+
+    mixed = frame.loc[
+        frame.VOICE_PRESENT.eq(1) & frame.MUSIC_PRESENT.eq(1)
+    ]
+    if len(mixed):
+        for music_label in (0, 1):
+            group = mixed.loc[mixed.MUSIC_FAKE.eq(music_label)]
+            rows.append({
+                "DATASET": dataset, "METHOD": method,
+                "GROUP": "VOICE_EER_GIVEN_MUSIC_FAKE",
+                "VALUE": str(music_label), "N": len(group),
+                "VOICE_EER": official_eer(
+                    group.VOICE_FAKE, group.VOICE_FAKE_PROB
+                ),
+            })
+        for voice_label in (0, 1):
+            group = mixed.loc[mixed.VOICE_FAKE.eq(voice_label)]
+            rows.append({
+                "DATASET": dataset, "METHOD": method,
+                "GROUP": "MUSIC_EER_GIVEN_VOICE_FAKE",
+                "VALUE": str(voice_label), "N": len(group),
+                "MUSIC_EER": official_eer(
+                    group.MUSIC_FAKE, group.MUSIC_FAKE_PROB
+                ),
+            })
+        real_real = mixed.loc[
+            mixed.VOICE_FAKE.eq(0) & mixed.MUSIC_FAKE.eq(0)
+        ]
+        cases = {
+            "fake_voice_real_music": (1, 0),
+            "real_voice_fake_music": (0, 1),
+            "both_fake": (1, 1),
+        }
+        for case, (voice_label, music_label) in cases.items():
+            positive = mixed.loc[
+                mixed.VOICE_FAKE.eq(voice_label)
+                & mixed.MUSIC_FAKE.eq(music_label)
+            ]
+            contrast = pd.concat([real_real, positive])
+            rows.append({
+                "DATASET": dataset, "METHOD": method,
+                "GROUP": "FILE_EER_REAL_REAL_VS",
+                "VALUE": case, "N": len(contrast),
+                "FILE_EER": official_eer(
+                    contrast.FILE_FAKE, contrast.FILE_FAKE_PROB
+                ),
+            })
+    return rows
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -71,6 +140,11 @@ def main() -> None:
         "--output", type=Path,
         default=ROOT / "reports/spear_temporal_bin_v1/v18_attention_music/sweep.csv",
     )
+    parser.add_argument("--selected-music-weight", type=float, default=.50)
+    parser.add_argument(
+        "--diagnostics-output", type=Path,
+        default=ROOT / "reports/spear_temporal_bin_v1/v18_attention_music/subgroups.csv",
+    )
     args = parser.parse_args()
     phone_music_weights = (
         args.phone_music_weights
@@ -78,7 +152,7 @@ def main() -> None:
     )
     values = [
         args.file_weight, args.phone_file_weight,
-        *args.music_weights, *phone_music_weights,
+        *args.music_weights, *phone_music_weights, args.selected_music_weight,
     ]
     if any(not 0 <= value <= 1 for value in values):
         parser.error("all fusion weights must be in [0, 1]")
@@ -159,6 +233,30 @@ def main() -> None:
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(args.output, index=False)
+    diagnostic_rows = []
+    for name, (truth, anchor, attention_score, music_score, phone) in banks.items():
+        file_router = anchor.copy()
+        file_router["FILE_FAKE_PROB"] = fuse(
+            anchor.FILE_FAKE_PROB,
+            attention_score.FILE_FAKE_PROB,
+            np.where(phone, args.phone_file_weight, args.file_weight),
+        )
+        combined = file_router.copy()
+        combined["MUSIC_FAKE_PROB"] = fuse(
+            anchor.MUSIC_FAKE_PROB,
+            music_score.TEMPORAL_BIN_MUSIC_PROB,
+            args.selected_music_weight,
+        )
+        for method, prediction in (
+            ("v18", anchor), ("v32_file_router", file_router),
+            ("v33_file_router_music", combined),
+        ):
+            diagnostic_rows.extend(cross_component_diagnostics(
+                name, method, truth, prediction
+            ))
+    diagnostics = pd.DataFrame(diagnostic_rows)
+    args.diagnostics_output.parent.mkdir(parents=True, exist_ok=True)
+    diagnostics.to_csv(args.diagnostics_output, index=False)
     print("exact_v18_ads", {key: round(value, 8) for key, value in baseline.items()})
     print(result[[
         "MUSIC_WEIGHT", "PHONE_MUSIC_WEIGHT", "dev_DELTA",
