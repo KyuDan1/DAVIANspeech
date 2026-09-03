@@ -2,21 +2,22 @@
 
 ## 결론
 
-샘플 전체를 하나의 전문가로 보내는 hard router는 사용하지 않는다. 현재 가장
-안전한 구조는 다음의 계층형 MoE다.
+샘플 전체를 하나의 전문가로 보내는 hard router는 사용하지 않는다. v32/v33의
+실제 점수와 새 latent-attention router의 locked audit까지 반영하면 현재 가장
+안전한 구조는 다음과 같다.
 
 1. 실제 리더보드 최고점인 v18을 그대로 anchor로 사용한다.
-2. 음성/음악 분리 없이 원본 SPEAR의 1.25초 bin 8개를 보는 temporal-attention
-   전문가를 추가한다.
-3. 이 전문가는 `FILE_FAKE_PROB`에만 작게 결합한다.
-4. 전화 router가 narrow-band 전화 파일이면 이 전문가의 비중만 20%에서
-   25%로 높인다.
-5. `VOICE_FAKE_PROB`, `MUSIC_FAKE_PROB`, 두 presence 확률은 v18과 동일하게
-   유지한다.
+2. 분리 없이 원본 EAT/SPEAR 통계를 보는 channel/component-invariant head 네 개를
+   동일 비중으로 투표한다.
+3. 이 네-head 평균을 File/Voice/Music에 같은 30%로 낮게 결합한다.
+4. 전문가 하나를 선택하는 hard route와 phone/content별 큰 가중치 변경은 하지
+   않는다.
+5. `VOICE_PRESENT_PROB`, `MUSIC_PRESENT_PROB`는 v18과 동일하게 유지한다.
 
-즉, router가 기존 모델을 교체하는 구조가 아니라 검증된 MoE 위에서 특정
-전문가의 기여도만 제한적으로 조절한다. 이 방식이 domain 오분류의 피해를
-줄이면서 전화 구간의 이득을 취했다.
+즉, 현재 제출 후보는 router가 기존 모델을 교체하는 구조가 아니라 독립 seed와
+규제를 가진 전문가의 합의를 더하는 구조다. 중간 hidden representation을 보는
+attention gate도 직접 학습했지만 locked cross-component에서 역전되어 제출에서는
+제외했다.
 
 ## 1. hard router와 soft MoE 직접 비교
 
@@ -232,3 +233,91 @@ v33/v34의 실제 leaderboard 전이를 확인하기 전에는 제출하지 않�
 최상위 구조, 중복, 전체 CRC 검사를 통과했다. clean/phone/mixed CUDA smoke에서도
 성공했고 v34 대비 File만 변경되는 것을 확인했다. SHA-256은
 `8b0f90ec00281bdfbf8bd4af468ee1483c260281cbae6ab65f5763fbb18cd4d2`이다.
+
+## 9. v33 실제 점수와 clean v18+inv4 후보
+
+v33도 실제 채점에서 총점 `0.7616379312`, ADS `0.7363412698`, CPS
+`0.9893078836`으로 v18 및 v32와 정확히 같았다. 즉 다음 두 변경은 로컬에서는
+좋았지만 hidden test의 EER 교차 순서를 바꾸지 못했다.
+
+- v32: SPEAR temporal attention을 File에 20/25% route
+- v33: SPEAR temporal-bin Music expert를 50% 추가
+
+따라서 다음 실제 제출은 이 두 neutral 변경을 모두 제거하고 exact v18에 새
+paired invariant ensemble만 추가했다. 새 v4 ensemble 단독 성능은 과거 v19의
+3-head ensemble보다 모든 주요 audit에서 높았다.
+
+| 평가축 | 과거 v19 | 새 paired v4 |
+|---|---:|---:|
+| factorial holdout ADS | 0.6967 | 0.7716 |
+| phone factorial ADS | 0.6869 | 0.8716 |
+| YuE cross-component ADS | 0.8023 | 0.8327 |
+| source-disjoint equal ADS | 0.7910 | 0.8490 |
+| telephone mixed dev ADS | 0.7980 | 0.8118 |
+
+축별 로컬 최대점은 File/Voice/Music `0.75/0.10/0.75`였지만, phone speech-only
+File EER이 `0.05 → 0.12`로 악화되고 YuE의 fake-voice/real-music 및 dev
+music-only도 역행했다. 그래서 같은 30%를 쓰는 `0.30/0.30/0.30`을 선택했다.
+exact v18 대비 ADS 변화는 dev `+0.0474`, factorial `+0.0336`, phone
+`+0.1399`, YuE `+0.0326`으로 네 축 모두 양수였다.
+
+최종 제출물은 `v18_inv4_w30.zip`이다. 압축 7,063,621,168 bytes, ZIP 내부
+해제 7,920,458,124 bytes, 112개 엔트리이며 최상위 구조·중복·전체 CRC와
+clean/Opus narrow-band/mixed CUDA smoke를 통과했다. SHA-256은
+`573eaedd503d5f300b88a8ee77c2bba672689a22bd201205b11f1732a711df61`이다.
+2026-09-04 KST에 DACON API 성공 응답을 확인했으며 실제 점수는 채점 중이다.
+
+## 10. 중간 표현 attention router 직접 비교
+
+관련 연구에는 서로 다른 결론이 모두 존재한다.
+
+- [Hidden-Domain Routing for All-Type Audio Deepfake Detection](https://arxiv.org/abs/2608.00493)은
+  먼저 BEATs로 speech/sound/singing/music 중 하나를 고르고 Speech-XLSR 또는
+  EAT branch로 보내 AT-ADD Track2 1위를 기록했다. 이 설정은 네 audio type이
+  상호 배타적이라는 점이 중요하다.
+- [Attention-based Mixture of Experts for Robust Speech Deepfake Detection](https://arxiv.org/abs/2509.17585)은
+  각 detector의 마지막 hidden embedding을 token으로 보고 Transformer gate가
+  모든 expert를 서로 attention한 뒤 soft weight를 만든다. 서로 다른 architecture를
+  pooled data에서 학습하는 방식이 unseen domain EER을 개선했다.
+- [Harder or Different?](https://www.isca-archive.org/interspeech_2024/muller24b_interspeech.html)는
+  unseen fake의 성능 저하가 단순히 더 어려워져서가 아니라 generator/domain의
+  차이에서 주로 온다고 보고했다. 따라서 router도 보지 못한 domain에서는 새로운
+  실패점이 될 수 있다.
+
+우리 문제에서는 한 파일이 speech-only, music-only, sequential mixture,
+overlapping mixture 중 하나일 수 있어 첫 논문의 상호 배타적 hard route를 그대로
+적용할 수 없다. 대신 새 `BoundedAttentionRouter`를 구현했다.
+
+1. 네 invariant expert의 Voice/Music/File별 128차원 판정 직전 hidden을 받는다.
+2. expert 네 개를 token으로 Transformer self-attention한다.
+3. 축별 soft weight를 만들되 uniform `0.25`에서 제한된 범위만 이동한다.
+4. train 6개 뱅크만 업데이트에 사용하고 dev 6개로 checkpoint를 선택한다.
+5. factorial holdout, phone factorial, YuE는 선택 후 한 번만 연다.
+
+강도 50% 단일 router는 dev 선택 점수가 uniform보다 `+0.00615`였으나 locked
+factorial `-0.00496`, YuE `-0.00859` ADS로 역전됐다. 더 보수적인 강도 25%
+3-seed router ensemble도 v18에 30% 결합했을 때 아래와 같았다.
+
+| routed 축 | dev | factorial | phone | YuE | 최악 변화 |
+|---|---:|---:|---:|---:|---:|
+| Music만 | 0.0000 | +0.0017 | 0.0000 | 0.0000 | **0.0000** |
+| File만 | +0.0038 | +0.0038 | 0.0000 | -0.0027 | -0.0027 |
+| Voice만 | 0.0000 | -0.0023 | +0.0010 | -0.0038 | -0.0038 |
+| File+Music | +0.0038 | +0.0055 | 0.0000 | -0.0027 | -0.0027 |
+| 전체 | +0.0038 | +0.0032 | +0.0010 | -0.0065 | -0.0065 |
+
+Music-only gate만 손실이 없었지만 실효 개선은 한 축에서 `+0.0017 ADS`뿐이고
+나머지 EER은 모두 동률이다. 실제 v32/v33에서 더 큰 로컬 개선도 완전히 동률이었던
+점을 고려하면, 이 gate를 넣을 근거가 부족하다. 따라서 현재 선택은 다음과 같다.
+
+- 제출: 네 member의 uniform soft MoE
+- 제외: hard route, phone/content expert 교체, learned File/Voice gate
+- 보류: Music-only bounded gate; 다른 architecture의 music expert가 추가되어
+  보완성이 커질 때 다시 평가
+
+AI가 실제 악기 샘플을 배열하거나 composition만 생성한 음악은 codec artifact만으로
+잡히지 않을 수 있다. 이는 router로 해결되는 문제가 아니라 rhythm/chroma/phrase의
+장기 구조를 보는 별도 music expert가 필요한 경우다. 그런 expert가 충분히 강해진
+뒤에는 `music-only → 장기구조 expert`, `speech-only → XLS-R`, `mixed → soft MoE`
+형태의 reject-option router를 다시 검토할 수 있다. 지금처럼 전문가들이 거의 같은
+EAT/SPEAR 통계와 구조를 공유할 때는 gate보다 균등투표의 일반성이 높다.

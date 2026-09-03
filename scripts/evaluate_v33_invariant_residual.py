@@ -135,6 +135,7 @@ def main() -> None:
     new_audit = load(args.invariant_audit_predictions)
 
     banks = {}
+    v18_banks = {}
     for name, dataset in DATASETS.items():
         if name == "dev":
             truth, anchor = reconstruct_dev_v18(
@@ -155,6 +156,7 @@ def main() -> None:
                 load(ROUTERS[name]).set_index("ID")
                 .loc[anchor.index, "IS_PHONE"].to_numpy(bool)
             )
+        v18_banks[name] = truth, anchor.copy(), new_score
         v33 = anchor.copy()
         v33["FILE_FAKE_PROB"] = fuse(
             anchor.FILE_FAKE_PROB, attention_score.FILE_FAKE_PROB,
@@ -203,6 +205,64 @@ def main() -> None:
         ))
     pd.DataFrame(diagnostic_rows).to_csv(
         args.output_dir / "subgroups.csv", index=False
+    )
+
+    # The temporal File/Music residuals are not yet leaderboard-proven.  Keep
+    # an independently swept v18+invariant fallback so their transfer can be
+    # cleanly accepted or rejected.
+    axis_rows = []
+    axis_weights = (
+        0., .025, .05, .075, .10, .125, .15, .20, .25, .30,
+        .40, .50, .60, .75, 1.,
+    )
+    v18_baseline = {
+        name: score_frame(truth.join(anchor))["ADS"]
+        for name, (truth, anchor, _) in v18_banks.items()
+    }
+    for file_weight in axis_weights:
+        for voice_weight in axis_weights:
+            for music_weight in axis_weights:
+                weights = {
+                    "FILE_FAKE_PROB": file_weight,
+                    "VOICE_FAKE_PROB": voice_weight,
+                    "MUSIC_FAKE_PROB": music_weight,
+                }
+                record = {
+                    "FILE_WEIGHT": file_weight, "VOICE_WEIGHT": voice_weight,
+                    "MUSIC_WEIGHT": music_weight,
+                }
+                for name, (truth, anchor, expert) in v18_banks.items():
+                    candidate = anchor.copy()
+                    for column, weight in weights.items():
+                        candidate[column] = fuse(anchor[column], expert[column], weight)
+                    ads = score_frame(truth.join(candidate))["ADS"]
+                    record[f"{name}_ADS"] = ads
+                    record[f"{name}_DELTA"] = ads - v18_baseline[name]
+                deltas = [record[f"{name}_DELTA"] for name in v18_banks]
+                record["MIN_DELTA"] = min(deltas)
+                record["MEAN_DELTA"] = np.mean(deltas)
+                axis_rows.append(record)
+    v18_axis = pd.DataFrame(axis_rows).sort_values(
+        ["MIN_DELTA", "MEAN_DELTA"], ascending=False
+    )
+    v18_axis.to_csv(args.output_dir / "v18_axis_grid.csv", index=False)
+    v18_diagnostics = []
+    v18_settings = {
+        "v18": (0., 0., 0.),
+        "v18_inv4_conservative": (.125, .20, .10),
+        "v18_inv4_scalar_w30": (.30, .30, .30),
+        "v18_inv4_local_maximin": (.75, .10, .75),
+    }
+    for name, (truth, anchor, expert) in v18_banks.items():
+        for label, axis_values in v18_settings.items():
+            candidate = anchor.copy()
+            for column, weight in zip(PREDICTION_COLUMNS.values(), axis_values):
+                candidate[column] = fuse(anchor[column], expert[column], weight)
+            v18_diagnostics.extend(cross_component_diagnostics(
+                name, label, truth, candidate
+            ))
+    pd.DataFrame(v18_diagnostics).to_csv(
+        args.output_dir / "v18_subgroups.csv", index=False
     )
 
     # A direct component OR helps fake-voice/real-music, but can hurt the
@@ -295,6 +355,7 @@ def main() -> None:
         args.output_dir / "file_router_subgroups.csv", index=False
     )
     print(sweep.to_string(index=False))
+    print("\nv18 fallback\n", v18_axis.head(20).to_string(index=False))
     print("\nfile router\n", file_router.head(20).to_string(index=False))
 
 

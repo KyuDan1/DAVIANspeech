@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "checkpoint": "models/channel-invariant-v2/seed_00.pt"
+    },
+    {
+      "checkpoint": "models/channel-invariant-v2/seed_01.pt"
+    },
+    {
+      "checkpoint": "models/channel-invariant-v2/seed_02.pt"
+    }
+  ],
+  "selection": 0.707758949632065,
+  "mean_ads": 0.7286250421212728,
+  "worst_ads": 0.6868928571428572
+}

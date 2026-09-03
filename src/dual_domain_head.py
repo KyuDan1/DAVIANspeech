@@ -102,14 +102,19 @@ class DualDomainHead(nn.Module):
         drop_spear &= ~drop_eat
         return eat_mask & ~drop_eat[:, None], spear_mask & ~drop_spear[:, None]
 
-    def forward(
+    def representations(
         self,
         eat: torch.Tensor,
         spear: torch.Tensor,
         eat_mask: torch.Tensor,
         spear_mask: torch.Tensor,
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Accept ``[B,V,4,768]`` and ``[B,V,13,4,1280]`` statistics."""
+        """Return task-pooled and task-hidden representations.
+
+        Keeping this operation explicit lets a downstream MoE gate attend to
+        the experts' internal evidence instead of routing from final scores
+        alone.  The regular :meth:`forward` path remains unchanged.
+        """
         eat_mask, spear_mask = self._stream_masks(eat_mask, spear_mask)
         batch, views = eat.shape[:2]
 
@@ -138,10 +143,36 @@ class DualDomainHead(nn.Module):
         mask = torch.cat((eat_token_mask, spear_token_mask), dim=1)
         pooled = self.pool(tokens, mask)
         hidden = self.task_mlp(pooled)
+        return pooled, hidden
+
+    def forward_with_hidden(
+        self,
+        eat: torch.Tensor,
+        spear: torch.Tensor,
+        eat_mask: torch.Tensor,
+        spear_mask: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Return logits plus the three task-specific hidden embeddings."""
+        pooled, hidden = self.representations(
+            eat, spear, eat_mask, spear_mask
+        )
         task_logits = (hidden * self.task_weight[None]).sum(dim=-1) + self.task_bias
         # The file-query representation also learns the complete RR/RF/FR/FF
         # posterior, retaining interactions between the component labels.
         joint_logits = self.joint_head(pooled[:, 2])
+        return task_logits, joint_logits, hidden
+
+    def forward(
+        self,
+        eat: torch.Tensor,
+        spear: torch.Tensor,
+        eat_mask: torch.Tensor,
+        spear_mask: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Accept ``[B,V,4,768]`` and ``[B,V,13,4,1280]`` statistics."""
+        task_logits, joint_logits, _ = self.forward_with_hidden(
+            eat, spear, eat_mask, spear_mask
+        )
         return task_logits, joint_logits
 
     @staticmethod
