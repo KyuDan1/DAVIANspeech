@@ -1,0 +1,8 @@
+{
+  "telephone_router": "telephone-router-narrowband-v1.npz",
+  "phone_voice_head": "phone_voice_presence_head.npz",
+  "fusion_space": "logit",
+  "phone_voice_weight": 0.1,
+  "selection_rule": "largest conservative weight improving factorial dev, factorial holdout, all telephone channels, and phone factorial together",
+  "fake_probabilities_gated_by_presence": false
+}

@@ -1,0 +1,56 @@
+# Data roles are part of the experiment protocol, not suggestions.
+# Anything under locked_eval must never be used to fit a model, a threshold,
+# an ensemble weight, or a router.  It may be scored once after a candidate is
+# frozen from train/development data.
+train:
+  - data/eval/temporal_mixed_train_v2/truth.csv
+  - data/eval/temporal_mixed_train_v1/truth.csv
+  - data/eval/external_mixed_train_v1/truth.csv
+  - data/eval/mixed_devvoice_train_v1/truth.csv
+  - data/eval/mixed_fmc_music_train_v1/truth.csv
+  - data/eval/mixfake_music_train_v1/truth.csv
+  - data/eval/telephone_mixed_train_v1/truth.csv
+  - data/eval/channel_invariant_factorial_train_v1/truth.csv
+
+# Source components used only for the telephone/narrowband router.  They are
+# already represented in the authorized training mixtures or are independent
+# music training sources; data_guard.py was run before feature extraction.
+router_train:
+  - data/eval/phone_router_voice_train_v1/truth.csv
+  - data/eval/multigen_music_presence_train_v1/truth.csv
+  - data/eval/phone_presence_factorial_train_v1/truth.csv
+
+development:
+  - data/eval/mixfake_music_dev_v1/truth.csv
+  - data/eval/factorial_eval_1200_v2/truth_dev.csv
+  - data/eval/external_mixed_v1/truth.csv
+  - data/eval/source_disjoint_mixed_v1/truth.csv
+  - data/eval/source_disjoint_mixed_equal_v1/truth.csv
+  - data/eval/source_disjoint_music_v1/truth.csv
+  - data/eval/asvspoof_voice_wav_dev_v1/truth.csv
+  - data/eval/external_mixed_v1_telephone_v1/truth.csv
+  - data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv
+  - data/eval/telephone_mixed_dev_v1/truth.csv
+
+ood_holdout:
+  - data/eval/factorial_eval_1200_v2/truth_holdout.csv
+  - data/eval/suno_vocals_v1/truth.csv
+  - data/eval/suno_vocals_codec_stress_v1/truth.csv
+
+stress_eval:
+  - data/eval/source_disjoint_music_telephone_v1/truth.csv
+  - data/eval/source_disjoint_mixed_equal_v1_telephone_v1/truth.csv
+  - data/eval/asvspoof_voice_telephone_dev_v1/truth.csv
+
+locked_eval:
+  # Official telephony-channel stress set.  XLS-R anti-deepfake pretraining
+  # included ASVspoof 2021 LA, so this is only for frozen relative channel
+  # audits and must never be used to fit a head or fusion weight.
+  - data/eval/asvspoof2021_la_channel_audit_v1/truth.csv
+  - data/eval/source_disjoint_mixed_locked_v1/truth.csv
+  - data/eval/multigen_voice_v2/truth.csv
+  - data/eval/echoes_fma_paired_v3/truth.csv
+  - data/eval/factorial_eval_1200_v2/truth.csv
+  - data/eval/factorial_eval_1200_v2/truth_locked.csv
+  - data/eval/yue_cross_component_audit_v1/truth.csv
+  - data/eval/phone_router_librispeech_final_v1/truth.csv

@@ -36,7 +36,18 @@ for i in "${!GPU_LIST[@]}"; do
       --output "$SHARD_DIR/shard_$i.csv" \
       --panns-dir "${PANNS_DIR:-$HERE/models/panns}" \
       --xlsr-dir "${XLSR_DIR:-$HERE/models/xls-r-2b-anti-deepfake}" \
-      --artifactnet-dir "${ARTIFACTNET_DIR:-$HERE/models/artifactnet}" \
+      --xlsr-music-head "${XLSR_MUSIC_HEAD:-$HERE/model_heads/xlsr-music-head.npz}" \
+      --xlsr-echoes-music-head "${XLSR_ECHOES_MUSIC_HEAD:-$HERE/model_heads/xlsr-echoes-music-head.npz}" \
+      --xlsr-echofake-voice-head "${XLSR_ECHOFAKE_VOICE_HEAD:-$HERE/model_heads/xlsr-echofake-voice-head.npz}" \
+      --eat-dir "${EAT_DIR:-$HERE/models/eat-base-as2m}" \
+      --eat-head "${EAT_HEAD:-$HERE/model_heads/eat-music-head.npz}" \
+      --eat-echoes-head "${EAT_ECHOES_HEAD:-$HERE/model_heads/eat-echoes-music-head.npz}" \
+      --spear-dir "${SPEAR_DIR:-$HERE/models/spear-xlarge-speech-audio-v2}" \
+      --spear-music-head "${SPEAR_MUSIC_HEAD:-$HERE/model_heads/spear-v3-music-head.npz}" \
+      --spear-mixed-voice-head "${SPEAR_MIXED_VOICE_HEAD:-$HERE/model_heads/spear-mixed-voice_fake-head.npz}" \
+      --spear-mixed-music-head "${SPEAR_MIXED_MUSIC_HEAD:-$HERE/model_heads/spear-mixed-music_fake-head.npz}" \
+      --spear-mixture-present-head "${SPEAR_MIXTURE_PRESENT_HEAD:-$HERE/model_heads/spear-mixture-present-head.npz}" \
+      --fourier-music-head "${FOURIER_MUSIC_HEAD:-$HERE/model_heads/fourier-echoes-music-head.npz}" \
       --separator "$SEPARATOR" \
       --num-shards "$N" --shard-index "$i" \
       "$@" > "$SHARD_DIR/shard_$i.log" 2>&1 &

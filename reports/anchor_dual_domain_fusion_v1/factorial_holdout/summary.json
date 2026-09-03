@@ -1,0 +1,48 @@
+{
+  "selected": {
+    "FILE": {
+      "mode": "logit",
+      "weight": 0.5,
+      "metrics": {
+        "TASK": "FILE",
+        "MODE": "logit",
+        "WEIGHT": 0.5,
+        "SELECTION": 0.7047272727272728,
+        "MAX_BANK_REGRESSION": -0.03236363636363637,
+        "EER_factorial_eval_1200_v2:truth_holdout": 0.29527272727272724
+      }
+    },
+    "VOICE": {
+      "mode": "logit",
+      "weight": 0.3,
+      "metrics": {
+        "TASK": "VOICE",
+        "MODE": "logit",
+        "WEIGHT": 0.3,
+        "SELECTION": 0.76,
+        "MAX_BANK_REGRESSION": -0.02857142857142858,
+        "EER_factorial_eval_1200_v2:truth_holdout": 0.24
+      }
+    },
+    "MUSIC": {
+      "mode": "logit",
+      "weight": 0.5,
+      "metrics": {
+        "TASK": "MUSIC",
+        "MODE": "logit",
+        "WEIGHT": 0.5,
+        "SELECTION": 0.7428571428571429,
+        "MAX_BANK_REGRESSION": -0.0971428571428572,
+        "EER_factorial_eval_1200_v2:truth_holdout": 0.2571428571428571
+      }
+    }
+  },
+  "banks": {
+    "factorial_eval_1200_v2:truth_holdout": {
+      "FILE_EER": 0.29527272727272724,
+      "VOICE_EER": 0.24,
+      "MUSIC_EER": 0.2571428571428571,
+      "ADS": 0.7272207792207792
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "LAYERS": [
+    1,
+    2,
+    3
+  ],
+  "BALANCED_ACCURACY": 0.41333333333333333,
+  "EARLY_STOP_EPOCH": 10,
+  "EARLY_STOP_LOSS": 0.8613460063934326,
+  "MEAN_EER": 0.3333333333333333,
+  "WORST_EER": 0.4,
+  "concurrent_voice_eer": 0.4,
+  "concurrent_music_eer": 0.4,
+  "partial_overlap_voice_eer": 0.36,
+  "partial_overlap_music_eer": 0.28,
+  "sequential_voice_eer": 0.31999999999999995,
+  "sequential_music_eer": 0.24,
+  "CONFUSION": [
+    [
+      43,
+      26,
+      2,
+      4
+    ],
+    [
+      16,
+      41,
+      8,
+      10
+    ],
+    [
+      37,
+      14,
+      7,
+      17
+    ],
+    [
+      10,
+      24,
+      8,
+      33
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/dual_domain_head_v3_phone/seed_20260902/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.6771670090126876,
+  "mean_ads": 0.6976067452981023,
+  "worst_ads": 0.6567272727272728
+}

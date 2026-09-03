@@ -4,11 +4,12 @@ Produces a directory (and optionally a zip) laid out the way the organisers'
 baseline is:
 
     script.py            entry point, run from the package root
-    src/*.py             pipeline source
+    model/src/*.py       pipeline source (keeps the required top level exact)
     model/panns/         Cnn14 checkpoint + AudioSet label groups
     model/htdemucs/      demucs bag, loaded offline
     model/xlsr/          XLS-R-2B-AntiDeepfake weights, stored as fp16
-    model/artifactnet/   ArtifactNet ONNX graph + external weights
+    model/eat/           EAT-base general-audio encoder
+    model/*-head.npz     cross-dataset linear detector heads
     requirements.txt
 
 The XLS-R weights are cast to fp16 on the way in: it halves the package
@@ -77,7 +78,7 @@ os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
 sys.dont_write_bytecode = True
 
 BASE_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(BASE_DIR / "src"))
+sys.path.insert(0, str(BASE_DIR / "model" / "src"))
 
 # Non-default pipeline settings this package ships with, applied after
 # parse_args so the package is self-describing rather than depending on
@@ -89,9 +90,48 @@ from pipeline import parse_args, run  # noqa: E402
 
 def main():
     args = parse_args()
+    audio_extensions = {".aac", ".flac", ".m4a", ".mp3", ".ogg",
+                        ".opus", ".wav", ".wma"}
+    # Documentation revisions have referred to both data/ and open/. Accept
+    # either layout, with or without a test/ child, while keeping files local.
+    input_candidates = [
+        BASE_DIR / "data" / "test",
+        BASE_DIR / "open" / "test",
+        BASE_DIR / "data",
+        BASE_DIR / "open",
+    ]
+    args.test_dir = next(
+        (directory for directory in input_candidates
+         if directory.is_dir() and any(
+             path.is_file() and path.suffix.lower() in audio_extensions
+             for path in directory.iterdir()
+         )),
+        BASE_DIR / "data" / "test",
+    )
+    sample_candidates = [
+        BASE_DIR / "data" / "sample_submission.csv",
+        BASE_DIR / "open" / "sample_submission.csv",
+        BASE_DIR / "sample_submission.csv",
+    ]
+    args.sample_submission = next(
+        (path for path in sample_candidates if path.is_file()),
+        sample_candidates[0],
+    )
+    args.output = BASE_DIR / "output" / "submission.csv"
     args.panns_dir = BASE_DIR / "model" / "panns"
     args.xlsr_dir = BASE_DIR / "model" / "xlsr"
-    args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
+    args.xlsr_music_head = BASE_DIR / "model" / "xlsr-music-head.npz"
+    args.xlsr_echoes_music_head = BASE_DIR / "model" / "xlsr-echoes-music-head.npz"
+    args.xlsr_echofake_voice_head = BASE_DIR / "model" / "xlsr-echofake-voice-head.npz"
+    args.eat_dir = BASE_DIR / "model" / "eat"
+    args.eat_head = BASE_DIR / "model" / "eat-head.npz"
+    args.eat_echoes_head = BASE_DIR / "model" / "eat-echoes-head.npz"
+    args.spear_dir = BASE_DIR / "model" / "spear"
+    args.spear_music_head = BASE_DIR / "model" / "spear-music-head.npz"
+    args.spear_mixed_voice_head = BASE_DIR / "model" / "spear-mixed-voice-head.npz"
+    args.spear_mixed_music_head = BASE_DIR / "model" / "spear-mixed-music-head.npz"
+    args.spear_mixture_present_head = BASE_DIR / "model" / "spear-mixture-present-head.npz"
+    args.fourier_music_head = BASE_DIR / "model" / "fourier-music-head.npz"
     args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
     for name, value in PIPELINE_OVERRIDES.items():
         if not hasattr(args, name):
@@ -107,29 +147,68 @@ if __name__ == "__main__":
 '''
 
 
-SUBMISSION_REQUIREMENTS = """\
-# ArtifactNet is distributed as an ONNX graph. All other dependencies are
-# already part of the competition image.
-onnxruntime-gpu==1.23.2
-"""
+SUBMISSION_REQUIREMENTS = ""
 
 
-def copy_xlsr_fp16(source_dir: Path, destination_dir: Path) -> None:
+def copy_xlsr_fp16(
+    source_dir: Path,
+    destination_dir: Path,
+    max_shard_size: int = 2 * 1024**3,
+) -> None:
+    """Convert XLS-R to fp16 and keep every ZIP member below 4 GiB.
+
+    Some upload validators interpret the ZIP64 size sentinel of a single file
+    larger than 4 GiB as an enormous extracted archive.  The original fp16
+    checkpoint is about 4.326 GB, just over that boundary, so write ordinary
+    safetensors shards instead.  ``XlsrAntiDeepfake`` loads either this layout
+    or the legacy single-file layout.
+    """
     destination_dir.mkdir(parents=True, exist_ok=True)
     tensors = load_file(source_dir / "model.safetensors")
     converted = {
         name: (tensor.half() if tensor.is_floating_point() else tensor)
         for name, tensor in tensors.items()
     }
-    save_file(converted, str(destination_dir / "model.safetensors"))
+
+    shards: list[dict[str, torch.Tensor]] = []
+    current: dict[str, torch.Tensor] = {}
+    current_size = 0
+    for name, tensor in converted.items():
+        tensor_size = tensor.numel() * tensor.element_size()
+        if current and current_size + tensor_size > max_shard_size:
+            shards.append(current)
+            current = {}
+            current_size = 0
+        if tensor_size > max_shard_size:
+            raise ValueError(f"single XLS-R tensor exceeds shard limit: {name}")
+        current[name] = tensor
+        current_size += tensor_size
+    if current:
+        shards.append(current)
+
+    count = len(shards)
+    for index, shard in enumerate(shards, 1):
+        path = destination_dir / f"model-{index:05d}-of-{count:05d}.safetensors"
+        save_file(shard, str(path))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--xlsr-dir", type=Path, required=True)
+    parser.add_argument("--xlsr-music-head", type=Path, required=True)
+    parser.add_argument("--xlsr-echoes-music-head", type=Path, required=True)
+    parser.add_argument("--xlsr-echofake-voice-head", type=Path, required=True)
     parser.add_argument("--panns-dir", type=Path, required=True)
     parser.add_argument("--htdemucs-dir", type=Path, required=True)
-    parser.add_argument("--artifactnet-dir", type=Path, required=True)
+    parser.add_argument("--eat-dir", type=Path, required=True)
+    parser.add_argument("--eat-head", type=Path, required=True)
+    parser.add_argument("--eat-echoes-head", type=Path, required=True)
+    parser.add_argument("--spear-dir", type=Path, required=True)
+    parser.add_argument("--spear-music-head", type=Path, required=True)
+    parser.add_argument("--spear-mixed-voice-head", type=Path, required=True)
+    parser.add_argument("--spear-mixed-music-head", type=Path, required=True)
+    parser.add_argument("--spear-mixture-present-head", type=Path, required=True)
+    parser.add_argument("--fourier-music-head", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fp32", action="store_true",
                         help="Ship full-precision XLS-R weights instead of fp16.")
@@ -157,10 +236,10 @@ def main():
         shutil.rmtree(out)
     (out / "model").mkdir(parents=True)
 
-    print("copying src/")
+    print("copying model/src/")
     # evaluate.py is a dev tool; it pulls pandas and scikit-learn, which the
     # pipeline never touches, so keep it out of the grading image's way.
-    shutil.copytree(REPO_ROOT / "src", out / "src",
+    shutil.copytree(REPO_ROOT / "src", out / "model" / "src",
                     ignore=shutil.ignore_patterns("__pycache__", "evaluate.py"))
 
     print("copying model/panns")
@@ -177,12 +256,38 @@ def main():
     else:
         print("converting model/xlsr to fp16")
         copy_xlsr_fp16(args.xlsr_dir, out / "model" / "xlsr")
-
-    print("copying model/artifactnet")
-    shutil.copytree(
-        args.artifactnet_dir, out / "model" / "artifactnet",
-        ignore=shutil.ignore_patterns(".cache", "__pycache__"),
+    shutil.copy2(args.xlsr_music_head, out / "model" / "xlsr-music-head.npz")
+    shutil.copy2(
+        args.xlsr_echoes_music_head, out / "model" / "xlsr-echoes-music-head.npz"
     )
+    shutil.copy2(
+        args.xlsr_echofake_voice_head,
+        out / "model" / "xlsr-echofake-voice-head.npz",
+    )
+    print("copying model/eat + music head")
+    shutil.copytree(
+        args.eat_dir, out / "model" / "eat",
+        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"),
+    )
+    shutil.copy2(args.eat_head, out / "model" / "eat-head.npz")
+    shutil.copy2(args.eat_echoes_head, out / "model" / "eat-echoes-head.npz")
+    print("copying model/spear + music head")
+    shutil.copytree(
+        args.spear_dir, out / "model" / "spear",
+        ignore=shutil.ignore_patterns(".cache", "__pycache__", "README.md"),
+    )
+    shutil.copy2(args.spear_music_head, out / "model" / "spear-music-head.npz")
+    shutil.copy2(
+        args.spear_mixed_voice_head, out / "model" / "spear-mixed-voice-head.npz"
+    )
+    shutil.copy2(
+        args.spear_mixed_music_head, out / "model" / "spear-mixed-music-head.npz"
+    )
+    shutil.copy2(
+        args.spear_mixture_present_head,
+        out / "model" / "spear-mixture-present-head.npz",
+    )
+    shutil.copy2(args.fourier_music_head, out / "model" / "fourier-music-head.npz")
 
     script = SCRIPT_TEMPLATE.replace("{overrides!r}", repr(overrides))
     if args.probe_column:

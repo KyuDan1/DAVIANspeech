@@ -1,0 +1,37 @@
+{
+  "protocol": {
+    "train": [
+      "external_mixed_train_v1",
+      "mixed_devvoice_train_v1",
+      "mixed_fmc_music_train_v1"
+    ],
+    "development": [
+      "external_mixed_v1",
+      "source_disjoint_mixed_v1"
+    ],
+    "locked_audit": "phone_factorial_1200_v1",
+    "target": "clean logit minus paired telephone-channel logit"
+  },
+  "selected": {
+    "LAYER": 1.0,
+    "ALPHA": 100.0,
+    "BETA": 0.75,
+    "FILE_MEAN": 0.3002083333333333,
+    "FILE_WORST": 0.35,
+    "MUSIC_MEAN": 0.320625,
+    "MUSIC_WORST": 0.395,
+    "SELECTION": 0.5397916666666667
+  },
+  "locked_phone_raw": {
+    "FILE_EER": 0.3082857142857143,
+    "VOICE_EER": 0.1825,
+    "MUSIC_EER": 0.4,
+    "ADS": 0.6893571428571428
+  },
+  "locked_phone_corrected": {
+    "FILE_EER": 0.3058571428571428,
+    "VOICE_EER": 0.1825,
+    "MUSIC_EER": 0.39249999999999996,
+    "ADS": 0.6928214285714286
+  }
+}

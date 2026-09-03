@@ -1,28 +1,18 @@
-"""Score a directory with the SONICS music deepfake detector."""
+"""Score a directory with the local dependency-free SONICS implementation."""
 
 from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
-import librosa
-import numpy as np
 import pandas as pd
-import torch
-from sonics import HFAudioClassifier
+from tqdm import tqdm
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-def load_windows(path, samples=80_000):
-    audio, _ = librosa.load(path, sr=16_000, mono=True, dtype=np.float32)
-    if len(audio) < samples:
-        audio = np.pad(audio, (0, samples - len(audio)))
-    starts = list(range(0, max(1, len(audio) - samples + 1), samples))
-    tail = len(audio) - samples
-    if starts[-1] != tail:
-        starts.append(tail)
-    windows = np.stack([audio[start:start + samples] for start in starts])
-    std = np.maximum(windows.std(axis=1, keepdims=True), 1e-6)
-    return windows / std
+from pipeline import load_audio  # noqa: E402
+from sonics_detector import SonicsMusicDetector  # noqa: E402
 
 
 def main():
@@ -32,8 +22,6 @@ def main():
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", default="cuda")
-    parser.add_argument("--batch-size", type=int, default=64)
-    parser.add_argument("--pool", choices=["mean", "max"], default="mean")
     args = parser.parse_args()
 
     sample = pd.read_csv(args.sample_submission, dtype={"ID": str})
@@ -41,22 +29,13 @@ def main():
     missing = [sample_id for sample_id in sample.ID if sample_id not in paths]
     if missing:
         raise ValueError(f"Missing audio for {missing[:5]}")
-    model = HFAudioClassifier.from_pretrained(str(args.model_dir)).to(args.device).eval()
+    model = SonicsMusicDetector.from_checkpoint(args.model_dir, device=args.device)
 
     probabilities = []
-    for sample_id in sample.ID:
-        windows = load_windows(paths[sample_id])
-        window_probabilities = []
-        for offset in range(0, len(windows), args.batch_size):
-            batch = torch.from_numpy(windows[offset:offset + args.batch_size]).to(args.device)
-            with torch.inference_mode():
-                window_probabilities.extend(
-                    torch.sigmoid(model(batch).flatten()).cpu().tolist()
-                )
-        probabilities.append(
-            float(np.mean(window_probabilities)) if args.pool == "mean"
-            else float(np.max(window_probabilities))
-        )
+    for sample_id in tqdm(sample.ID, desc="SONICS"):
+        probabilities.append(model.fake_probability(
+            load_audio(paths[sample_id]), device=args.device
+        ))
     sample["MUSIC_FAKE_PROB"] = probabilities
     sample["FILE_FAKE_PROB"] = probabilities
     sample["VOICE_FAKE_PROB"] = 0.0

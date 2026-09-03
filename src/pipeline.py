@@ -4,9 +4,9 @@
     |
     +-- PANNs Cnn14 ------> VOICE_PRESENT_PROB (VP), MUSIC_PRESENT_PROB (MP)
     |
-    +-- Separator --------> voice stem  --> XLS-R-2B --> VOICE_FAKE_PROB (VF)
-        (HTDemucs |         music stem  --> XLS-R-2B -----+--> MUSIC_FAKE_PROB (MF)
-         SAM-Audio)         full audio  --> ArtifactNet --+
+    +-- original audio -----------------> XLS-R-2B --------+--> voice/music votes
+    +-- original audio -----------------> EAT -------------+--> music votes
+    +-- Separator --------> voice stem  --> XLS-R-2B ------+
 
     FILE_FAKE_PROB = max(fake scores for components whose presence >= 0.7)
 
@@ -31,14 +31,35 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from presence import PannsPresence, extract_segment, segment_starts  # noqa: E402
 from separation import build_separator  # noqa: E402
-from artifactnet_detector import ArtifactNetMusicDetector  # noqa: E402
+from eat_detector import EatMusicDetector  # noqa: E402
+from fourier_detector import FourierMusicDetector  # noqa: E402
+from spear_detector import SpearMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
 AUDIO_SR = 16_000
 SILENCE_RMS = 1e-5
 PRESENCE_GATE = 0.7
-XLSR_MUSIC_WEIGHT = 0.5
-ARTIFACTNET_WEIGHT = 0.5
+# Source separation can erase generator traces and can also introduce traces
+# of its own.  Cross-suite maximin validation therefore gives the original
+# mixture most of the XLS-R vote and retains stems as complementary evidence.
+RAW_VOICE_WEIGHT = 0.6
+STEM_VOICE_WEIGHT = 0.4
+LEGACY_VOICE_ENSEMBLE_WEIGHT = 0.7
+ECHOFAKE_VOICE_WEIGHT = 0.3
+ADAPTED_STEM_VOICE_WEIGHT = 0.30
+# Cross-dataset maximin weights. The original heads preserve performance on
+# FakeMusicCaps, while Echoes heads cover twelve newer commercial/open models.
+EAT_MUSIC_WEIGHT = 0.225
+XLSR_ADAPTED_MUSIC_WEIGHT = 0.09
+EAT_ECHOES_MUSIC_WEIGHT = 0.225
+XLSR_ECHOES_MUSIC_WEIGHT = 0.36
+SPEAR_MUSIC_WEIGHT = 0.10
+FOURIER_MUSIC_WEIGHT = 0.30
+MIXTURE_GATE = 0.80
+MIXTURE_VOICE_WEIGHT = 0.30
+# The final desired routed-music weights are base/mixed/Fourier = .6/.1/.3.
+# Fourier is applied after this blend, hence 1/7 * .7 = .1.
+MIXTURE_MUSIC_WEIGHT = 1.0 / 7.0
 
 PREDICTION_COLUMNS = [
     "FILE_FAKE_PROB",
@@ -160,6 +181,29 @@ def fake_probability(detector, audio, device, window, batch_size,
     return pool_window_scores(np.asarray(scores), pooling, temperature)
 
 
+def fake_probability_and_embedding(detector, audio, device, window, batch_size):
+    """Return the released head score and mean pooled file representation.
+
+    The raw-audio XLS-R pass is shared by the speech head and the adapted
+    music head, so adding the latter has no extra 2B-encoder inference cost.
+    """
+    windows = np.stack([
+        extract_segment(audio, start, window)
+        for start in segment_starts(audio.size, window)
+    ])
+    best, embeddings = 0.0, []
+    for offset in range(0, len(windows), batch_size):
+        chunk = torch.from_numpy(windows[offset:offset + batch_size]).to(device)
+        with torch.inference_mode():
+            pooled = detector.embedding(detector.normalize(chunk))
+            probabilities = torch.softmax(
+                detector.proj_fc(pooled).float(), dim=-1
+            )[:, 0]
+        best = max(best, float(probabilities.max()))
+        embeddings.append(pooled.float().cpu())
+    return best, torch.cat(embeddings).mean(dim=0)
+
+
 def combine(voice_fake, music_fake, voice_present, music_present):
     """File fake probability from component-conditional fake probabilities.
 
@@ -222,43 +266,151 @@ def run(args):
         separator_kwargs["repo"] = Path(args.htdemucs_repo)
     separator = build_separator(args.separator, device=args.device, **separator_kwargs)
     detector = XlsrAntiDeepfake.from_checkpoint(args.xlsr_dir, device=device)
-    # Only construct it when it is actually weighted: with codec history held
-    # constant it scored EER 0.50-0.60 -- chance or worse -- so it is off by
-    # default, and skipping it also drops the slowest stage in the pipeline.
-    artifact_detector = (ArtifactNetMusicDetector(args.artifactnet_dir)
-                         if args.artifactnet_weight > 0 else None)
+    xlsr_head = np.load(args.xlsr_music_head)
+    xlsr_music_weight = torch.from_numpy(xlsr_head["weight"]).to(device)
+    xlsr_music_bias = torch.as_tensor(xlsr_head["bias"], device=device)
+    xlsr_echoes_head = np.load(args.xlsr_echoes_music_head)
+    xlsr_echoes_weight = torch.from_numpy(xlsr_echoes_head["weight"]).to(device)
+    xlsr_echoes_bias = torch.as_tensor(xlsr_echoes_head["bias"], device=device)
+    xlsr_echofake_head = np.load(args.xlsr_echofake_voice_head)
+    xlsr_echofake_weight = torch.from_numpy(
+        xlsr_echofake_head["weight"]
+    ).to(device)
+    xlsr_echofake_bias = torch.as_tensor(
+        xlsr_echofake_head["bias"], device=device
+    )
+    eat_detector = EatMusicDetector(
+        args.eat_dir, args.eat_head, device=args.device,
+        extra_head_path=args.eat_echoes_head,
+    )
+    spear_detector = SpearMusicDetector(
+        args.spear_dir, args.spear_music_head, device=args.device,
+        extra_head_paths=(
+            args.spear_mixed_voice_head, args.spear_mixed_music_head,
+            args.spear_mixture_present_head,
+        ),
+    )
+    fourier_detector = FourierMusicDetector(args.fourier_music_head)
 
+    diagnostic_rows = []
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
-        voice_audio, music_audio = separator.separate(path)
-        voice_fake = fake_probability(
-            detector, voice_audio, device, args.window, args.batch_size,
-            args.pooling, args.temperature
-        )
         original_audio = load_audio(path)
-        # Separation is not free for the music branch. What marks an AI track is
-        # largely its synthetic vocal, and HTDemucs routes that into the voice
-        # stem, so scoring the music stem throws the evidence away. Measured on
-        # three corpora, full audio beats the stem every time:
-        # GTZAN x SONICS 0.235 vs 0.455, GTZAN x pop-AI 0.550 vs 0.613,
-        # MusicCaps x FakeMusicCaps 0.360 vs 0.366.
-        music_input = music_audio if args.music_source == "stem" else original_audio
-        music_fake = fake_probability(
-            detector, music_input, device, args.window, args.batch_size,
-            args.pooling, args.temperature
+        voice_audio, _ = separator.separate(path)
+        voice_rms = float(np.sqrt(np.mean(
+            np.square(voice_audio, dtype=np.float64)
+        ))) if voice_audio.size else 0.0
+        if voice_rms < SILENCE_RMS:
+            voice_fake_stem = 0.0
+            voice_fake_stem_adapted = 0.0
+        else:
+            voice_fake_stem, voice_stem_embedding = (
+                fake_probability_and_embedding(
+                    detector, voice_audio, device, args.window, args.batch_size
+                )
+            )
+            voice_fake_stem_adapted = float(torch.sigmoid(
+                voice_stem_embedding.to(device) @ xlsr_echofake_weight
+                + xlsr_echofake_bias
+            ))
+        raw_fake_xlsr, raw_xlsr_embedding = fake_probability_and_embedding(
+            detector, original_audio, device, args.window, args.batch_size
         )
-        if args.artifactnet_weight > 0:
-            music_fake_artifact = artifact_detector.fake_probability(original_audio)
-            music_fake = ((1 - args.artifactnet_weight) * music_fake
-                          + args.artifactnet_weight * music_fake_artifact)
+        music_fake_xlsr_adapted = float(torch.sigmoid(
+            raw_xlsr_embedding.to(device) @ xlsr_music_weight + xlsr_music_bias
+        ))
+        music_fake_xlsr_echoes = float(torch.sigmoid(
+            raw_xlsr_embedding.to(device) @ xlsr_echoes_weight + xlsr_echoes_bias
+        ))
+        voice_fake_xlsr_echofake = float(torch.sigmoid(
+            raw_xlsr_embedding.to(device) @ xlsr_echofake_weight
+            + xlsr_echofake_bias
+        ))
+        music_fake_eat, music_fake_eat_echoes = (
+            eat_detector.fake_probabilities(original_audio)
+        )
+        (music_fake_spear, mixed_voice_fake, mixed_music_fake,
+         mixture_present) = (
+            spear_detector.fake_probabilities(original_audio)
+        )
+        music_fake_fourier = fourier_detector.fake_probability(original_audio)
+        legacy_voice_fake = (
+            STEM_VOICE_WEIGHT * voice_fake_stem
+            + RAW_VOICE_WEIGHT * raw_fake_xlsr
+        )
+        voice_fake = (
+            LEGACY_VOICE_ENSEMBLE_WEIGHT * legacy_voice_fake
+            + ECHOFAKE_VOICE_WEIGHT * voice_fake_xlsr_echofake
+        )
+        voice_fake = (
+            (1 - ADAPTED_STEM_VOICE_WEIGHT) * voice_fake
+            + ADAPTED_STEM_VOICE_WEIGHT * voice_fake_stem_adapted
+        )
+        music_fake = (
+            EAT_MUSIC_WEIGHT * music_fake_eat
+            + XLSR_ADAPTED_MUSIC_WEIGHT * music_fake_xlsr_adapted
+            + EAT_ECHOES_MUSIC_WEIGHT * music_fake_eat_echoes
+            + XLSR_ECHOES_MUSIC_WEIGHT * music_fake_xlsr_echoes
+            + SPEAR_MUSIC_WEIGHT * music_fake_spear
+        )
+        voice_fake_before_mixture = voice_fake
+        music_fake_before_mixture = music_fake
         voice_present, music_present = presence[path.stem]
-
-        row["FILE_FAKE_PROB"] = round(
-            combine(voice_fake, music_fake, voice_present, music_present), 10
+        # A dedicated raw-mixture expert recovers artifacts masked by the
+        # other component. It is never applied to obvious single-component
+        # audio, where its training distribution would be inappropriate.
+        if mixture_present >= MIXTURE_GATE:
+            voice_fake = (
+                (1 - MIXTURE_VOICE_WEIGHT) * voice_fake
+                + MIXTURE_VOICE_WEIGHT * mixed_voice_fake
+            )
+            music_fake = (
+                (1 - MIXTURE_MUSIC_WEIGHT) * music_fake
+                + MIXTURE_MUSIC_WEIGHT * mixed_music_fake
+            )
+        music_fake = (
+            (1 - FOURIER_MUSIC_WEIGHT) * music_fake
+            + FOURIER_MUSIC_WEIGHT * music_fake_fourier
         )
+
+        # The high-specificity SPEAR router is substantially more reliable at
+        # identifying mixtures than thresholding two independently calibrated
+        # PANNs ranking scores. For a routed mixture both components are known
+        # to exist, so implement the competition's logical OR directly.
+        file_fake = (
+            max(voice_fake, music_fake)
+            if mixture_present >= MIXTURE_GATE
+            else combine(voice_fake, music_fake, voice_present, music_present)
+        )
+        row["FILE_FAKE_PROB"] = round(file_fake, 10)
         row["VOICE_FAKE_PROB"] = round(voice_fake, 10)
         row["MUSIC_FAKE_PROB"] = round(music_fake, 10)
         row["VOICE_PRESENT_PROB"] = round(voice_present, 10)
         row["MUSIC_PRESENT_PROB"] = round(music_present, 10)
+        if args.diagnostic_output is not None:
+            diagnostic_rows.append({
+                "ID": path.stem,
+                "voice_present": voice_present,
+                "music_present": music_present,
+                "voice_rms": voice_rms,
+                "raw_fake_xlsr": raw_fake_xlsr,
+                "voice_fake_stem": voice_fake_stem,
+                "voice_fake_xlsr_echofake": voice_fake_xlsr_echofake,
+                "voice_fake_stem_adapted": voice_fake_stem_adapted,
+                "voice_fake_before_mixture": voice_fake_before_mixture,
+                "music_fake_xlsr_adapted": music_fake_xlsr_adapted,
+                "music_fake_xlsr_echoes": music_fake_xlsr_echoes,
+                "music_fake_eat": music_fake_eat,
+                "music_fake_eat_echoes": music_fake_eat_echoes,
+                "music_fake_spear": music_fake_spear,
+                "music_fake_fourier": music_fake_fourier,
+                "music_fake_before_mixture": music_fake_before_mixture,
+                "mixed_voice_fake": mixed_voice_fake,
+                "mixed_music_fake": mixed_music_fake,
+                "mixture_present": mixture_present,
+                "voice_fake_final": voice_fake,
+                "music_fake_final": music_fake,
+                "file_fake_final": file_fake,
+            })
 
     print(f"[3/3] Writing {args.output}", flush=True)
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -267,6 +419,20 @@ def run(args):
         writer.writeheader()
         writer.writerows(rows)
     print(f"Saved {len(rows)} predictions to {args.output}")
+    if args.diagnostic_output is not None:
+        args.diagnostic_output.parent.mkdir(parents=True, exist_ok=True)
+        with args.diagnostic_output.open(
+            "w", encoding="utf-8", newline=""
+        ) as handle:
+            writer = csv.DictWriter(
+                handle, fieldnames=list(diagnostic_rows[0])
+            )
+            writer.writeheader()
+            writer.writerows(diagnostic_rows)
+        print(
+            f"Saved {len(diagnostic_rows)} diagnostics to "
+            f"{args.diagnostic_output}"
+        )
 
 
 def parse_args(argv=None):
@@ -275,11 +441,37 @@ def parse_args(argv=None):
     parser.add_argument("--sample-submission", type=Path,
                         default=Path("data/sample_submission.csv"))
     parser.add_argument("--output", type=Path, default=Path("output/submission.csv"))
+    parser.add_argument(
+        "--diagnostic-output", type=Path, default=None,
+        help="Optional per-expert CSV for offline ablations. Never required "
+             "by the submission path.",
+    )
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,
                         default=Path("models/xls-r-2b-anti-deepfake"))
-    parser.add_argument("--artifactnet-dir", type=Path,
-                        default=Path("models/artifactnet"))
+    parser.add_argument("--xlsr-music-head", type=Path,
+                        default=Path("model_heads/xlsr-music-head.npz"))
+    parser.add_argument("--xlsr-echoes-music-head", type=Path,
+                        default=Path("model_heads/xlsr-echoes-music-head.npz"))
+    parser.add_argument("--xlsr-echofake-voice-head", type=Path,
+                        default=Path("model_heads/xlsr-echofake-voice-head.npz"))
+    parser.add_argument("--eat-dir", type=Path, default=Path("models/eat-base-as2m"))
+    parser.add_argument("--eat-head", type=Path,
+                        default=Path("model_heads/eat-music-head.npz"))
+    parser.add_argument("--eat-echoes-head", type=Path,
+                        default=Path("model_heads/eat-echoes-music-head.npz"))
+    parser.add_argument("--spear-dir", type=Path,
+                        default=Path("models/spear-xlarge-speech-audio-v2"))
+    parser.add_argument("--spear-music-head", type=Path,
+                        default=Path("model_heads/spear-v3-music-head.npz"))
+    parser.add_argument("--spear-mixed-voice-head", type=Path,
+                        default=Path("model_heads/spear-mixed-voice_fake-head.npz"))
+    parser.add_argument("--spear-mixed-music-head", type=Path,
+                        default=Path("model_heads/spear-mixed-music_fake-head.npz"))
+    parser.add_argument("--spear-mixture-present-head", type=Path,
+                        default=Path("model_heads/spear-mixture-present-head.npz"))
+    parser.add_argument("--fourier-music-head", type=Path,
+                        default=Path("model_heads/fourier-echoes-music-head.npz"))
     parser.add_argument("--separator",
                         choices=["htdemucs", "sam-audio", "precomputed"],
                         default="htdemucs")

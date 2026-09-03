@@ -126,7 +126,20 @@ class XlsrAntiDeepfake(nn.Module):
     @classmethod
     def from_checkpoint(cls, model_dir, device="cuda", dtype=torch.float32):
         model = cls()
-        raw = load_file(Path(model_dir) / "model.safetensors")
+        model_dir = Path(model_dir)
+        single = model_dir / "model.safetensors"
+        checkpoint_files = [single] if single.is_file() else sorted(
+            model_dir.glob("model-*-of-*.safetensors")
+        )
+        if not checkpoint_files:
+            raise FileNotFoundError(f"no XLS-R safetensors checkpoint in {model_dir}")
+        raw = {}
+        for checkpoint_file in checkpoint_files:
+            shard = load_file(checkpoint_file)
+            duplicate = raw.keys() & shard.keys()
+            if duplicate:
+                raise ValueError(f"duplicate XLS-R keys across shards: {sorted(duplicate)[:5]}")
+            raw.update(shard)
 
         target = model.ssl.state_dict()
         converted, unmapped = {}, []
@@ -176,9 +189,13 @@ class XlsrAntiDeepfake(nn.Module):
 
     def forward(self, waveform: torch.Tensor) -> torch.Tensor:
         """waveform: (B, T) already normalized -> logits (B, 2)."""
-        hidden = self.ssl(waveform).last_hidden_state       # (B, frames, 1920)
-        pooled = hidden.mean(dim=1)                         # AdaptiveAvgPool1d(1)
+        pooled = self.embedding(waveform)
         return self.proj_fc(pooled)
+
+    def embedding(self, waveform: torch.Tensor) -> torch.Tensor:
+        """Return the paper's mean-pooled 1920-D AntiDeepfake representation."""
+        hidden = self.ssl(waveform).last_hidden_state       # (B, frames, 1920)
+        return hidden.mean(dim=1)                            # AdaptiveAvgPool1d(1)
 
     @torch.inference_mode()
     def fake_probability(self, waveform: torch.Tensor) -> torch.Tensor:
