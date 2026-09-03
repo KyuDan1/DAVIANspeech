@@ -48,8 +48,11 @@ from train_dual_domain_head import (  # noqa: E402
 class CounterfactualDataset(Dataset):
     """Return an item plus music-, voice-, and channel-invariant partners."""
 
-    def __init__(self, banks: list[Bank]) -> None:
+    def __init__(
+        self, banks: list[Bank], asymmetric_channel: bool = False
+    ) -> None:
         self.banks = banks
+        self.asymmetric_channel = asymmetric_channel
         self.offsets = np.cumsum([0] + [len(bank.ids) for bank in banks])
         self.bank_index = np.concatenate([
             np.full(len(bank.ids), index, dtype=np.int32)
@@ -94,8 +97,15 @@ class CounterfactualDataset(Dataset):
             source = getattr(row, source_column, None)
             if pd.isna(source) or not str(source).strip():
                 continue
-            target = int(getattr(row, target_column))
-            nuisance = int(getattr(row, nuisance_column))
+            target_value = getattr(row, target_column)
+            nuisance_value = getattr(row, nuisance_column)
+            # A single-component file has no label for the absent nuisance
+            # component.  It remains a valid direct training example, but it
+            # cannot define a counterfactual pair for that component.
+            if pd.isna(target_value) or pd.isna(nuisance_value):
+                continue
+            target = int(target_value)
+            nuisance = int(nuisance_value)
             groups[(str(source), target)][nuisance].append(int(row.GLOBAL_INDEX))
         for nuisance_groups in groups.values():
             if len(nuisance_groups) < 2:
@@ -119,7 +129,8 @@ class CounterfactualDataset(Dataset):
         mask = np.zeros(len(self), dtype=np.float32)
         by_id = {
             str(row.ID): (int(row.GLOBAL_INDEX), tuple(
-                int(getattr(row, column))
+                0 if pd.isna(getattr(row, column))
+                else int(getattr(row, column))
                 for column in ("VOICE_FAKE", "MUSIC_FAKE", "FILE_FAKE")
             ))
             for row in frame.itertuples(index=False)
@@ -130,14 +141,20 @@ class CounterfactualDataset(Dataset):
                 continue
             candidate, target = by_id[str(parent)]
             current_target = tuple(
-                int(getattr(row, column))
+                0 if pd.isna(getattr(row, column))
+                else int(getattr(row, column))
                 for column in ("VOICE_FAKE", "MUSIC_FAKE", "FILE_FAKE")
             )
             if target == current_target:
                 partner[int(row.GLOBAL_INDEX)] = candidate
-                partner[candidate] = int(row.GLOBAL_INDEX)
                 mask[int(row.GLOBAL_INDEX)] = 1.0
-                mask[candidate] = 1.0
+                # In the asymmetric mode, the clean parent is a fixed teacher:
+                # only a codec child is pulled toward its clean counterpart.
+                # The symmetric mode remains available for exact reproduction
+                # of earlier experiments.
+                if not self.asymmetric_channel:
+                    partner[candidate] = int(row.GLOBAL_INDEX)
+                    mask[candidate] = 1.0
         return partner, mask
 
     def _sample(self, index: int):
@@ -190,11 +207,44 @@ def main() -> None:
     parser.add_argument("--stream-dropout", type=float, default=0.10)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=1e-3)
+    parser.add_argument(
+        "--init-checkpoint", type=Path,
+        help=(
+            "Warm-start from a compatible head and preserve its normalization. "
+            "The unmodified checkpoint is included in model selection."
+        ),
+    )
     parser.add_argument("--component-consistency", type=float, default=0.5)
     parser.add_argument("--channel-consistency", type=float, default=0.25)
+    parser.add_argument(
+        "--asymmetric-channel-consistency", action="store_true",
+        help=(
+            "Treat clean parents as stop-gradient teachers and align only "
+            "their codec children."
+        ),
+    )
+    parser.add_argument(
+        "--fixed-channel-teacher", action="store_true",
+        help=(
+            "Use the frozen initialization checkpoint, rather than the moving "
+            "student, as the clean-side target for channel consistency."
+        ),
+    )
+    parser.add_argument(
+        "--retention-consistency", type=float, default=0.0,
+        help="Weight for retaining the frozen teacher output on every input.",
+    )
     parser.add_argument("--decoupled", action="store_true")
     parser.add_argument("--file-component-weight", type=float, default=0.10)
     args = parser.parse_args()
+    if (args.fixed_channel_teacher or args.retention_consistency > 0) \
+            and args.init_checkpoint is None:
+        parser.error(
+            "--fixed-channel-teacher and --retention-consistency require "
+            "--init-checkpoint"
+        )
+    if args.retention_consistency < 0:
+        parser.error("--retention-consistency must be non-negative")
 
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -212,15 +262,33 @@ def main() -> None:
         load_bank(args.stats_root, name, channel)
         for name in args.dev_datasets for channel in args.dev_channels
     ]
-    dataset = CounterfactualDataset(train_banks)
+    dataset = CounterfactualDataset(
+        train_banks, asymmetric_channel=args.asymmetric_channel_consistency
+    )
     print(json.dumps({
         "samples": len(dataset),
         "music_pairs": int(dataset.music_mask.sum()),
         "voice_pairs": int(dataset.voice_mask.sum()),
         "channel_pairs": int(dataset.channel_mask.sum()),
     }), flush=True)
-    eat_mean, eat_std = normalization(train_banks, "eat", "eat_mask")
-    spear_mean, spear_std = normalization(train_banks, "spear", "spear_mask")
+    initial_checkpoint = None
+    if args.init_checkpoint is not None:
+        initial_checkpoint = torch.load(
+            args.init_checkpoint, map_location="cpu", weights_only=False
+        )
+        expected_type = "invariant" if args.decoupled else "dual_domain"
+        if initial_checkpoint.get("model_type", "dual_domain") != expected_type:
+            raise ValueError(
+                f"Initial checkpoint type does not match {expected_type!r}"
+            )
+        initial_normalization = initial_checkpoint["normalization"]
+        eat_mean = np.asarray(initial_normalization["eat_mean"], dtype=np.float32)
+        eat_std = np.asarray(initial_normalization["eat_std"], dtype=np.float32)
+        spear_mean = np.asarray(initial_normalization["spear_mean"], dtype=np.float32)
+        spear_std = np.asarray(initial_normalization["spear_std"], dtype=np.float32)
+    else:
+        eat_mean, eat_std = normalization(train_banks, "eat", "eat_mask")
+        spear_mean, spear_std = normalization(train_banks, "spear", "spear_mask")
     device = torch.device(args.device)
     norm = {
         "eat_mean": torch.from_numpy(eat_mean).to(device)[None, None],
@@ -236,6 +304,17 @@ def main() -> None:
     if args.decoupled:
         model_kwargs["file_component_weight"] = args.file_component_weight
     model = model_class(**model_kwargs).to(device)
+    if initial_checkpoint is not None:
+        if initial_checkpoint["config"] != model_kwargs:
+            raise ValueError(
+                "Initial checkpoint config differs from requested model config: "
+                f"{initial_checkpoint['config']} != {model_kwargs}"
+            )
+        model.load_state_dict(initial_checkpoint["model"])
+    fixed_teacher = None
+    if args.fixed_channel_teacher or args.retention_consistency > 0:
+        fixed_teacher = copy.deepcopy(model).eval()
+        fixed_teacher.requires_grad_(False)
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
     )
@@ -257,6 +336,26 @@ def main() -> None:
 
     history, best_state, best_metrics = [], None, None
     best_selection, best_epoch, stale = -float("inf"), -1, 0
+    if initial_checkpoint is not None:
+        initial_predictions = predict(
+            model, dev_banks, norm, device, args.batch_size * 4
+        )
+        best_metrics, best_selection = evaluate_banks(
+            dev_banks, initial_predictions
+        )
+        best_state = copy.deepcopy(model.state_dict())
+        history.append({
+            "EPOCH": -1, "TRAIN_LOSS": np.nan, "BASE_LOSS": np.nan,
+            "INVARIANCE_LOSS": np.nan, "SELECTION": best_selection,
+            "MEAN_ADS": best_metrics.ADS.mean(),
+            "WORST_ADS": best_metrics.ADS.min(),
+        })
+        print(
+            f"epoch=-01 warm_start selection={best_selection:.5f} "
+            f"mean={best_metrics.ADS.mean():.5f} "
+            f"worst={best_metrics.ADS.min():.5f}",
+            flush=True,
+        )
     for epoch in range(args.epochs):
         model.train()
         losses, base_losses, invariance_losses = [], [], []
@@ -296,6 +395,18 @@ def main() -> None:
                     model.probabilities(task, joint_logits_part)
                     for task, joint_logits_part in zip(chunks_task, chunks_joint)
                 ]
+                teacher_probabilities = None
+                if fixed_teacher is not None:
+                    with torch.no_grad():
+                        teacher_task, teacher_joint = fixed_teacher(
+                            eat, spear, eat_mask, spear_mask
+                        )
+                        teacher_probabilities = [
+                            fixed_teacher.probabilities(task, joint_part)
+                            for task, joint_part in zip(
+                                teacher_task.chunk(4), teacher_joint.chunk(4)
+                            )
+                        ]
                 music_invariance = masked_consistency(
                     probabilities[0][:, 1], probabilities[1][:, 1],
                     pair_masks[0].to(device),
@@ -305,12 +416,25 @@ def main() -> None:
                     pair_masks[1].to(device),
                 )
                 channel_mask = pair_masks[2].to(device)[:, None]
+                channel_teacher = probabilities[3]
+                if args.fixed_channel_teacher:
+                    assert teacher_probabilities is not None
+                    channel_teacher = teacher_probabilities[3]
+                if args.asymmetric_channel_consistency:
+                    channel_teacher = channel_teacher.detach()
                 channel_invariance = masked_consistency(
-                    probabilities[0], probabilities[3], channel_mask,
+                    probabilities[0], channel_teacher, channel_mask,
                 )
+                retention = probabilities[0].new_zeros(())
+                if args.retention_consistency > 0:
+                    assert teacher_probabilities is not None
+                    retention = F.smooth_l1_loss(
+                        probabilities[0], teacher_probabilities[0]
+                    )
                 invariance = (
                     args.component_consistency * (music_invariance + voice_invariance)
                     + args.channel_consistency * channel_invariance
+                    + args.retention_consistency * retention
                 )
                 loss = base + invariance
             loss.backward()
@@ -367,6 +491,12 @@ def main() -> None:
         "train_channels": args.train_channels,
         "component_consistency": args.component_consistency,
         "channel_consistency": args.channel_consistency,
+        "asymmetric_channel_consistency": args.asymmetric_channel_consistency,
+        "fixed_channel_teacher": args.fixed_channel_teacher,
+        "retention_consistency": args.retention_consistency,
+        "init_checkpoint": (
+            str(args.init_checkpoint) if args.init_checkpoint is not None else None
+        ),
     }, args.output_dir / "dual_domain_head.pt")
     pd.DataFrame(history).to_csv(args.output_dir / "history.csv", index=False)
     best_metrics.to_csv(args.output_dir / "dev_metrics.csv", index=False)
