@@ -5,13 +5,13 @@
 샘플 전체를 하나의 전문가로 보내는 hard router는 사용하지 않는다. 현재 가장
 안전한 구조는 다음의 계층형 MoE다.
 
-1. v30까지 검증한 전문가들은 모든 파일에 대해 기존 비율로 soft fusion한다.
+1. 실제 리더보드 최고점인 v18을 그대로 anchor로 사용한다.
 2. 음성/음악 분리 없이 원본 SPEAR의 1.25초 bin 8개를 보는 temporal-attention
    전문가를 추가한다.
 3. 이 전문가는 `FILE_FAKE_PROB`에만 작게 결합한다.
-4. 전화 router가 narrow-band 전화 파일이면 이 전문가의 비중만 12.5%에서
-   20%로 높인다.
-5. `VOICE_FAKE_PROB`, `MUSIC_FAKE_PROB`, 두 presence 확률은 v30과 동일하게
+4. 전화 router가 narrow-band 전화 파일이면 이 전문가의 비중만 20%에서
+   25%로 높인다.
+5. `VOICE_FAKE_PROB`, `MUSIC_FAKE_PROB`, 두 presence 확률은 v18과 동일하게
    유지한다.
 
 즉, router가 기존 모델을 교체하는 구조가 아니라 검증된 MoE 위에서 특정
@@ -69,18 +69,25 @@ attention 단독 모델은 기존 MoE를 대체할 정도로 강하지 않았다
 
 ## 3. 최종 residual/router ablation
 
-기존 joint MoE를 anchor로 고정하고 attention은 File logit에만 결합했다. 선택한
-성분+채널 일관성 attention의 결과는 다음과 같다.
+먼저 아직 leaderboard에서 검증하지 않은 v30을 anchor로 사용하면 성분+채널
+일관성 attention의 non-phone 12.5%, phone 20% 결합이 dev `+0.0038`, phone
+`+0.0238` ADS였고 factorial/YuE는 동률이었다. 그러나 이 제출은 v29와 v30의
+변경까지 누적되어 실제 점수 변화의 원인을 분리할 수 없다.
+
+따라서 최종 선택은 실제 제출 최고점 v18을 frozen prediction에서 정확히
+재구성한 뒤 다시 했다. 네 attention head 중 내부 선택 점수도 가장 높은
+채널 일관성-only head를 File logit에만 결합했다.
 
 | 결합 방식 | dev 변화 | factorial 변화 | phone 변화 | YuE 변화 |
 |---|---:|---:|---:|---:|
-| 전 구간 12.5% | -0.0009 | 0 | +0.0159 | 0 |
-| router: non-phone 12.5%, phone 20% | **+0.0038** | **0** | **+0.0238** | **0** |
+| 전 구간 20% | +0.0285 | +0.0200 | +0.0379 | +0.0132 |
+| router: non-phone 20%, phone 25% | **+0.0324** | **+0.0200** | **+0.0400** | **+0.0132** |
 
-집계 점수에서는 네 뱅크 어느 곳도 하락하지 않았다. 세부 slice에서는
-`opus_nb_8k` File EER이 크게 개선됐지만 단순 `resample8k`와 일부 작은 clean
-slice는 하락했다. 따라서 가중치를 더 높이지 않았으며, 이 후보의 기대 이득은
-평가 세트의 전화/codec 비율에 따라 달라진다.
+router가 없는 고정 soft MoE도 네 뱅크 모두 좋아졌고, router는 factorial/YuE를
+바꾸지 않으면서 전화가 포함된 dev와 phone bank만 추가 개선했다. 따라서 이
+결과는 전화 router에 의존해 만들어진 우연한 평균 상승이 아니다. 더 큰 비중도
+일부 로컬 조합에서는 좋았지만 unseen generator/channel의 위험을 줄이기 위해
+20/25%로 제한했다.
 
 ## 4. 기각한 음악 codec-token 전문가
 
@@ -92,13 +99,15 @@ Suno 13개도 전부 탐지하지 못했다. 논문 규모의 대규모 학습 �
 
 ## 5. 제출 후보와 남은 위험
 
-- 후보: `hierarchical_router_moe_v32_submit.zip`
-- 변경 범위: v30 대비 1.3MB attention head와 inference code 추가
-- 추론 시간 증가: SPEAR temporal bin은 이미 계산하므로 head forward만 추가
+- 후보: `v18_channel_attention_router_v32.zip`
+- 변경 범위: 실제 성공 제출 v18 대비 1.3MB attention head 하나만 추가
+- 추론 시간 증가: 기존 두 번째 SPEAR pass에서 temporal bin을 함께 추출하므로
+  backbone pass는 늘지 않고 작은 head forward만 추가
 - CPS: 의도적으로 변경하지 않음
-- 검증: 관련 unit test 9개 통과, clean/phone/mixed 3파일 전체 스모크 통과
+- 검증: 전체 test suite 91개 통과, clean/phone/mixed 3파일 전체 스모크 통과
 
 v32의 로컬 결과는 router를 작은 보정기로 쓰는 것이 hard expert selection보다
-안전하다는 근거를 제공한다. 다만 leaderboard에서 실제 향상 폭을 확인하기
-전에는 v18의 실점 구조와 완전히 align됐다고 볼 수 없다. 이후에는 제출 결과를
-기준으로 File/Voice/Music 중 실제로 움직인 축을 다시 역산해야 한다.
+안전하다는 근거를 제공한다. v18과의 유일한 확률 변경은 File attention 결합이며
+Voice/Music/CPS는 그대로이므로, 실제 제출 결과가 바뀌면 File EER 변화로 직접
+해석할 수 있다. 이후에는 leaderboard 결과를 기준으로 로컬 File 개선폭의 전이율을
+계산해야 한다.
