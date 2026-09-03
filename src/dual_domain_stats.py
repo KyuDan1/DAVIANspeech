@@ -37,6 +37,29 @@ def temporal_starts(num_samples: int, crop_samples: int, max_views: int = 3) -> 
     return sorted({int(value) for value in candidates})
 
 
+def segment_starts(
+    num_samples: int, crop_samples: int, max_views: int = 8,
+) -> list[int]:
+    """Return ordered long-range views with no more than 50% target overlap.
+
+    Unlike :func:`temporal_starts`, this does not force every long recording
+    into exactly ``max_views`` crops.  Ten-to-twenty-second competition files
+    therefore gain useful temporal resolution without filling the sequence
+    with almost identical views.
+    """
+    if crop_samples <= 0:
+        raise ValueError("crop_samples must be positive")
+    if max_views <= 0:
+        raise ValueError("max_views must be positive")
+    if num_samples <= crop_samples:
+        return [0]
+    last = num_samples - crop_samples
+    target_hop = max(1, crop_samples // 2)
+    count = min(max_views, max(2, 1 + int(np.ceil(last / target_hop))))
+    candidates = np.linspace(0, last, count, dtype=np.int64)
+    return sorted({int(value) for value in candidates})
+
+
 def interval_view_targets(
     num_samples: int,
     crop_samples: int,

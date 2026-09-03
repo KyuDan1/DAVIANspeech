@@ -45,10 +45,15 @@ SPECS = (
     direct("telephone_mixed_train_v1", True),
     direct("temporal_mixed_train_v2", True),
     direct("channel_invariant_factorial_train_v1", True),
+    direct("multigen_music_presence_train_v1", True),
+    direct("phone_presence_factorial_train_v1", True),
     direct("mixfake_music_dev_v1"),
     direct("external_mixed_v1"),
+    direct("external_mixed_v1_telephone_v1"),
     direct("source_disjoint_mixed_v1"),
+    direct("source_disjoint_mixed_v1_telephone_v1"),
     direct("source_disjoint_mixed_equal_v1"),
+    direct("source_disjoint_mixed_equal_v1_telephone_v1"),
     direct("source_disjoint_music_v1"),
     Specification(
         "factorial_eval_1200_v2_dev", "factorial_eval_1200_v2",
@@ -78,12 +83,18 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--projection-width", type=int, default=128)
     parser.add_argument("--projection-seed", type=int, default=20260904)
+    parser.add_argument("--max-views", type=int, default=3)
+    parser.add_argument(
+        "--view-strategy", choices=("endpoints", "segments"), default="endpoints"
+    )
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
     selected = set(args.datasets or [spec.name for spec in SPECS])
     unknown = selected.difference(spec.name for spec in SPECS)
     if unknown:
         parser.error(f"unknown datasets: {sorted(unknown)}")
+    if args.max_views <= 0:
+        parser.error("--max-views must be positive")
 
     device = torch.device(args.device)
     model = _load_local_model(ROOT / "models/eat-base-as2m", device)
@@ -113,6 +124,7 @@ def main() -> None:
         files = [by_id[item] for item in truth.ID]
         extract_files(
             model, projection, files, output, device, args.batch_size,
+            max_views=args.max_views, view_strategy=args.view_strategy,
         )
 
 

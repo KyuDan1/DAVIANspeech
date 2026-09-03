@@ -85,6 +85,8 @@ def apply_eat_presence_fusion(
     statistics_output_path: Path | None = None,
     hierarchical_statistics_output_path: Path | None = None,
     hierarchical_checkpoint_path: Path | None = None,
+    segmental_statistics_output_path: Path | None = None,
+    segmental_checkpoint_path: Path | None = None,
     phone_voice_head_path: Path | None = None,
     telephone_router_path: Path | None = None,
     phone_voice_weight: float = 0.50,
@@ -122,6 +124,15 @@ def apply_eat_presence_fusion(
         raise ValueError(
             "hierarchical EAT statistics require the standard statistics output"
         )
+    if (segmental_statistics_output_path is None) != (segmental_checkpoint_path is None):
+        raise ValueError(
+            "segmental statistics output and checkpoint must be provided together"
+        )
+    if segmental_statistics_output_path is not None:
+        if hierarchical_statistics_output_path is None:
+            raise ValueError("segmental statistics require hierarchical statistics")
+        if statistics_output_path is None:
+            raise ValueError("segmental statistics require the standard statistics output")
 
     audio_files = order_by_submission(find_audio_files(test_dir), rows)
     gc.collect()
@@ -142,7 +153,9 @@ def apply_eat_presence_fusion(
     telephone_ids = []
     statistic_ids, statistics, statistic_masks = [], [], []
     hierarchical_values = []
+    segmental_values, segmental_masks = [], []
     hierarchical_projection = None
+    segmental_max_views = None
     if hierarchical_checkpoint_path is not None:
         checkpoint = torch.load(
             hierarchical_checkpoint_path, map_location="cpu", weights_only=False
@@ -152,15 +165,31 @@ def apply_eat_presence_fusion(
         hierarchical_projection = torch.from_numpy(
             np.asarray(checkpoint["projection"], dtype=np.float32)
         )
-    for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
-        paths = audio_files[offset:offset + 8]
+    if segmental_checkpoint_path is not None:
+        segmental_checkpoint = torch.load(
+            segmental_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        if segmental_checkpoint.get("model_type") != "segmental_eat_music":
+            raise ValueError("invalid segmental EAT checkpoint")
+        segmental_projection = np.asarray(
+            segmental_checkpoint["projection"], dtype=np.float32
+        )
+        if not np.array_equal(hierarchical_projection.numpy(), segmental_projection):
+            raise ValueError("hierarchical and segmental projections differ")
+        segmental_max_views = int(segmental_checkpoint["config"]["max_views"])
+    file_batch_size = 4 if segmental_max_views is not None else 8
+    for offset in tqdm(
+        range(0, len(audio_files), file_batch_size), desc="EAT presence+stats"
+    ):
+        paths = audio_files[offset:offset + file_batch_size]
         audios = [load_audio(path) for path in paths]
         audio_set = [detector.predict_audio_set(audio) for audio in audios]
         latent = detector.latent_statistics_batch(
-            audios, hierarchical_projection=hierarchical_projection
+            audios, hierarchical_projection=hierarchical_projection,
+            segmental_max_views=segmental_max_views,
         )
         for row, path, audio, (eat_voice, eat_music), latent_item in zip(
-            rows[offset:offset + 8], paths, audios, audio_set, latent
+            rows[offset:offset + file_batch_size], paths, audios, audio_set, latent
         ):
             matrix, mask, probe_music = latent_item[:3]
             voice_present, music_present = fuse_presence(
@@ -194,6 +223,9 @@ def apply_eat_presence_fusion(
                 statistic_masks.append(mask)
             if hierarchical_statistics_output_path is not None:
                 hierarchical_values.append(latent_item[3])
+            if segmental_statistics_output_path is not None:
+                segmental_values.append(latent_item[4])
+                segmental_masks.append(latent_item[5])
     del detector
     gc.collect()
     torch.cuda.empty_cache()
@@ -224,6 +256,18 @@ def apply_eat_presence_fusion(
             ids=np.asarray(statistic_ids),
             statistics=np.stack(hierarchical_values),
             view_mask=np.stack(statistic_masks),
+        )
+    if segmental_statistics_output_path is not None:
+        if len(segmental_values) != len(statistic_ids):
+            raise RuntimeError(
+                "segmental EAT statistics require the standard statistics output"
+            )
+        segmental_statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            segmental_statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.stack(segmental_values),
+            view_mask=np.stack(segmental_masks),
         )
     if telephone_router is not None:
         print(f"telephone Voice presence routed {telephone_count}/{len(rows)} files")

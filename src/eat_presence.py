@@ -13,12 +13,16 @@ from torch.nn import functional as F
 try:  # package import in tests; flat import in the offline submission
     from .eat_detector import EatMusicDetector, _load_local_model
     from .dual_domain_stats import (
-        crop_or_pad, pad_views, sequence_statistics, temporal_starts,
+        crop_or_pad, pad_views, segment_starts, sequence_statistics,
+        temporal_starts,
     )
     from .eat_hierarchical import hierarchical_statistics
 except ImportError:  # pragma: no cover - exercised by script.py
     from eat_detector import EatMusicDetector, _load_local_model
-    from dual_domain_stats import crop_or_pad, pad_views, sequence_statistics, temporal_starts
+    from dual_domain_stats import (
+        crop_or_pad, pad_views, segment_starts, sequence_statistics,
+        temporal_starts,
+    )
     from eat_hierarchical import hierarchical_statistics
 
 
@@ -97,11 +101,28 @@ class EatPresence:
         self,
         audios: list[np.ndarray],
         hierarchical_projection: torch.Tensor | None = None,
+        segmental_max_views: int | None = None,
     ) -> list[tuple]:
-        """Batch latent views exactly as the training feature extractor does."""
+        """Batch endpoint and optional long-range views in one encoder pass."""
+        if segmental_max_views is not None and segmental_max_views <= 0:
+            raise ValueError("segmental_max_views must be positive")
+        if segmental_max_views is not None and hierarchical_projection is None:
+            raise ValueError("segmental statistics require a projection")
         grouped_views = []
+        view_plans = []
         for audio in audios:
-            starts = temporal_starts(len(audio), self.SAMPLES, 3)
+            endpoint_starts = temporal_starts(len(audio), self.SAMPLES, 3)
+            long_starts = (
+                segment_starts(len(audio), self.SAMPLES, segmental_max_views)
+                if segmental_max_views is not None else endpoint_starts
+            )
+            starts = sorted(set(endpoint_starts) | set(long_starts))
+            by_start = {start: index for index, start in enumerate(starts)}
+            view_plans.append((
+                [by_start[start] for start in endpoint_starts],
+                [by_start[start] for start in long_starts],
+                len(starts),
+            ))
             grouped_views.append([
                 crop_or_pad(audio, start, self.SAMPLES) for start in starts
             ])
@@ -125,21 +146,26 @@ class EatPresence:
                 all_statistics, (all_statistics.shape[-1],)
             ) @ projection
         result, offset = [], 0
-        for views in grouped_views:
-            count = len(views)
+        for endpoint_indices, long_indices, count in view_plans:
             matrix, mask = pad_views(
-                [statistics[index] for index in range(offset, offset + count)],
+                [statistics[offset + index] for index in endpoint_indices],
                 3, (4, 768),
             )
             item = (matrix, mask, self.probe_from_statistics(matrix, mask))
             if hierarchical is not None:
                 hierarchical_matrix, hierarchical_mask = pad_views(
-                    [hierarchical[index] for index in range(offset, offset + count)],
+                    [hierarchical[offset + index] for index in endpoint_indices],
                     3, tuple(hierarchical.shape[1:]),
                 )
                 if not np.array_equal(mask, hierarchical_mask):
                     raise RuntimeError("EAT hierarchical view mask mismatch")
                 item = (*item, hierarchical_matrix)
+                if segmental_max_views is not None:
+                    segmental_matrix, segmental_mask = pad_views(
+                        [hierarchical[offset + index] for index in long_indices],
+                        segmental_max_views, tuple(hierarchical.shape[1:]),
+                    )
+                    item = (*item, segmental_matrix, segmental_mask)
             result.append(item)
             offset += count
         return result
