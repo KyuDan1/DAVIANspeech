@@ -121,7 +121,10 @@ Voice/Music/CPS는 그대로이므로, 실제 제출 결과가 바뀌면 File EE
 2026-09-04 KST 자정에 v32를 `v32_router.zip`이라는 짧은 별칭으로 API
 제출했다. DACON API의 파일명 길이 제한 때문에 원래 긴 파일명은 업로드 전에
 거절됐고, 동일 inode/SHA-256 파일을 짧은 이름으로 다시 보내 성공 응답을
-확인했다. 채점 결과가 나오면 v18 대비 변화는 File EER 전이율로 해석한다.
+확인했다. 실제 채점 결과는 총점 `0.7616379312`, ADS `0.7363412698`, CPS
+`0.9893078836`으로 v18과 정확히 같았다. 따라서 로컬에서 관찰한 File EER 개선은
+hidden test의 EER 교차점 순위를 바꾸지 못했다. 이후 후보의 기대값에서는 File
+attention의 로컬 개선폭을 제외하고 Voice/Music의 독립 전이만 보수적으로 본다.
 
 그동안 exact-v18 anchor에 기존 SPEAR temporal-bin Music head를 독립적으로
 결합했다. 이 head는 eval bank에 학습하지 않았으며 원본 오디오의 시간축
@@ -192,8 +195,40 @@ Voice EER은 일부 악화되어 큰 가중치나 hard selection은 사용하지
 3. 파일 수준에서는 독립 seed와 representation을 낮은 가중치로 투표한다.
 4. 전화 router는 여러 평가축에서 손실이 없는 residual의 작은 비중 조절에만 쓴다.
 
+네 invariant member 사이의 routing도 별도로 확인했다. audit 4개만 최대화하면
+`fixedteacher/ch01/seed01/seed02 = 0/0.125/0.125/0.75`가 uniform보다 v33 residual의
+최악 개선폭을 `+0.0080 → +0.0115`로 올렸다. 그러나 이 비율은 별도의 일반화
+개발군 6개 중 5개에서 uniform ensemble보다 나빴고, 최악 손실은 `-0.0104 ADS`였다.
+특히 telephone mixed dev가 `0.8118 → 0.8013`으로 떨어져 phone router의 근거도
+되지 못했다. 1/8 단위의 모든 nonnegative 4-member 조합 165개 중 여섯 개발군에서
+uniform보다 하나도 나빠지지 않은 조합은 `0.25/0.25/0.25/0.25`뿐이었다. 따라서
+v34는 member router 없이 균등 투표를 유지한다.
+
 배포 후보 `v34_invariant.zip`은 압축 7,065,350,643 bytes, ZIP 내부 해제
 7,922,543,971 bytes, 121개 엔트리다. 최상위 구조와 중복 검사를 통과했고 전체
 CRC 오류는 없다. clean/Opus narrow-band phone/mixed 3파일 CUDA smoke를 통과했으며
 CPS는 v33과 동일하고 ADS 세 열만 의도대로 달라졌다. SHA-256은
 `61ae6380ca33978476e97830ff48d968f1a7d6e4ff84cee2fea99661b507df34`이다.
+
+## 8. v35 후보: component-to-File 구조적 MoE
+
+대회 정의의 `File fake = present component 중 하나라도 fake` 관계를 이용해 v34
+File logit과 `max(Voice fake logit, Music fake logit)`을 50% 결합했다. CPS를
+가중하지 않은 이유는 absent component의 presence 오차가 File에 전파되는 경로를
+추가하지 않기 위해서다. 이 후보는 다른 네 출력은 건드리지 않는다.
+
+| 방식 | dev 변화 | factorial 변화 | phone 변화 | YuE 변화 | 최악 변화 |
+|---|---:|---:|---:|---:|---:|
+| 전 파일 고정 결합 | +0.0076 | +0.0085 | +0.0059 | +0.0132 | **+0.0059** |
+| voice-dominant soft router | +0.0115 | +0.0038 | +0.0062 | +0.0160 | +0.0038 |
+
+soft router의 평균은 약간 높지만 고정 결합의 maximin이 더 좋았다. 다만 세부
+셀에서는 고정 결합이 `fake voice + real music`을 크게 개선하는 대신 일부
+`real voice + fake music`과 music-only를 악화시켰다. 따라서 v35는 준비만 하고
+v33/v34의 실제 leaderboard 전이를 확인하기 전에는 제출하지 않는다.
+
+최종 수정 패키지 `v35_consistency_fixed.zip`은 누락 모듈을 명시적으로 포함한다.
+압축 7,065,351,996 bytes, ZIP 내부 해제 7,922,547,421 bytes, 122개 엔트리이며
+최상위 구조, 중복, 전체 CRC 검사를 통과했다. clean/phone/mixed CUDA smoke에서도
+성공했고 v34 대비 File만 변경되는 것을 확인했다. SHA-256은
+`8b0f90ec00281bdfbf8bd4af468ee1483c260281cbae6ab65f5763fbb18cd4d2`이다.
