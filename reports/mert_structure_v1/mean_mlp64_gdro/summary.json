@@ -1,0 +1,7 @@
+{
+  "best_epoch": 85,
+  "selection": 0.7140178571428571,
+  "mean_dev_eer": 0.24196428571428572,
+  "worst_dev_eer": 0.32999999999999996,
+  "include_track_mean": true
+}
