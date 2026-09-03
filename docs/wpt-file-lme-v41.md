@@ -47,6 +47,28 @@ hidden 점수 상승을 보장하지는 않지만, 전체 개발 bank 선택과 
 - v40 대비 Voice, Music, Voice Presence, Music Presence가 bit-exact
 - 관련 단위·회귀 테스트 16개 통과
 
+## Router 및 component-OR 후처리 재검증
+
+v41의 File 점수를 Voice/Music 전문가 출력이나 presence로 표본별 보정하는
+router도 추가로 확인했다. raw OR, max, presence-product, logit gate, hard
+presence gate를 여러 결합 비율로 비교했다. 강한 보정은 factorial dev나 YuE를
+올릴 수 있었지만 factorial holdout 또는 phone에서 반드시 회귀했다. 예를 들어
+raw OR 0.20은 YuE ADS를 `+0.01325` 올리는 대신 factorial을 `-0.00764`, phone을
+`-0.00207` 낮췄다.
+
+네 locked 축에서 모두 비회귀한 최선은 hard presence 0.3, weight 0.05였지만
+phone ADS만 `+0.00121`이고 나머지는 완전히 같았다. 이 정도 차이는 표본 한두
+개의 순위 변동이며, hidden에서 presence 오류를 File로 전파할 위험보다 작다.
+따라서 component 기반 router도 최종 v41에는 넣지 않았다.
+
+중간 latent router까지 포함한 앞선 비교에서도 bounded soft router는 개발
+선택점수만 고정 MoE보다 `+0.00188`였고 phone locked ADS는 `-0.00693`였다.
+hard router는 개발점수가 `-0.052~-0.081` 하락했다. 현재 데이터에서는
+`전화/음악/음성 도메인 분류`가 `어느 전문가가 맞는지`와 같지 않다. 특히 한
+파일 안에 음성과 음악이 동시에 또는 순차적으로 존재하므로 한 전문가로 보내는
+방식보다, 모든 전문가를 유지한 뒤 task별 고정 logit 비율로 합치는 soft MoE가
+더 일반적이었다.
+
 최종 후보는 `wpt_file_lme_v41.zip`이다.
 
 - 압축 크기: 8,286,764,468 bytes
