@@ -33,6 +33,14 @@ def main() -> None:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--shard-index", type=int, required=True)
     parser.add_argument("--num-shards", type=int, required=True)
+    parser.add_argument(
+        "--temporal-statistics", action="store_true",
+        help="Save 3-view, 13-layer mean/std statistics instead of pooled embeddings.",
+    )
+    parser.add_argument(
+        "--music-present-only", action="store_true",
+        help="Extract only labelled samples containing music.",
+    )
     args = parser.parse_args()
     if not 0 <= args.shard_index < args.num_shards:
         parser.error("shard-index must be in [0, num-shards)")
@@ -41,6 +49,8 @@ def main() -> None:
     extensions = {".aac", ".flac", ".m4a", ".mp3", ".ogg", ".opus", ".wav"}
     for name in args.datasets:
         truth = pd.read_csv(truth_path(name), dtype={"ID": str})
+        if args.music_present_only:
+            truth = truth.loc[truth.MUSIC_PRESENT.eq(1)].copy()
         paths = {
             path.stem: path for path in audio_dir(name).iterdir()
             if path.is_file() and path.suffix.lower() in extensions
@@ -62,14 +72,23 @@ def main() -> None:
     for index, (name, item, path) in enumerate(selected, start=1):
         names.append(name)
         ids.append(item)
-        embeddings.append(detector.embed_path(path))
+        if args.temporal_statistics:
+            embeddings.append(detector.statistics_path(path))
+        else:
+            embeddings.append(detector.embed_path(path))
         if index % 100 == 0:
             print(f"shard {args.shard_index}: {index}/{len(selected)}", flush=True)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / f"shard_{args.shard_index}.npz"
     np.savez_compressed(
         output, datasets=np.asarray(names), ids=np.asarray(ids),
-        embeddings=np.asarray(embeddings, dtype=np.float32),
+        embeddings=np.asarray(
+            embeddings,
+            dtype=np.float16 if args.temporal_statistics else np.float32,
+        ),
+        representation=np.asarray(
+            "temporal_statistics" if args.temporal_statistics else "pooled"
+        ),
     )
     print(output)
 

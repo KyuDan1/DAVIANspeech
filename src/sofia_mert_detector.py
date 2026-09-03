@@ -115,7 +115,7 @@ class SofiaMertDetector:
         self.head.load_sofia_state(state)
 
     @torch.inference_mode()
-    def _embed_24k(self, audio_24k: np.ndarray) -> torch.Tensor:
+    def _hidden_states_24k(self, audio_24k: np.ndarray) -> torch.Tensor:
         audio = np.asarray(audio_24k, dtype=np.float32)
         # Match the released SOFIA loader's per-file peak normalization before
         # the MERT feature extractor applies zero-mean/unit-variance scaling.
@@ -134,13 +134,50 @@ class SofiaMertDetector:
         output = self.encoder(**inputs, output_hidden_states=True)
         if output.hidden_states is None:
             raise RuntimeError("MERT did not return hidden states")
+        # [layer, time, feature].  Keeping the full temporal axis here lets the
+        # authenticity head reuse the exact encoder pass already paid for by
+        # the released SOFIA score.
+        return torch.stack(output.hidden_states, dim=0)[:, 0]
+
+    @torch.inference_mode()
+    def _embed_24k(self, audio_24k: np.ndarray) -> torch.Tensor:
+        hidden = self._hidden_states_24k(audio_24k)
         # SOFIA G1-MERT release uses layer_mean: temporal mean for every layer,
         # followed by an unweighted mean over all hidden layers.
-        return torch.stack(output.hidden_states).mean(dim=2).mean(dim=0)
+        return hidden.mean(dim=1).mean(dim=0, keepdim=True)
+
+    @staticmethod
+    def _temporal_statistics(hidden: torch.Tensor) -> torch.Tensor:
+        """Return start/middle/end per-layer mean and population std."""
+        if hidden.ndim != 3 or hidden.shape[0] != 13 or hidden.shape[2] != 768:
+            raise ValueError(f"Unexpected MERT hidden-state shape: {hidden.shape}")
+        chunks = torch.tensor_split(hidden, 3, dim=1)
+        if any(chunk.shape[1] == 0 for chunk in chunks):
+            raise ValueError("MERT sequence is too short for three temporal views")
+        return torch.stack([
+            torch.stack((
+                chunk.mean(dim=1), chunk.std(dim=1, unbiased=False)
+            ), dim=1)
+            for chunk in chunks
+        ], dim=0)
 
     def _score_24k(self, audio_24k: np.ndarray) -> float:
         embedding = self._embed_24k(audio_24k)
-        return float(self.head(embedding).softmax(dim=-1)[0, 1].float().cpu())
+        return float(
+            self.head(embedding).softmax(dim=-1)[0, 1].float().cpu().item()
+        )
+
+    @torch.inference_mode()
+    def _score_and_statistics_24k(
+        self, audio_24k: np.ndarray,
+    ) -> tuple[float, np.ndarray]:
+        hidden = self._hidden_states_24k(audio_24k)
+        embedding = hidden.mean(dim=1).mean(dim=0, keepdim=True)
+        score = self.head(embedding).softmax(dim=-1)[0, 1].float().cpu().item()
+        statistics = self._temporal_statistics(hidden).to(
+            dtype=torch.float16
+        ).cpu().numpy()
+        return float(score), statistics
 
     def _prepare_path_24k(self, path: Path) -> np.ndarray:
         # Reproduce SOFIA's released two-stage torchaudio path without importing
@@ -159,6 +196,15 @@ class SofiaMertDetector:
 
     def embed_path(self, path: Path) -> np.ndarray:
         return self._embed_24k(self._prepare_path_24k(path)).float().cpu().numpy()[0]
+
+    def statistics_path(self, path: Path) -> np.ndarray:
+        _, statistics = self._score_and_statistics_24k(
+            self._prepare_path_24k(path)
+        )
+        return statistics
+
+    def score_and_statistics_path(self, path: Path) -> tuple[float, np.ndarray]:
+        return self._score_and_statistics_24k(self._prepare_path_24k(path))
 
     def score_path(self, path: Path) -> float:
         return self._score_24k(self._prepare_path_24k(path))
@@ -190,6 +236,7 @@ def apply_sofia_mert_fusion(
     device: str = "cuda",
     file_weight: float = 0.10,
     music_weight: float = 0.05,
+    statistics_output_path: Path | None = None,
 ) -> None:
     """Add low-weight MERT evidence to File/Music without changing Voice/CPS."""
     detector = SofiaMertDetector(model_dir, head_path, device=device)
@@ -201,11 +248,17 @@ def apply_sofia_mert_fusion(
         path.stem: path for path in test_dir.iterdir()
         if path.is_file()
     }
+    statistic_ids, statistic_values = [], []
     for row in rows:
         path = paths.get(row["ID"])
         if path is None:
             raise FileNotFoundError(f"No audio for {row['ID']}")
-        score = detector.score_path(path)
+        if statistics_output_path is None:
+            score = detector.score_path(path)
+        else:
+            score, statistics = detector.score_and_statistics_path(path)
+            statistic_ids.append(row["ID"])
+            statistic_values.append(statistics)
         row["FILE_FAKE_PROB"] = round(_blend(
             float(row["FILE_FAKE_PROB"]), score, file_weight
         ), 10)
@@ -218,3 +271,11 @@ def apply_sofia_mert_fusion(
         writer.writeheader()
         writer.writerows(rows)
     temporary.replace(submission_path)
+    if statistics_output_path is not None:
+        statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.asarray(statistic_values, dtype=np.float16),
+            view_mask=np.ones((len(statistic_ids), 3), dtype=bool),
+        )
