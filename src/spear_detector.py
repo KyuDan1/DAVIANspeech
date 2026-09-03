@@ -14,9 +14,11 @@ try:  # package import in tests; flat import in the offline submission
         crop_or_pad, pad_views, sequence_statistics, temporal_starts,
     )
     from .presence import extract_segment, segment_starts
+    from .spear_temporal_bins import audio_bin_ranges, projected_temporal_bins
 except ImportError:  # pragma: no cover - exercised by script.py
     from dual_domain_stats import crop_or_pad, pad_views, sequence_statistics, temporal_starts
     from presence import extract_segment, segment_starts
+    from spear_temporal_bins import audio_bin_ranges, projected_temporal_bins
 
 
 def _load_local_model(model_dir: Path, device: torch.device):
@@ -157,6 +159,57 @@ class SpearCrossComponentDetector(SpearMusicDetector):
             ))
             offset += count
         return result
+
+    @torch.inference_mode()
+    def dual_domain_statistics_and_temporal_bins_batch(
+        self,
+        audios: list[np.ndarray],
+        projection: np.ndarray,
+        layers: tuple[int, ...],
+        bins: int,
+    ) -> tuple[
+        list[tuple[np.ndarray, np.ndarray]],
+        list[tuple[np.ndarray, np.ndarray]],
+    ]:
+        """Produce legacy statistics and compact bins in the same encoder pass."""
+        grouped_views, grouped_bin_masks = [], []
+        for audio in audios:
+            starts = temporal_starts(len(audio), self.window, self.max_windows or 3)
+            grouped_views.append([
+                crop_or_pad(audio, start, self.window) for start in starts
+            ])
+            grouped_bin_masks.append([
+                audio_bin_ranges(len(audio), start, self.window, bins)[1]
+                for start in starts
+            ])
+        waveform = torch.from_numpy(np.stack([
+            view for views in grouped_views for view in views
+        ])).to(self.device)
+        lengths = torch.full(
+            (len(waveform),), self.window, dtype=torch.long, device=self.device
+        )
+        output = self.model(waveform, lengths)
+        hidden = output["hidden_states"]
+        stacked = torch.stack(hidden, dim=1)
+        legacy = sequence_statistics(stacked)
+        matrix = torch.from_numpy(np.asarray(projection, dtype=np.float32)).to(self.device)
+        temporal = projected_temporal_bins(hidden, matrix, layers, bins)
+
+        statistic_result, temporal_result, offset = [], [], 0
+        temporal_tail = (bins, len(layers), 4, matrix.shape[1])
+        for views, masks in zip(grouped_views, grouped_bin_masks):
+            count = len(views)
+            statistic_result.append(pad_views(
+                [legacy[index] for index in range(offset, offset + count)], 3,
+                (13, 4, self.dimension),
+            ))
+            padded = np.zeros((3, *temporal_tail), dtype=np.float16)
+            padded_mask = np.zeros((3, bins), dtype=bool)
+            padded[:count] = temporal[offset:offset + count].cpu().numpy().astype(np.float16)
+            padded_mask[:count] = np.asarray(masks, dtype=bool)
+            temporal_result.append((padded, padded_mask))
+            offset += count
+        return statistic_result, temporal_result
 
 
 def fuse_cross_component_scores(

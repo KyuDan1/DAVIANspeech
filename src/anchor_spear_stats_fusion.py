@@ -22,6 +22,8 @@ def apply_fusion_with_stats(
     test_dir: Path, submission_path: Path, spear_dir: Path,
     music_head: Path, joint_head: Path, device: str = "cuda",
     weight: float = 0.10, statistics_output_path: Path | None = None,
+    temporal_bin_output_path: Path | None = None,
+    temporal_bin_checkpoint_path: Path | None = None,
 ) -> None:
     """Preserve the verified SPEAR scores while caching a second exact view pass."""
     with submission_path.open(encoding="utf-8", newline="") as handle:
@@ -34,17 +36,40 @@ def apply_fusion_with_stats(
     detector = SpearCrossComponentDetector(
         spear_dir, music_head, joint_head, device=device
     )
+    if (temporal_bin_output_path is None) != (temporal_bin_checkpoint_path is None):
+        raise ValueError("temporal-bin output and checkpoint must be provided together")
+    temporal_configuration = None
+    if temporal_bin_checkpoint_path is not None:
+        checkpoint = torch.load(
+            temporal_bin_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        temporal_configuration = (
+            np.asarray(checkpoint["projection"], dtype=np.float32),
+            tuple(int(value) for value in checkpoint["layers"]),
+            int(checkpoint["bins"]),
+        )
     statistic_ids, statistics, statistic_masks = [], [], []
+    temporal_features, temporal_masks = [], []
     pending_ids, pending_audio = [], []
 
     def flush_statistics() -> None:
         if not pending_audio:
             return
-        values = detector.dual_domain_statistics_batch(pending_audio)
+        if temporal_configuration is None:
+            values = detector.dual_domain_statistics_batch(pending_audio)
+            temporal_values = None
+        else:
+            values, temporal_values = detector.dual_domain_statistics_and_temporal_bins_batch(
+                pending_audio, *temporal_configuration
+            )
         for item, (matrix, mask) in zip(pending_ids, values):
             statistic_ids.append(item)
             statistics.append(matrix)
             statistic_masks.append(mask)
+        if temporal_values is not None:
+            for matrix, mask in temporal_values:
+                temporal_features.append(matrix)
+                temporal_masks.append(mask)
         pending_ids.clear()
         pending_audio.clear()
 
@@ -81,4 +106,12 @@ def apply_fusion_with_stats(
             statistics=np.stack(statistics),
             view_mask=np.stack(statistic_masks),
             stream=np.asarray("spear"), channel=np.asarray("clean"),
+        )
+    if temporal_bin_output_path is not None:
+        temporal_bin_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            temporal_bin_output_path,
+            ids=np.asarray(statistic_ids),
+            features=np.stack(temporal_features),
+            mask=np.stack(temporal_masks),
         )
