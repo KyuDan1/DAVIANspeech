@@ -81,6 +81,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--repo", type=Path, default=ROOT / "models/htdemucs")
+    parser.add_argument(
+        "--stems-dir", type=Path,
+        help="Optional precomputed directory containing voice/ and music/ stems.",
+    )
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--limit", type=int)
@@ -97,11 +101,29 @@ def main() -> None:
     if not files:
         raise FileNotFoundError(f"No shard audio under {args.audio_dir}")
 
-    separator = build_separator("htdemucs", device=args.device, repo=args.repo)
+    separator = None
+    if args.stems_dir is None:
+        separator = build_separator("htdemucs", device=args.device, repo=args.repo)
+
+    def precomputed(component: str, item_id: str) -> np.ndarray:
+        matches = [
+            path for path in (args.stems_dir / component).glob(f"{item_id}.*")
+            if path.is_file()
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                f"Expected one {component} stem for {item_id}, got {matches}"
+            )
+        return load_audio(matches[0])
+
     records = []
     for path in tqdm(files, desc=f"stem-stats-{args.shard_index}"):
         original = load_audio(path)
-        voice, music = separator.separate(path)
+        if args.stems_dir is None:
+            voice, music = separator.separate(path)
+        else:
+            voice = precomputed("voice", path.stem)
+            music = precomputed("music", path.stem)
         records.append({"ID": path.stem, **statistics(original, voice, music)})
     args.output.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(records).to_csv(args.output, index=False)
