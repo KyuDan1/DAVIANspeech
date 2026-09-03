@@ -43,10 +43,18 @@ def apply_fusion_with_stats(
         checkpoint = torch.load(
             temporal_bin_checkpoint_path, map_location="cpu", weights_only=False
         )
+        bins = checkpoint.get("spear_bins", checkpoint.get("bins"))
+        if bins is None:
+            raise ValueError("temporal-bin checkpoint does not declare its bin count")
         temporal_configuration = (
-            np.asarray(checkpoint["projection"], dtype=np.float32),
-            tuple(int(value) for value in checkpoint["layers"]),
-            int(checkpoint["bins"]),
+            np.asarray(
+                checkpoint.get("spear_projection", checkpoint.get("projection")),
+                dtype=np.float32,
+            ),
+            tuple(int(value) for value in checkpoint.get(
+                "spear_layers", checkpoint.get("layers")
+            )),
+            int(bins),
         )
     statistic_ids, statistics, statistic_masks = [], [], []
     temporal_features, temporal_masks = [], []
@@ -114,4 +122,7 @@ def apply_fusion_with_stats(
             ids=np.asarray(statistic_ids),
             features=np.stack(temporal_features),
             mask=np.stack(temporal_masks),
+            projection=temporal_configuration[0],
+            layers=np.asarray(temporal_configuration[1], dtype=np.int16),
+            bins=np.asarray(temporal_configuration[2]),
         )

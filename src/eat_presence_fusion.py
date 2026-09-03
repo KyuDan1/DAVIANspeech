@@ -256,6 +256,7 @@ def apply_eat_presence_fusion(
             ids=np.asarray(statistic_ids),
             statistics=np.stack(hierarchical_values),
             view_mask=np.stack(statistic_masks),
+            projection=hierarchical_projection.numpy(),
         )
     if segmental_statistics_output_path is not None:
         if len(segmental_values) != len(statistic_ids):
