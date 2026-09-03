@@ -55,6 +55,30 @@ def fixed_windows(audio: np.ndarray, length: int, count: int) -> np.ndarray:
     return np.stack([audio[start:start + length] for start in starts])
 
 
+def nested_view_indices(total: int, subset: int) -> np.ndarray:
+    """Select an evenly spaced subset, preserving endpoints and center."""
+    if total <= 0 or subset <= 0 or subset > total:
+        raise ValueError("view counts must satisfy 0 < subset <= total")
+    indices = np.rint(np.linspace(0, total - 1, subset)).astype(np.int64)
+    if len(np.unique(indices)) != subset:
+        raise ValueError("view subset does not map to unique positions")
+    return indices
+
+
+def aggregate_view_logits(
+    view_logits: torch.Tensor, temperature: float,
+) -> torch.Tensor:
+    """Length-normalized log-mean-exp over deterministic views."""
+    if view_logits.ndim != 3 or view_logits.shape[1] <= 0:
+        raise ValueError("view logits must have shape [batch, views, tasks]")
+    if temperature <= 0:
+        raise ValueError("temperature must be positive")
+    return (
+        torch.logsumexp(temperature * view_logits, dim=1) / temperature
+        - math.log(view_logits.shape[1]) / temperature
+    )
+
+
 def _preemphasis(waveforms: torch.Tensor, coefficient: float = .97) -> torch.Tensor:
     result = waveforms.clone()
     result[..., 1:] = waveforms[..., 1:] - coefficient * waveforms[..., :-1]
@@ -103,15 +127,31 @@ def load_wpt_model(
 def predict_wpt_tasks(
     audio_paths: list[Path], model_dir: Path, checkpoint_path: Path,
     device: str = "cuda", file_batch_size: int = 4,
+    file_views: int | None = None,
+    file_temperature: float | None = None,
 ) -> np.ndarray:
-    """Predict Voice/Music/File probabilities in input-path order."""
+    """Predict Voice/Music/File probabilities in input-path order.
+
+    ``file_views`` may increase File's temporal coverage.  Voice and Music
+    retain the checkpoint's trained view count as an evenly nested subset, so
+    the original start/center/end decision is preserved when five views are
+    used for File.
+    """
     if file_batch_size <= 0:
         raise ValueError("file_batch_size must be positive")
     target = torch.device(device)
     if target.type == "cuda":
         torch.cuda.empty_cache()
     model, config = load_wpt_model(model_dir, checkpoint_path, target)
-    views = int(config["views"])
+    component_views = int(config["views"])
+    views = component_views if file_views is None else int(file_views)
+    component_indices = nested_view_indices(views, component_views)
+    file_temperature = (
+        float(config["temperature"])
+        if file_temperature is None else float(file_temperature)
+    )
+    if file_temperature <= 0:
+        raise ValueError("file_temperature must be positive")
     window = int(config["window"])
     outputs = []
     for offset in tqdm(
@@ -126,7 +166,24 @@ def predict_wpt_tasks(
             device_type=target.type, dtype=torch.bfloat16,
             enabled=target.type == "cuda",
         ):
-            logits = model(tensor)
+            view_logits = model.forward_windows(tensor)
+            if (
+                views == component_views
+                and file_temperature == model.temperature
+            ):
+                logits = model.aggregate(view_logits)
+            else:
+                indices = torch.as_tensor(component_indices, device=target)
+                component_logits = model.aggregate(
+                    view_logits.index_select(1, indices)
+                )
+                file_logits = aggregate_view_logits(
+                    view_logits, file_temperature
+                )
+                logits = torch.stack((
+                    component_logits[:, 0], component_logits[:, 1],
+                    file_logits[:, 2],
+                ), dim=-1)
         outputs.append(logits.float().cpu().numpy())
     del model
     gc.collect()
@@ -214,6 +271,8 @@ def apply_wpt_fixed_moe_fusion(
     unified_expert_path: Path,
     device: str = "cuda",
     file_batch_size: int = 4,
+    file_views: int | None = None,
+    file_temperature: float | None = None,
     voice_outer_weight: float = .10,
     file_outer_weight: float = .60,
 ) -> None:
@@ -225,6 +284,7 @@ def apply_wpt_fixed_moe_fusion(
     probabilities = predict_wpt_tasks(
         audio_paths, model_dir, checkpoint_path,
         device=device, file_batch_size=file_batch_size,
+        file_views=file_views, file_temperature=file_temperature,
     )
     apply_fixed_task_moe_fusion(
         submission_path, unified_expert_path,

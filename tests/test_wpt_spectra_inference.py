@@ -4,7 +4,8 @@ from pathlib import Path
 import numpy as np
 
 from src.wpt_spectra_inference import (
-    apply_fixed_task_moe_fusion, fixed_windows,
+    aggregate_view_logits, apply_fixed_task_moe_fusion, fixed_windows,
+    nested_view_indices,
 )
 
 
@@ -15,6 +16,22 @@ def test_fixed_windows_are_deterministic_and_repeat_short_audio():
     long = np.arange(10, dtype=np.float32)
     windows = fixed_windows(long, 4, 3)
     np.testing.assert_array_equal(windows[:, 0], [0, 3, 6])
+
+
+def test_five_file_views_nest_original_three_component_views():
+    np.testing.assert_array_equal(nested_view_indices(5, 3), [0, 2, 4])
+    np.testing.assert_array_equal(nested_view_indices(3, 3), [0, 1, 2])
+
+
+def test_view_logmeanexp_is_length_normalized():
+    one = np.asarray([[[.2, -.4, 1.3]]], dtype=np.float32)
+    import torch
+    logits = torch.from_numpy(one)
+    repeated = logits.repeat(1, 5, 1)
+    torch.testing.assert_close(
+        aggregate_view_logits(logits, 2.0),
+        aggregate_view_logits(repeated, 2.0),
+    )
 
 
 def test_fixed_moe_changes_only_voice_and_file(tmp_path: Path):
