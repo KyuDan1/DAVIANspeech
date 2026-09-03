@@ -105,6 +105,10 @@ Suno 13개도 전부 탐지하지 못했다. 논문 규모의 대규모 학습 �
   backbone pass는 늘지 않고 작은 head forward만 추가
 - CPS: 의도적으로 변경하지 않음
 - 검증: 전체 test suite 91개 통과, clean/phone/mixed 3파일 전체 스모크 통과
+- ZIP: 7,053,527,053 bytes, 해제 7,909,100,324 bytes, 112개 엔트리
+- ZIP 구조/CRC: 중복 0, 오류 0, 최상위 `model/`, `script.py`,
+  `requirements.txt`만 존재
+- SHA-256: `69d9f3a02c1c2b59ade25a4b7e2f1afe14ffd5e55fb74c41a407043ec6fcc94a`
 
 v32의 로컬 결과는 router를 작은 보정기로 쓰는 것이 hard expert selection보다
 안전하다는 근거를 제공한다. v18과의 유일한 확률 변경은 File attention 결합이며
