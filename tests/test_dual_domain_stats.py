@@ -4,6 +4,7 @@ import torch
 from src.dual_domain_stats import (
     crop_or_pad,
     interval_view_targets,
+    ranges_view_targets,
     sequence_statistics,
     temporal_starts,
 )
@@ -26,6 +27,21 @@ def test_interval_view_targets_localize_fake_components():
         [1.0, 0.0, 1.0],
         [0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0],
+    ]
+
+
+def test_ranges_view_targets_localize_disjoint_fake_turns():
+    targets, mask = ranges_view_targets(
+        num_samples=100, crop_samples=40,
+        voice_fake_ranges=[(5, 15), (75, 95)],
+        music_fake_ranges=[(45, 55)],
+        max_views=3, minimum_overlap_samples=5,
+    )
+    assert mask.tolist() == [True, True, True]
+    assert targets.tolist() == [
+        [1.0, 0.0, 1.0],
+        [0.0, 1.0, 1.0],
+        [1.0, 0.0, 1.0],
     ]
 
 

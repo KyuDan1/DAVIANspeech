@@ -70,6 +70,41 @@ def interval_view_targets(
     return targets, mask
 
 
+def ranges_view_targets(
+    num_samples: int,
+    crop_samples: int,
+    voice_fake_ranges: list[tuple[int, int]],
+    music_fake_ranges: list[tuple[int, int]],
+    max_views: int = 3,
+    minimum_overlap_samples: int = 1_600,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Create local labels when a component has several disjoint fake runs.
+
+    Telephone conversations commonly alternate speakers, so one file-level
+    voice interval cannot express that only a short caller turn is synthetic.
+    A view is positive for a component when any of its fake ranges overlaps
+    the view by the requested minimum duration.
+    """
+    starts = temporal_starts(num_samples, crop_samples, max_views)
+    targets = np.zeros((max_views, 3), dtype=np.float32)
+    mask = np.zeros(max_views, dtype=bool)
+    component_ranges = (voice_fake_ranges, music_fake_ranges)
+    for view, start in enumerate(starts):
+        end = min(start + crop_samples, num_samples)
+        mask[view] = True
+        local = []
+        for ranges in component_ranges:
+            positive = any(
+                max(0, min(end, range_end) - max(start, range_start))
+                >= minimum_overlap_samples
+                for range_start, range_end in ranges
+            )
+            local.append(float(positive))
+        targets[view, 0], targets[view, 1] = local
+        targets[view, 2] = max(local)
+    return targets, mask
+
+
 def crop_or_pad(audio: np.ndarray, start: int, samples: int) -> np.ndarray:
     """Take one crop and zero-pad short inputs without repeating artefacts."""
     audio = np.asarray(audio, dtype=np.float32)

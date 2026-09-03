@@ -11,6 +11,11 @@ import yaml
 
 IDENTITY_COLUMNS = (
     "ID", "GROUP_ID", "VOICE_SOURCE_ID", "MUSIC_SOURCE_ID", "SOURCE_FILE",
+    # Two-party call banks name each voice explicitly.  Treat both source and
+    # group identifiers as protected identities, just like the single-source
+    # columns above, so a derived conversation cannot hide eval leakage.
+    "FIRST_SOURCE_ID", "SECOND_SOURCE_ID", "FIRST_GROUP", "SECOND_GROUP",
+    "MUSIC_GROUP",
 )
 
 

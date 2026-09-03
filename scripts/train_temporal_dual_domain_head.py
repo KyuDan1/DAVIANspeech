@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from data_guard import assert_no_locked_eval_leakage  # noqa: E402
-from dual_domain_stats import interval_view_targets  # noqa: E402
+from dual_domain_stats import interval_view_targets, ranges_view_targets  # noqa: E402
 from eat_detector import EatMusicDetector  # noqa: E402
 from temporal_dual_domain_head import (  # noqa: E402
     TemporalDualDomainHead,
@@ -75,23 +75,43 @@ def subset_bank(bank: Bank, selected: np.ndarray, suffix: str) -> Bank:
 
 def view_targets(bank: Bank, crop_samples: int) -> np.ndarray:
     result = np.zeros((len(bank.ids), MAX_VIEWS, 3), dtype=np.float32)
+    has_ranges = {
+        "VOICE_FAKE_RANGES", "MUSIC_FAKE_RANGES", "DURATION",
+    }.issubset(bank.truth.columns)
     has_intervals = {
         "VOICE_START", "VOICE_END", "MUSIC_START", "MUSIC_END", "DURATION",
     }.issubset(bank.truth.columns)
-    if not has_intervals:
+    if not has_ranges and not has_intervals:
         result[:] = bank.targets[:, None, :]
         return result
     for index, row in bank.truth.iterrows():
         samples = int(round(float(row.DURATION) * 16_000))
-        local, _ = interval_view_targets(
-            samples, crop_samples,
-            (int(round(float(row.VOICE_START) * 16_000)),
-             int(round(float(row.VOICE_END) * 16_000))),
-            (int(round(float(row.MUSIC_START) * 16_000)),
-             int(round(float(row.MUSIC_END) * 16_000))),
-            int(float(row.VOICE_FAKE)), int(float(row.MUSIC_FAKE)),
-            max_views=MAX_VIEWS,
-        )
+        if has_ranges:
+            def parse_ranges(column: str) -> list[tuple[int, int]]:
+                value = row[column]
+                values = [] if pd.isna(value) else json.loads(str(value))
+                return [
+                    (int(round(float(start) * 16_000)),
+                     int(round(float(end) * 16_000)))
+                    for start, end in values
+                ]
+
+            local, _ = ranges_view_targets(
+                samples, crop_samples,
+                parse_ranges("VOICE_FAKE_RANGES"),
+                parse_ranges("MUSIC_FAKE_RANGES"),
+                max_views=MAX_VIEWS,
+            )
+        else:
+            local, _ = interval_view_targets(
+                samples, crop_samples,
+                (int(round(float(row.VOICE_START) * 16_000)),
+                 int(round(float(row.VOICE_END) * 16_000))),
+                (int(round(float(row.MUSIC_START) * 16_000)),
+                 int(round(float(row.MUSIC_END) * 16_000))),
+                int(float(row.VOICE_FAKE)), int(float(row.MUSIC_FAKE)),
+                max_views=MAX_VIEWS,
+            )
         result[index] = local
     return result
 

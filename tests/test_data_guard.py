@@ -35,3 +35,20 @@ def test_allows_disjoint_sources(tmp_path: Path):
     assert_no_locked_eval_leakage(
         tmp_path / "train.csv", tmp_path / "partitions.yaml"
     )
+
+
+def test_rejects_reused_second_call_speaker(tmp_path: Path):
+    pd.DataFrame({"ID": ["eval_1"], "GROUP_ID": ["speaker_7"]}).to_csv(
+        tmp_path / "locked.csv", index=False
+    )
+    pd.DataFrame({
+        "ID": ["call_1"], "FIRST_GROUP": ["speaker_1"],
+        "SECOND_GROUP": ["speaker_7"],
+    }).to_csv(tmp_path / "train.csv", index=False)
+    (tmp_path / "partitions.yaml").write_text(
+        "locked_eval:\n  - locked.csv\n", encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="TRAIN/EVAL LEAKAGE"):
+        assert_no_locked_eval_leakage(
+            tmp_path / "train.csv", tmp_path / "partitions.yaml"
+        )
