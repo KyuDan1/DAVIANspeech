@@ -65,6 +65,10 @@ def main() -> None:
         "--save-latents", action="store_true",
         help="Save the task-wise pre-classifier embeddings for MoE routing.",
     )
+    parser.add_argument(
+        "--save-member-probs", action="store_true",
+        help="Append each checkpoint's task probabilities for subset ensembles.",
+    )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -149,6 +153,12 @@ def main() -> None:
         records.append(record)
         current = prediction.reset_index().rename(columns={"index": "ID"})
         current.insert(0, "DATASET", name)
+        if args.save_member_probs:
+            for member_index, member in enumerate(fake_members):
+                for task_index, task in enumerate(("VOICE", "MUSIC", "FILE")):
+                    current[
+                        f"MEMBER_{member_index:02d}_{task}_FAKE_PROB"
+                    ] = member[:, task_index]
         all_predictions.append(current)
         if args.save_latents:
             np.savez_compressed(

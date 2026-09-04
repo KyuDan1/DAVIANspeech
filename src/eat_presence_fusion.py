@@ -160,10 +160,13 @@ def apply_eat_presence_fusion(
         checkpoint = torch.load(
             hierarchical_checkpoint_path, map_location="cpu", weights_only=False
         )
-        if checkpoint.get("model_type") != "hierarchical_eat_music":
-            raise ValueError("invalid hierarchical EAT checkpoint")
+        projection_value = checkpoint.get(
+            "projection", checkpoint.get("eat_projection")
+        )
+        if projection_value is None:
+            raise ValueError("EAT checkpoint does not declare its projection")
         hierarchical_projection = torch.from_numpy(
-            np.asarray(checkpoint["projection"], dtype=np.float32)
+            np.asarray(projection_value, dtype=np.float32)
         )
     if segmental_checkpoint_path is not None:
         segmental_checkpoint = torch.load(

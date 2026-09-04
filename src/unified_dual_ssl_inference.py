@@ -124,16 +124,18 @@ def apply_unified_music_fusion(
     checkpoint_paths: list[Path],
     device: str = "cuda",
     music_weight: float = .20,
+    file_weight: float = 0.0,
     mixed_music_weight: float | None = None,
     mixed_presence_threshold: float = .70,
     expert_output_path: Path | None = None,
 ) -> None:
-    """Fuse only Music; File, Voice, and both presence columns stay bit-exact.
+    """Fuse Music and optionally File; Voice and presence stay bit-exact.
 
     ``mixed_music_weight`` enables the audited shallow content router.  A
-    value of ``None`` selects the more generator-robust fixed soft MoE.
+    value of ``None`` selects the more generator-robust fixed soft MoE.  The
+    default ``file_weight=0`` preserves the historical Music-only behavior.
     """
-    weights = [music_weight, mixed_presence_threshold]
+    weights = [music_weight, file_weight, mixed_presence_threshold]
     if mixed_music_weight is not None:
         weights.append(mixed_music_weight)
     if any(not 0 <= value <= 1 for value in weights):
@@ -160,14 +162,13 @@ def apply_unified_music_fusion(
         eat_statistics, spear_features[order], eat_mask, spear_mask[order],
         checkpoint_paths, device=device,
     )
-    expert = task_expert[:, 1]
     if not np.array_equal(eat_projection, metadata[0]):
         raise ValueError("EAT cache projection differs from unified checkpoint")
     if not np.array_equal(spear_projection, metadata[1]):
         raise ValueError("SPEAR cache projection differs from unified checkpoint")
     if not np.array_equal(spear_layers, metadata[2]) or spear_bins != metadata[3]:
         raise ValueError("SPEAR cache layout differs from unified checkpoint")
-    expert_by_id = dict(zip(eat_ids, expert))
+    expert_by_id = dict(zip(eat_ids, task_expert))
     if expert_output_path is not None:
         expert_output_path = Path(expert_output_path)
         expert_output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -190,10 +191,16 @@ def apply_unified_music_fusion(
             and float(row["MUSIC_PRESENT_PROB"]) >= mixed_presence_threshold
         ):
             weight = mixed_music_weight
+        task_probability = expert_by_id[row["ID"]]
         row["MUSIC_FAKE_PROB"] = round(float(_sigmoid(
             (1 - weight) * _logit(float(row["MUSIC_FAKE_PROB"]))
-            + weight * _logit(expert_by_id[row["ID"]])
+            + weight * _logit(task_probability[1])
         )), 10)
+        if file_weight > 0:
+            row["FILE_FAKE_PROB"] = round(float(_sigmoid(
+                (1 - file_weight) * _logit(float(row["FILE_FAKE_PROB"]))
+                + file_weight * _logit(task_probability[2])
+            )), 10)
     temporary = submission_path.with_suffix(".tmp.csv")
     with temporary.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=columns)
