@@ -62,6 +62,12 @@ warm-start는 모든 잠금축에서 낮았다. 기존 음성 중심 backend의 
 주파수/질감 prompt의 독립성을 줄인 것으로 해석하며, 최종에는 cold-start 한
 개만 사용한다.
 
+추가로 Music loss를 70%, pairwise ranking을 15%로 높인 Music 전용 cold
+specialist도 학습했다. 7개 Music dev domain의 평균/최악 EER 선택점수는
+`0.78149`로, File+Music을 함께 학습한 모델의 `0.80165`보다 낮았다. Music에만
+강하게 맞추면 generator-domain 간 trade-off가 커졌으므로 잠금셋 평가 전
+탈락시켰다.
+
 ## temporal view ablation
 
 v41 안의 WPT File expert를 multistream으로 일부 대체하고, 각 view 수에 대해
