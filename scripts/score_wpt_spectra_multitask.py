@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from train_wpt_spectra_multitask import (  # noqa: E402
     AudioBankDataset, finite_eer, load_frame, load_spectra, preemphasis,
 )
+from multistream_prompt_spectra import MultiStreamSpectraMultitask  # noqa: E402
 from wpt_spectra import WPTSpectraMultitask  # noqa: E402
 
 
@@ -36,16 +37,29 @@ def load_model(
     checkpoint_path: Path, model_dir: Path, device: torch.device,
 ) -> tuple[WPTSpectraMultitask, dict]:
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-    if checkpoint.get("model_type") != "wpt_spectra_multitask":
-        raise ValueError(f"not a WPT/Spectra checkpoint: {checkpoint_path}")
+    model_type = checkpoint.get("model_type")
+    if model_type not in {
+        "wpt_spectra_multitask", "multistream_prompt_spectra_multitask",
+    }:
+        raise ValueError(f"not a prompt/Spectra checkpoint: {checkpoint_path}")
     config = checkpoint["config"]
     base = load_spectra(model_dir, device)
-    model = WPTSpectraMultitask(
-        base,
-        prompt_tokens=int(config["prompt_tokens"]),
-        wavelet_tokens=int(config["wavelet_tokens"]),
-        temperature=float(config["temperature"]),
-    ).to(device)
+    if model_type == "wpt_spectra_multitask":
+        model = WPTSpectraMultitask(
+            base,
+            prompt_tokens=int(config["prompt_tokens"]),
+            wavelet_tokens=int(config["wavelet_tokens"]),
+            temperature=float(config["temperature"]),
+        ).to(device)
+    else:
+        model = MultiStreamSpectraMultitask(
+            base,
+            base_tokens=int(config["base_tokens"]),
+            frequency_tokens=int(config["frequency_tokens"]),
+            texture_tokens=int(config["texture_tokens"]),
+            prompt_dropout=float(config["prompt_dropout"]),
+            temperature=float(config["temperature"]),
+        ).to(device)
     model.load_trainable_state_dict(checkpoint["state"])
     model.eval()
     return model, checkpoint
@@ -142,6 +156,7 @@ def main() -> None:
         model, checkpoint = load_model(checkpoint_path, args.model_dir, device)
         provenance.append({
             "checkpoint": str(checkpoint_path),
+            "model_type": checkpoint.get("model_type"),
             "seed": checkpoint.get("seed"),
             "best_epoch": checkpoint.get("best_epoch"),
             "selection": checkpoint.get("selection"),

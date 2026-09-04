@@ -30,6 +30,9 @@ from pipeline import find_audio_files, load_audio  # noqa: E402
 from wpt_spectra import (  # noqa: E402
     WPTSpectraMultitask, component_loss, component_ranking_loss,
 )
+from multistream_prompt_spectra import (  # noqa: E402
+    MultiStreamSpectraMultitask, warm_start_shared_backend,
+)
 
 
 TRAIN_DEFAULT = (
@@ -276,6 +279,17 @@ def main() -> None:
     parser.add_argument("--train-datasets", nargs="+", default=list(TRAIN_DEFAULT))
     parser.add_argument("--dev-datasets", nargs="+", default=list(DEV_DEFAULT))
     parser.add_argument("--device", default="cuda")
+    parser.add_argument(
+        "--prompt-family", choices=("wavelet", "multistream"),
+        default="wavelet",
+    )
+    parser.add_argument(
+        "--warm-start-checkpoint", type=Path,
+        help=(
+            "Initialize the shared Spectra/AASIST/task-head weights from a "
+            "compact WPT checkpoint. Prompt weights are never transferred."
+        ),
+    )
     parser.add_argument("--window", type=int, default=64_600)
     parser.add_argument("--views", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=8)
@@ -293,8 +307,12 @@ def main() -> None:
     parser.add_argument("--file-weight", type=float, default=.45)
     parser.add_argument("--ranking-weight", type=float, default=0.0)
     parser.add_argument(
-        "--selection-axis", choices=("overall", "music"), default="overall",
-        help="Early-stop on all ADS tasks or Music mean-plus-worst EER.",
+        "--selection-axis", choices=("overall", "music", "background"),
+        default="overall",
+        help=(
+            "Early-stop on all ADS tasks, Music only, or the competition-"
+            "weighted File+Music background objective."
+        ),
     )
     parser.add_argument("--seed", type=int, default=20260905)
     args = parser.parse_args()
@@ -340,7 +358,26 @@ def main() -> None:
 
     device = torch.device(args.device)
     base = load_spectra(args.model_dir, device)
-    model = WPTSpectraMultitask(base).to(device)
+    model = (
+        WPTSpectraMultitask(base)
+        if args.prompt_family == "wavelet"
+        else MultiStreamSpectraMultitask(base)
+    ).to(device)
+    warm_start_report = None
+    if args.warm_start_checkpoint is not None:
+        if args.prompt_family != "multistream":
+            raise ValueError(
+                "--warm-start-checkpoint is intended for multistream specialists"
+            )
+        source = torch.load(
+            args.warm_start_checkpoint, map_location="cpu", weights_only=False,
+        )
+        if source.get("model_type") != "wpt_spectra_multitask":
+            raise ValueError(
+                "warm-start source must be a wavelet WPT/Spectra checkpoint"
+            )
+        warm_start_report = warm_start_shared_backend(model, source["state"])
+        print(json.dumps({"warm_start": warm_start_report}), flush=True)
     prompt_parameters = list(model.prompt_encoder.prompts.parameters())
     head_parameters = list(model.task_head.parameters())
     excluded = {id(value) for value in [*prompt_parameters, *head_parameters]}
@@ -409,6 +446,17 @@ def main() -> None:
         if args.selection_axis == "music":
             music_eer = metrics.MUSIC_EER.dropna().to_numpy(np.float64)
             score = float(1 - .5 * (music_eer.mean() + music_eer.max()))
+        elif args.selection_axis == "background":
+            # File and Music carry 0.5 and 0.3 of ADS. Normalize those
+            # weights, then apply the same mean/worst-domain criterion.
+            background_eer = (
+                .625 * metrics.FILE_EER.to_numpy(np.float64)
+                + .375 * metrics.MUSIC_EER.to_numpy(np.float64)
+            )
+            background_eer = background_eer[np.isfinite(background_eer)]
+            score = float(
+                1 - .5 * (background_eer.mean() + background_eer.max())
+            )
         else:
             score = overall_score
         record = {
@@ -433,24 +481,45 @@ def main() -> None:
 
     if best_state is None:
         raise RuntimeError("training did not produce a checkpoint")
-    checkpoint = {
-        "model_type": "wpt_spectra_multitask",
-        "state": best_state,
-        "config": {
+    prompt_config = {
+        "temperature": model.temperature,
+        "window": args.window,
+        "views": args.views,
+        "task_weights": [
+            args.voice_weight, args.music_weight, args.file_weight,
+        ],
+        "ranking_weight": args.ranking_weight,
+        "selection_axis": args.selection_axis,
+    }
+    if args.prompt_family == "wavelet":
+        prompt_config.update({
             "prompt_tokens": model.prompt_encoder.prompts.prompt_tokens,
             "wavelet_tokens": model.prompt_encoder.prompts.wavelet_tokens,
-            "temperature": model.temperature,
-            "window": args.window, "views": args.views,
-            "task_weights": [
-                args.voice_weight, args.music_weight, args.file_weight,
-            ],
-            "ranking_weight": args.ranking_weight,
-            "selection_axis": args.selection_axis,
-        },
+        })
+    else:
+        prompt_config.update({
+            "base_tokens": model.prompt_encoder.prompts.base_tokens,
+            "frequency_tokens": model.prompt_encoder.prompts.frequency_tokens,
+            "texture_tokens": model.prompt_encoder.prompts.texture_tokens,
+            "prompt_dropout": model.prompt_encoder.prompts.dropout.p,
+        })
+    checkpoint = {
+        "model_type": (
+            "wpt_spectra_multitask"
+            if args.prompt_family == "wavelet"
+            else "multistream_prompt_spectra_multitask"
+        ),
+        "state": best_state,
+        "config": prompt_config,
         "train_datasets": list(args.train_datasets),
         "dev_datasets": list(args.dev_datasets),
         "best_epoch": best_epoch, "selection": best_score,
         "seed": args.seed,
+        "warm_start_checkpoint": (
+            str(args.warm_start_checkpoint)
+            if args.warm_start_checkpoint is not None else None
+        ),
+        "warm_start_report": warm_start_report,
     }
     torch.save(checkpoint, args.output_dir / "wpt_spectra_multitask.pt")
     pd.DataFrame(history).to_csv(args.output_dir / "history.csv", index=False)
@@ -462,6 +531,11 @@ def main() -> None:
         "trainable_parameters": sum(
             value.numel() for value in model.parameters() if value.requires_grad
         ),
+        "warm_start_checkpoint": (
+            str(args.warm_start_checkpoint)
+            if args.warm_start_checkpoint is not None else None
+        ),
+        "warm_start_report": warm_start_report,
     }, indent=2) + "\n", encoding="utf-8")
 
 
