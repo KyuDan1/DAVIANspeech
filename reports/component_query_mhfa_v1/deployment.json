@@ -1,0 +1,12 @@
+{
+  "anchor": "eat_patch_graph_v44.zip",
+  "checkpoint": "seed04_base/component_query_mhfa.pt",
+  "query_file_weight": 0.025,
+  "query_music_weight": 0.05,
+  "file_component_or_weight": 0.3,
+  "archive": "component_query_or_v47.zip",
+  "archive_sha256": "0ddb1d9d3d21def4f2e3b761e074f52145db45caebfe5c2198976a0af2ce25ed",
+  "archive_bytes": 7913418225,
+  "expanded_bytes": 7913394695,
+  "entries": 117
+}
