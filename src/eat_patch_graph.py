@@ -317,12 +317,15 @@ def patch_graph_loss(
     sample_weight: torch.Tensor,
     task_weights: tuple[float, float, float] = (.20, .35, .45),
     ranking_weight: float = .15,
+    ranking_tail_fraction: float = 1.,
 ) -> tuple[torch.Tensor, dict[str, torch.Tensor]]:
     """Component-conditional BCE plus a batchwise EER ranking surrogate."""
     if logits.shape != targets.shape or logits.shape[1] != 3:
         raise ValueError("logits and targets must have shape [batch, 3]")
     if presence.shape != (len(logits), 2):
         raise ValueError("presence must have shape [batch, 2]")
+    if not 0 < ranking_tail_fraction <= 1:
+        raise ValueError("ranking tail fraction must lie in (0, 1]")
     masks = (
         presence[:, 0].bool(), presence[:, 1].bool(),
         torch.ones(len(logits), dtype=torch.bool, device=logits.device),
@@ -337,9 +340,11 @@ def patch_graph_loss(
         positive = logits[mask & targets[:, task].eq(1), task]
         negative = logits[mask & targets[:, task].eq(0), task]
         if len(positive) and len(negative):
-            ranking_terms.append(F.softplus(
+            pair_loss = F.softplus(
                 -(positive[:, None] - negative[None, :])
-            ).mean())
+            ).flatten()
+            keep = max(1, math.ceil(ranking_tail_fraction * len(pair_loss)))
+            ranking_terms.append(pair_loss.topk(keep).values.mean())
     scale = sum(task_weights)
     if scale <= 0 or any(value < 0 for value in task_weights):
         raise ValueError("task weights must be nonnegative with positive sum")
@@ -355,4 +360,55 @@ def patch_graph_loss(
         "bce": bce.detach(), "ranking": ranking.detach(),
         "voice": bce_terms[0].detach(), "music": bce_terms[1].detach(),
         "file": bce_terms[2].detach(),
+    }
+
+
+def group_dro_patch_loss(
+    model: EatPatchGraphHead,
+    logits: torch.Tensor,
+    targets: torch.Tensor,
+    presence: torch.Tensor,
+    sample_weight: torch.Tensor,
+    groups: torch.Tensor,
+    group_weights: torch.Tensor,
+    step_size: float,
+    task_weights: tuple[float, float, float] = (.20, .35, .45),
+    ranking_weight: float = .15,
+    ranking_tail_fraction: float = 1.,
+) -> tuple[torch.Tensor, dict[str, torch.Tensor]]:
+    """Apply online GroupDRO over corpus groups in the current mini-batch."""
+    if groups.shape != (len(logits),) or groups.dtype != torch.long:
+        raise ValueError("groups must be a long tensor with one value per item")
+    if group_weights.ndim != 1 or len(group_weights) == 0:
+        raise ValueError("group weights must be a nonempty vector")
+    if groups.min() < 0 or groups.max() >= len(group_weights):
+        raise ValueError("group index lies outside the weight vector")
+    if step_size <= 0:
+        raise ValueError("GroupDRO step size must be positive")
+
+    present = groups.unique(sorted=True)
+    losses = []
+    for group in present:
+        selected = groups.eq(group)
+        current, _ = patch_graph_loss(
+            model, logits[selected], targets[selected], presence[selected],
+            sample_weight[selected], task_weights=task_weights,
+            ranking_weight=ranking_weight,
+            ranking_tail_fraction=ranking_tail_fraction,
+        )
+        losses.append(current)
+    stacked = torch.stack(losses)
+    with torch.no_grad():
+        group_weights[present] *= torch.exp(
+            step_size * stacked.detach().clamp(max=10)
+        )
+        group_weights /= group_weights.sum().clamp_min(1e-12)
+    robust_weights = group_weights[present]
+    robust_weights = robust_weights / robust_weights.sum().clamp_min(1e-12)
+    total = torch.sum(robust_weights * stacked)
+    return total, {
+        "group_min": stacked.detach().min(),
+        "group_mean": stacked.detach().mean(),
+        "group_max": stacked.detach().max(),
+        "group_weight_max": group_weights.detach().max(),
     }

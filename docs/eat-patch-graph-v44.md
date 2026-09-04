@@ -135,3 +135,22 @@ v44의 5% 결합은 세 잠금 평가에서 일관되지만 SOTA까지 필요한
 재현 명령은 `scripts/train_eat_patch_graph.py`,
 `scripts/score_eat_patch_graph.py`, `scripts/evaluate_eat_patch_graph_v44.py`,
 `scripts/build_eat_patch_graph_v44_submission.py`에 남겼다.
+
+## 6. 후속 robust-loss ablation
+
+v44 checkpoint를 고정한 뒤 다음 학습 변경을 같은 seed와 같은 7개 dev bank에서
+비교했다. 기준 선택 점수 `0.820471`을 넘는 설정은 없었으므로 잠금 평가와 배포에서
+모두 제외했다.
+
+| 변경 | 설정 | dev robust selection | 판정 |
+|---|---:|---:|---|
+| corpus GroupDRO | step 0.01 | 0.803854 | 제외 |
+| hard-pair rank | worst 25% pair | 0.800412 | 제외 |
+| hard-pair rank | worst 50% pair | 0.805536 | 제외 |
+| paired channel consistency | weight 0.05 | 0.793523 | 제외 |
+| paired channel consistency | weight 0.10 | 0.800440 | 제외 |
+
+단순히 어려운 corpus나 channel pair의 손실을 키우면 source-disjoint mixed 조건이
+불안정해졌다. 이 결과 때문에 v44에는 학습 objective 변경을 넣지 않았고, 다음
+학습은 약한 정규화 추가가 아니라 generator 자체를 분리한 validation 및
+component-cell balanced batch 구성이 필요하다.

@@ -48,7 +48,7 @@ V18_CALL = '''    apply_dual_domain_fusion(
 FUSION_REPLACEMENT = V18_CALL + '''    apply_eat_patch_graph_fusion(
         args.output, eat_patch_graph,
         [BASE_DIR / "model" / "eat-patch-graph" / "head.pt"],
-        device=args.device, file_weight=0.05, music_weight=0.05,
+        device=args.device, file_weight={weight:.8g}, music_weight={weight:.8g},
     )
 '''
 CLEANUP_MARKER = "    for path in (eat_stats, spear_stats):\n"
@@ -76,7 +76,10 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, default=DEFAULT_CHECKPOINT)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--archive", action="store_true")
+    parser.add_argument("--residual-weight", type=float, default=.05)
     args = parser.parse_args()
+    if not 0 <= args.residual_weight <= .30:
+        parser.error("residual weight must lie in [0, 0.30]")
     for path in (args.base_zip, args.checkpoint):
         if not path.is_file():
             parser.error(f"missing input: {path}")
@@ -104,7 +107,11 @@ def main() -> None:
         (IMPORT_MARKER, IMPORT_REPLACEMENT, "import"),
         (STATS_MARKER, STATS_REPLACEMENT, "statistics"),
         (EAT_MARKER, EAT_REPLACEMENT, "EAT extraction"),
-        (V18_CALL, FUSION_REPLACEMENT, "residual call"),
+        (
+            V18_CALL,
+            FUSION_REPLACEMENT.format(weight=args.residual_weight),
+            "residual call",
+        ),
         (CLEANUP_MARKER, CLEANUP_REPLACEMENT, "cleanup"),
     ):
         script = replace_once(script, old, new, label)

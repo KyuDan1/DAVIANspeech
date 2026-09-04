@@ -14,6 +14,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
+from torch.nn import functional as F
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +22,9 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from data_guard import assert_no_locked_eval_leakage  # noqa: E402
-from eat_patch_graph import EatPatchGraphHead, patch_graph_loss  # noqa: E402
+from eat_patch_graph import (  # noqa: E402
+    EatPatchGraphHead, group_dro_patch_loss, patch_graph_loss,
+)
 from evaluate_diagnostic import score_frame  # noqa: E402
 from train_unified_dual_ssl_head import (  # noqa: E402
     DEV_DEFAULT, TRAIN_DEFAULT, align, targets, truth_for,
@@ -129,6 +132,21 @@ def sample_weights(frame: pd.DataFrame) -> np.ndarray:
         selected = datasets == dataset
         weights[selected] /= weights[selected].sum()
     return weights / weights.mean()
+
+
+def paired_channel_groups(frame: pd.DataFrame) -> list[np.ndarray]:
+    """Return same-mixture channel groups without pairing unrelated sources."""
+    if "MIXTURE_ID" not in frame:
+        return []
+    selected = frame.MIXTURE_ID.notna() & frame.DATASET.eq(
+        "channel_invariant_factorial_train_v1"
+    )
+    groups = []
+    for _, block in frame.loc[selected].groupby("MIXTURE_ID", sort=False):
+        indices = block.index.to_numpy(dtype=np.int64)
+        if len(indices) >= 2:
+            groups.append(indices)
+    return groups
 
 
 def move_to_device(
@@ -255,6 +273,22 @@ def main() -> None:
     parser.add_argument("--file-component-weight", type=float, default=.10)
     parser.add_argument("--ranking-weight", type=float, default=.15)
     parser.add_argument(
+        "--ranking-tail-fraction", type=float, default=1.,
+        help="Fraction of hardest positive-negative pairs used by rank loss.",
+    )
+    parser.add_argument(
+        "--group-dro-step-size", type=float, default=0.,
+        help="Online GroupDRO step size over training corpora; zero disables it.",
+    )
+    parser.add_argument(
+        "--paired-consistency-weight", type=float, default=0.,
+        help="Logit consistency weight for same-mixture channel pairs.",
+    )
+    parser.add_argument(
+        "--paired-consistency-groups", type=int, default=16,
+        help="Number of same-mixture pairs sampled per optimization step.",
+    )
+    parser.add_argument(
         "--task-weights", type=float, nargs=3, default=[.20, .35, .45],
         metavar=("VOICE", "MUSIC", "FILE"),
     )
@@ -281,6 +315,12 @@ def main() -> None:
         parser.error("view dropout must lie in [0, 1)")
     if not 0 <= args.domain_randomization <= 1 or args.domain_scale < 0:
         parser.error("invalid domain randomization")
+    if args.group_dro_step_size < 0:
+        parser.error("GroupDRO step size must be nonnegative")
+    if args.paired_consistency_weight < 0 or args.paired_consistency_groups <= 0:
+        parser.error("invalid paired consistency configuration")
+    if not 0 < args.ranking_tail_fraction <= 1:
+        parser.error("ranking tail fraction must lie in (0, 1]")
     for name in args.train_datasets:
         assert_no_locked_eval_leakage(
             ROOT / "data/eval" / name / "truth.csv",
@@ -307,6 +347,9 @@ def main() -> None:
         ):
             raise ValueError("patch-graph metadata differs across datasets")
     train_frame = pd.concat([pair[0] for pair in train_pairs], ignore_index=True)
+    channel_groups = paired_channel_groups(train_frame)
+    if args.paired_consistency_weight and not channel_groups:
+        parser.error("paired consistency requested but no channel groups were found")
     train_numpy = concatenate([pair[1] for pair in train_pairs])
     dev_frames, dev_numpy = zip(*dev_pairs)
     fake_numpy, presence_numpy = targets(train_frame)
@@ -318,6 +361,15 @@ def main() -> None:
     fake = torch.from_numpy(fake_numpy.copy()).to(device)
     presence = torch.from_numpy(presence_numpy.copy()).to(device)
     sample_weight = torch.from_numpy(weight_numpy).to(device)
+    group_names = list(dict.fromkeys(train_frame.DATASET.astype(str)))
+    group_lookup = {name: index for index, name in enumerate(group_names)}
+    train_groups = torch.as_tensor(
+        [group_lookup[str(value)] for value in train_frame.DATASET],
+        dtype=torch.long, device=device,
+    )
+    group_weights = torch.full(
+        (len(group_names),), 1 / len(group_names), device=device,
+    )
     temporal_shape = train["temporal"].shape
     spectral_shape = train["spectral"].shape
     model = EatPatchGraphHead(
@@ -365,12 +417,46 @@ def main() -> None:
                 if args.balanced_sampling
                 else sample_weight.index_select(0, index)
             )
-            loss, _ = patch_graph_loss(
-                model, logits, fake.index_select(0, index),
-                presence.index_select(0, index),
-                batch_weight, task_weights=tuple(args.task_weights),
-                ranking_weight=args.ranking_weight,
-            )
+            batch_fake = fake.index_select(0, index)
+            batch_presence = presence.index_select(0, index)
+            if args.group_dro_step_size:
+                loss, _ = group_dro_patch_loss(
+                    model, logits, batch_fake, batch_presence, batch_weight,
+                    train_groups.index_select(0, index), group_weights,
+                    args.group_dro_step_size,
+                    task_weights=tuple(args.task_weights),
+                    ranking_weight=args.ranking_weight,
+                    ranking_tail_fraction=args.ranking_tail_fraction,
+                )
+            else:
+                loss, _ = patch_graph_loss(
+                    model, logits, batch_fake, batch_presence, batch_weight,
+                    task_weights=tuple(args.task_weights),
+                    ranking_weight=args.ranking_weight,
+                    ranking_tail_fraction=args.ranking_tail_fraction,
+                )
+            if args.paired_consistency_weight:
+                selected_groups = generator.integers(
+                    0, len(channel_groups), size=args.paired_consistency_groups
+                )
+                pair_indices = np.concatenate([
+                    generator.choice(channel_groups[group], size=2, replace=False)
+                    for group in selected_groups
+                ])
+                pair_temporal, pair_spectral, pair_mask = tensor_batch(
+                    train, pair_indices, device
+                )
+                pair_temporal, pair_spectral = domain_randomize(
+                    pair_temporal, pair_spectral,
+                    args.domain_randomization, args.domain_scale,
+                )
+                pair_logits = model(
+                    pair_temporal, pair_spectral, pair_mask
+                ).reshape(args.paired_consistency_groups, 2, -1)
+                consistency = F.smooth_l1_loss(
+                    pair_logits[:, 0], pair_logits[:, 1]
+                )
+                loss = loss + args.paired_consistency_weight * consistency
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 5.)
@@ -426,6 +512,12 @@ def main() -> None:
         "task_weights": list(args.task_weights),
         "balanced_sampling": bool(args.balanced_sampling),
         "selection_mode": args.selection_mode,
+        "group_dro_step_size": args.group_dro_step_size,
+        "ranking_tail_fraction": args.ranking_tail_fraction,
+        "paired_consistency_weight": args.paired_consistency_weight,
+        "paired_consistency_groups": args.paired_consistency_groups,
+        "group_names": group_names,
+        "final_group_weights": group_weights.detach().cpu().tolist(),
     }
     torch.save(checkpoint, args.output_dir / "eat_patch_graph_head.pt")
     pd.DataFrame(history).to_csv(args.output_dir / "history.csv", index=False)
@@ -437,6 +529,13 @@ def main() -> None:
         "worst_ads": float(metrics.ADS.min()),
         "parameters": sum(parameter.numel() for parameter in model.parameters()),
         "train_examples": len(train_frame),
+        "group_dro_step_size": args.group_dro_step_size,
+        "ranking_tail_fraction": args.ranking_tail_fraction,
+        "paired_consistency_weight": args.paired_consistency_weight,
+        "paired_consistency_groups": args.paired_consistency_groups,
+        "final_group_weights": dict(zip(
+            group_names, group_weights.detach().cpu().tolist()
+        )),
     }
     (args.output_dir / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

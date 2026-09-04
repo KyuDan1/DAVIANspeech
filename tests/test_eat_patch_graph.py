@@ -3,7 +3,7 @@ import torch
 from torch import nn
 
 from src.eat_patch_graph import (
-    EatPatchGraphHead, gaussian_patch_projection,
+    EatPatchGraphHead, gaussian_patch_projection, group_dro_patch_loss,
     hierarchical_patch_graph_features, patch_graph_features, patch_graph_loss,
 )
 from src.eat_hierarchical import hierarchical_statistics
@@ -96,3 +96,56 @@ def test_patch_graph_head_rejects_empty_view_mask():
     spectral = torch.randn(1, 1, 1, 2, 2, 4)
     with pytest.raises(ValueError, match="valid view"):
         model(temporal, spectral, torch.zeros(1, 1, dtype=torch.bool))
+
+
+def test_group_dro_increases_weight_for_harder_group():
+    model = EatPatchGraphHead(
+        layers=1, dimension=4, width=8, heads=2, depth=1,
+        maximum_views=1, maximum_time_nodes=2,
+        maximum_frequency_nodes=2,
+    )
+    logits = torch.tensor([
+        [-4., -4., -4.], [-4., -4., -4.],
+        [-4., -4., -4.], [-4., -4., -4.],
+    ], requires_grad=True)
+    targets = torch.tensor([
+        [0., 0., 0.], [0., 0., 0.],
+        [1., 1., 1.], [1., 1., 1.],
+    ])
+    presence = torch.ones(4, 2)
+    groups = torch.tensor([0, 0, 1, 1], dtype=torch.long)
+    weights = torch.full((2,), .5)
+    loss, terms = group_dro_patch_loss(
+        model, logits, targets, presence, torch.ones(4), groups, weights, .1,
+    )
+    assert torch.isfinite(loss)
+    assert set(terms) == {
+        "group_min", "group_mean", "group_max", "group_weight_max",
+    }
+    assert weights[1] > weights[0]
+    loss.backward()
+
+
+def test_hard_tail_ranking_penalizes_overlap_more_than_mean():
+    model = EatPatchGraphHead(
+        layers=1, dimension=4, width=8, heads=2, depth=1,
+        maximum_views=1, maximum_time_nodes=2,
+        maximum_frequency_nodes=2,
+    )
+    logits = torch.tensor([
+        [3., 3., 3.], [.1, .1, .1],
+        [-3., -3., -3.], [-.1, -.1, -.1],
+    ], requires_grad=True)
+    targets = torch.tensor([
+        [1., 1., 1.], [1., 1., 1.],
+        [0., 0., 0.], [0., 0., 0.],
+    ])
+    presence = torch.ones(4, 2)
+    _, mean_terms = patch_graph_loss(
+        model, logits, targets, presence, torch.ones(4), ranking_weight=1.,
+    )
+    _, tail_terms = patch_graph_loss(
+        model, logits, targets, presence, torch.ones(4), ranking_weight=1.,
+        ranking_tail_fraction=.25,
+    )
+    assert tail_terms["ranking"] > mean_terms["ranking"]

@@ -1,0 +1,21 @@
+{
+  "best_epoch": 20,
+  "selection": 0.8004400510204082,
+  "mean_ads": 0.7957529761904762,
+  "worst_ads": 0.7211428571428571,
+  "parameters": 327445,
+  "train_examples": 18360,
+  "group_dro_step_size": 0.0,
+  "ranking_tail_fraction": 1.0,
+  "paired_consistency_weight": 0.1,
+  "paired_consistency_groups": 16,
+  "final_group_weights": {
+    "external_mixed_train_v1": 0.1428571492433548,
+    "mixed_devvoice_train_v1": 0.1428571492433548,
+    "mixed_fmc_music_train_v1": 0.1428571492433548,
+    "mixfake_music_train_v1": 0.1428571492433548,
+    "telephone_mixed_train_v1": 0.1428571492433548,
+    "temporal_mixed_train_v2": 0.1428571492433548,
+    "channel_invariant_factorial_train_v1": 0.1428571492433548
+  }
+}
