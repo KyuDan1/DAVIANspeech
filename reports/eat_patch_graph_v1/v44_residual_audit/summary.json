@@ -1,0 +1,12 @@
+{
+  "predictions": "reports/eat_patch_graph_v1/seed01_balanced_fm_locked/predictions.csv",
+  "residual_weight": 0.05,
+  "locked_datasets": [
+    "factorial_eval_1200_v2_holdout",
+    "phone_factorial_1200_v1",
+    "yue_cross_component_audit_v1"
+  ],
+  "suno_count": 13,
+  "suno_file_above_half": 12,
+  "suno_music_above_half": 12
+}
