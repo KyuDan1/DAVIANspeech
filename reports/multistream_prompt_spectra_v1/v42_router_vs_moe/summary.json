@@ -1,0 +1,30 @@
+{
+  "baseline_dev_file_eer": 0.17527272727272727,
+  "selected_fixed_file": {
+    "VIEWS": 2.0,
+    "WEIGHT": 0.2,
+    "FILE_EER": 0.15236363636363637,
+    "WORST_CHANNEL_EER": 0.16010638297872343,
+    "MIN_CHANNEL_DELTA": -0.035869565217391305
+  },
+  "selected_phone_router": {
+    "VIEWS": 3,
+    "METHOD": "soft",
+    "NORMAL_WEIGHT": 0.1,
+    "PHONE_WEIGHT": 0.7000000000000001,
+    "FILE_EER": 0.16181818181818186,
+    "WORST_CHANNEL_EER": 0.17979797979797982,
+    "MIN_CHANNEL_DELTA": 0.0,
+    "ROBUST_OBJECTIVE": 0.17080808080808085
+  },
+  "selected_music": {
+    "WEIGHT": 0.8,
+    "MUSIC_EER": 0.19999999999999998,
+    "WORST_CHANNEL_EER": 0.20714285714285716,
+    "MIN_CHANNEL_DELTA": 0.0,
+    "ROBUST_OBJECTIVE": 0.20357142857142857
+  },
+  "accepted": "fixed_file_2view",
+  "locked_min_delta": 0.0,
+  "locked_mean_delta": 0.0015584415584416107
+}

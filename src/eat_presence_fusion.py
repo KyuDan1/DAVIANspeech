@@ -83,6 +83,12 @@ def apply_eat_presence_fusion(
     presence_head_path: Path | None = None,
     music_probe_weight: float = 0.40,
     statistics_output_path: Path | None = None,
+    hierarchical_statistics_output_path: Path | None = None,
+    hierarchical_checkpoint_path: Path | None = None,
+    segmental_statistics_output_path: Path | None = None,
+    segmental_checkpoint_path: Path | None = None,
+    patch_graph_statistics_output_path: Path | None = None,
+    patch_graph_checkpoint_path: Path | None = None,
     phone_voice_head_path: Path | None = None,
     telephone_router_path: Path | None = None,
     phone_voice_weight: float = 0.50,
@@ -112,6 +118,31 @@ def apply_eat_presence_fusion(
             raise ValueError("fusion weights and gate must lie in [0, 1]")
     if (phone_voice_head_path is None) != (telephone_router_path is None):
         raise ValueError("phone Voice head and telephone router must be provided together")
+    if (hierarchical_statistics_output_path is None) != (hierarchical_checkpoint_path is None):
+        raise ValueError(
+            "hierarchical statistics output and checkpoint must be provided together"
+        )
+    if hierarchical_statistics_output_path is not None and statistics_output_path is None:
+        raise ValueError(
+            "hierarchical EAT statistics require the standard statistics output"
+        )
+    if (segmental_statistics_output_path is None) != (segmental_checkpoint_path is None):
+        raise ValueError(
+            "segmental statistics output and checkpoint must be provided together"
+        )
+    if segmental_statistics_output_path is not None:
+        if hierarchical_statistics_output_path is None:
+            raise ValueError("segmental statistics require hierarchical statistics")
+        if statistics_output_path is None:
+            raise ValueError("segmental statistics require the standard statistics output")
+    if (patch_graph_statistics_output_path is None) != (
+        patch_graph_checkpoint_path is None
+    ):
+        raise ValueError(
+            "patch graph statistics output and checkpoint must be provided together"
+        )
+    if patch_graph_statistics_output_path is not None and statistics_output_path is None:
+        raise ValueError("patch graph statistics require the standard statistics output")
 
     audio_files = order_by_submission(find_audio_files(test_dir), rows)
     gc.collect()
@@ -131,14 +162,66 @@ def apply_eat_presence_fusion(
     telephone_count = 0
     telephone_ids = []
     statistic_ids, statistics, statistic_masks = [], [], []
-    for offset in tqdm(range(0, len(audio_files), 8), desc="EAT presence+stats"):
-        paths = audio_files[offset:offset + 8]
+    hierarchical_values = []
+    segmental_values, segmental_masks = [], []
+    patch_temporal_values, patch_spectral_values = [], []
+    hierarchical_projection = None
+    segmental_max_views = None
+    patch_graph_projection = None
+    patch_graph_layers = None
+    if hierarchical_checkpoint_path is not None:
+        checkpoint = torch.load(
+            hierarchical_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        projection_value = checkpoint.get(
+            "projection", checkpoint.get("eat_projection")
+        )
+        if projection_value is None:
+            raise ValueError("EAT checkpoint does not declare its projection")
+        hierarchical_projection = torch.from_numpy(
+            np.asarray(projection_value, dtype=np.float32)
+        )
+    if segmental_checkpoint_path is not None:
+        segmental_checkpoint = torch.load(
+            segmental_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        if segmental_checkpoint.get("model_type") != "segmental_eat_music":
+            raise ValueError("invalid segmental EAT checkpoint")
+        segmental_projection = np.asarray(
+            segmental_checkpoint["projection"], dtype=np.float32
+        )
+        if not np.array_equal(hierarchical_projection.numpy(), segmental_projection):
+            raise ValueError("hierarchical and segmental projections differ")
+        segmental_max_views = int(segmental_checkpoint["config"]["max_views"])
+    if patch_graph_checkpoint_path is not None:
+        patch_checkpoint = torch.load(
+            patch_graph_checkpoint_path, map_location="cpu", weights_only=False
+        )
+        if patch_checkpoint.get("model_type") != "eat_patch_graph_multitask":
+            raise ValueError("invalid EAT patch graph checkpoint")
+        patch_graph_projection = torch.from_numpy(np.asarray(
+            patch_checkpoint["projection"], dtype=np.float32
+        ))
+        patch_graph_layers = tuple(
+            int(value) for value in patch_checkpoint["eat_layers"]
+        )
+    file_batch_size = 4 if segmental_max_views is not None else 8
+    for offset in tqdm(
+        range(0, len(audio_files), file_batch_size), desc="EAT presence+stats"
+    ):
+        paths = audio_files[offset:offset + file_batch_size]
         audios = [load_audio(path) for path in paths]
         audio_set = [detector.predict_audio_set(audio) for audio in audios]
-        latent = detector.latent_statistics_batch(audios)
-        for row, path, audio, (eat_voice, eat_music), (matrix, mask, probe_music) in zip(
-            rows[offset:offset + 8], paths, audios, audio_set, latent
+        latent = detector.latent_statistics_batch(
+            audios, hierarchical_projection=hierarchical_projection,
+            segmental_max_views=segmental_max_views,
+            patch_graph_projection=patch_graph_projection,
+            patch_graph_layers=patch_graph_layers,
+        )
+        for row, path, audio, (eat_voice, eat_music), latent_item in zip(
+            rows[offset:offset + file_batch_size], paths, audios, audio_set, latent
         ):
+            matrix, mask, probe_music = latent_item[:3]
             voice_present, music_present = fuse_presence(
                 float(row["VOICE_PRESENT_PROB"]),
                 float(row["MUSIC_PRESENT_PROB"]), eat_voice, eat_music,
@@ -168,6 +251,17 @@ def apply_eat_presence_fusion(
                 statistic_ids.append(path.stem)
                 statistics.append(matrix)
                 statistic_masks.append(mask)
+            cursor = 3
+            if hierarchical_statistics_output_path is not None:
+                hierarchical_values.append(latent_item[cursor])
+                cursor += 1
+            if segmental_statistics_output_path is not None:
+                segmental_values.append(latent_item[cursor])
+                segmental_masks.append(latent_item[cursor + 1])
+                cursor += 2
+            if patch_graph_statistics_output_path is not None:
+                patch_temporal_values.append(latent_item[cursor])
+                patch_spectral_values.append(latent_item[cursor + 1])
     del detector
     gc.collect()
     torch.cuda.empty_cache()
@@ -186,6 +280,48 @@ def apply_eat_presence_fusion(
             statistics=np.stack(statistics),
             view_mask=np.stack(statistic_masks),
             stream=np.asarray("eat"), channel=np.asarray("clean"),
+        )
+    if hierarchical_statistics_output_path is not None:
+        if len(hierarchical_values) != len(statistic_ids):
+            raise RuntimeError(
+                "hierarchical EAT statistics require the standard statistics output"
+            )
+        hierarchical_statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            hierarchical_statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.stack(hierarchical_values),
+            view_mask=np.stack(statistic_masks),
+            projection=hierarchical_projection.numpy(),
+        )
+    if segmental_statistics_output_path is not None:
+        if len(segmental_values) != len(statistic_ids):
+            raise RuntimeError(
+                "segmental EAT statistics require the standard statistics output"
+            )
+        segmental_statistics_output_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez(
+            segmental_statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            statistics=np.stack(segmental_values),
+            view_mask=np.stack(segmental_masks),
+        )
+    if patch_graph_statistics_output_path is not None:
+        if len(patch_temporal_values) != len(statistic_ids):
+            raise RuntimeError(
+                "patch graph statistics require the standard statistics output"
+            )
+        patch_graph_statistics_output_path.parent.mkdir(
+            parents=True, exist_ok=True
+        )
+        np.savez(
+            patch_graph_statistics_output_path,
+            ids=np.asarray(statistic_ids),
+            temporal=np.stack(patch_temporal_values),
+            spectral=np.stack(patch_spectral_values),
+            view_mask=np.stack(statistic_masks),
+            projection=patch_graph_projection.numpy(),
+            layers=np.asarray(patch_graph_layers, dtype=np.int64),
         )
     if telephone_router is not None:
         print(f"telephone Voice presence routed {telephone_count}/{len(rows)} files")

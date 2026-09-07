@@ -16,6 +16,11 @@ import numpy as np
 import torch
 from safetensors.torch import load_file
 
+try:
+    from .presence import extract_segment, segment_starts
+except ImportError:  # pragma: no cover - offline flat module import
+    from presence import extract_segment, segment_starts
+
 
 def _logit(value: np.ndarray) -> np.ndarray:
     value = np.clip(np.asarray(value, dtype=np.float64), 1e-5, 1 - 1e-5)
@@ -77,7 +82,7 @@ class SpectraStemScorer:
     def __init__(
         self, model_dir: Path, device: str = "cuda", windows: int = 3,
         file_batch_size: int = 4, window_samples: int = 64_600,
-        silence_rms: float = 1e-5,
+        silence_rms: float = 1e-5, collect_sliding: bool = False,
     ) -> None:
         self.device = torch.device(device)
         self.model = _load_model(Path(model_dir), self.device)
@@ -85,20 +90,39 @@ class SpectraStemScorer:
         self.file_batch_size = int(file_batch_size)
         self.window_samples = int(window_samples)
         self.silence_rms = float(silence_rms)
-        self.pending: list[tuple[str, np.ndarray, bool]] = []
+        self.collect_sliding = bool(collect_sliding)
+        self.pending: list[
+            tuple[str, np.ndarray, bool, np.ndarray, np.ndarray, float]
+        ] = []
         self.ids: list[str] = []
         self.margins: list[float] = []
         self.valid: list[bool] = []
+        self.sliding_offsets = [0]
+        self.sliding_starts: list[int] = []
+        self.sliding_margins: list[float] = []
+        self.durations: list[float] = []
 
     def add(self, item_id: str, voice_audio: np.ndarray) -> None:
         rms = float(np.sqrt(np.mean(
             np.square(voice_audio, dtype=np.float64)
         ))) if voice_audio.size else 0.0
         valid = rms >= self.silence_rms
+        fixed = _fixed_windows(voice_audio, self.window_samples, self.windows)
+        if self.collect_sliding:
+            starts = np.asarray(
+                segment_starts(len(voice_audio), self.window_samples),
+                dtype=np.int64,
+            )
+            sliding = np.stack([
+                extract_segment(voice_audio, int(start), self.window_samples)
+                for start in starts
+            ])
+        else:
+            starts = np.empty(0, dtype=np.int64)
+            sliding = np.empty((0, self.window_samples), dtype=np.float32)
         self.pending.append((
-            str(item_id),
-            _fixed_windows(voice_audio, self.window_samples, self.windows),
-            valid,
+            str(item_id), fixed, valid, sliding, starts,
+            len(voice_audio) / 16_000,
         ))
         if len(self.pending) >= self.file_batch_size:
             self._flush()
@@ -108,24 +132,36 @@ class SpectraStemScorer:
         if not self.pending:
             return
         waveforms = torch.from_numpy(np.concatenate([
-            windows for _, windows, _ in self.pending
+            np.concatenate((fixed, sliding), axis=0)
+            for _, fixed, _, sliding, _, _ in self.pending
         ])).to(self.device)
         waveforms = _preemphasis(waveforms)
         with torch.autocast(
             device_type=self.device.type, dtype=torch.bfloat16,
             enabled=self.device.type == "cuda",
         ):
-            logits = self.model(waveforms).float().reshape(
-                len(self.pending), self.windows, 2
-            )
-        margins = (logits[:, :, 0] - logits[:, :, 1]).mean(dim=1).cpu().numpy()
-        for (item_id, _, valid), margin in zip(self.pending, margins):
+            logits = self.model(waveforms).float()
+        all_margins = (logits[:, 0] - logits[:, 1]).cpu().numpy()
+        cursor = 0
+        for item_id, fixed, valid, sliding, starts, duration in self.pending:
+            fixed_count = len(fixed)
+            sliding_count = len(sliding)
+            margin = float(all_margins[cursor:cursor + fixed_count].mean())
+            cursor += fixed_count
+            sliding_values = all_margins[cursor:cursor + sliding_count]
+            cursor += sliding_count
             self.ids.append(item_id)
-            self.margins.append(float(margin))
+            self.margins.append(margin)
             self.valid.append(valid)
+            self.sliding_starts.extend(starts.tolist())
+            self.sliding_margins.extend(sliding_values.tolist())
+            self.sliding_offsets.append(len(self.sliding_margins))
+            self.durations.append(duration)
         self.pending.clear()
 
-    def save(self, output_path: Path) -> None:
+    def save(
+        self, output_path: Path, sliding_output_path: Path | None = None,
+    ) -> None:
         self._flush()
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -135,6 +171,21 @@ class SpectraStemScorer:
             fake_margin=np.asarray(self.margins, dtype=np.float32),
             valid=np.asarray(self.valid, dtype=np.bool_),
         )
+        if sliding_output_path is not None:
+            if not self.collect_sliding:
+                raise ValueError("Sliding output requested without collect_sliding")
+            sliding_output_path = Path(sliding_output_path)
+            sliding_output_path.parent.mkdir(parents=True, exist_ok=True)
+            np.savez_compressed(
+                sliding_output_path,
+                ids=np.asarray(self.ids),
+                offsets=np.asarray(self.sliding_offsets, dtype=np.int64),
+                starts=np.asarray(self.sliding_starts, dtype=np.int64),
+                fake_margins=np.asarray(self.sliding_margins, dtype=np.float32),
+                durations=np.asarray(self.durations, dtype=np.float32),
+                valid=np.asarray(self.valid, dtype=np.bool_),
+                window=np.asarray(self.window_samples, dtype=np.int64),
+            )
 
 
 def apply_spectra_voice_fusion(

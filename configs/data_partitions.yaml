@@ -3,6 +3,7 @@
 # an ensemble weight, or a router.  It may be scored once after a candidate is
 # frozen from train/development data.
 train:
+  - data/eval/forensic_call_train_v1/truth.csv
   - data/eval/temporal_mixed_train_v2/truth.csv
   - data/eval/temporal_mixed_train_v1/truth.csv
   - data/eval/external_mixed_train_v1/truth.csv
@@ -43,6 +44,9 @@ stress_eval:
   - data/eval/asvspoof_voice_telephone_dev_v1/truth.csv
 
 locked_eval:
+  # Derived from locked Korean TTS and prospective source-disjoint music.
+  # Two-party call structure/codec audit only; never tune a weight on it.
+  - data/eval/forensic_call_audit_v1/truth.csv
   # Official telephony-channel stress set.  XLS-R anti-deepfake pretraining
   # included ASVspoof 2021 LA, so this is only for frozen relative channel
   # audits and must never be used to fit a head or fusion weight.

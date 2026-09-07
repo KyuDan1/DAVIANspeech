@@ -1,0 +1,17 @@
+{
+  "anchor": "v38",
+  "dev_anchor_ads": 0.7403376623376623,
+  "dev_anchor_worst_channel_ads": 0.7159238941135493,
+  "selected": {
+    "METHOD": "fixed_moe",
+    "VOICE_WEIGHT": 0.75,
+    "PHONE_VOICE_WEIGHT": 0.75,
+    "FILE_WEIGHT": 0.75,
+    "PHONE_FILE_WEIGHT": 0.75,
+    "ADS": 0.8261038961038961,
+    "WORST_CHANNEL_ADS": 0.8044499376206592,
+    "MIN_CHANNEL_DELTA": 0.02758620689655178,
+    "ROBUST_SELECTION": 0.8152769168622777
+  },
+  "locked_all_non_regressing": true
+}

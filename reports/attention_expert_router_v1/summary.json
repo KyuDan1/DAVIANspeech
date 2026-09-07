@@ -1,0 +1,23 @@
+{
+  "uniform_dev_selection": 0.7920771254208754,
+  "selected": {
+    "STRENGTH": 0.5,
+    "REGULARIZATION": 0.2,
+    "SEED": 20260903,
+    "BEST_EPOCH": 8,
+    "SELECTION": 0.7982249579124581,
+    "MEAN_ADS": 0.8463460197210199,
+    "WORST_ADS": 0.7501038961038962,
+    "mixfake_music_dev_v1_ADS": 0.9569166666666666,
+    "external_mixed_v1_ADS": 0.8525,
+    "source_disjoint_mixed_v1_ADS": 0.8580000000000001,
+    "source_disjoint_mixed_equal_v1_ADS": 0.8490000000000001,
+    "factorial_eval_1200_v2_dev_ADS": 0.7501038961038962,
+    "telephone_mixed_dev_v1_ADS": 0.8115555555555555,
+    "DELTA_SELECTION_VS_UNIFORM": 0.006147832491582683
+  },
+  "locked_min_delta": -0.008588709677419315,
+  "locked_mean_delta": -0.00418324954615279,
+  "fused_min_delta": -0.003750000000000142,
+  "fused_mean_delta": 0.0010746753246752838
+}

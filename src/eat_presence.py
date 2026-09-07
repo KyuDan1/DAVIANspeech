@@ -8,15 +8,24 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
+from torch.nn import functional as F
 
 try:  # package import in tests; flat import in the offline submission
     from .eat_detector import EatMusicDetector, _load_local_model
     from .dual_domain_stats import (
-        crop_or_pad, pad_views, sequence_statistics, temporal_starts,
+        crop_or_pad, pad_views, segment_starts, sequence_statistics,
+        temporal_starts,
     )
+    from .eat_hierarchical import hierarchical_statistics
+    from .eat_patch_graph import hierarchical_patch_graph_features
 except ImportError:  # pragma: no cover - exercised by script.py
     from eat_detector import EatMusicDetector, _load_local_model
-    from dual_domain_stats import crop_or_pad, pad_views, sequence_statistics, temporal_starts
+    from dual_domain_stats import (
+        crop_or_pad, pad_views, segment_starts, sequence_statistics,
+        temporal_starts,
+    )
+    from eat_hierarchical import hierarchical_statistics
+    from eat_patch_graph import hierarchical_patch_graph_features
 
 
 class EatPresence:
@@ -91,12 +100,35 @@ class EatPresence:
 
     @torch.inference_mode()
     def latent_statistics_batch(
-        self, audios: list[np.ndarray]
-    ) -> list[tuple[np.ndarray, np.ndarray, float | None]]:
-        """Batch latent views exactly as the training feature extractor does."""
+        self,
+        audios: list[np.ndarray],
+        hierarchical_projection: torch.Tensor | None = None,
+        segmental_max_views: int | None = None,
+        patch_graph_projection: torch.Tensor | None = None,
+        patch_graph_layers: tuple[int, ...] | None = None,
+    ) -> list[tuple]:
+        """Batch endpoint and optional long-range views in one encoder pass."""
+        if segmental_max_views is not None and segmental_max_views <= 0:
+            raise ValueError("segmental_max_views must be positive")
+        if segmental_max_views is not None and hierarchical_projection is None:
+            raise ValueError("segmental statistics require a projection")
+        if (patch_graph_projection is None) != (patch_graph_layers is None):
+            raise ValueError("patch graph projection and layers must be provided together")
         grouped_views = []
+        view_plans = []
         for audio in audios:
-            starts = temporal_starts(len(audio), self.SAMPLES, 3)
+            endpoint_starts = temporal_starts(len(audio), self.SAMPLES, 3)
+            long_starts = (
+                segment_starts(len(audio), self.SAMPLES, segmental_max_views)
+                if segmental_max_views is not None else endpoint_starts
+            )
+            starts = sorted(set(endpoint_starts) | set(long_starts))
+            by_start = {start: index for index, start in enumerate(starts)}
+            view_plans.append((
+                [by_start[start] for start in endpoint_starts],
+                [by_start[start] for start in long_starts],
+                len(starts),
+            ))
             grouped_views.append([
                 crop_or_pad(audio, start, self.SAMPLES) for start in starts
             ])
@@ -104,16 +136,80 @@ class EatPresence:
             EatMusicDetector._fbank(view)
             for views in grouped_views for view in views
         ])[:, None].to(self.device)
-        tokens = self.model.extract_features(features)[:, 1:]
-        statistics = sequence_statistics(tokens)
+        hierarchical = patch_temporal = patch_spectral = None
+        if patch_graph_projection is not None:
+            all_statistics, patch_temporal, patch_spectral = (
+                hierarchical_patch_graph_features(
+                    self.model, features, patch_graph_projection,
+                    tuple(patch_graph_layers),
+                )
+            )
+            statistics = all_statistics[:, -1, :4]
+            if hierarchical_projection is not None:
+                projection = hierarchical_projection.to(
+                    device=features.device, dtype=torch.float32
+                )
+                if (
+                    projection.ndim != 2
+                    or projection.shape[0] != all_statistics.shape[-1]
+                ):
+                    raise ValueError(
+                        "hierarchical EAT projection has incompatible shape"
+                    )
+                hierarchical = F.layer_norm(
+                    all_statistics, (all_statistics.shape[-1],)
+                ) @ projection
+        elif hierarchical_projection is None:
+            tokens = self.model.extract_features(features)[:, 1:]
+            statistics = sequence_statistics(tokens)
+        else:
+            all_statistics = hierarchical_statistics(self.model, features)
+            statistics = all_statistics[:, -1, :4]
+            projection = hierarchical_projection.to(
+                device=features.device, dtype=torch.float32
+            )
+            if projection.ndim != 2 or projection.shape[0] != all_statistics.shape[-1]:
+                raise ValueError("hierarchical EAT projection has incompatible shape")
+            hierarchical = F.layer_norm(
+                all_statistics, (all_statistics.shape[-1],)
+            ) @ projection
         result, offset = [], 0
-        for views in grouped_views:
-            count = len(views)
+        for endpoint_indices, long_indices, count in view_plans:
             matrix, mask = pad_views(
-                [statistics[index] for index in range(offset, offset + count)],
+                [statistics[offset + index] for index in endpoint_indices],
                 3, (4, 768),
             )
-            result.append((matrix, mask, self.probe_from_statistics(matrix, mask)))
+            item = (matrix, mask, self.probe_from_statistics(matrix, mask))
+            if hierarchical is not None:
+                hierarchical_matrix, hierarchical_mask = pad_views(
+                    [hierarchical[offset + index] for index in endpoint_indices],
+                    3, tuple(hierarchical.shape[1:]),
+                )
+                if not np.array_equal(mask, hierarchical_mask):
+                    raise RuntimeError("EAT hierarchical view mask mismatch")
+                item = (*item, hierarchical_matrix)
+                if segmental_max_views is not None:
+                    segmental_matrix, segmental_mask = pad_views(
+                        [hierarchical[offset + index] for index in long_indices],
+                        segmental_max_views, tuple(hierarchical.shape[1:]),
+                    )
+                    item = (*item, segmental_matrix, segmental_mask)
+            if patch_temporal is not None:
+                temporal_matrix, temporal_mask = pad_views(
+                    [patch_temporal[offset + index] for index in endpoint_indices],
+                    3, tuple(patch_temporal.shape[1:]),
+                )
+                spectral_matrix, spectral_mask = pad_views(
+                    [patch_spectral[offset + index] for index in endpoint_indices],
+                    3, tuple(patch_spectral.shape[1:]),
+                )
+                if (
+                    not np.array_equal(mask, temporal_mask)
+                    or not np.array_equal(mask, spectral_mask)
+                ):
+                    raise RuntimeError("EAT patch graph view mask mismatch")
+                item = (*item, temporal_matrix, spectral_matrix)
+            result.append(item)
             offset += count
         return result
 

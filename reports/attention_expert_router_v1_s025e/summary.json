@@ -1,0 +1,65 @@
+{
+  "uniform_dev_selection": 0.7920771254208754,
+  "selected_ensemble": {
+    "STRENGTH": 0.25,
+    "REGULARIZATION": 0.05,
+    "SEEDS": 3.0,
+    "SELECTION": 0.7947384259259258,
+    "MEAN_ADS": 0.8443339947089946,
+    "WORST_ADS": 0.7451428571428571
+  },
+  "member_runs": [
+    {
+      "STRENGTH": 0.25,
+      "REGULARIZATION": 0.05,
+      "SEED": 20260903,
+      "BEST_EPOCH": 1,
+      "SELECTION": 0.7947013888888887,
+      "MEAN_ADS": 0.8442599206349205,
+      "WORST_ADS": 0.7451428571428571,
+      "mixfake_music_dev_v1_ADS": 0.9562499999999999,
+      "external_mixed_v1_ADS": 0.8485,
+      "source_disjoint_mixed_v1_ADS": 0.8580000000000001,
+      "source_disjoint_mixed_equal_v1_ADS": 0.8490000000000001,
+      "factorial_eval_1200_v2_dev_ADS": 0.7451428571428571,
+      "telephone_mixed_dev_v1_ADS": 0.8086666666666666,
+      "DELTA_SELECTION_VS_UNIFORM": 0.002624263468013366
+    },
+    {
+      "STRENGTH": 0.25,
+      "REGULARIZATION": 0.05,
+      "SEED": 20260904,
+      "BEST_EPOCH": 2,
+      "SELECTION": 0.7948055555555555,
+      "MEAN_ADS": 0.8444682539682541,
+      "WORST_ADS": 0.7451428571428571,
+      "mixfake_music_dev_v1_ADS": 0.9565,
+      "external_mixed_v1_ADS": 0.8485,
+      "source_disjoint_mixed_v1_ADS": 0.8580000000000001,
+      "source_disjoint_mixed_equal_v1_ADS": 0.8490000000000001,
+      "factorial_eval_1200_v2_dev_ADS": 0.7451428571428571,
+      "telephone_mixed_dev_v1_ADS": 0.8096666666666666,
+      "DELTA_SELECTION_VS_UNIFORM": 0.00272843013468016
+    },
+    {
+      "STRENGTH": 0.25,
+      "REGULARIZATION": 0.05,
+      "SEED": 20260905,
+      "BEST_EPOCH": 11,
+      "SELECTION": 0.796568287037037,
+      "MEAN_ADS": 0.8462794312169312,
+      "WORST_ADS": 0.7468571428571429,
+      "mixfake_music_dev_v1_ADS": 0.956875,
+      "external_mixed_v1_ADS": 0.8511666666666667,
+      "source_disjoint_mixed_v1_ADS": 0.8610000000000001,
+      "source_disjoint_mixed_equal_v1_ADS": 0.8506666666666667,
+      "factorial_eval_1200_v2_dev_ADS": 0.7468571428571429,
+      "telephone_mixed_dev_v1_ADS": 0.8111111111111111,
+      "DELTA_SELECTION_VS_UNIFORM": 0.0044911616161615875
+    }
+  ],
+  "locked_min_delta": -0.002071428571428502,
+  "locked_mean_delta": -0.001071428571428538,
+  "fused_min_delta": -0.006467391304348036,
+  "fused_mean_delta": 0.00039938594014674034
+}

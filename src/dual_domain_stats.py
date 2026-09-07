@@ -37,6 +37,29 @@ def temporal_starts(num_samples: int, crop_samples: int, max_views: int = 3) -> 
     return sorted({int(value) for value in candidates})
 
 
+def segment_starts(
+    num_samples: int, crop_samples: int, max_views: int = 8,
+) -> list[int]:
+    """Return ordered long-range views with no more than 50% target overlap.
+
+    Unlike :func:`temporal_starts`, this does not force every long recording
+    into exactly ``max_views`` crops.  Ten-to-twenty-second competition files
+    therefore gain useful temporal resolution without filling the sequence
+    with almost identical views.
+    """
+    if crop_samples <= 0:
+        raise ValueError("crop_samples must be positive")
+    if max_views <= 0:
+        raise ValueError("max_views must be positive")
+    if num_samples <= crop_samples:
+        return [0]
+    last = num_samples - crop_samples
+    target_hop = max(1, crop_samples // 2)
+    count = min(max_views, max(2, 1 + int(np.ceil(last / target_hop))))
+    candidates = np.linspace(0, last, count, dtype=np.int64)
+    return sorted({int(value) for value in candidates})
+
+
 def interval_view_targets(
     num_samples: int,
     crop_samples: int,
@@ -65,6 +88,41 @@ def interval_view_targets(
         for (component_start, component_end), label in zip(intervals, labels):
             overlap = max(0, min(end, component_end) - max(start, component_start))
             local.append(float(label and overlap >= minimum_overlap_samples))
+        targets[view, 0], targets[view, 1] = local
+        targets[view, 2] = max(local)
+    return targets, mask
+
+
+def ranges_view_targets(
+    num_samples: int,
+    crop_samples: int,
+    voice_fake_ranges: list[tuple[int, int]],
+    music_fake_ranges: list[tuple[int, int]],
+    max_views: int = 3,
+    minimum_overlap_samples: int = 1_600,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Create local labels when a component has several disjoint fake runs.
+
+    Telephone conversations commonly alternate speakers, so one file-level
+    voice interval cannot express that only a short caller turn is synthetic.
+    A view is positive for a component when any of its fake ranges overlaps
+    the view by the requested minimum duration.
+    """
+    starts = temporal_starts(num_samples, crop_samples, max_views)
+    targets = np.zeros((max_views, 3), dtype=np.float32)
+    mask = np.zeros(max_views, dtype=bool)
+    component_ranges = (voice_fake_ranges, music_fake_ranges)
+    for view, start in enumerate(starts):
+        end = min(start + crop_samples, num_samples)
+        mask[view] = True
+        local = []
+        for ranges in component_ranges:
+            positive = any(
+                max(0, min(end, range_end) - max(start, range_start))
+                >= minimum_overlap_samples
+                for range_start, range_end in ranges
+            )
+            local.append(float(positive))
         targets[view, 0], targets[view, 1] = local
         targets[view, 2] = max(local)
     return targets, mask
