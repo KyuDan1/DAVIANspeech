@@ -1,0 +1,16 @@
+{
+  "archive": "v108_generator_codec.zip",
+  "sha256": "0add6b804f070ce4307dca5cfe9aa7a49cc0b24f984293f8c75a696a48f00fe6",
+  "smoke_report": "reports/submission_triplet_20260907/v108_smoke/report.json",
+  "memo": "v83 + original-mixture joint File/Voice prompts; ArtifactBench music expert with codec refinement w0.37. Balanced generator/channel candidate; offline packaged smoke and CRC checked.",
+  "status": "accepted",
+  "competition": "236749",
+  "team": "DAVIANspeech",
+  "quota_before": 3,
+  "started_utc": "2026-09-07T11:58:23.524157+00:00",
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-07T11:59:57.843227+00:00"
+}

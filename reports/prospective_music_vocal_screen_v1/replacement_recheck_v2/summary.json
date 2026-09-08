@@ -1,0 +1,44 @@
+{
+  "purpose": "truth semantic recheck of deterministic replacements; not authenticity-model evaluation",
+  "authenticity_detector_scores_read": false,
+  "status": "completed",
+  "reservation_path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/reservation_strict_instrumental_v2/reservation.csv",
+  "reservation_sha256": "02ed5aa569078fba08a18155adef668ac6426cf9e9ad1bbd33bcdf4df4a310e1",
+  "source_root": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/prospective_mixed_phone_v3_instrumental_v2_replacements/MixFake",
+  "audit_script_path": "/home/nas_main/kyudanjung/DAVIANspeech/scripts/audit_prospective_music_vocals.py",
+  "audit_script_sha256": "d1b24f41e78a7d7464494ff7ff6a847bd7a00e3714ecc67c6ee998065cfe59ab",
+  "panns_threshold_calibration": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_dev.csv",
+    "sha256": "368d2443c61805158936bfc20e1fb2b980af3b64f3c2cedec3b774753ef22309",
+    "rows": 111,
+    "minimum": 0.016442,
+    "median": 0.037674,
+    "p90": 0.150806,
+    "p95": 0.173681,
+    "p99": 0.19118840000000004,
+    "maximum": 0.193009,
+    "threshold_rule": "ceil(max authorized-dev VOICE_SCREEN to 0.01)",
+    "threshold": 0.2,
+    "limitation": "This development bank was itself pre-screened at construction, so its VOICE_SCREEN distribution is right-censored. The threshold is an upper-envelope anomaly screen, not an estimated vocal detection operating point."
+  },
+  "demucs_threshold_calibration_cache": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_music_vocal_screen_v1/demucs_development_calibration.csv",
+    "sha256": "9ba218d52c64da9561e1301913055783028f2290a508b47c1c10f534aa8d858f",
+    "rows": 111,
+    "maximum_db": -1.844732505265498,
+    "threshold_rule": "ceil(max authorized-dev vocal/mix dB to 0.5 dB)",
+    "threshold_db": -1.5
+  },
+  "candidate_sources_scored": 3,
+  "panns_flags": 0,
+  "demucs_flags": 0,
+  "acoustic_screen_passes": 3,
+  "acoustic_screen_failures": 0,
+  "selection_rule": "replacement identities fixed by seed 20260904 before acoustic scoring; no threshold changes after target scoring",
+  "limitations": [
+    "PANNs and Demucs are weak, correlated semantic screens rather than human truth.",
+    "A random generator-stratified listening audit remains required before truth freeze.",
+    "These scores must not be used to select or evaluate an authenticity detector."
+  ],
+  "replacement_scores_sha256": "a3838c4345fdb265bec7f6da3e5fd6ca877456318f59a70ebdc28b8ffd50a833"
+}

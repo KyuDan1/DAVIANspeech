@@ -1,0 +1,8 @@
+{
+  "best_epoch": 8,
+  "selection": 0.8243877551020409,
+  "mean_ads": 0.714361531986532,
+  "worst_ads": 0.6563636363636364,
+  "parameters": 627291,
+  "train_examples": 15800
+}

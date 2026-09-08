@@ -1,0 +1,22 @@
+{
+  "task": "voice",
+  "channel": "opus_nb_8k",
+  "rows": 320,
+  "anchor_eer": 0.275,
+  "expert_eer": 0.16249999999999998,
+  "best_fused_eer": 0.13749999999999998,
+  "selected_expert_weight": 0.7000000000000001,
+  "anchor_subgroup_eer": {
+    "music_real": 0.30000000000000004,
+    "music_fake": 0.23750000000000002
+  },
+  "expert_subgroup_eer": {
+    "music_real": 0.125,
+    "music_fake": 0.19374999999999998
+  },
+  "fused_subgroup_eer": {
+    "music_real": 0.09999999999999999,
+    "music_fake": 0.17500000000000002
+  },
+  "locked_scores_read": false
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "elapsed_seconds": 821.2002011546865,
+    "gpu": "3",
+    "name": "disentangle_strong_l1",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 1180.2927110986784,
+    "gpu": "0",
+    "name": "disentangle_l1",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 1639.3768148347735,
+    "gpu": "1",
+    "name": "disentangle_l2",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 1901.4180418597534,
+    "gpu": "2",
+    "name": "auc_l1",
+    "returncode": 0
+  }
+]

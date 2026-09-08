@@ -1,0 +1,23 @@
+schema: local_voice_v80
+seed: 20260905
+inventory: reports/training_inventory_v78/report.json
+partition_config: configs/data_partitions.yaml
+source_catalog: reports/dense_component_v71/source_catalog/sources.csv
+encoder: models/xls-r-2b-anti-deepfake
+parent_head: reports/common_encoder_probe/xlsr/mean/head.pt
+epochs: 4
+pairs_per_epoch: 512
+learning_rate: 0.001
+weight_decay: 0.01
+kernel: 51
+stride: 10
+temperature: 5.0
+dense_weight: 0.5
+boundary_margin: 0.08
+durations: [4, 8, 16, 32, 60]
+insertions: [0.5, 1, 2, 4]
+channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+snr: [-10, -5, 0, 5, 10]
+workers: 2
+selection: fixed_final_epoch_no_early_stopping
+automatic_submission_allowed: false

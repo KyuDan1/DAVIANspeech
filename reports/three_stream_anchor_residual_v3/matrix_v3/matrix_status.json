@@ -1,0 +1,14 @@
+[
+  {
+    "elapsed_seconds": 758.2164238076657,
+    "gpu": "5",
+    "name": "robust_l4_core",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 887.2489784099162,
+    "gpu": "4",
+    "name": "robust_l3_core",
+    "returncode": 0
+  }
+]

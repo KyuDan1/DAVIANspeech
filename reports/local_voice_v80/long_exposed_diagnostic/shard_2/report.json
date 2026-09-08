@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "rows": 720,
+  "seconds": 771.6746198507026,
+  "peak_cuda_mib": 8486.48681640625,
+  "frozen_sha256": "41213f10b5e54ed38ba5f3bb6bf52caa2c4be90dde2432a7a568908c8d076018",
+  "prediction_sha256": "e6531a996ccd21bf6fbc759c000718b67ffdb34ea69413eae1a448198cc0043c"
+}

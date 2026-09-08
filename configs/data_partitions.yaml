@@ -3,15 +3,18 @@
 # an ensemble weight, or a router.  It may be scored once after a candidate is
 # frozen from train/development data.
 train:
-  - data/eval/forensic_call_train_v1/truth.csv
-  - data/eval/temporal_mixed_train_v2/truth.csv
-  - data/eval/temporal_mixed_train_v1/truth.csv
+  - data/eval/forensic_call_train_v1/truth_train.csv
+  - data/eval/temporal_mixed_train_v2/truth_train.csv
+  - data/eval/temporal_mixed_train_v1/truth_train.csv
   - data/eval/external_mixed_train_v1/truth.csv
   - data/eval/mixed_devvoice_train_v1/truth.csv
   - data/eval/mixed_fmc_music_train_v1/truth.csv
   - data/eval/mixfake_music_train_v1/truth.csv
   - data/eval/telephone_mixed_train_v1/truth.csv
   - data/eval/channel_invariant_factorial_train_v1/truth.csv
+  # v93 MixFake original-mixture rows; source-disjoint from every protected
+  # bank and from the v93 development/locked roles.
+  - reports/mixfake_alltype_v93_design/reservation/train.csv
 
 # Source components used only for the telephone/narrowband router.  They are
 # already represented in the authorized training mixtures or are independent
@@ -20,6 +23,14 @@ router_train:
   - data/eval/phone_router_voice_train_v1/truth.csv
   - data/eval/multigen_music_presence_train_v1/truth.csv
   - data/eval/phone_presence_factorial_train_v1/truth.csv
+
+training_validation:
+  # Row-disjoint validation derived from training source pools.  Source/group
+  # overlap is expected, so these rows monitor optimization only and are not
+  # evidence of source generalization.
+  - data/eval/forensic_call_train_v1/truth_dev.csv
+  - data/eval/temporal_mixed_train_v2/truth_dev.csv
+  - data/eval/temporal_mixed_train_v1/truth_dev.csv
 
 development:
   - data/eval/mixfake_music_dev_v1/truth.csv
@@ -32,29 +43,77 @@ development:
   - data/eval/external_mixed_v1_telephone_v1/truth.csv
   - data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv
   - data/eval/telephone_mixed_dev_v1/truth.csv
+  # Generated deterministically by scripts/materialize_role_manifests.py.
+  - data/eval/multigen_voice_v2/truth_dev.csv
+  - data/eval/echoes_fma_paired_v3/truth_dev.csv
+  # Prospective source/group-disjoint RR/RF/FR/FF x layout x paired-codec
+  # development bank.  Registered only after its frozen 30/30 integrity and
+  # instrumental-semantic checks passed; it has never been detector-scored.
+  - data/eval/codec_mixed_dev_v4/truth.csv
+  - reports/mixfake_alltype_v93_design/reservation/development.csv
 
 ood_holdout:
   - data/eval/factorial_eval_1200_v2/truth_holdout.csv
+  - data/eval/multigen_voice_v2/truth_holdout.csv
+  - data/eval/echoes_fma_paired_v3/truth_holdout.csv
   - data/eval/suno_vocals_v1/truth.csv
-  - data/eval/suno_vocals_codec_stress_v1/truth.csv
 
 stress_eval:
+  # Intentional paired derivatives may share parents with development.  They
+  # are protected from training but do not establish source generalization.
   - data/eval/source_disjoint_music_telephone_v1/truth.csv
   - data/eval/source_disjoint_mixed_equal_v1_telephone_v1/truth.csv
   - data/eval/asvspoof_voice_telephone_dev_v1/truth.csv
+  - data/eval/suno_vocals_codec_stress_v1/truth.csv
+  # v70: development-parent length/layout/partial-component stress, integrity
+  # checked across all 2,160 files. Never train or use for checkpoint/weight selection.
+  - data/eval/long_component_stress_v70/truth.csv
 
 locked_eval:
-  # Derived from locked Korean TTS and prospective source-disjoint music.
-  # Two-party call structure/codec audit only; never tune a weight on it.
+  # v93 source-disjoint RR/RF/FR/FF original mixtures. Reserved before any
+  # detector score; exactly 120 rows per component cell.
+  - reports/mixfake_alltype_v93_design/reservation/locked.csv
+  # Source-only reservation for unscored long sparse-voice confirmation.
+  # No features/checkpoint selection; never admit these sources to training.
+  - data/reservations/long_voice_v61_v3/truth_sources.csv
+  # Unscored fixed-position controls, 2,160 rendered files, integrity verified.
+  # Same source groups as the reservation; not independent source evidence.
+  - data/eval/long_voice_sparse_v61/truth.csv
+  # Uniform-time companion: 720 files, same 20 source groups; unscored.
+  - data/eval/long_voice_uniform_v61/truth.csv
+
+# These banks have already been exposed to repeated model/weight selection or
+# reuse development parents.  They are protected from training, but MUST NOT
+# be used to select a model, threshold, ensemble weight, router, or stopping
+# point.  Report them only as retrospective mechanism diagnostics.
+retrospective_diagnostic:
+  # Each bank was scored exactly once only after its compared candidates were
+  # frozen, then immediately retired. They remain forbidden for any later
+  # model, weight, threshold, router, or stopping-point selection.
+  # v91: 120 source-disjoint bases x five channels; one-shot File-only gate.
+  # The fixed 10% global expert improved EER 0.20989 -> 0.20495 but missed the
+  # precommitted 0.005 promotion margin by 0.000055, so it was not promoted.
+  - data/eval/all_type_blind_v91/truth.csv
+  - data/eval/all_type_blind_v9/truth.csv
+  - data/eval/codec_mixed_blind_v8/truth.csv
+  - data/eval/codec_mixed_blind_v5/truth.csv
+  - data/eval/codec_mixed_blind_v6/truth.csv
+  - data/eval/codec_mixed_blind_v7/truth.csv
+  - data/eval/prospective_mixed_phone_v3_instrumental_v2/truth.csv
+  - data/eval/phone_factorial_1200_v1/truth.csv
   - data/eval/forensic_call_audit_v1/truth.csv
-  # Official telephony-channel stress set.  XLS-R anti-deepfake pretraining
-  # included ASVspoof 2021 LA, so this is only for frozen relative channel
-  # audits and must never be used to fit a head or fusion weight.
   - data/eval/asvspoof2021_la_channel_audit_v1/truth.csv
   - data/eval/source_disjoint_mixed_locked_v1/truth.csv
-  - data/eval/multigen_voice_v2/truth.csv
-  - data/eval/echoes_fma_paired_v3/truth.csv
-  - data/eval/factorial_eval_1200_v2/truth.csv
+  - data/eval/multigen_voice_v2/truth_locked.csv
+  - data/eval/echoes_fma_paired_v3/truth_locked.csv
   - data/eval/factorial_eval_1200_v2/truth_locked.csv
   - data/eval/yue_cross_component_audit_v1/truth.csv
   - data/eval/phone_router_librispeech_final_v1/truth.csv
+
+# Protected from training and forbidden for scoring: truth semantics are known
+# to be unreliable.  Kept only for provenance and build-pipeline auditing.
+invalid_eval:
+  - data/eval/prospective_mixed_phone_v3/truth.csv
+  # The first instrumental build was never detector-scored.  Three background
+  # clips failed the frozen acoustic vocal screen and were replaced in v2.
+  - data/eval/prospective_mixed_phone_v3_instrumental/truth.csv

@@ -1,0 +1,5 @@
+DATASET,N,MUSIC_EER,MEMBER
+multigen_music_presence_train_v1,474,0.02110042735042737,no_dsu_seed00
+phone_presence_factorial_train_v1,2000,0.056002400960384155,no_dsu_seed00
+multigen_music_presence_train_v1,474,0.02110042735042737,no_dsu_seed02
+phone_presence_factorial_train_v1,2000,0.08050220088035212,no_dsu_seed02

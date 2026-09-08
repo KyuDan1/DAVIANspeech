@@ -1,0 +1,87 @@
+{
+  "scope": "30 declared-development files; gain invariance only, not authenticity accuracy or a submission candidate",
+  "no_waveform_clipping_applied": true,
+  "comparison": "same old WPT weights, peak normalization after preemphasis",
+  "rows": [
+    {
+      "peak_normalized": false,
+      "channel": "clean",
+      "files": 6,
+      "mean_absolute_probability_change": 0.11620207130908966,
+      "maximum_absolute_probability_change": 0.33748453855514526,
+      "files_with_probability_range_gt_01": 4
+    },
+    {
+      "peak_normalized": false,
+      "channel": "g711_ulaw",
+      "files": 6,
+      "mean_absolute_probability_change": 0.12804730360706648,
+      "maximum_absolute_probability_change": 0.29321902990341187,
+      "files_with_probability_range_gt_01": 5
+    },
+    {
+      "peak_normalized": false,
+      "channel": "g722_wb",
+      "files": 6,
+      "mean_absolute_probability_change": 0.1076107919216156,
+      "maximum_absolute_probability_change": 0.4069046676158905,
+      "files_with_probability_range_gt_01": 4
+    },
+    {
+      "peak_normalized": false,
+      "channel": "opus_nb_8k",
+      "files": 6,
+      "mean_absolute_probability_change": 0.17975908517837524,
+      "maximum_absolute_probability_change": 0.3964107930660248,
+      "files_with_probability_range_gt_01": 5
+    },
+    {
+      "peak_normalized": false,
+      "channel": "transcode_g711_opus",
+      "files": 6,
+      "mean_absolute_probability_change": 0.17676023518045744,
+      "maximum_absolute_probability_change": 0.607806533575058,
+      "files_with_probability_range_gt_01": 6
+    },
+    {
+      "peak_normalized": true,
+      "channel": "clean",
+      "files": 6,
+      "mean_absolute_probability_change": 0.0010494738817214966,
+      "maximum_absolute_probability_change": 0.004527270793914795,
+      "files_with_probability_range_gt_01": 0
+    },
+    {
+      "peak_normalized": true,
+      "channel": "g711_ulaw",
+      "files": 6,
+      "mean_absolute_probability_change": 0.0011987164616584778,
+      "maximum_absolute_probability_change": 0.004796713590621948,
+      "files_with_probability_range_gt_01": 0
+    },
+    {
+      "peak_normalized": true,
+      "channel": "g722_wb",
+      "files": 6,
+      "mean_absolute_probability_change": 0.0008970548709233602,
+      "maximum_absolute_probability_change": 0.0037775635719299316,
+      "files_with_probability_range_gt_01": 0
+    },
+    {
+      "peak_normalized": true,
+      "channel": "opus_nb_8k",
+      "files": 6,
+      "mean_absolute_probability_change": 0.0020256241162618003,
+      "maximum_absolute_probability_change": 0.006355583667755127,
+      "files_with_probability_range_gt_01": 0
+    },
+    {
+      "peak_normalized": true,
+      "channel": "transcode_g711_opus",
+      "files": 6,
+      "mean_absolute_probability_change": 0.0012289161483446758,
+      "maximum_absolute_probability_change": 0.005691409111022949,
+      "files_with_probability_range_gt_01": 0
+    }
+  ]
+}

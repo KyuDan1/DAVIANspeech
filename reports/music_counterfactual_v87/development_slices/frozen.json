@@ -1,0 +1,10 @@
+{
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/analyze_music_counterfactual_v87.py": "af6bfc2f3a61cc3e52cbdf1a75af521c78581952617022592da77469e4455a7d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_counterfactual_v87/full_v2/report.json": "6a7c4a704345fa43de06ab851be1a8e37bc3ddb352c082b50e58a326a7674a4d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/development_predictions.csv": "0dd5f8292cc713df91805e79e954e5cf48ccd989ddaf027808d6bda961a137bc",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_counterfactual_v87/full_v2/bce_development.csv": "86a9fbe1060a7ab3082a85516398c207050f054276c337ec37abbfc0ec740de6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_counterfactual_v87/full_v2/invariant_development.csv": "b06662137bd8c831a411769ab66e135a409fb5d486ba696c5a2e532f56a536c3"
+  },
+  "scope": "exposed development; parent vs fixed-final BCE/invariant; no tuning"
+}

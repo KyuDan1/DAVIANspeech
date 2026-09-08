@@ -1,0 +1,59 @@
+{
+  "scope": "Temporal geometry, not detector accuracy",
+  "rows": [
+    {
+      "views": 3,
+      "duration": 30,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    },
+    {
+      "views": 3,
+      "duration": 45,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    },
+    {
+      "views": 3,
+      "duration": 60,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    },
+    {
+      "views": 5,
+      "duration": 30,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    },
+    {
+      "views": 5,
+      "duration": 45,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    },
+    {
+      "views": 5,
+      "duration": 60,
+      "n": 60,
+      "entirely_missed": 0,
+      "fully_seen": 60,
+      "partial": 0,
+      "mean_fraction_seen": 1.0
+    }
+  ]
+}

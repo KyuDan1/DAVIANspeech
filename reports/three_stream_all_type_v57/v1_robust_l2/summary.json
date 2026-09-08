@@ -1,0 +1,9 @@
+{
+  "best_epoch": 34,
+  "selection": 0.8371330299830748,
+  "selection_formula": "0.50*pooled_official_ADS + 0.25*mean_normalized_available_domain_ADS + 0.25*worst_normalized_available_domain_ADS",
+  "parameters": 935809,
+  "trainable_parameters": 935809,
+  "train_examples": 18744,
+  "xlsr_enabled": true
+}

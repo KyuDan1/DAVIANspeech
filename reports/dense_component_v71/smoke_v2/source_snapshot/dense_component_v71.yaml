@@ -1,0 +1,26 @@
+schema: dense_component_v71
+seed: 20260905
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+parent_checkpoint: reports/common_eat_adaptation/full/adapted/head.pt
+source_catalog: reports/dense_component_v71/source_catalog/sources.csv
+epochs: 6
+samples_per_epoch: 4096
+batch_size: 4
+workers: 4
+encoder_chunk: 2
+learning_rate: 0.001
+weight_decay: 0.01
+head_width: 96
+pooling: mean
+temperature: 5.0
+dense_loss_weight: 0.5
+boundary_margin_seconds: 0.08
+synthetic_probability: 0.5
+synthetic_durations: [4, 8, 16, 32, 60]
+insertion_durations: [0.5, 1, 2, 4]
+synthetic_channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+synthetic_layouts: [concurrent, sequential_voice_first, sequential_music_first, sparse_voice, sparse_music, pure_voice, pure_music]
+synthetic_snr: [-10, -5, 0, 5, 10]
+selection: 0.5*pooled_ADS+0.5*mean_available_component_macro_ADS
+no_automatic_submission: true

@@ -1,0 +1,6 @@
+axis,group,n,real,fake,eer,fpr_at_05,fnr_at_05
+DATASET,mixfake_music_dev_v1,8,4,4,0.25,0.0,0.75
+CHANNEL_V57,wav16k,8,4,4,0.25,0.0,0.75
+LAYOUT_V57,concurrent,8,4,4,0.25,0.0,0.75
+CELL_V57,FF,4,0,4,,,0.75
+CELL_V57,FR,4,4,0,,0.0,

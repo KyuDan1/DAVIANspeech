@@ -1,0 +1,1411 @@
+{
+  "decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": true,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": true
+    },
+    "pooled_gain": 0.0,
+    "mean_domain_gain": 0.0,
+    "worst_domain_gain": 0.0,
+    "max_domain_regression": 0.0,
+    "max_channel_regression": 0.0
+  },
+  "rows": [
+    {
+      "axis": "pooled",
+      "group": "all",
+      "incumbent": {
+        "n": 4261,
+        "real": 2131,
+        "fake": 2130,
+        "eer": 0.14879137172479578,
+        "fpr_at_05": 0.34115438761145,
+        "fnr_at_05": 0.06619718309859154
+      },
+      "candidate": {
+        "n": 4261,
+        "real": 2131,
+        "fake": 2130,
+        "eer": 0.14879137172479578,
+        "fpr_at_05": 0.34115438761145,
+        "fnr_at_05": 0.06619718309859154
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "asvspoof_voice_wav_dev_v1",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "DATASET",
+      "group": "codec_mixed_dev_v4",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2533333333333333,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.22
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2533333333333333,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.22
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "echoes_fma_paired_v3",
+      "incumbent": {
+        "n": 111,
+        "real": 56,
+        "fake": 55,
+        "eer": 0.09009740259740262,
+        "fpr_at_05": 0.42857142857142855,
+        "fnr_at_05": 0.01818181818181818
+      },
+      "candidate": {
+        "n": 111,
+        "real": 56,
+        "fake": 55,
+        "eer": 0.09009740259740262,
+        "fpr_at_05": 0.42857142857142855,
+        "fnr_at_05": 0.01818181818181818
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "external_mixed_v1",
+      "incumbent": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.135,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.07
+      },
+      "candidate": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.135,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.07
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "external_mixed_v1_telephone_v1",
+      "incumbent": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.15500000000000003,
+        "fpr_at_05": 0.32,
+        "fnr_at_05": 0.05
+      },
+      "candidate": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.15500000000000003,
+        "fpr_at_05": 0.32,
+        "fnr_at_05": 0.05
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "factorial_eval_1200_v2",
+      "incumbent": {
+        "n": 350,
+        "real": 175,
+        "fake": 175,
+        "eer": 0.22857142857142854,
+        "fpr_at_05": 0.37714285714285717,
+        "fnr_at_05": 0.09142857142857143
+      },
+      "candidate": {
+        "n": 350,
+        "real": 175,
+        "fake": 175,
+        "eer": 0.22857142857142854,
+        "fpr_at_05": 0.37714285714285717,
+        "fnr_at_05": 0.09142857142857143
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "mixfake_music_dev_v1",
+      "incumbent": {
+        "n": 1600,
+        "real": 800,
+        "fake": 800,
+        "eer": 0.07874999999999999,
+        "fpr_at_05": 0.35875,
+        "fnr_at_05": 0.0125
+      },
+      "candidate": {
+        "n": 1600,
+        "real": 800,
+        "fake": 800,
+        "eer": 0.07874999999999999,
+        "fpr_at_05": 0.35875,
+        "fnr_at_05": 0.0125
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "multigen_voice_v2",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "DATASET",
+      "group": "source_disjoint_mixed_v1",
+      "incumbent": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.14,
+        "fpr_at_05": 0.33,
+        "fnr_at_05": 0.04
+      },
+      "candidate": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.14,
+        "fpr_at_05": 0.33,
+        "fnr_at_05": 0.04
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "source_disjoint_mixed_v1_telephone_v1",
+      "incumbent": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.26,
+        "fpr_at_05": 0.38,
+        "fnr_at_05": 0.16
+      },
+      "candidate": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.26,
+        "fpr_at_05": 0.38,
+        "fnr_at_05": 0.16
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "DATASET",
+      "group": "source_disjoint_music_v1",
+      "incumbent": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.02
+      },
+      "candidate": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.02
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "clean",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.11666666666666668,
+        "fpr_at_05": 0.25,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.11666666666666668,
+        "fpr_at_05": 0.25,
+        "fnr_at_05": 0.0
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "clean_flac",
+      "incumbent": {
+        "n": 58,
+        "real": 28,
+        "fake": 30,
+        "eer": 0.20714285714285713,
+        "fpr_at_05": 0.4642857142857143,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 58,
+        "real": 28,
+        "fake": 30,
+        "eer": 0.20714285714285713,
+        "fpr_at_05": 0.4642857142857143,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "common_flac16k",
+      "incumbent": {
+        "n": 511,
+        "real": 256,
+        "fake": 255,
+        "eer": 0.09784773284313725,
+        "fpr_at_05": 0.328125,
+        "fnr_at_05": 0.0196078431372549
+      },
+      "candidate": {
+        "n": 511,
+        "real": 256,
+        "fake": 255,
+        "eer": 0.09784773284313725,
+        "fpr_at_05": 0.328125,
+        "fnr_at_05": 0.0196078431372549
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "flac16k",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.1433333333333333,
+        "fpr_at_05": 0.31666666666666665,
+        "fnr_at_05": 0.06
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.1433333333333333,
+        "fpr_at_05": 0.31666666666666665,
+        "fnr_at_05": 0.06
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g711_ulaw",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.08333333333333333,
+        "fnr_at_05": 0.31666666666666665
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.08333333333333333,
+        "fnr_at_05": 0.31666666666666665
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g722_wb",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.08333333333333334,
+        "fpr_at_05": 0.38333333333333336,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.08333333333333334,
+        "fpr_at_05": 0.38333333333333336,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "mp3_64k",
+      "incumbent": {
+        "n": 59,
+        "real": 29,
+        "fake": 30,
+        "eer": 0.23735632183908045,
+        "fpr_at_05": 0.6551724137931034,
+        "fnr_at_05": 0.1
+      },
+      "candidate": {
+        "n": 59,
+        "real": 29,
+        "fake": 30,
+        "eer": 0.23735632183908045,
+        "fpr_at_05": 0.6551724137931034,
+        "fnr_at_05": 0.1
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "noisy_flac",
+      "incumbent": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.20714285714285716,
+        "fpr_at_05": 0.4,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.20714285714285716,
+        "fpr_at_05": 0.4,
+        "fnr_at_05": 0.0
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "ogg_48k",
+      "incumbent": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.1380952380952381,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.10714285714285714
+      },
+      "candidate": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.1380952380952381,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.10714285714285714
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "opus_nb_8k",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.3666666666666667,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.3666666666666667,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "stereo_wav",
+      "incumbent": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.20714285714285716,
+        "fpr_at_05": 0.2,
+        "fnr_at_05": 0.10714285714285714
+      },
+      "candidate": {
+        "n": 58,
+        "real": 30,
+        "fake": 28,
+        "eer": 0.20714285714285716,
+        "fpr_at_05": 0.2,
+        "fnr_at_05": 0.10714285714285714
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "telephone8k",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.19666666666666666,
+        "fpr_at_05": 0.34,
+        "fnr_at_05": 0.08666666666666667
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.19666666666666666,
+        "fpr_at_05": 0.34,
+        "fnr_at_05": 0.08666666666666667
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "telephone_flac",
+      "incumbent": {
+        "n": 59,
+        "real": 28,
+        "fake": 31,
+        "eer": 0.22004608294930877,
+        "fpr_at_05": 0.25,
+        "fnr_at_05": 0.1935483870967742
+      },
+      "candidate": {
+        "n": 59,
+        "real": 28,
+        "fake": 31,
+        "eer": 0.22004608294930877,
+        "fpr_at_05": 0.25,
+        "fnr_at_05": 0.1935483870967742
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "transcode_g711_opus",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.4,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.38333333333333336
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.4,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.38333333333333336
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "unknown",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "wav",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "wav16k",
+      "incumbent": {
+        "n": 1600,
+        "real": 800,
+        "fake": 800,
+        "eer": 0.07874999999999999,
+        "fpr_at_05": 0.35875,
+        "fnr_at_05": 0.0125
+      },
+      "candidate": {
+        "n": 1600,
+        "real": 800,
+        "fake": 800,
+        "eer": 0.07874999999999999,
+        "fpr_at_05": 0.35875,
+        "fnr_at_05": 0.0125
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "concurrent",
+      "incumbent": {
+        "n": 1900,
+        "real": 950,
+        "fake": 950,
+        "eer": 0.10736842105263157,
+        "fpr_at_05": 0.3463157894736842,
+        "fnr_at_05": 0.042105263157894736
+      },
+      "candidate": {
+        "n": 1900,
+        "real": 950,
+        "fake": 950,
+        "eer": 0.10736842105263157,
+        "fpr_at_05": 0.3463157894736842,
+        "fnr_at_05": 0.042105263157894736
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "music_only",
+      "incumbent": {
+        "n": 50,
+        "real": 25,
+        "fake": 25,
+        "eer": 0.24,
+        "fpr_at_05": 0.4,
+        "fnr_at_05": 0.12
+      },
+      "candidate": {
+        "n": 50,
+        "real": 25,
+        "fake": 25,
+        "eer": 0.24,
+        "fpr_at_05": 0.4,
+        "fnr_at_05": 0.12
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "partial_overlap",
+      "incumbent": {
+        "n": 300,
+        "real": 150,
+        "fake": 150,
+        "eer": 0.2866666666666666,
+        "fpr_at_05": 0.36666666666666664,
+        "fnr_at_05": 0.24
+      },
+      "candidate": {
+        "n": 300,
+        "real": 150,
+        "fake": 150,
+        "eer": 0.2866666666666666,
+        "fpr_at_05": 0.36666666666666664,
+        "fnr_at_05": 0.24
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "sequential",
+      "incumbent": {
+        "n": 900,
+        "real": 450,
+        "fake": 450,
+        "eer": 0.1844444444444444,
+        "fpr_at_05": 0.32666666666666666,
+        "fnr_at_05": 0.07555555555555556
+      },
+      "candidate": {
+        "n": 900,
+        "real": 450,
+        "fake": 450,
+        "eer": 0.1844444444444444,
+        "fpr_at_05": 0.32666666666666666,
+        "fnr_at_05": 0.07555555555555556
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "simultaneous",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.17000000000000004,
+        "fpr_at_05": 0.34,
+        "fnr_at_05": 0.07666666666666666
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.17000000000000004,
+        "fpr_at_05": 0.34,
+        "fnr_at_05": 0.07666666666666666
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "source_disjoint",
+      "incumbent": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.02
+      },
+      "candidate": {
+        "n": 400,
+        "real": 200,
+        "fake": 200,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": 0.02
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "source_matched_instrumental",
+      "incumbent": {
+        "n": 61,
+        "real": 6,
+        "fake": 55,
+        "eer": 0.036363636363636376,
+        "fpr_at_05": 0.3333333333333333,
+        "fnr_at_05": 0.01818181818181818
+      },
+      "candidate": {
+        "n": 61,
+        "real": 6,
+        "fake": 55,
+        "eer": 0.036363636363636376,
+        "fpr_at_05": 0.3333333333333333,
+        "fnr_at_05": 0.01818181818181818
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "speech_only",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "voice_only",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "voice_screened_instrumental",
+      "incumbent": {
+        "n": 50,
+        "real": 50,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.44,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 50,
+        "real": 50,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.44,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FF",
+      "incumbent": {
+        "n": 925,
+        "real": 0,
+        "fake": 925,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.06918918918918919
+      },
+      "candidate": {
+        "n": 925,
+        "real": 0,
+        "fake": 925,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.06918918918918919
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FR",
+      "incumbent": {
+        "n": 925,
+        "real": 925,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.3783783783783784,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 925,
+        "real": 925,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.3783783783783784,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RF",
+      "incumbent": {
+        "n": 925,
+        "real": 0,
+        "fake": 925,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0745945945945946
+      },
+      "candidate": {
+        "n": 925,
+        "real": 0,
+        "fake": 925,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0745945945945946
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RR",
+      "incumbent": {
+        "n": 925,
+        "real": 925,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.30594594594594593,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 925,
+        "real": 925,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.30594594594594593,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "not_mixed",
+      "incumbent": {
+        "n": 561,
+        "real": 281,
+        "fake": 280,
+        "eer": 0.11051728520589733,
+        "fpr_at_05": 0.33451957295373663,
+        "fnr_at_05": 0.02857142857142857
+      },
+      "candidate": {
+        "n": 561,
+        "real": 281,
+        "fake": 280,
+        "eer": 0.11051728520589733,
+        "fpr_at_05": 0.33451957295373663,
+        "fnr_at_05": 0.02857142857142857
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "FMA",
+      "incumbent": {
+        "n": 1100,
+        "real": 1100,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.34545454545454546,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 1100,
+        "real": 1100,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.34545454545454546,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "MusicGen_medium",
+      "incumbent": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.041666666666666664
+      },
+      "candidate": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.041666666666666664
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "absent",
+      "incumbent": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 0,
+        "real": 0,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "acestep",
+      "incumbent": {
+        "n": 11,
+        "real": 0,
+        "fake": 11,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.09090909090909091
+      },
+      "candidate": {
+        "n": 11,
+        "real": 0,
+        "fake": 11,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.09090909090909091
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "audioldm",
+      "incumbent": {
+        "n": 16,
+        "real": 0,
+        "fake": 16,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 16,
+        "real": 0,
+        "fake": 16,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "audioldm2",
+      "incumbent": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.057291666666666664
+      },
+      "candidate": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.057291666666666664
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "brev",
+      "incumbent": {
+        "n": 11,
+        "real": 0,
+        "fake": 11,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 11,
+        "real": 0,
+        "fake": 11,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "diffrhythm",
+      "incumbent": {
+        "n": 19,
+        "real": 0,
+        "fake": 19,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05263157894736842
+      },
+      "candidate": {
+        "n": 19,
+        "real": 0,
+        "fake": 19,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05263157894736842
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "elevenlabs",
+      "incumbent": {
+        "n": 12,
+        "real": 0,
+        "fake": 12,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.16666666666666666
+      },
+      "candidate": {
+        "n": 12,
+        "real": 0,
+        "fake": 12,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.16666666666666666
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "mubert",
+      "incumbent": {
+        "n": 15,
+        "real": 0,
+        "fake": 15,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.26666666666666666
+      },
+      "candidate": {
+        "n": 15,
+        "real": 0,
+        "fake": 15,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.26666666666666666
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "musicgen",
+      "incumbent": {
+        "n": 14,
+        "real": 0,
+        "fake": 14,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 14,
+        "real": 0,
+        "fake": 14,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "musicldm",
+      "incumbent": {
+        "n": 194,
+        "real": 0,
+        "fake": 194,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.07731958762886598
+      },
+      "candidate": {
+        "n": 194,
+        "real": 0,
+        "fake": 194,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.07731958762886598
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "mustango",
+      "incumbent": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.125
+      },
+      "candidate": {
+        "n": 192,
+        "real": 0,
+        "fake": 192,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.125
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "producer",
+      "incumbent": {
+        "n": 17,
+        "real": 0,
+        "fake": 17,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.058823529411764705
+      },
+      "candidate": {
+        "n": 17,
+        "real": 0,
+        "fake": 17,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.058823529411764705
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "real",
+      "incumbent": {
+        "n": 175,
+        "real": 175,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.37714285714285717,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 175,
+        "real": 175,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.37714285714285717,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "real_unspecified",
+      "incumbent": {
+        "n": 856,
+        "real": 856,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.3282710280373832,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 856,
+        "real": 856,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.3282710280373832,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "songgen",
+      "incumbent": {
+        "n": 15,
+        "real": 0,
+        "fake": 15,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 15,
+        "real": 0,
+        "fake": 15,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "stable_audio_open",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.21666666666666667
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.21666666666666667
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "stableaudio",
+      "incumbent": {
+        "n": 17,
+        "real": 0,
+        "fake": 17,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 17,
+        "real": 0,
+        "fake": 17,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "suno",
+      "incumbent": {
+        "n": 148,
+        "real": 0,
+        "fake": 148,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.013513513513513514
+      },
+      "candidate": {
+        "n": 148,
+        "real": 0,
+        "fake": 148,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.013513513513513514
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "udio",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.06666666666666667
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.06666666666666667
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "unknown_fake",
+      "incumbent": {
+        "n": 855,
+        "real": 0,
+        "fake": 855,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05730994152046784
+      },
+      "candidate": {
+        "n": 855,
+        "real": 0,
+        "fake": 855,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05730994152046784
+      },
+      "gain": null
+    }
+  ],
+  "scope": "Music only; not official ADS or total score estimate",
+  "files": {
+    "configs/music_specialist_v58.yaml": "dec326dd7ea73102992177ad1bb31d1d824f84e13d6f622a192da27597d20ddc",
+    "configs/data_partitions.yaml": "e20a6a6e82d909e853f636440ef32dc3b10aff80d44c62d8445ffe6930188e69",
+    "reports/three_stream_all_type_v57_strict/v1_robust_l2/dev_predictions.csv": "f805d329e6abf9b70def37ad843abba522b66cc2a33c04dc05b4846264980124"
+  }
+}

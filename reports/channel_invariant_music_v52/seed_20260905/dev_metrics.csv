@@ -1,0 +1,9 @@
+DATASET,CHANNEL,N,MUSIC_EER,MUSIC_SCORE
+mixfake_music_dev_v1,clean,1600,0.08499999999999999,0.915
+factorial_eval_1200_v2_dev,clean,350,0.2114285714285714,0.7885714285714286
+external_mixed_v1,clean,400,0.15250000000000002,0.8474999999999999
+source_disjoint_mixed_v1,clean,200,0.12,0.88
+source_disjoint_mixed_equal_v1,clean,200,0.07999999999999999,0.92
+source_disjoint_music_v1,clean,400,0.025000000000000012,0.975
+telephone_mixed_dev_v1,clean,600,0.185,0.815
+codec_mixed_dev_v4,clean,600,0.24833333333333335,0.7516666666666667

@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+"""DACON entrypoint: LME+SPEAR, temporal/MERT/fakeprint/invariant MoE, CPS."""
+
+import os
+import sys
+from pathlib import Path
+
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
+sys.dont_write_bytecode = True
+
+BASE_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(BASE_DIR / "model" / "src"))
+
+from anchor_spear_stats_fusion import apply_fusion_with_stats  # noqa: E402
+from dual_domain_inference import apply_dual_domain_fusion  # noqa: E402
+from eat_presence_fusion import apply_eat_presence_fusion  # noqa: E402
+from modern_fakeprint_detector import apply_modern_fakeprint_fusion  # noqa: E402
+from hierarchical_eat_music_inference import apply_hierarchical_eat_music_fusion  # noqa: E402
+from segmental_eat_music_inference import apply_segmental_eat_music_fusion  # noqa: E402
+from pipeline import parse_args, run  # noqa: E402
+from sofia_mert_detector import apply_sofia_mert_fusion  # noqa: E402
+from temporal_dual_domain_inference import apply_temporal_dual_domain_fusion  # noqa: E402
+from unified_dual_ssl_inference import apply_unified_music_fusion  # noqa: E402
+from wpt_spectra_inference import apply_wpt_fixed_moe_fusion  # noqa: E402
+
+
+def main():
+    args = parse_args()
+    args.pooling = "logmeanexp"
+    args.temperature = 5.0
+    extensions = {".aac", ".flac", ".m4a", ".mp3", ".ogg", ".opus", ".wav", ".wma"}
+    candidates = [BASE_DIR / "data" / "test", BASE_DIR / "open" / "test",
+                  BASE_DIR / "data", BASE_DIR / "open"]
+    args.test_dir = next((directory for directory in candidates
+                          if directory.is_dir() and any(path.is_file()
+                          and path.suffix.lower() in extensions
+                          for path in directory.iterdir())), candidates[0])
+    samples = [BASE_DIR / "data" / "sample_submission.csv",
+               BASE_DIR / "open" / "sample_submission.csv",
+               BASE_DIR / "sample_submission.csv"]
+    args.sample_submission = next((path for path in samples if path.is_file()), samples[0])
+    args.output = BASE_DIR / "output" / "submission.csv"
+    args.panns_dir = BASE_DIR / "model" / "panns"
+    args.xlsr_dir = BASE_DIR / "model" / "xlsr"
+    args.artifactnet_dir = BASE_DIR / "model" / "artifactnet"
+    args.htdemucs_repo = BASE_DIR / "model" / "htdemucs"
+    eat_stats = BASE_DIR / "output" / ".eat_temporal_stats.npz"
+    spear_stats = BASE_DIR / "output" / ".spear_temporal_stats.npz"
+    spear_unified = BASE_DIR / "output" / ".spear_unified_bins.npz"
+    hierarchical_stats = BASE_DIR / "output" / ".eat_hierarchical_stats.npz"
+    segmental_stats = BASE_DIR / "output" / ".eat_segmental_stats.npz"
+    telephone_ids = BASE_DIR / "output" / ".telephone_ids.npz"
+    unified_expert = BASE_DIR / "output" / ".unified_expert.npz"
+
+    if os.environ.get("DAVIAN_SKIP_BASE_RUN") != "1":
+        run(args)
+    apply_eat_presence_fusion(
+        args.test_dir, args.output, BASE_DIR / "model" / "eat",
+        BASE_DIR / "model" / "panns", device=args.device,
+        voice_weight=0.35, music_weight=0.90, file_gate=0.60,
+        update_file_score=False,
+        presence_head_path=BASE_DIR / "model" / "eat-presence-head-v1.npz",
+        music_probe_weight=0.40,
+        statistics_output_path=eat_stats,
+        phone_voice_head_path=BASE_DIR / "model" / "phone-voice-presence-head.npz",
+        telephone_router_path=BASE_DIR / "model" / "telephone-router.npz",
+        phone_voice_weight=0.10,
+        hierarchical_statistics_output_path=hierarchical_stats,
+        hierarchical_checkpoint_path=(
+            BASE_DIR / "model/hierarchical-eat-music/head_00.pt"
+        ),
+        segmental_statistics_output_path=segmental_stats,
+        segmental_checkpoint_path=(
+            BASE_DIR / "model/segmental-eat-music/head_00.pt"
+        ),
+        telephone_ids_output_path=telephone_ids,
+    )
+    apply_fusion_with_stats(
+        args.test_dir, args.output, BASE_DIR / "model" / "spear",
+        BASE_DIR / "model" / "spear-mixed-music-head.npz",
+        BASE_DIR / "model" / "spear-cross-component-joint-v1.npz",
+        device=args.device, weight=0.10, statistics_output_path=spear_stats,
+        temporal_bin_output_path=spear_unified,
+        temporal_bin_checkpoint_path=(
+            BASE_DIR / "model" / "unified-dual-ssl" / "head_00.pt"
+        ),
+    )
+    apply_temporal_dual_domain_fusion(
+        args.output, eat_stats, spear_stats,
+        sorted((BASE_DIR / "model" / "temporal-domain-v1").glob("seed_*.pt")),
+        device=args.device, file_weight=0.05,
+        voice_weight=0.05, music_weight=0.05,
+        music_checkpoint_paths=sorted(
+            (BASE_DIR / "model" / "temporal-domain-v2").glob("seed_*.pt")
+        ),
+    )
+    apply_sofia_mert_fusion(
+        args.test_dir, args.output, BASE_DIR / "model" / "sofia-mert" / "mert",
+        BASE_DIR / "model" / "sofia-mert" / "sofia_g1_mert_head.pt",
+        device=args.device, file_weight=0.025, music_weight=0.0125,
+    )
+    apply_modern_fakeprint_fusion(
+        args.test_dir, args.output,
+        BASE_DIR / "model" / "modern-fakeprint" / "weights.npz",
+        file_weight=0.025, music_weight=0.025,
+    )
+    apply_dual_domain_fusion(
+        args.output, eat_stats, spear_stats,
+        [BASE_DIR / "model" / "channel-invariant" / "dual_domain_head.pt"],
+        device=args.device, file_weight=0.05,
+        voice_weight=0.05, music_weight=0.05,
+    )
+    apply_segmental_eat_music_fusion(
+        args.output, hierarchical_stats,
+        sorted((BASE_DIR / "model/hierarchical-eat-music").glob("head_*.pt")),
+        segmental_stats,
+        sorted((BASE_DIR / "model/segmental-eat-music").glob("head_*.pt")),
+        device=args.device, telephone_ids_path=telephone_ids,
+        expert_weight=0.25,
+        music_weight=0.20, file_weight=0.10,
+        phone_music_weight=0.30, phone_file_weight=0.30,
+        file_music_presence_threshold=0.50,
+    )
+    apply_unified_music_fusion(
+        args.output, hierarchical_stats, spear_unified,
+        sorted((BASE_DIR / "model" / "unified-dual-ssl").glob("head_*.pt")),
+        device=args.device, music_weight=0.20,
+        expert_output_path=unified_expert,
+    )
+    apply_wpt_fixed_moe_fusion(
+        args.test_dir, args.output, BASE_DIR / "model" / "wpt-spectra",
+        BASE_DIR / "model" / "wpt-spectra" / "wpt_spectra_multitask.pt",
+        unified_expert, device=args.device, file_batch_size=6,
+        file_views=5, file_temperature=2.0,
+        voice_outer_weight=0.10, file_outer_weight=0.75,
+    )
+    for path in (
+        eat_stats, spear_stats, spear_unified, hierarchical_stats,
+        segmental_stats, telephone_ids, unified_expert,
+    ):
+        path.unlink(missing_ok=True)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,34 @@
+{
+  "best": {
+    "epoch": 5,
+    "pooled_eer": 0.24806401367693098,
+    "macro_domain_eer": 0.259464886964887,
+    "worst_domain_eer": 0.3733333333333333,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.3733333333333333,
+      "echoes_fma_paired_v3": 0.3332792207792208,
+      "external_mixed_v1": 0.19499999999999998,
+      "external_mixed_v1_telephone_v1": 0.2475,
+      "factorial_eval_1200_v2": 0.3085714285714286,
+      "mixfake_music_dev_v1": 0.2025,
+      "source_disjoint_mixed_v1": 0.22999999999999998,
+      "source_disjoint_mixed_v1_telephone_v1": 0.32999999999999996,
+      "source_disjoint_music_v1": 0.11499999999999999
+    },
+    "selection": 0.7234618604054017
+  },
+  "train_rows": 18010,
+  "development_rows": 4261,
+  "train_domains": [
+    "channel_invariant_factorial_train_v1",
+    "external_mixed_train_v1",
+    "forensic_call_train_v1",
+    "mixed_devvoice_train_v1",
+    "mixed_fmc_music_train_v1",
+    "mixfake_music_train_v1",
+    "telephone_mixed_train_v1",
+    "temporal_mixed_train_v2"
+  ],
+  "balanced_draws_per_epoch": 8192,
+  "initial_checkpoint_sha256": "621c44f21e94ee4acfcfb7a8e32fc1c00159558af25df77b37537367fe268ebc"
+}

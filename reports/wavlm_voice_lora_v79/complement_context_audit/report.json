@@ -1,0 +1,150 @@
+{
+  "status": "complete",
+  "rows": 4016,
+  "matched_ids_and_labels": true,
+  "source_sha256": {
+    "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_spear.csv": "e29e82d293bf696051d29e284b06ee9e2f207bbb50b416e5f9ea7bccfce17332",
+    "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_wavlm_control.csv": "e36730e0a72b57652933bdde82febaf7e1cadd5c9077796e7379120b1e3fcc33",
+    "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_wavlm_lora.csv": "1366279376d6aa586e8a8ec770b6aff2e674336274c6f0a39586482fa471ddce"
+  },
+  "script_sha256": "47009aad837868d131e71e184ba3113699f1b2d6645624e4e2494801edd8bf0a",
+  "overall": [
+    {
+      "variant": "xlsr_spear",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.11578686944972522,
+      "FPR_at_fixed_half": 0.05463659147869674,
+      "FNR_at_fixed_half": 0.2102919346857991
+    },
+    {
+      "variant": "xlsr_wavlm_control",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.13321787893781956,
+      "FPR_at_fixed_half": 0.11528822055137844,
+      "FNR_at_fixed_half": 0.14844136566056407
+    },
+    {
+      "variant": "xlsr_wavlm_lora",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.13421393662285352,
+      "FPR_at_fixed_half": 0.11278195488721804,
+      "FNR_at_fixed_half": 0.15338941118258287
+    }
+  ],
+  "contexts": [
+    {
+      "variant": "xlsr_spear",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.12108108108108112,
+      "FPR_at_fixed_half": 0.04864864864864865,
+      "FNR_at_fixed_half": 0.20540540540540542
+    },
+    {
+      "variant": "xlsr_spear",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.17100221818915112,
+      "FPR_at_fixed_half": 0.1724137931034483,
+      "FNR_at_fixed_half": 0.17543859649122806
+    },
+    {
+      "variant": "xlsr_spear",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.10918918918918918,
+      "FPR_at_fixed_half": 0.04216216216216216,
+      "FNR_at_fixed_half": 0.22162162162162163
+    },
+    {
+      "variant": "xlsr_wavlm_control",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.14378378378378381,
+      "FPR_at_fixed_half": 0.14810810810810812,
+      "FNR_at_fixed_half": 0.13405405405405404
+    },
+    {
+      "variant": "xlsr_wavlm_control",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.18667069973785033,
+      "FPR_at_fixed_half": 0.20689655172413793,
+      "FNR_at_fixed_half": 0.12280701754385964
+    },
+    {
+      "variant": "xlsr_wavlm_control",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.12000000000000005,
+      "FPR_at_fixed_half": 0.0681081081081081,
+      "FNR_at_fixed_half": 0.16756756756756758
+    },
+    {
+      "variant": "xlsr_wavlm_lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.14270270270270274,
+      "FPR_at_fixed_half": 0.1437837837837838,
+      "FNR_at_fixed_half": 0.1372972972972973
+    },
+    {
+      "variant": "xlsr_wavlm_lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.18029844726759425,
+      "FPR_at_fixed_half": 0.20689655172413793,
+      "FNR_at_fixed_half": 0.12280701754385964
+    },
+    {
+      "variant": "xlsr_wavlm_lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.12000000000000005,
+      "FPR_at_fixed_half": 0.06702702702702702,
+      "FNR_at_fixed_half": 0.17513513513513512
+    }
+  ],
+  "limitation": "Development diagnostics, no statistical significance or official-score claim; RF vocal truth may be unverified.",
+  "thresholds_selected": false,
+  "model_or_submission_modified": false
+}

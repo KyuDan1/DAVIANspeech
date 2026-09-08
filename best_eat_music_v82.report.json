@@ -1,0 +1,28 @@
+{
+  "member_count": 130,
+  "expanded_bytes": 10425245822,
+  "compressed_member_bytes": 9012540381,
+  "top_level": [
+    "model",
+    "requirements.txt",
+    "script.py"
+  ],
+  "duplicates": [],
+  "unsafe_paths": [],
+  "symlinks": [],
+  "archive": "best_eat_music_v82.zip",
+  "sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+  "base_sha256": "a5730fde4e0c49100ee9aca5cc373eb550bf02948517072f23afe02fd62b91d6",
+  "crc_verified": true,
+  "changed_column": "MUSIC_FAKE_PROB",
+  "branch_smoke": {
+    "status": "complete_staged_branch_smoke",
+    "rows": 80,
+    "max_music_difference": 1.1102230246251565e-16,
+    "other_fields_string_exact": true,
+    "seconds_including_load": 6.773900527507067,
+    "peak_cuda_mib": 1301.62060546875,
+    "scope": "staged Music branch only; not full anchor or L4 runtime validation"
+  },
+  "status": "archive_validated_full_pipeline_smoke_pending"
+}

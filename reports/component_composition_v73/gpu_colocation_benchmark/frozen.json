@@ -1,0 +1,20 @@
+{
+  "scope": "development-only throughput and equivalence; NOT accuracy or L4 benchmark",
+  "visible_gpu": "0",
+  "workers": [
+    1,
+    2,
+    4
+  ],
+  "repeats": 3,
+  "threads_per_worker": 2,
+  "files": 80,
+  "waveforms_predecoded": true,
+  "all_replicas_resident": true,
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/frozen.json": "6569edfce3a0141e090574da31d32fdbff1bbf06ef6db603c258f729cb1c910d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/equal_voice_pair_eat_music_predictions.csv": "d13b0d9818d6d583da6c8cf4cfdc136e6e27d5af81a4e01624e8666ff015b183",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/benchmark_gpu_colocation_v73.py": "d5004183370007da044f41ab5e1d41e377263489215e29f082790baaddbc2ed9"
+  },
+  "automatic_submission_allowed": false
+}

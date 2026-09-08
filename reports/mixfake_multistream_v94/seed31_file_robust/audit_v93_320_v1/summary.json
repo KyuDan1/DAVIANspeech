@@ -1,0 +1,48 @@
+{
+  "task": "file",
+  "rows": 320,
+  "views": 1,
+  "checkpoint": "reports/mixfake_multistream_v94/seed31_file_robust/multistream_prompt.pt",
+  "checkpoint_sha256": "d4947ba972be20dd68dda1cd5f244a5879ce0ab3a59ce55d5848aace58494a9c",
+  "manifest": "reports/mixfake_component_v93/channel_audit/development.csv",
+  "manifest_sha256": "042f32af0840753399c9fff9f09b4016e148c56bde88215443694af47bd842ff",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.050000000000000024,
+      "task_eer": {
+        "file": 0.050000000000000024
+      },
+      "ads": null,
+      "subgroup_eer": {},
+      "manifest_channel_eer": {},
+      "layout_eer": {},
+      "mean_score_by_case": {
+        "RR": 0.11631152778863907,
+        "RF": 0.8020374178886414,
+        "FR": 0.9277414083480835,
+        "FF": 0.952010452747345
+      }
+    },
+    {
+      "channel": "opus_nb_8k",
+      "eer": 0.25,
+      "task_eer": {
+        "file": 0.25
+      },
+      "ads": null,
+      "subgroup_eer": {},
+      "manifest_channel_eer": {},
+      "layout_eer": {},
+      "mean_score_by_case": {
+        "RR": 0.5494548082351685,
+        "RF": 0.7318914532661438,
+        "FR": 0.9331682324409485,
+        "FF": 0.9443206787109375
+      }
+    }
+  ],
+  "mean_eer": 0.15000000000000002,
+  "worst_eer": 0.25,
+  "locked_scores_read": false
+}

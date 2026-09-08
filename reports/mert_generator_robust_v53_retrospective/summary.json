@@ -1,0 +1,15 @@
+{
+  "residual_weight_frozen_before_retrospective": 0.025,
+  "v4_v5_v6_v7_used_for_selection": false,
+  "mean_music_eer_reduction": -0.0005555555555555591,
+  "worst_music_eer_reduction": -0.005555555555555536,
+  "per_dataset_music_eer_reduction": {
+    "codec_mixed_dev_v4": 0.0033333333333332993,
+    "codec_mixed_blind_v5": 0.0,
+    "codec_mixed_blind_v6": 0.0,
+    "codec_mixed_blind_v7": -0.005555555555555536
+  },
+  "ads_gain_if_other_axes_fixed": -0.00016666666666666775,
+  "total_gain_if_other_axes_fixed": -0.00015000000000000096,
+  "music_eer_reduction_needed_for_best_to_sota_if_music_only": 0.28272910066666657
+}

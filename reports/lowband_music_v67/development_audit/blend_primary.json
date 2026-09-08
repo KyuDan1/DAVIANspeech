@@ -1,0 +1,447 @@
+{
+  "decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": true,
+      "mean_domain_improves": true,
+      "worst_domain_nonworse": true
+    },
+    "pooled_gain": 0.006666666666666599,
+    "mean_domain_gain": 0.006666666666666599,
+    "worst_domain_gain": 0.006666666666666599,
+    "max_domain_regression": 0.0,
+    "max_channel_regression": 0.0
+  },
+  "rows": [
+    {
+      "axis": "pooled",
+      "group": "all",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2533333333333333,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.22
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2466666666666667,
+        "fpr_at_05": 0.30333333333333334,
+        "fnr_at_05": 0.20333333333333334
+      },
+      "gain": 0.006666666666666599
+    },
+    {
+      "axis": "DATASET",
+      "group": "codec_mixed_dev_v4",
+      "incumbent": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2533333333333333,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": 0.22
+      },
+      "candidate": {
+        "n": 600,
+        "real": 300,
+        "fake": 300,
+        "eer": 0.2466666666666667,
+        "fpr_at_05": 0.30333333333333334,
+        "fnr_at_05": 0.20333333333333334
+      },
+      "gain": 0.006666666666666599
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "clean",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.11666666666666668,
+        "fpr_at_05": 0.25,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.11666666666666668,
+        "fpr_at_05": 0.23333333333333334,
+        "fnr_at_05": 0.0
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g711_ulaw",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.08333333333333333,
+        "fnr_at_05": 0.31666666666666665
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.08333333333333333,
+        "fnr_at_05": 0.3
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g722_wb",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.08333333333333334,
+        "fpr_at_05": 0.38333333333333336,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.08333333333333334,
+        "fpr_at_05": 0.38333333333333336,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "opus_nb_8k",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.3666666666666667,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.35,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.31666666666666665
+      },
+      "gain": 0.01666666666666672
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "transcode_g711_opus",
+      "incumbent": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.4,
+        "fpr_at_05": 0.4166666666666667,
+        "fnr_at_05": 0.38333333333333336
+      },
+      "candidate": {
+        "n": 120,
+        "real": 60,
+        "fake": 60,
+        "eer": 0.3833333333333333,
+        "fpr_at_05": 0.4,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "gain": 0.01666666666666672
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "concurrent",
+      "incumbent": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.22999999999999998,
+        "fpr_at_05": 0.28,
+        "fnr_at_05": 0.22
+      },
+      "candidate": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.22999999999999998,
+        "fpr_at_05": 0.26,
+        "fnr_at_05": 0.2
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "partial_overlap",
+      "incumbent": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.31999999999999995,
+        "fpr_at_05": 0.37,
+        "fnr_at_05": 0.31
+      },
+      "candidate": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.32999999999999996,
+        "fpr_at_05": 0.37,
+        "fnr_at_05": 0.29
+      },
+      "gain": -0.010000000000000009
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "sequential",
+      "incumbent": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.28,
+        "fnr_at_05": 0.13
+      },
+      "candidate": {
+        "n": 200,
+        "real": 100,
+        "fake": 100,
+        "eer": 0.17000000000000004,
+        "fpr_at_05": 0.28,
+        "fnr_at_05": 0.12
+      },
+      "gain": 0.029999999999999943
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FF",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.24666666666666667
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.23333333333333334
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FR",
+      "incumbent": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.3,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.2866666666666667,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RF",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.19333333333333333
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.17333333333333334
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RR",
+      "incumbent": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.32,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.32,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "FMA",
+      "incumbent": {
+        "n": 300,
+        "real": 300,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.31,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 300,
+        "real": 300,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.30333333333333334,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "MusicGen_medium",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.13333333333333333
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.11666666666666667
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "audioldm2",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.15
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.13333333333333333
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "musicldm",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.23333333333333334
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.23333333333333334
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "mustango",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.36666666666666664
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "stable_audio_open",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.21666666666666667
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.16666666666666666
+      },
+      "gain": null
+    }
+  ],
+  "scope": "music only; not official ADS or total score estimate",
+  "files": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/lowband_music_v67.yaml": "10b43d36cf8367c28aaf7e19929edc295566c2c89a066c14ab244bd114ca2e33",
+    "configs/music_specialist_v58.yaml": "dec326dd7ea73102992177ad1bb31d1d824f84e13d6f622a192da27597d20ddc",
+    "configs/data_partitions.yaml": "dee35f80cf26d1c5d73093d2ed2901b360655a244a8a70541898b7c28257266e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "reports/lowband_music_v67/development_audit/blended_predictions.csv": "3952757600db183a8126e4c224c34cea2195b668b62af34274fb9e8b0f976764"
+  }
+}

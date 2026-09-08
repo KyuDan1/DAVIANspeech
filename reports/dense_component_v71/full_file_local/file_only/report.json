@@ -1,0 +1,40 @@
+{
+  "scope": "full authorized development, file-local paired encoder reuse; NOT official score",
+  "rows": 4577,
+  "pooling": "file_only",
+  "encoder": "eat_dense_file_only",
+  "elapsed_seconds": 148.97685804404318,
+  "shared_encoder": true,
+  "repeated_file_indices": [
+    0,
+    2288,
+    4576
+  ],
+  "repeated_files_bit_exact": true,
+  "checkpoint_reselected": false,
+  "max_batch_vs_file_difference": 4.1828796382148425e-07,
+  "file_local_prediction_sha256": "ec63ff6ff5652f1bf13951535c491956244c9c44985b6204ec003a568d5bd1b9",
+  "summary": {
+    "overall": {
+      "N": 4577,
+      "FILE_N": 4577,
+      "VOICE_N": 4016,
+      "MUSIC_N": 4261,
+      "FILE_EER": 0.16362635562369587,
+      "VOICE_EER": 0.23157373889945052,
+      "MUSIC_EER": 0.13330204911622084,
+      "VOICE_AUC": 0.9971695215572648,
+      "MUSIC_AUC": 0.9980608640629317,
+      "ADS": 0.8318814596733957,
+      "CPS": 0.9976151928100983,
+      "SCORE": 0.8484548329870659
+    },
+    "macro_ads": 0.8282416060924693,
+    "selection": 0.8300615328829325
+  },
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/dense_component_v71/full/file_only/head.pt": "c0176001c5986ab6100f9ca8d3290cd970a84bafe8497c0ad54109959a795d8a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/dense_component_v71/full/file_only/development_predictions.csv": "96ee1ec650d25a26dbc6d4978e141914a43f0b93121658e0a163fcc7bcd263e1"
+  },
+  "automatic_submission_allowed": false
+}

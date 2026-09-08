@@ -1,0 +1,9 @@
+[
+  {
+    "checkpoint": "reports/multistream_prompt_spectra_v1/seed_20260909_warm/wpt_spectra_multitask.pt",
+    "model_type": "multistream_prompt_spectra_multitask",
+    "seed": 20260909,
+    "best_epoch": 16,
+    "selection": 0.8030480828695115
+  }
+]

@@ -1,0 +1,15 @@
+# Frozen before codec_mixed_blind_v5 detector inference.
+schema_version: three_stream_experiment_v6_file_compositor
+checkpoint: robust_l2_core_seed_20260904
+trained_file_component_weight: 0.30
+candidates:
+  direct_only: 0.00
+  component_15: 0.15
+  component_45: 0.45
+  component_60: 0.60
+decision_rule:
+  primary: fixed_development_selection_formula
+  constraints:
+    - selection_must_exceed_trained_0.30_compositor
+    - codec_mixed_dev_v4_ads_must_not_regress
+    - no_more_than_two_development_domains_may_regress_by_more_than_0.01

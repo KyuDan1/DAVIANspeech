@@ -1,0 +1,12 @@
+{
+  "source_archive_sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+  "inputs_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/data/test/package_smoke_0.wav": "fd1f832ec160e989b3daff4915fe6d7af646760b8d85e62e02106da8e522960a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/data/test/package_smoke_1.wav": "c85ea911df068773226bebab9db8c59345c35b5c0a6bd0f6df41c9e4e3b44eb1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/data/test/package_smoke_2.wav": "c82c5d02d7d8021f45f63d15a2b5f692ef88af186d87327f236eeb36358df2da"
+  },
+  "change": "skip discarded Music residual and its dedicated XLS-R embedding pass",
+  "script_sha256": "f5a83464491cad35787cee3bed65a3210d8a363550ddc2cba7c8e9d49ac3de25",
+  "predictions_tolerance": 1e-08,
+  "scope": "three mixed development files; NOT accuracy selection"
+}

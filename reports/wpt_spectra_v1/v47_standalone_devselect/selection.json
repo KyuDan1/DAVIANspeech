@@ -1,0 +1,27 @@
+{
+  "selection_data": [
+    "factorial_eval_1200_v2_dev"
+  ],
+  "available_exact_v47_dev_domains": 1,
+  "requested_model_dev_domains": 7,
+  "grid": [
+    0,
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1
+  ],
+  "safety_rule": "zero channel ADS regressions and zero regressions across 23 factorial controlled task contrasts versus exact v47",
+  "ranking": "maximize 0.5*(mean domain ADS + worst domain ADS), then 0.5*(domain robust score + worst channel ADS)",
+  "selected_voice_weight": 0.05,
+  "selected_file_weight": 0.0,
+  "music_unchanged": true,
+  "selected_dev_ads": 0.7654805194805194,
+  "selected_dev_ads_delta": 0.0034285714285713365,
+  "selected_worst_channel_ads": 0.7159238941135493,
+  "selected_min_channel_ads_delta": 0.0,
+  "selected_controlled_improve": 2,
+  "selected_controlled_regress": 0,
+  "locked_truth_used_for_selection": false
+}

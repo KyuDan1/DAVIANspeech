@@ -172,6 +172,31 @@ class SpearCrossComponentDetector(SpearMusicDetector):
         list[tuple[np.ndarray, np.ndarray]],
     ]:
         """Produce legacy statistics and compact bins in the same encoder pass."""
+        statistics, temporal = (
+            self.dual_domain_statistics_and_multiple_temporal_bins_batch(
+                audios, [(projection, layers, bins)]
+            )
+        )
+        return statistics, temporal[0]
+
+    @torch.inference_mode()
+    def dual_domain_statistics_and_multiple_temporal_bins_batch(
+        self,
+        audios: list[np.ndarray],
+        configurations: list[tuple[np.ndarray, tuple[int, ...], int]],
+    ) -> tuple[
+        list[tuple[np.ndarray, np.ndarray]],
+        list[list[tuple[np.ndarray, np.ndarray]]],
+    ]:
+        """Export several projected bin layouts from one SPEAR forward.
+
+        Different compact heads may use different fixed random projections or
+        temporal grids.  Computing them from the same hidden states avoids a
+        second 2B-parameter encoder pass while keeping every saved cache tied
+        to its checkpoint metadata.
+        """
+        if not configurations:
+            raise ValueError("at least one temporal-bin configuration is required")
         grouped_views, grouped_bin_masks = [], []
         for audio in audios:
             starts = temporal_starts(len(audio), self.window, self.max_windows or 3)
@@ -179,8 +204,11 @@ class SpearCrossComponentDetector(SpearMusicDetector):
                 crop_or_pad(audio, start, self.window) for start in starts
             ])
             grouped_bin_masks.append([
-                audio_bin_ranges(len(audio), start, self.window, bins)[1]
-                for start in starts
+                np.asarray([
+                    audio_bin_ranges(len(audio), start, self.window, config[2])[1]
+                    for start in starts
+                ], dtype=bool)
+                for config in configurations
             ])
         waveform = torch.from_numpy(np.stack([
             view for views in grouped_views for view in views
@@ -192,22 +220,38 @@ class SpearCrossComponentDetector(SpearMusicDetector):
         hidden = output["hidden_states"]
         stacked = torch.stack(hidden, dim=1)
         legacy = sequence_statistics(stacked)
-        matrix = torch.from_numpy(np.asarray(projection, dtype=np.float32)).to(self.device)
-        temporal = projected_temporal_bins(hidden, matrix, layers, bins)
+        matrices = [
+            torch.from_numpy(np.asarray(projection, dtype=np.float32)).to(self.device)
+            for projection, _, _ in configurations
+        ]
+        temporal = [
+            projected_temporal_bins(hidden, matrix, layers, bins)
+            for matrix, (_, layers, bins) in zip(matrices, configurations)
+        ]
 
-        statistic_result, temporal_result, offset = [], [], 0
-        temporal_tail = (bins, len(layers), 4, matrix.shape[1])
-        for views, masks in zip(grouped_views, grouped_bin_masks):
+        statistic_result = []
+        temporal_result = [[] for _ in configurations]
+        offset = 0
+        for views, mask_groups in zip(grouped_views, grouped_bin_masks):
             count = len(views)
             statistic_result.append(pad_views(
                 [legacy[index] for index in range(offset, offset + count)], 3,
                 (13, 4, self.dimension),
             ))
-            padded = np.zeros((3, *temporal_tail), dtype=np.float16)
-            padded_mask = np.zeros((3, bins), dtype=bool)
-            padded[:count] = temporal[offset:offset + count].cpu().numpy().astype(np.float16)
-            padded_mask[:count] = np.asarray(masks, dtype=bool)
-            temporal_result.append((padded, padded_mask))
+            for result, values, matrix, config, masks in zip(
+                temporal_result, temporal, matrices, configurations, mask_groups
+            ):
+                _, selected_layers, selected_bins = config
+                tail = (
+                    selected_bins, len(selected_layers), 4, matrix.shape[1]
+                )
+                padded = np.zeros((3, *tail), dtype=np.float16)
+                padded_mask = np.zeros((3, selected_bins), dtype=bool)
+                padded[:count] = values[
+                    offset:offset + count
+                ].cpu().numpy().astype(np.float16)
+                padded_mask[:count] = masks
+                result.append((padded, padded_mask))
             offset += count
         return statistic_result, temporal_result
 

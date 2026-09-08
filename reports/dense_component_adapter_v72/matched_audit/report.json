@@ -1,0 +1,85 @@
+{
+  "stage": "completed v71/v72 matched training audit; NOT accuracy or official improvement",
+  "actual_epoch_draws_bit_exact": true,
+  "trace_hashes": [
+    {
+      "epoch": 1,
+      "sha256": "89882704ad0328b020efa0401bcc870437455418b77f1b9f9b3238b580c8d10e"
+    },
+    {
+      "epoch": 2,
+      "sha256": "8b6f4b2400238ffe2e28cb3d85948a469386deb80d9989619a0234bffd0a310d"
+    },
+    {
+      "epoch": 3,
+      "sha256": "c3618c0cd1ec06d2cdc0887f8d51c2ab61ed747d2f89e62200b3bb18f996e63f"
+    },
+    {
+      "epoch": 4,
+      "sha256": "71bb3618438b369467a71483deb6267c79b50fe7136c650203c7723f895b0047"
+    },
+    {
+      "epoch": 5,
+      "sha256": "632b8d1b706dcb03cedb3f132ef60d453498e32bf3b35fb1e2068b362afe6712"
+    },
+    {
+      "epoch": 6,
+      "sha256": "849a51b54439f3061dcff0217513a4af34293c564aefd86bf284edb9025c8c2b"
+    }
+  ],
+  "data_counts": {
+    "synthetic_train": 12306,
+    "layout:sequential_music_first": 1697,
+    "channel:opus_nb_8k": 2464,
+    "duration:60.0": 2416,
+    "original_train": 12270,
+    "layout:pure_voice": 1762,
+    "channel:clean": 2508,
+    "duration:8.0": 2443,
+    "layout:pure_music": 1742,
+    "duration:4.0": 2454,
+    "layout:sparse_music": 1775,
+    "duration:32.0": 2511,
+    "channel:g722_wb": 2422,
+    "layout:concurrent": 1749,
+    "channel:transcode_g711_opus": 2429,
+    "channel:g711_ulaw": 2483,
+    "duration:16.0": 2482,
+    "layout:sequential_voice_first": 1783,
+    "layout:sparse_voice": 1798
+  },
+  "unique_consumed_raw_sources": 1767,
+  "selected_epoch": 6,
+  "selected_development": {
+    "epoch": 6,
+    "variant": "adapted_dense",
+    "loss": 0.34892081780617445,
+    "overall": {
+      "N": 4577,
+      "FILE_N": 4577,
+      "VOICE_N": 4016,
+      "MUSIC_N": 4261,
+      "FILE_EER": 0.18050806662925167,
+      "VOICE_EER": 0.2141427294113562,
+      "MUSIC_EER": 0.13424079594098298,
+      "VOICE_AUC": 0.9973268689946098,
+      "MUSIC_AUC": 0.9994556159931555,
+      "ADS": 0.8266451820208081,
+      "CPS": 0.9983912424938826,
+      "SCORE": 0.8438197880681155
+    },
+    "macro_ads": 0.8225049938968191,
+    "selection": 0.8245750879588136
+  },
+  "adapter_tensors_changed": 28,
+  "initial_probability_difference": 0.0,
+  "head_parameters": 101908,
+  "adapter_parameters": 274564,
+  "checkpoint_sha256": "54263fc195dae2a270bd4ac01855091157d32724fe308528ac929cad7001bab4",
+  "automatic_submission_allowed": false,
+  "limitations": [
+    "matching is against v71 dense_supervised, not the earlier global EAT model",
+    "additional adapter parameters/compute are intentional and not a fixed-capacity comparison",
+    "full independent inference and transfer diagnostics are still required"
+  ]
+}

@@ -24,6 +24,7 @@ def apply_fusion_with_stats(
     weight: float = 0.10, statistics_output_path: Path | None = None,
     temporal_bin_output_path: Path | None = None,
     temporal_bin_checkpoint_path: Path | None = None,
+    additional_temporal_bin_requests: list[tuple[Path, Path]] | None = None,
 ) -> None:
     """Preserve the verified SPEAR scores while caching a second exact view pass."""
     with submission_path.open(encoding="utf-8", newline="") as handle:
@@ -56,28 +57,61 @@ def apply_fusion_with_stats(
             )),
             int(bins),
         )
+    additional_temporal_bin_requests = additional_temporal_bin_requests or []
+    additional_outputs, additional_configurations = [], []
+    for output_path, checkpoint_path in additional_temporal_bin_requests:
+        checkpoint = torch.load(
+            checkpoint_path, map_location="cpu", weights_only=False
+        )
+        bins = checkpoint.get("spear_bins", checkpoint.get("bins"))
+        projection = checkpoint.get(
+            "spear_projection", checkpoint.get("projection")
+        )
+        layers = checkpoint.get("spear_layers", checkpoint.get("layers"))
+        if bins is None or projection is None or layers is None:
+            raise ValueError("additional temporal-bin checkpoint is incomplete")
+        additional_outputs.append(Path(output_path))
+        additional_configurations.append((
+            np.asarray(projection, dtype=np.float32),
+            tuple(int(value) for value in layers), int(bins),
+        ))
+    if additional_configurations and temporal_configuration is None:
+        raise ValueError(
+            "additional temporal-bin exports require the primary export"
+        )
     statistic_ids, statistics, statistic_masks = [], [], []
-    temporal_features, temporal_masks = [], []
+    temporal_features = [[] for _ in (
+        ([temporal_configuration] if temporal_configuration is not None else [])
+        + additional_configurations
+    )]
+    temporal_masks = [[] for _ in temporal_features]
     pending_ids, pending_audio = [], []
 
     def flush_statistics() -> None:
         if not pending_audio:
             return
-        if temporal_configuration is None:
+        configurations = (
+            ([] if temporal_configuration is None else [temporal_configuration])
+            + additional_configurations
+        )
+        if not configurations:
             values = detector.dual_domain_statistics_batch(pending_audio)
             temporal_values = None
         else:
-            values, temporal_values = detector.dual_domain_statistics_and_temporal_bins_batch(
-                pending_audio, *temporal_configuration
+            values, temporal_values = (
+                detector.dual_domain_statistics_and_multiple_temporal_bins_batch(
+                    pending_audio, configurations
+                )
             )
         for item, (matrix, mask) in zip(pending_ids, values):
             statistic_ids.append(item)
             statistics.append(matrix)
             statistic_masks.append(mask)
         if temporal_values is not None:
-            for matrix, mask in temporal_values:
-                temporal_features.append(matrix)
-                temporal_masks.append(mask)
+            for output_index, output_values in enumerate(temporal_values):
+                for matrix, mask in output_values:
+                    temporal_features[output_index].append(matrix)
+                    temporal_masks[output_index].append(mask)
         pending_ids.clear()
         pending_audio.clear()
 
@@ -115,14 +149,23 @@ def apply_fusion_with_stats(
             view_mask=np.stack(statistic_masks),
             stream=np.asarray("spear"), channel=np.asarray("clean"),
         )
-    if temporal_bin_output_path is not None:
-        temporal_bin_output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_paths = (
+        ([] if temporal_bin_output_path is None else [Path(temporal_bin_output_path)])
+        + additional_outputs
+    )
+    configurations = (
+        ([] if temporal_configuration is None else [temporal_configuration])
+        + additional_configurations
+    )
+    for output_path, configuration, features, masks in zip(
+        output_paths, configurations, temporal_features, temporal_masks
+    ):
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         np.savez(
-            temporal_bin_output_path,
+            output_path,
             ids=np.asarray(statistic_ids),
-            features=np.stack(temporal_features),
-            mask=np.stack(temporal_masks),
-            projection=temporal_configuration[0],
-            layers=np.asarray(temporal_configuration[1], dtype=np.int16),
-            bins=np.asarray(temporal_configuration[2]),
+            features=np.stack(features), mask=np.stack(masks),
+            projection=configuration[0],
+            layers=np.asarray(configuration[1], dtype=np.int16),
+            bins=np.asarray(configuration[2]),
         )

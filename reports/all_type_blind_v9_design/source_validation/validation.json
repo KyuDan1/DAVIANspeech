@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "checks": {
+    "protected_snapshot_unchanged": true,
+    "identity_disjoint": true,
+    "canonical_song_disjoint": true,
+    "source_audio_hash_disjoint": true,
+    "all_sources_resolve": true,
+    "presence_semantics_pass": true,
+    "unscored": true
+  },
+  "identity_overlap": [],
+  "canonical_song_overlap": [],
+  "source_hash_overlap": [],
+  "reservation_sha256": "ccf94ab671d5d21505cea01346c4f7ebd61710ee68492aa94c35ca4fb003b519",
+  "source_hashes_sha256": "418405937e05ae5d5eeabcbe8892f732e7ea6927cff5f7136f56d4c12a7c8f6a",
+  "authenticity_detector_scores_read": false
+}

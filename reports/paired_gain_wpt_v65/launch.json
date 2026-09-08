@@ -1,0 +1,22 @@
+{
+  "config": "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_gain_wpt_v65.yaml",
+  "config_sha256": "3cdd548c13518f3e7f0f47ff6c396f2e10993e36c60a79d57412c375d82010a8",
+  "python": "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+  "runs": [
+    {
+      "name": "paired_gain",
+      "gpu": "7",
+      "pid": 145367,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_gain_wpt_v65.yaml",
+        "--variant",
+        "paired_gain",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/paired_gain_wpt_v65/paired_gain"
+      ]
+    }
+  ]
+}

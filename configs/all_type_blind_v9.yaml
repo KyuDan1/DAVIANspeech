@@ -1,0 +1,88 @@
+# Frozen before any authenticity detector output was produced.
+schema_version: all_type_blind_v9
+status: locked_unscored
+purpose: prospective_all_type_one_shot_confirmation
+seed: 20260916
+id_prefix: atbv9
+base_rows: 120
+rendered_rows: 600
+
+audio_types:
+  voice_only_bases: 24
+  music_only_bases: 24
+  mixed_bases: 72
+component_cells: [RR, RF, FR, FF]
+layouts: [concurrent, partial_overlap, sequential]
+channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+
+balance:
+  voice_only_each_authenticity: 12
+  music_only_each_authenticity: 12
+  mixed_each_layout_component_cell: 6
+  each_channel_rows: 120
+  real_voice_sources: 48
+  fake_voice_sources: 48
+  real_music_sources: 48
+  fake_music_sources: 48
+
+voice_policy:
+  real_source: EchoFake bonafide
+  instrumental_fake_voice_source: EchoFake replay_fake
+  replay_tts_families: 11
+  joint_fake_song_voice_source: SONICS original joint vocal music
+  joint_fake_song_label: fake_voice_and_fake_music
+  suno_udio_vocal_never_labeled_rf: true
+
+music_policy:
+  real_source: FMA
+  instrumental_fake_source: FakeMusicCaps
+  instrumental_fake_generator_families: 5
+  joint_fake_song_source: SONICS original unseparated song
+  joint_fake_song_algorithms: 5
+  joint_fake_song_platforms: [suno, udio]
+  separator_used_for_joint_render: false
+
+leakage_policy:
+  protection_scope: every pre-existing data/**/truth*.csv, source_hashes.csv, and audio_hashes.csv
+  protected_truth_manifests: 85
+  protected_hash_manifests: 16
+  source_identity_disjoint: true
+  speaker_identity_disjoint: true
+  reference_speaker_identity_disjoint: true
+  canonical_music_group_disjoint: true
+  known_source_audio_hash_disjoint: true
+  known_rendered_audio_hash_disjoint: true
+  within_bank_source_reuse: paired_channel_variants_only
+
+semantic_policy:
+  purpose: component_presence_only
+  frozen_before_screening: true
+  instrumental_panns_any_voice_max: 0.20
+  instrumental_demucs_vocals_to_mixture_db_max: -1.5
+  joint_song_panns_any_voice_min: 0.20
+  joint_song_demucs_vocals_to_mixture_db_min: -20.0
+  joint_song_demucs_vocals_to_mixture_db_max: -1.5
+  replacement_order: same_kind_same_label_same_generator_precommitted_stable_hash
+  failed_sources_never_reused: true
+  screened_replacement_failures_recorded: 42
+  final_music_presence_sources_passed: 96
+  authenticity_outputs_used: false
+
+integrity:
+  source_validation_status: PASS
+  bank_validation_checks_passed: 14
+  bank_validation_checks_total: 14
+  reservation_sha256: ccf94ab671d5d21505cea01346c4f7ebd61710ee68492aa94c35ca4fb003b519
+  truth_sha256: b11b0fecb01ac976d0b38842700d1574918012e0b53d84286737ebe183754bff
+  source_hashes_sha256: 418405937e05ae5d5eeabcbe8892f732e7ea6927cff5f7136f56d4c12a7c8f6a
+  audio_hashes_sha256: b15a0264c3a74f5fff63089ea8e0fa984bb36afd63b360992f6f0c055eff86bc
+
+decision_policy:
+  locked_before_authenticity_inference: true
+  authenticity_detector_inference_completed: false
+  authenticity_score_computed: false
+  truth_open_count: 0
+  score_open_count: 0
+  candidate_configuration_must_be_frozen_before_inference: true
+  no_weight_threshold_router_or_stopping_tuning: true
+  scoring_limit: one_frozen_candidate_only

@@ -1,0 +1,172 @@
+{
+  "created": "2024-01-08T04:31:42.646296+00:00",
+  "modified": "2024-01-09T09:44:31.955891+00:00",
+  "id": 10467648,
+  "conceptrecid": "10467604",
+  "doi": "10.5281/zenodo.10467648",
+  "conceptdoi": "10.5281/zenodo.10467604",
+  "doi_url": "https://doi.org/10.5281/zenodo.10467648",
+  "metadata": {
+    "title": "SVDD Challenge 2024: A Singing Voice Deepfake Detection Challenge (CtrSVDD Track, Training/Development Set)",
+    "doi": "10.5281/zenodo.10467648",
+    "publication_date": "2024-01-08",
+    "description": "<p>For more information about SVDD Challenge 2024, please refer to https://challenge.singfake.org/.<br><br>We have released the training and development set here and other relevant scripts on GitHub (https://github.com/SVDDChallenge/SVDD_Utils). For evaluation, we will provide a test set with undisclosed labels at a later date and ask teams to score each utterance. Using the submitted scores, we will calculate and rank participant systems on EER.<br><br>Please note that due to licensing issues, the training and development set here is&nbsp;<strong>not complete.</strong> Please follow the instructions detailed in the GitHub repository to complete the generation process of the dataset.</p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Zhang, You",
+        "affiliation": null
+      },
+      {
+        "name": "Zang, Yongyi",
+        "affiliation": null
+      },
+      {
+        "name": "Shi, `Jiatong",
+        "affiliation": null
+      },
+      {
+        "name": "Yamamoto, Ryuichi",
+        "affiliation": null
+      },
+      {
+        "name": "Han, Jionghao",
+        "affiliation": null
+      },
+      {
+        "name": "Tang, Yuxun",
+        "affiliation": null
+      },
+      {
+        "name": "Toda, Tomoki",
+        "affiliation": null
+      },
+      {
+        "name": "Duan, Zhiyao",
+        "affiliation": null
+      }
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "arXiv:2309.07525",
+        "relation": "references",
+        "resource_type": "publication-preprint",
+        "scheme": "arxiv"
+      }
+    ],
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-nc-nd-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 1,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "10467604"
+          }
+        }
+      ]
+    }
+  },
+  "title": "SVDD Challenge 2024: A Singing Voice Deepfake Detection Challenge (CtrSVDD Track, Training/Development Set)",
+  "links": {
+    "self": "https://zenodo.org/api/records/10467648",
+    "self_html": "https://zenodo.org/records/10467648",
+    "preview_html": "https://zenodo.org/records/10467648?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.10467648",
+    "self_doi": "https://doi.org/10.5281/zenodo.10467648",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10467648",
+    "reserve_doi": "https://zenodo.org/api/records/10467648/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/10467604",
+    "parent_html": "https://zenodo.org/records/10467604",
+    "parent_doi": "https://doi.org/10.5281/zenodo.10467604",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10467604",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:10467648/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:10467648/sequence/default",
+    "files": "https://zenodo.org/api/records/10467648/files",
+    "media_files": "https://zenodo.org/api/records/10467648/media-files",
+    "archive": "https://zenodo.org/api/records/10467648/files-archive",
+    "archive_media": "https://zenodo.org/api/records/10467648/media-files-archive",
+    "latest": "https://zenodo.org/api/records/10467648/versions/latest",
+    "latest_html": "https://zenodo.org/records/10467648/latest",
+    "versions": "https://zenodo.org/api/records/10467648/versions",
+    "draft": "https://zenodo.org/api/records/10467648/draft",
+    "access_links": "https://zenodo.org/api/records/10467648/access/links",
+    "access_grants": "https://zenodo.org/api/records/10467648/access/grants",
+    "access_users": "https://zenodo.org/api/records/10467648/access/users",
+    "access_request": "https://zenodo.org/api/records/10467648/access/request",
+    "access": "https://zenodo.org/api/records/10467648/access",
+    "communities": "https://zenodo.org/api/records/10467648/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/10467648/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/10467648/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/10467648/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/10467648/quota-increase",
+    "requests": "https://zenodo.org/api/records/10467648/requests"
+  },
+  "updated": "2024-01-09T09:44:31.955891+00:00",
+  "recid": "10467648",
+  "revision": 12,
+  "files": [
+    {
+      "id": "e40e2958-6381-4982-8e60-9e24611646d7",
+      "key": "train.txt",
+      "size": 5019516,
+      "checksum": "md5:f1e7e1cb297f6128e3f072703dfeb473",
+      "links": {
+        "self": "https://zenodo.org/api/records/10467648/files/train.txt/content"
+      }
+    },
+    {
+      "id": "b415e6f0-36b7-4198-9d1a-e10ef05f0a9b",
+      "key": "dev.txt",
+      "size": 2595588,
+      "checksum": "md5:5f713185a1189e85a16630cf6691a8d8",
+      "links": {
+        "self": "https://zenodo.org/api/records/10467648/files/dev.txt/content"
+      }
+    },
+    {
+      "id": "7cde69ea-075f-43ff-b281-a144089dd4bf",
+      "key": "train_set.zip",
+      "size": 7910658841,
+      "checksum": "md5:1a6c74afefeaa9b1fa1ebbf86bfdaf08",
+      "links": {
+        "self": "https://zenodo.org/api/records/10467648/files/train_set.zip/content"
+      }
+    },
+    {
+      "id": "824f9304-db8f-4c89-83c1-997c4f2ca79b",
+      "key": "dev_set.zip",
+      "size": 3389073344,
+      "checksum": "md5:c52d938823785193a0a5f9493ea4d928",
+      "links": {
+        "self": "https://zenodo.org/api/records/10467648/files/dev_set.zip/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "423184"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 18446,
+    "unique_downloads": 4488,
+    "views": 3275,
+    "unique_views": 2785,
+    "version_downloads": 18243,
+    "version_unique_downloads": 4317,
+    "version_unique_views": 2663,
+    "version_views": 3127
+  },
+  "state": "done",
+  "submitted": true
+}

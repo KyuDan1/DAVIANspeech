@@ -1,0 +1,15 @@
+{
+  "archive": "current_music_probe_v84.zip",
+  "sha256": "56ae933c18f838d7c0202871884afb87e38828ba4f278ab025994decdee529a8",
+  "competition": "236749",
+  "team": "DAVIANspeech",
+  "started_utc": "2026-09-06T05:25:40.387677+00:00",
+  "status": "accepted",
+  "quota_before": 1,
+  "memo": "Diagnostic only: submitted v83 pipeline, only final MUSIC_FAKE_PROB=0.5; other four outputs unchanged. Identifies current Music EER and, with Voice probe, File EER.",
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-06T05:27:15.815399+00:00"
+}

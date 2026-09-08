@@ -1,0 +1,69 @@
+schema_version: sparse_voice_wpt_file_v50_frozen_v1
+frozen_before_blind_v6_scoring: true
+objective:
+  leaderboard_total_to_exceed: 0.837980
+  leaderboard_ads_to_exceed: 0.821160
+  preserved_cps_reference: 0.9893078836
+  required_ads_at_preserved_cps: 0.8211658
+
+anchor:
+  archive: component_query_or_v47.zip
+  sha256: 0ddb1d9d3d21def4f2e3b761e074f52145db45caebfe5c2198976a0af2ce25ed
+
+voice_specialist:
+  source_package: sparse_call_consistency_v24
+  spectra_logit_weight: 0.10
+  spectra_file_weight: 0.0
+  sparse_consensus_logit_weight: 0.60
+  sparse_file_voice_only_weight: 0.0
+  spectra_checkpoint_sha256: 2e2727a7397f78d28b0a2a2b8ee031ff08143b9c431ea7f06fc29a808b0180db
+  sparse_head_sha256: bbe68298bb86cdb103a10b4caa3fb6b983cc2defa1617166dd30aa89a3a4f128
+
+file_specialist:
+  model: original_audio_wpt_spectra_seed06
+  checkpoint: reports/wpt_spectra_v1/seed_20260906/wpt_spectra_multitask.pt
+  checkpoint_sha256: 584c5abf964d7b2e772905503c084daac45a83c52755ddb12291b77447cbe37e
+  views: 5
+  view_seconds: 4.0375
+  pooling: logmeanexp
+  temperature: 2.0
+  batch_size: 6
+  wpt_logit_weight: 0.40
+  anchor_logit_weight: 0.60
+  unified_logit_weight: 0.0
+
+output_contract:
+  file_fake_prob: v47_wpt_logit_mixture
+  voice_fake_prob: v47_plus_frozen_sparse_voice
+  music_fake_prob: bit_exact_v47
+  voice_present_prob: bit_exact_v47
+  music_present_prob: bit_exact_v47
+
+development_evidence:
+  codec_mixed_dev_v4:
+    anchor_ads: 0.7192222222
+    frozen_voice_ads: 0.7372222222
+    final_ads: 0.7600000000
+  codec_mixed_blind_v5_retrospective:
+    anchor_ads: 0.7894444444
+    frozen_voice_ads: 0.8094444444
+    final_ads: 0.8108333333
+
+prospective_blind_v6:
+  config: configs/codec_mixed_blind_v6.yaml
+  truth_sha256: c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a
+  rows: 240
+  score_open_count_at_freeze: 0
+  tuning_after_open: forbidden
+  one_shot_result:
+    anchor_ads: 0.7408333333
+    final_ads: 0.7891666667
+    anchor_file_voice_music_eer:
+      - 0.3000000000
+      - 0.1583333333
+      - 0.2583333333
+    final_file_voice_music_eer:
+      - 0.2333333333
+      - 0.0833333333
+      - 0.2583333333
+    retired_immediately_after_scoring: true

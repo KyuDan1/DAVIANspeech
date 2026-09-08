@@ -1,0 +1,26 @@
+# Broad encoder reassessment. Fixed before any new development predictions.
+schema: common_encoder_probe_v1
+seed: 20260905
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+encoders:
+  eat_large: models/eat-large-as2m-v56
+  spear: models/spear-xlarge-speech-audio-v2
+  xlsr: models/xls-r-2b-anti-deepfake
+window: 163840
+layers: quarter_half_last
+pooling_conditions: [mean, attention]
+head_width: 96
+batch_size: 4
+workers: 4
+encoder_chunk: 2
+samples_per_epoch: 4096
+epochs: 6
+eval_every: 2
+learning_rate: 0.001
+weight_decay: 0.01
+temperature: 2.0
+selection: 0.5*pooled_ADS+0.5*mean_available_component_macro_ADS
+no_automatic_submission: true
+# Frozen readout benchmark only. No trained backbone claims, no locked scoring.
+# Native-width input projections differ in parameter count: report explicitly.

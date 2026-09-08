@@ -1,0 +1,23 @@
+{
+  "frozen_before_inference": true,
+  "evaluation_status": "invalidated_before_prediction_output",
+  "do_not_score_this_truth": true,
+  "date": "2026-09-04",
+  "baseline": {
+    "archive": "component_query_or_v47.zip",
+    "sha256": "0ddb1d9d3d21def4f2e3b761e074f52145db45caebfe5c2198976a0af2ce25ed"
+  },
+  "candidate": {
+    "archive": "component_query_wpt_voice_v48_final.zip",
+    "sha256": "bdc5e0278a3f1b8ca9338022bde35f9c1f695c51865662a3fe7a48ea6eceb3b6",
+    "delta_from_baseline": "standalone original-audio WPT Voice logit residual only",
+    "voice_weight": 0.05,
+    "file_weight": 0.0,
+    "music_weight": 0.0,
+    "presence_changed": false
+  },
+  "selection_evidence": "factorial_eval_1200_v2_dev only",
+  "selection_record": "reports/wpt_spectra_v1/v47_standalone_devselect/selection.json",
+  "prospective_truth_sha256": "a310be3cc5f58c0e3dbae752bb9b4010b140c80bb15a22aa964523e06b3bc7e6",
+  "rule": "Superseded: do not run or score this truth. Re-freeze against the semantics-screened instrumental reservation."
+}

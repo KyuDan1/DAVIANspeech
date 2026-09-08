@@ -1,0 +1,25 @@
+{
+  "variant": "equal_voice_pair_eat_music",
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/frozen.json": "6569edfce3a0141e090574da31d32fdbff1bbf06ef6db603c258f729cb1c910d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/truth.csv": "11734b395cfc5e019807c9d70a670947ae92007fe365b1bfc2a84b4d6d80c86c",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/audit_suno_frozen_v73.py": "991cfe29f1807ee6973d7f46ea1c6b1756b1ebabb32aa00f7f3a465e58baa83e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_000.flac": "f7f623f7f45991ee78e838f3bad06e6f96256f66211cb9f0822325e6ff36a5a0",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_001.flac": "b629357b39c788397f10e4678a125000b6652db28dbe69b41b5b02a4897f2fb6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_002.flac": "f0730c12966bdc2b4131be7f104b1de64b28d7fdb4f36aef1b22cae775109a11",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_003.flac": "bb53f046912bdd681888e7bdb78e75f4f59edbd0f936b60dc4c48ae4cc251235",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_004.flac": "a48fb5256f67c0d33098d460e8e4455286cc88d992ac6a984e99c26d5ec0dcf1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_005.flac": "eb51d97e7628d3076344467865f86c217db6a715153f16e564b2cf60ed2aefaf",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_006.flac": "f2f6c0f2495a6bb1505c6fc4279c3a2e3ca5369f0c6d01a873eaa8a3c7b5cda9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_007.flac": "d798dc403eeddd78161c40b8147c6167a309f3df298dfc8865a69ff2c0542a2b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_008.flac": "812ccab075bbacd39759518f8064bf7f5849fdd56e52636aadf3cd16616c4c8a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_009.flac": "600f72062c68fd5c4247a4155181af049355887f26262c2d1c76e76f627629d4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_010.flac": "b9ffc942277eb9d52e8afb1c28e9f8df378bad1dc2b8346fdc9156fd4333185b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_011.flac": "308e5a5c8e884cfc536f686ce0939143b2c59223568d9fa27c03f118c1ef325e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/audio/suno_vocal_012.flac": "0265ba57acffd14e892a005ef275aabc4013ba7d66045140f22f5ce6c3dfae37"
+  },
+  "threshold": 0.5,
+  "scope": "13 user Suno all-fake clips; not EER/AUC or full original tracks",
+  "selection_allowed": false,
+  "automatic_submission_allowed": false
+}

@@ -1,0 +1,15 @@
+{
+  "prediction": {
+    "dataset_filter": "codec_mixed_dev_v4",
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v1/matrix_v1/robust_l2_core/dev_predictions.csv",
+    "rows": 600,
+    "sha256": "42c28b8949aa7ad366e403305281baaa096399088941a0d7201f68b089f81adf"
+  },
+  "purpose": "repeatable_development_checkpoint_evaluation",
+  "threshold_or_weight_search": false,
+  "truth": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv",
+    "rows": 600,
+    "sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "gpu": "NVIDIA B200",
+  "checkpoint": "reports/lowband_music_v67_smoke/best.pt",
+  "smoke": true,
+  "parameters": 97937,
+  "load_seconds": 1.6585468156263232,
+  "files": [
+    {
+      "duration": 4,
+      "windows": 1,
+      "seconds_per_file": 0.00225043793519338,
+      "peak_allocated_gib": 0.011475563049316406,
+      "peak_reserved_gib": 0.025390625
+    },
+    {
+      "duration": 30,
+      "windows": 8,
+      "seconds_per_file": 0.011656741611659527,
+      "peak_allocated_gib": 0.033658504486083984,
+      "peak_reserved_gib": 0.044921875
+    },
+    {
+      "duration": 60,
+      "windows": 15,
+      "seconds_per_file": 0.004547787209351857,
+      "peak_allocated_gib": 0.056043148040771484,
+      "peak_reserved_gib": 0.087890625
+    }
+  ],
+  "reordered_file_predictions_bit_exact": true,
+  "scope": "Synthetic runtime only; NOT L4 runtime or detection accuracy"
+}

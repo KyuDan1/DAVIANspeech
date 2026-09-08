@@ -1,0 +1,16 @@
+{
+  "archive": "v101_prompt_codec.zip",
+  "sha256": "5bd6cea0d260129a747930e49935f80a11d4c4bc7d9a55ee3cb13d795f4bbb7b",
+  "smoke_report": "reports/submission_triplet_20260907/v101_smoke/report.json",
+  "memo": "v83 + joint File/Voice prompts and exact-codec Music expert w0.28; strongest codec candidate. Frozen v101 with source-disjoint one-shot confirmation; offline packaged smoke and CRC checked.",
+  "status": "accepted",
+  "competition": "236749",
+  "team": "DAVIANspeech",
+  "quota_before": 2,
+  "started_utc": "2026-09-07T11:59:57.915598+00:00",
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-07T12:01:34.232826+00:00"
+}

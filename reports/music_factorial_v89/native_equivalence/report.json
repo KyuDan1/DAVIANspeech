@@ -1,0 +1,12 @@
+{
+  "status": "complete_native_equivalence",
+  "files": 80,
+  "calls": 320,
+  "max_probability_difference": {
+    "factorial_bce": 1.1102230246251565e-16,
+    "factorial_ranked": 1.1102230246251565e-16
+  },
+  "reverse_order_bit_exact": true,
+  "seconds": 10.71347767394036,
+  "official_improvement_verified": false
+}

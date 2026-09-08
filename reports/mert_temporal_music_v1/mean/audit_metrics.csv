@@ -1,0 +1,5 @@
+DATASET,N,MUSIC_EER
+factorial_eval_1200_v2_holdout,350,0.2857142857142857
+phone_factorial_1200_v1,800,0.26
+yue_cross_component_audit_v1,124,0.20967741935483875
+suno_vocals_v1,13,

@@ -1,0 +1,41 @@
+{
+  "task": "file",
+  "rows": 600,
+  "views": 3,
+  "checkpoint": "reports/mixfake_multistream_v100/seed36_file_broad_retry/multistream_prompt.pt",
+  "checkpoint_sha256": "6ad8e283dca87abbc9fdf4079f79c36de47e642a67d142a6e69d075a3c28fb13",
+  "manifest": "data/eval/codec_mixed_dev_v4/truth.csv",
+  "manifest_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.3666666666666667,
+      "task_eer": {
+        "file": 0.3666666666666667
+      },
+      "ads": null,
+      "subgroup_eer": {},
+      "manifest_channel_eer": {
+        "clean": 0.30000000000000004,
+        "g711_ulaw": 0.2333333333333333,
+        "g722_wb": 0.33333333333333337,
+        "opus_nb_8k": 0.39444444444444443,
+        "transcode_g711_opus": 0.36111111111111105
+      },
+      "layout_eer": {
+        "concurrent": 0.39666666666666667,
+        "partial_overlap": 0.4,
+        "sequential": 0.28
+      },
+      "mean_score_by_case": {
+        "RR": 0.8648942112922668,
+        "RF": 0.9005215167999268,
+        "FR": 0.9324952363967896,
+        "FF": 0.9342867136001587
+      }
+    }
+  ],
+  "mean_eer": 0.3666666666666667,
+  "worst_eer": 0.3666666666666667,
+  "locked_scores_read": false
+}

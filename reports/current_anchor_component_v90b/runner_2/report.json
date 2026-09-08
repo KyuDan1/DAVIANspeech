@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "shard": 2,
+  "rows": 540,
+  "seconds": 1425.7528701936826,
+  "predictions_sha256": "8fbed7b9ee4c60245452aa7eeafb07dd9a890f51c1775ec766bc7250cb4503d4",
+  "frozen_sha256": "bec315c83ca268d1229b63fc6c9d1bef1da074b974c2c208b07cc4064c386096"
+}

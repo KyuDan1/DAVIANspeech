@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "rows": 3685,
+  "seconds": 231.91584370937198,
+  "features_sha256": "c2f4656ee039c451f5f683ad672c0648a7de9ef927b3ce45569a1369187ea678",
+  "native_head_reconstruction_bit_exact": true,
+  "peak_allocated_mib": 1325.2607421875
+}

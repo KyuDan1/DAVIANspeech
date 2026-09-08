@@ -1,0 +1,13 @@
+{
+  "task": "file",
+  "channel": "clean",
+  "rows": 320,
+  "anchor_eer": 0.07499999999999998,
+  "expert_eer": 0.050000000000000024,
+  "best_fused_eer": 0.050000000000000024,
+  "selected_expert_weight": 0.17,
+  "anchor_subgroup_eer": {},
+  "expert_subgroup_eer": {},
+  "fused_subgroup_eer": {},
+  "locked_scores_read": false
+}

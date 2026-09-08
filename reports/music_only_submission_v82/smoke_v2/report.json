@@ -1,0 +1,9 @@
+{
+  "status": "complete_staged_branch_smoke",
+  "rows": 80,
+  "max_music_difference": 1.1102230246251565e-16,
+  "other_fields_string_exact": true,
+  "seconds_including_load": 6.773900527507067,
+  "peak_cuda_mib": 1301.62060546875,
+  "scope": "staged Music branch only; not full anchor or L4 runtime validation"
+}

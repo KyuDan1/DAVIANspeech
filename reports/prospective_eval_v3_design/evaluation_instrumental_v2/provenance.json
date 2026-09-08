@@ -1,0 +1,35 @@
+{
+  "eer_drop_intermediate": false,
+  "evaluation_fingerprint": "7b50454cd3606f7af75cb2a1372cfb9b1f65fa83b61ba88e39b8962b3c3d81f0",
+  "frozen_models": [
+    "v47",
+    "v48"
+  ],
+  "inputs": {
+    "truth": {
+      "bytes": 497568,
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/prospective_mixed_phone_v3_instrumental_v2/truth.csv",
+      "rows": 1200,
+      "sha256": "d45c5a3ce0f20496e6d6d4754a94f8b43633cbe5cd1a273e1cf06599313cd388"
+    },
+    "v47_prediction": {
+      "bytes": 105027,
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/frozen_scores_instrumental_v2/v47_submission.csv",
+      "rows": 1200,
+      "sha256": "1efe13c41fd4814e0961e405cc47fc07551ec1b051a4020492e1939b51ce983e"
+    },
+    "v48_prediction": {
+      "bytes": 105020,
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/frozen_scores_instrumental_v2/v48_submission.csv",
+      "rows": 1200,
+      "sha256": "dbaecae25fede872dfc5bd0a0e656457cc0804d3d86d0f017dfc3a3b9ff8ac5a"
+    }
+  },
+  "schema_version": "prospective_paired_eval_v1",
+  "scorer": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/scripts/score_prospective_paired_eval.py",
+    "sha256": "6c9edfa6cb2cd6b344a96f95c237a90f954f81b433edffc58c2e98f97d187ca3"
+  },
+  "selection_or_sweep_supported": false,
+  "single_evaluation": true
+}

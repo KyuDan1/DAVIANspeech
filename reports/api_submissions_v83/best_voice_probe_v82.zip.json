@@ -1,0 +1,15 @@
+{
+  "archive": "best_voice_probe_v82.zip",
+  "sha256": "e9e35a18e720b72bf26f33f78e055bc5341a3c2f64762b525aecd0cf02fd58a9",
+  "team": "DAVIANspeech",
+  "competition": "236749",
+  "memo": "Diagnostic: exact 0.77743 v50+v57 anchor; only VOICE_FAKE_PROB=0.5, other four outputs unchanged. Not a performance candidate.",
+  "started_utc": "2026-09-06T04:18:25.126209+00:00",
+  "status": "accepted",
+  "quota_before": 3,
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-06T04:19:51.420843+00:00"
+}

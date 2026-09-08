@@ -1,0 +1,30 @@
+{
+  "status": "complete_review_flags_only",
+  "train_rows": 18738,
+  "raw_source_rows": 667,
+  "raw_both_voice_review_flags": 27,
+  "counts": {
+    "LINKED_MUSIC_SOURCE_HAS_VOICE_REVIEW_FLAG": 418,
+    "VOICE_ABSENCE_TARGET_REQUIRES_REVIEW": 0,
+    "VOICE_REAL_TARGET_WITH_FLAGGED_FAKE_BACKGROUND": 35,
+    "MIXFAKE_RF_SUNO_UDIO_BACKGROUND_UNVERIFIED": 667
+  },
+  "limitations": [
+    "Detectors are not ground truth; all flags require source/semantic verification",
+    "Only explicit MUSIC_SOURCE_ID links are counted; not exhaustive descendant tracing",
+    "No labels were changed, no samples removed, no new model fitted"
+  ],
+  "source_hashes": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/forensic_call_train_v1/truth_train.csv": "37228340ff587003bea23a7ced9928fc7d06a1b7537c5bdb673b4bd2a119e3fe",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v2/truth_train.csv": "f9e812a0d7e4d9cae889449d3b630f4585a1ecfd4037a4942ce200c16149c68d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_train_v1/truth.csv": "e68436b27d92dce2e6ec7a287ee31be14d42f083fdd01f3ea21cec533d923090",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_devvoice_train_v1/truth.csv": "edbb002ac3c153a12447797afaf0d44954d2a159022012da08cca365aef2b566",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_fmc_music_train_v1/truth.csv": "c70b7e0b73cdad037bbf1e81176adaa849bdeb69b86be383110ab80f55b14a60",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_train_v1/truth.csv": "0ca558fded2c8d8985a0c61d7c5cccee80d2ba0018f86d9d31db05020a9d2822",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/telephone_mixed_train_v1/truth.csv": "858b67ad005f61fdcfd2e3477a8b9804e9eed0a8c68985c18c1b866c28dae8a2",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/truth.csv": "c1638c1c34832d6459b5098b7a181edc8e488c7237fde9439a71ee8ad948644d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/train_music_semantics_v75/raw_music_review.csv": "0e024d3f3bd7b62ad105a2d6ea89983b725275a3ec357f4636a3c9a7a1a694b2"
+  },
+  "automatic_training_changes": false,
+  "automatic_submission_allowed": false
+}

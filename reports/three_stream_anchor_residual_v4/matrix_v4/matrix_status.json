@@ -1,0 +1,14 @@
+[
+  {
+    "elapsed_seconds": 709.1360126212239,
+    "gpu": "3",
+    "name": "robust_l2_seed_20260905",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 847.1593270990998,
+    "gpu": "4",
+    "name": "robust_l2_seed_20260906",
+    "returncode": 0
+  }
+]

@@ -1,0 +1,7 @@
+DATASET,N,MUSIC_EER,MEMBER
+external_mixed_v1_telephone_v1,400,0.18500000000000003,no_dsu_seed00
+source_disjoint_mixed_v1_telephone_v1,200,0.33999999999999997,no_dsu_seed00
+source_disjoint_mixed_equal_v1_telephone_v1,200,0.22999999999999998,no_dsu_seed00
+external_mixed_v1_telephone_v1,400,0.18999999999999997,no_dsu_seed02
+source_disjoint_mixed_v1_telephone_v1,200,0.35,no_dsu_seed02
+source_disjoint_mixed_equal_v1_telephone_v1,200,0.26,no_dsu_seed02

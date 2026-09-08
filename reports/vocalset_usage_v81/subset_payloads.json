@@ -1,0 +1,362 @@
+[
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F1 caro mio ben.wav",
+    "bytes": 2869378,
+    "sha256": "9e36dabf2e0be8a89be1b6d9dd8692f5b394c80d17dfc9a30b4b6e57c8cdee50",
+    "claimed_singer": "F1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F1 passagio.wav",
+    "bytes": 1071250,
+    "sha256": "e132d60d49566556b8567eb79015119cb5fb6870b168cfef7662045b045c080b",
+    "claimed_singer": "F1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F1 scale.wav",
+    "bytes": 1074122,
+    "sha256": "491ca7108f6ceeba1d38174af2582452eb2349efdf9e7498dfbe8c1f2fa4e18c",
+    "claimed_singer": "F1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F2 caro mio ben.wav",
+    "bytes": 3266464,
+    "sha256": "1b65094c5fb4420a9973319bc90535909ad27171035358087b39029d32d33559",
+    "claimed_singer": "F2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F2 passagio.wav",
+    "bytes": 706376,
+    "sha256": "3beb497444f036d36b43ea9a6124e5367831eb5bf5bbc56a09fb43f7589ea260",
+    "claimed_singer": "F2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F2 scale.wav",
+    "bytes": 961118,
+    "sha256": "a261df2163a59866e78dcad974c1a252ff605b98020e49a9d5e2175dd4faf842",
+    "claimed_singer": "F2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F3 caro mio ben.wav",
+    "bytes": 1680496,
+    "sha256": "3bcbe60f69ac5005538e321069a0df895d44023d91e566cf3224b01b6dbf7dde",
+    "claimed_singer": "F3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F3 passagio.wav",
+    "bytes": 376816,
+    "sha256": "1e722496aafcd0e1dc89532b3e4f5d3328429b0dbc17bcd6ca27209df1854fe7",
+    "claimed_singer": "F3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F3 scale.wav",
+    "bytes": 856164,
+    "sha256": "2839cde15998e700305688c2d4cf90966b8edcd60d2d4e5ae34d2b335afcade8",
+    "claimed_singer": "F3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F4 caro mio ben.wav",
+    "bytes": 3356204,
+    "sha256": "4cd6b09b6592f38fc3ae22154b300e47b17e3651aa9f19419d5236a970f94f7e",
+    "claimed_singer": "F4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F4 passagio.wav",
+    "bytes": 1107342,
+    "sha256": "075ac835afeb9d466e4d7e7b6df4c88b8f050f96bfd6e5ba073046647554c505",
+    "claimed_singer": "F4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F4 scale.wav",
+    "bytes": 554822,
+    "sha256": "d9ae48c4b42f7d136f40e8dac32e0f69332de411d39f5c86995da074ae3d5a08",
+    "claimed_singer": "F4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F5 caro mio ben.wav",
+    "bytes": 4242680,
+    "sha256": "e180daef389554fd4b8d46ab143c92a18bf45220dd2e4645f4d3efa1a4fb2736",
+    "claimed_singer": "F5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F5 passagio.wav",
+    "bytes": 876230,
+    "sha256": "7c615866aca9b57b9098f81f44983a3998ce7e2261bbde908b5a5badef14a015",
+    "claimed_singer": "F5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F5 scale.wav",
+    "bytes": 864218,
+    "sha256": "1d3a9cce323281cba88d4c453a4f9893b09967711f8e909e5998f9dfb6d8d399",
+    "claimed_singer": "F5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F6 caro mio ben.wav",
+    "bytes": 3890694,
+    "sha256": "605863d2988cfd74cc7d00ee08bc8c5458e60b13998ef66bff4f1c2a0d98b0f1",
+    "claimed_singer": "F6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F6 passagio.wav",
+    "bytes": 847426,
+    "sha256": "c4c63d17918f0dd4f4c13548381ab7f35ed6c6b4dbe8f37bd1a8cb2f56a40009",
+    "claimed_singer": "F6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F6 scale.wav",
+    "bytes": 568742,
+    "sha256": "4f8f9d1803bc51b179ebbc6135d68d3f79672f1d48d36a2108c10d2d20889d45",
+    "claimed_singer": "F6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F7 caro mio ben.wav",
+    "bytes": 3372604,
+    "sha256": "ae0265a6d24fff3ea2a4e5971599b8f631376f4620be1745d34152c90ca183f2",
+    "claimed_singer": "F7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F7 passagio.wav",
+    "bytes": 1121438,
+    "sha256": "a4aea376c205dabd172a667cfa544575a742466e2e36593ce4f0f7bb65c7f2f5",
+    "claimed_singer": "F7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F7 scale.wav",
+    "bytes": 636122,
+    "sha256": "3343412a3b862e94db7b576535814c6f37124162a618745845ae273115400e79",
+    "claimed_singer": "F7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F8 caro mio ben.wav",
+    "bytes": 3369878,
+    "sha256": "8702e8c20c22b32bdb1ef97717bb2eeb3686b354963c32af28d93ea091d92221",
+    "claimed_singer": "F8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F8 passagio.wav",
+    "bytes": 460760,
+    "sha256": "d6c9394a846aa874ddab65a11fe697873926647e5568f9755caa88eace959c75",
+    "claimed_singer": "F8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F8 scale.wav",
+    "bytes": 760120,
+    "sha256": "44fb7744ccc271dd7a6251d6314fdd7b68d07bab95b7ac9e458556c9f3676a2f",
+    "claimed_singer": "F8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F9 caro mio ben.wav",
+    "bytes": 2775402,
+    "sha256": "6213b21eacd52cfbdd9bad4cb27f5d21ac867364070db2bc19362f5dfd27f811",
+    "claimed_singer": "F9"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F9 passagio.wav",
+    "bytes": 356982,
+    "sha256": "be59678c5de96cc08b0547571abcbaba1ca82c1f66fe9e4df03866124b37e05b",
+    "claimed_singer": "F9"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/F9 scale.wav",
+    "bytes": 876232,
+    "sha256": "1dbeb595ad22c0eb92645569edeee31d225fbe3aaa929de101add354638bd355",
+    "claimed_singer": "F9"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M1 caro mio ben.wav",
+    "bytes": 3498926,
+    "sha256": "bc05e72ecdc1e6855ed00a029836265ce103a03bccb9756fbdf3e93c404618db",
+    "claimed_singer": "M1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M1 passagio.wav",
+    "bytes": 1535058,
+    "sha256": "73ab6275ffec559a64ec33fc577c6d7253dbbbca1abb32205475fa7f02942a93",
+    "claimed_singer": "M1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M1 scale.wav",
+    "bytes": 1056872,
+    "sha256": "6194410893436242e0292a209229624ff54a2173e152f8ab688dfd5c8359369d",
+    "claimed_singer": "M1"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M10 caro mio ben.wav",
+    "bytes": 2880816,
+    "sha256": "66224284432b7809f31e43b961be8e22b345ec770bb9c407cb6cfd1c19bf1b47",
+    "claimed_singer": "M10"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M10 passagio.wav",
+    "bytes": 492416,
+    "sha256": "eadec2b5387c4ee37966c1f960bd0b2612b819d29acac9602172ce21167d8c78",
+    "claimed_singer": "M10"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M10 scale.wav",
+    "bytes": 793988,
+    "sha256": "a87b3f9ea8322d764abca3b97661e8c323bb4768b69df8e6fec35bbd6b6c443e",
+    "claimed_singer": "M10"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M11 caro mio ben.wav",
+    "bytes": 3257466,
+    "sha256": "969933d99c6bfd196e36f86c5c00f68155c8e6149b0bf799b92e768efe1e5544",
+    "claimed_singer": "M11"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M11 passagio.wav",
+    "bytes": 364808,
+    "sha256": "6621a1c0e4ba47910b12a599f68788b6cc1930ece73d8e8b1cebc502b2986065",
+    "claimed_singer": "M11"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M11 scale.wav",
+    "bytes": 917164,
+    "sha256": "5afd999dacb8effa96f5f4bf895ff5c8fafd21dff1b940f49cb08861e0f7eebc",
+    "claimed_singer": "M11"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M2 caro mio ben.wav",
+    "bytes": 2903994,
+    "sha256": "3661e7f1b9e6bcfb0ce11a28e3f159f95a9340655bb75191addc9e76d2e91982",
+    "claimed_singer": "M2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M2 passagio.wav",
+    "bytes": 396514,
+    "sha256": "cd9aaa3eee940b466684f8808088a229988a8f17074c1992872f394988fcb3da",
+    "claimed_singer": "M2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M2 scale.wav",
+    "bytes": 938324,
+    "sha256": "fb184cfb8577297f886b532364f0a5bf34ae9996d8dab9c9d49c7b1558eb2f69",
+    "claimed_singer": "M2"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M3 caro mio ben.wav",
+    "bytes": 3657200,
+    "sha256": "2b4608d6a50e04145f0d076936e26b188ed0a8346f8a37eab4234c63b0635460",
+    "claimed_singer": "M3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M3 passagio.wav",
+    "bytes": 1862352,
+    "sha256": "cdc3422f48655e90c9b097afbae0c12f7c778d5bf806cada40c49b766a753b35",
+    "claimed_singer": "M3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M3 scale.wav",
+    "bytes": 836120,
+    "sha256": "1bb1c3e1a6c33be4f9b7b5a1330565d9b057f849ffbc5c446e5e871dade932a8",
+    "claimed_singer": "M3"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M4 caro mio ben.wav",
+    "bytes": 3048750,
+    "sha256": "fd8df940c4e7a5074f12804133cdc0ef43e9dc5a22586503ea3e6dcd475b7d4f",
+    "claimed_singer": "M4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M4 passagio.wav",
+    "bytes": 1349900,
+    "sha256": "bedfd7cbdbcbe775e0370f5ca40dd85b6b97b5aa914fdd2810c8e0e3c820822e",
+    "claimed_singer": "M4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M4 scale.wav",
+    "bytes": 728648,
+    "sha256": "95c961f2ca61d0333bc3babd4aa0b1bff1009a79f9f01db7813796a2d1697418",
+    "claimed_singer": "M4"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M5 caro mio ben.wav",
+    "bytes": 3680850,
+    "sha256": "1b433cf5b61b7467deea763ba6e16b219605c72665d67be3c25b906b824d5fa5",
+    "claimed_singer": "M5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M5 passagio.wav",
+    "bytes": 988562,
+    "sha256": "4c5470e624d5bad3bc4583f94e01b3392bbcb463c3f5550897bc08f05921ede5",
+    "claimed_singer": "M5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M5 scale.wav",
+    "bytes": 841726,
+    "sha256": "391a03e0f2811f4d1454dddf33ee9f23c11901d0a5f07faf6d68e2f6fdc423b1",
+    "claimed_singer": "M5"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M6 caro mio ben.wav",
+    "bytes": 3660656,
+    "sha256": "bae28cdb00c34b5911ca938625fb2de3b4e6711f1e029cd6aaeca83938b694c2",
+    "claimed_singer": "M6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M6 passagio.wav",
+    "bytes": 1309954,
+    "sha256": "a77dec636362452cab919f53da7ed38f78f49c878c4bb66d044e575ca5c87995",
+    "claimed_singer": "M6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M6 scale.wav",
+    "bytes": 1600444,
+    "sha256": "d7b309b3e883c776ddf0baf2553d0777e3d32d1781f8b02a8bd9b8c525ed4aef",
+    "claimed_singer": "M6"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M7 caro mio ben.wav",
+    "bytes": 3578560,
+    "sha256": "514af4bbc6be6ca869499b20b065d2ed7abaa994fa039e2f140b1a716cd7e5a1",
+    "claimed_singer": "M7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M7 passagio.wav",
+    "bytes": 1045208,
+    "sha256": "a4f9f646402ba6646e718cfa364a79b26a37f57ee1425f5fed24b4001eddc828",
+    "claimed_singer": "M7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M7 scale.wav",
+    "bytes": 856884,
+    "sha256": "06e7ef4cf79b506ceef0688b1c38b0455b621978d1aaed95ab0871224d400e89",
+    "claimed_singer": "M7"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M8 caro mio ben.wav",
+    "bytes": 3845856,
+    "sha256": "5f5feee1bbb97e57174d758e4d9f0c8996453acbba6b85a37b6b553ae5d7b3b0",
+    "claimed_singer": "M8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M8 passagio.wav",
+    "bytes": 745444,
+    "sha256": "5eeb648fca8e0f94a650224ce611be9f8eb28cbd11cdc1fb91c50631a44c0bb5",
+    "claimed_singer": "M8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M8 scale.wav",
+    "bytes": 614476,
+    "sha256": "7667d9ced2b82027386789c01a19d8b4e3e7951f8383fc2a1b51704bc41fef19",
+    "claimed_singer": "M8"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M9 caro mio ben.wav",
+    "bytes": 3785780,
+    "sha256": "445b1dc84cc0535317e265b7029a57b80907fc3a50cc2acdc3013c64d42209a0",
+    "claimed_singer": "M9"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M9 passagio.wav",
+    "bytes": 977906,
+    "sha256": "f12ca47f42aa24c1de5ea004acf4e1d11b4d13f703b21c78fb0ee16d4e958b47",
+    "claimed_singer": "M9"
+  },
+  {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/vocalset_presence_subset_v1/vocalset/M9 scale.wav",
+    "bytes": 819856,
+    "sha256": "bb4b0b8396ee075adf8392e8547e9d3459646489f0a5e7ce9bc1710d371dc758",
+    "claimed_singer": "M9"
+  }
+]

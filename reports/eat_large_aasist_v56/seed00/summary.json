@@ -1,0 +1,23 @@
+{
+  "best_epoch": 4,
+  "selection": 0.67541653260881,
+  "trainable_parameters": 443736,
+  "base_parameters": 309409295,
+  "elapsed_seconds": 458.7732319831848,
+  "rows": 21304,
+  "hypergraph_components": 491,
+  "largest_component_rows": 20590,
+  "largest_component_fraction": 0.9664851671047691,
+  "mode": "task_specific_logo",
+  "train_rows": 8686,
+  "music_validation_rows": 5542,
+  "voice_validation_rows": 9197,
+  "music_group_overlap": 0,
+  "voice_group_overlap": 0,
+  "music_validation_groups": 1631,
+  "voice_validation_groups": 1048,
+  "all_train_rows": 21304,
+  "optimization_rows": 8686,
+  "music_selection_rows_used": 1200,
+  "voice_selection_rows_used": 1200
+}

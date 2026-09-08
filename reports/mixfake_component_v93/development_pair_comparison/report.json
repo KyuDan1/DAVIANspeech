@@ -1,0 +1,3175 @@
+{
+  "schema": "mixfake_component_readout_v93_development_comparison",
+  "channels": [
+    "clean",
+    "paired_fast"
+  ],
+  "checkpoints": [
+    {
+      "name": "seed24_overall",
+      "path": "reports/mixfake_component_v93/seed24_overall/component_readout.pt",
+      "sha256": "4cc256319d58d7d3f97c40188212f8c5d4dc99ea4ec1ab5c76b1164355ebfcf0"
+    },
+    {
+      "name": "seed25_music",
+      "path": "reports/mixfake_component_v93/seed25_music/component_readout.pt",
+      "sha256": "f9820011e5187b8f393ce46a1a680aa650fb6c8498a0f57df25fd35f49e29ee7"
+    },
+    {
+      "name": "seed26_background",
+      "path": "reports/mixfake_component_v93/seed26_background/component_readout.pt",
+      "sha256": "3f64e135f4ec1cad38e0e6fd491001a9244e9592681bf606d8361f45f6353860"
+    }
+  ],
+  "locked_scores_read": false,
+  "families": {
+    "seed24_overall": {
+      "selected_task_weights": {
+        "voice": 1.0,
+        "music": 1.0,
+        "file": 1.0
+      },
+      "development_ads_objective": 0.8420424706128578,
+      "mean_ads": 0.8546184572968609,
+      "worst_ads": 0.8186870667711376,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.06655620222137956,
+          "music_eer": 0.17721096940901895,
+          "file_eer": 0.08595124182086819,
+          "ads": 0.8905498478225843,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.7016241511043024,
+              "file_mean": 0.9882343675513727
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.2922732851571833,
+              "file_mean": 0.9494041760174545
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6813049535213492,
+              "file_mean": 0.7451360435492612
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.26031090661137124,
+              "file_mean": 0.3076376521073439
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.2477736953543405
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.1703149001536098
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.23400650582813773
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.2566613494032849
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.14168586789554533
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.19291348514918094
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.10635088124247769,
+          "music_eer": 0.293530227795044,
+          "file_eer": 0.1439673772837074,
+          "ads": 0.8186870667711376,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.637384344556468,
+              "file_mean": 0.9689131050562885
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.398088070150213,
+              "file_mean": 0.9107534908282318
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6471836251584223,
+              "file_mean": 0.7259830929723661
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.3917073522193097,
+              "file_mean": 0.4618553134074753
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.3246045584755262
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.4263440860215054
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.3824207102195717
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.40674110835401156
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.23302611367127493
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.3284040835547782
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8993647378438732,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8980632770752386,
+            "mean_eer": 0.09287394413027109,
+            "worst_eer": 0.1187675978288149,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.1187675978288149
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8987381085849011,
+            "mean_eer": 0.09287394413027113,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.9000395693535357,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.11491141777360103,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11491141777360103
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.9003258288955205,
+            "mean_eer": 0.09169785501129375,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.9003258288955205,
+            "mean_eer": 0.09169785501129375,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.9003258288955205,
+            "mean_eer": 0.09169785501129375,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.9022539189231273,
+            "mean_eer": 0.08976976498368679,
+            "worst_eer": 0.11255923953564628,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11255923953564628
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.9020031756238127,
+            "mean_eer": 0.08934567677333906,
+            "worst_eer": 0.11406324135290552,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11406324135290552
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.9024813740091633,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.9022057166724371,
+            "mean_eer": 0.0888057199698833,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06312411037651336,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.9014306565398431,
+            "mean_eer": 0.08976976498368681,
+            "worst_eer": 0.11491141777360103,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11491141777360103
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.9017169160818279,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.9015790874134648,
+            "mean_eer": 0.08976976498368679,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06505220040412033,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.9033046363924473,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.9033046363924473,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.9031668077240844,
+            "mean_eer": 0.08859367586470944,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.06505220040412033,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.9039794679021098,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06655620222137956,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.9039794679021098,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06655620222137956,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.9041278987757315,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.9065823894393792,
+            "mean_eer": 0.08645354173192862,
+            "worst_eer": 0.10635088124247769,
+            "channel_eers": {
+              "clean": 0.06655620222137956,
+              "paired_fast": 0.10635088124247769
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.7055217673465985,
+            "mean_eer": 0.2710275783231522,
+            "worst_eer": 0.33802944783815003,
+            "channel_eers": {
+              "clean": 0.2040257088081544,
+              "paired_fast": 0.33802944783815003
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7063549741602067,
+            "mean_eer": 0.27009356505793114,
+            "worst_eer": 0.3373834530061087,
+            "channel_eers": {
+              "clean": 0.2028036771097536,
+              "paired_fast": 0.3373834530061087
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7108376052346421,
+            "mean_eer": 0.26613945152954904,
+            "worst_eer": 0.33191928934614606,
+            "channel_eers": {
+              "clean": 0.20035961371295202,
+              "paired_fast": 0.33191928934614606
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7161534431226855,
+            "mean_eer": 0.26125132473594587,
+            "worst_eer": 0.3258091308541421,
+            "channel_eers": {
+              "clean": 0.19669351861774967,
+              "paired_fast": 0.3258091308541421
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7187458322914061,
+            "mean_eer": 0.25823122447278485,
+            "worst_eer": 0.32401106228938187,
+            "channel_eers": {
+              "clean": 0.19245138665618783,
+              "paired_fast": 0.32401106228938187
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.7252837018778505,
+            "mean_eer": 0.2521210659807809,
+            "worst_eer": 0.3166788720989771,
+            "channel_eers": {
+              "clean": 0.1875632598625847,
+              "paired_fast": 0.3166788720989771
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7253142526703102,
+            "mean_eer": 0.2527320818299813,
+            "worst_eer": 0.31545684040057637,
+            "channel_eers": {
+              "clean": 0.1900073232593863,
+              "paired_fast": 0.31545684040057637
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7253448034627704,
+            "mean_eer": 0.25334309767918173,
+            "worst_eer": 0.31423480870217557,
+            "channel_eers": {
+              "clean": 0.19245138665618783,
+              "paired_fast": 0.31423480870217557
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7266929455578179,
+            "mean_eer": 0.2506110158492004,
+            "worst_eer": 0.31545684040057637,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.31545684040057637
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7297968837447457,
+            "mean_eer": 0.2487779683015992,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.1875632598625847,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7307784163302732,
+            "mean_eer": 0.24726791817001867,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18454315959942363,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7320004480286738,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.3087706450422129,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.3087706450422129
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.733650190821515,
+            "mean_eer": 0.24482385477321714,
+            "worst_eer": 0.3063265816454114,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.3063265816454114
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7340473511234951,
+            "mean_eer": 0.24421283892401674,
+            "worst_eer": 0.3063265816454114,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.3063265816454114
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7352693828218959,
+            "mean_eer": 0.2429908072256159,
+            "worst_eer": 0.30510454994701053,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.30510454994701053
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7381328218959502,
+            "mean_eer": 0.240869741244835,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7368802394050894,
+            "mean_eer": 0.24148075709403544,
+            "worst_eer": 0.30330648138225036,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.30330648138225036
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.739908675085438,
+            "mean_eer": 0.23813765941485374,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.1754129008442587,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7389271424999106,
+            "mean_eer": 0.23964770954643425,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.17843300110741972,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7410045963871921,
+            "mean_eer": 0.23842567784803345,
+            "worst_eer": 0.2971963228902464,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.2971963228902464
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7442735311804142,
+            "mean_eer": 0.23537059860203147,
+            "worst_eer": 0.293530227795044,
+            "channel_eers": {
+              "clean": 0.17721096940901895,
+              "paired_fast": 0.293530227795044
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.8655122071343138,
+            "mean_eer": 0.12299186191045756,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.0901463448955182,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8667593781514575,
+            "mean_eer": 0.12107313726869767,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.08630889561199842,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8673584482516006,
+            "mean_eer": 0.12053665658200238,
+            "worst_eer": 0.15512207134313657,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15512207134313657
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8699487265179764,
+            "mean_eer": 0.11861793194024249,
+            "worst_eer": 0.1512846220596168,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1512846220596168
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8722975884753394,
+            "mean_eer": 0.11687803419404769,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8720561721663267,
+            "mean_eer": 0.11705686108961277,
+            "worst_eer": 0.14816248035835736,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14816248035835736
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8701901428269894,
+            "mean_eer": 0.1184391050446774,
+            "worst_eer": 0.15092696826848662,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15092696826848662
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8722975884753394,
+            "mean_eer": 0.11687803419404769,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.8721813509932221,
+            "mean_eer": 0.1170568610896128,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08630889561199842,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8727804210933652,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8727804210933652,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8726552422664697,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8726552422664697,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8737951171462746,
+            "mean_eer": 0.11495930955228782,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8727804210933652,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8748878667417153,
+            "mean_eer": 0.1149593095522878,
+            "worst_eer": 0.1439673772837074,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1439673772837074
+            }
+          }
+        ]
+      }
+    },
+    "seed25_music": {
+      "selected_task_weights": {
+        "voice": 0.9500000000000001,
+        "music": 0.8500000000000001,
+        "file": 1.0
+      },
+      "development_ads_objective": 0.8453024517311725,
+      "mean_ads": 0.8575356333831803,
+      "worst_ads": 0.8225836858060153,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.0646281121937726,
+          "music_eer": 0.17843300110741972,
+          "file_eer": 0.0821137925373484,
+          "ads": 0.8924875809603454,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.6955236741637434,
+              "file_mean": 0.9905821679021867
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.29412536186619886,
+              "file_mean": 0.9588839386177258
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6964762733962498,
+              "file_mean": 0.7210169459319955
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.27105168447061656,
+              "file_mean": 0.31216316558355484
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.2477736953543405
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.17261904761904762
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.22882217403090271
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.2566613494032849
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.14168586789554533
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.18993659389821388
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.10827897127008464,
+          "music_eer": 0.28684403243668055,
+          "file_eer": 0.13941462041792727,
+          "ads": 0.8225836858060153,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.633369736902571,
+              "file_mean": 0.9732111418333603
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.4007373981480458,
+              "file_mean": 0.9202945125954839
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6648550549608577,
+              "file_mean": 0.7038478644421814
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.41449571588851947,
+              "file_mean": 0.4537760685884919
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.27684020425955913
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.43325652841781875
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.3824207102195717
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.38470400567174756
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.23868407578085
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.3319570116721047
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8993647378438732,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8980632770752386,
+            "mean_eer": 0.09287394413027109,
+            "worst_eer": 0.1187675978288149,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.1187675978288149
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8980632770752386,
+            "mean_eer": 0.09287394413027109,
+            "worst_eer": 0.1187675978288149,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.1187675978288149
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8993647378438732,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.9003258288955205,
+            "mean_eer": 0.09169785501129375,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.9009524581544928,
+            "mean_eer": 0.09073380999749027,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.9022539189231273,
+            "mean_eer": 0.08976976498368679,
+            "worst_eer": 0.11255923953564628,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11255923953564628
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.9025401784651119,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.9022539189231273,
+            "mean_eer": 0.08976976498368679,
+            "worst_eer": 0.11255923953564628,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11255923953564628
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.9021160902547644,
+            "mean_eer": 0.08998180908886068,
+            "worst_eer": 0.11255923953564628,
+            "channel_eers": {
+              "clean": 0.06740437864207507,
+              "paired_fast": 0.11255923953564628
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.9009524581544928,
+            "mean_eer": 0.09073380999749027,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.9012387176964775,
+            "mean_eer": 0.0905217658923164,
+            "worst_eer": 0.11406324135290552,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11406324135290552
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.9025401784651119,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.9033046363924473,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.9043198376190973,
+            "mean_eer": 0.08762963085090598,
+            "worst_eer": 0.11063114950803937,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11063114950803937
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.9046060971610821,
+            "mean_eer": 0.08741758674573209,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.9043198376190973,
+            "mean_eer": 0.08762963085090598,
+            "worst_eer": 0.11063114950803937,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11063114950803937
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.9046060971610821,
+            "mean_eer": 0.08741758674573209,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.9046060971610821,
+            "mean_eer": 0.08741758674573209,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.9059075579297167,
+            "mean_eer": 0.08645354173192862,
+            "worst_eer": 0.10827897127008464,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.10827897127008464
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.9048923567030668,
+            "mean_eer": 0.08720554264055823,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.10978297308734386
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.7055217673465985,
+            "mean_eer": 0.2710275783231522,
+            "worst_eer": 0.33802944783815003,
+            "channel_eers": {
+              "clean": 0.2040257088081544,
+              "paired_fast": 0.33802944783815003
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7063549741602067,
+            "mean_eer": 0.27009356505793114,
+            "worst_eer": 0.3373834530061087,
+            "channel_eers": {
+              "clean": 0.2028036771097536,
+              "paired_fast": 0.3373834530061087
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.710807054442182,
+            "mean_eer": 0.2655284356803487,
+            "worst_eer": 0.33314132104454686,
+            "channel_eers": {
+              "clean": 0.1979155503161505,
+              "paired_fast": 0.33314132104454686
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7171349757082128,
+            "mean_eer": 0.25974127460436536,
+            "worst_eer": 0.3258091308541421,
+            "channel_eers": {
+              "clean": 0.19367341835458865,
+              "paired_fast": 0.3258091308541421
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7207316338013074,
+            "mean_eer": 0.2551761452267829,
+            "worst_eer": 0.32401106228938187,
+            "channel_eers": {
+              "clean": 0.18634122816418391,
+              "paired_fast": 0.32401106228938187
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.7248559907834102,
+            "mean_eer": 0.2521210659807809,
+            "worst_eer": 0.3179009037973779,
+            "channel_eers": {
+              "clean": 0.18634122816418391,
+              "paired_fast": 0.3179009037973779
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7269334446706914,
+            "mean_eer": 0.25089903428238014,
+            "worst_eer": 0.31423480870217557,
+            "channel_eers": {
+              "clean": 0.1875632598625847,
+              "paired_fast": 0.31423480870217557
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7303812560282927,
+            "mean_eer": 0.24787893401921907,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7332224797270747,
+            "mean_eer": 0.2448238547732171,
+            "worst_eer": 0.3075486133438121,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.3075486133438121
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.735299933614356,
+            "mean_eer": 0.24360182307481634,
+            "worst_eer": 0.3038825182486098,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.3038825182486098
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7373385012919895,
+            "mean_eer": 0.24209177294323583,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7394159551792711,
+            "mean_eer": 0.240869741244835,
+            "worst_eer": 0.2971963228902464,
+            "channel_eers": {
+              "clean": 0.18454315959942363,
+              "paired_fast": 0.2971963228902464
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7377356615939699,
+            "mean_eer": 0.24148075709403544,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7364914145202968,
+            "mean_eer": 0.24176877552721515,
+            "worst_eer": 0.3038825182486098,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.3038825182486098
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7364914145202968,
+            "mean_eer": 0.24176877552721515,
+            "worst_eer": 0.3038825182486098,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.3038825182486098
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7385299821979304,
+            "mean_eer": 0.24025872539563464,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7447234576501268,
+            "mean_eer": 0.23630461186725255,
+            "worst_eer": 0.290510127531883,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.290510127531883
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7483895527453293,
+            "mean_eer": 0.23263851677205014,
+            "worst_eer": 0.28684403243668055,
+            "channel_eers": {
+              "clean": 0.17843300110741972,
+              "paired_fast": 0.28684403243668055
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7463426496505079,
+            "mean_eer": 0.23447156431965135,
+            "worst_eer": 0.2892880958334822,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.2892880958334822
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7447234576501268,
+            "mean_eer": 0.23630461186725255,
+            "worst_eer": 0.290510127531883,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.290510127531883
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7471675210469284,
+            "mean_eer": 0.23386054847045096,
+            "worst_eer": 0.2880660641350814,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.2880660641350814
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.8655122071343138,
+            "mean_eer": 0.12299186191045756,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.0901463448955182,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8673584482516006,
+            "mean_eer": 0.12053665658200238,
+            "worst_eer": 0.15512207134313657,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15512207134313657
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8697073102089636,
+            "mean_eer": 0.11879675883580758,
+            "worst_eer": 0.15164227585074697,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15164227585074697
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8699487265179764,
+            "mean_eer": 0.11861793194024249,
+            "worst_eer": 0.1512846220596168,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1512846220596168
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8718147558573137,
+            "mean_eer": 0.11723568798517786,
+            "worst_eer": 0.14852013414948753,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14852013414948753
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8722886471305613,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.14816248035835736,
+            "channel_eers": {
+              "clean": 0.08523593423860784,
+              "paired_fast": 0.14816248035835736
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8730708682192359,
+            "mean_eer": 0.11549579023898308,
+            "worst_eer": 0.14816248035835736,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.14816248035835736
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8737861758014962,
+            "mean_eer": 0.11478048265672271,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8737861758014962,
+            "mean_eer": 0.11478048265672271,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.8736699383193789,
+            "mean_eer": 0.11495930955228782,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08247144632847864,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8736699383193789,
+            "mean_eer": 0.11495930955228782,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08247144632847864,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8735537008372616,
+            "mean_eer": 0.11513813644785291,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8735537008372616,
+            "mean_eer": 0.11513813644785291,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8736699383193789,
+            "mean_eer": 0.11495930955228782,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08247144632847864,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8726552422664697,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8728966585754825,
+            "mean_eer": 0.11634155350735242,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.876018800276742,
+            "mean_eer": 0.11321941180609302,
+            "worst_eer": 0.1439673772837074,
+            "channel_eers": {
+              "clean": 0.08247144632847864,
+              "paired_fast": 0.1439673772837074
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.876376454067872,
+            "mean_eer": 0.11286175801496282,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.876376454067872,
+            "mean_eer": 0.11286175801496282,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8771007029949108,
+            "mean_eer": 0.11232527732826753,
+            "worst_eer": 0.14253676211918664,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.14253676211918664
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8792081486432608,
+            "mean_eer": 0.11076420647763784,
+            "worst_eer": 0.13941462041792727,
+            "channel_eers": {
+              "clean": 0.0821137925373484,
+              "paired_fast": 0.13941462041792727
+            }
+          }
+        ]
+      }
+    },
+    "seed26_background": {
+      "selected_task_weights": {
+        "voice": 0.5,
+        "music": 1.0,
+        "file": 1.0
+      },
+      "development_ads_objective": 0.8417413133236216,
+      "mean_ads": 0.8538761637558645,
+      "worst_ads": 0.8192051625208849,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.06740437864207507,
+          "music_eer": 0.1833211279010229,
+          "file_eer": 0.08595124182086819,
+          "ads": 0.8885471649908441,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.6831121727226518,
+              "file_mean": 0.9882985045224644
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.27333781901099474,
+              "file_mean": 0.9525743055835241
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6459817350471058,
+              "file_mean": 0.7217356897865627
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.24160636268864075,
+              "file_mean": 0.29444795762098247
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.27396001992776187
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.20023041474654374
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.23803876389265388
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.2566613494032849
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.14422683051715313
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.1934895220155404
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.10785488305973691,
+          "music_eer": 0.2971963228902464,
+          "file_eer": 0.14012992800018761,
+          "ads": 0.8192051625208849,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.617259824641497,
+              "file_mean": 0.9687778577663377
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.3836812559137208,
+              "file_mean": 0.9153763085305863
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6170881156303445,
+              "file_mean": 0.7032987885839753
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.3687563462026644,
+              "file_mean": 0.44746208752571764
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.351366919915307
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.43325652841781875
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.40922336676606125
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.4078931820867305
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.24180107526881722
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.32898012042113767
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8993647378438732,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8980632770752386,
+            "mean_eer": 0.09287394413027109,
+            "worst_eer": 0.1187675978288149,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.1187675978288149
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.9000395693535357,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.11491141777360103,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11491141777360103
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.9006120884375052,
+            "mean_eer": 0.09148581090611989,
+            "worst_eer": 0.11406324135290552,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11406324135290552
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.9019135492061399,
+            "mean_eer": 0.0905217658923164,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.904664901617031,
+            "mean_eer": 0.08859367586470945,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06933246866968198,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.9035012695167592,
+            "mean_eer": 0.08934567677333906,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.9045164707434092,
+            "mean_eer": 0.08859367586470945,
+            "worst_eer": 0.10827897127008464,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10827897127008464
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.9041278987757315,
+            "mean_eer": 0.08838163175953558,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.9042657274440945,
+            "mean_eer": 0.08816958765436171,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06655620222137956,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.9052915308760032,
+            "mean_eer": 0.087629630850906,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06740437864207507,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.904802730285394,
+            "mean_eer": 0.08838163175953559,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.9052915308760032,
+            "mean_eer": 0.087629630850906,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06740437864207507,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.904802730285394,
+            "mean_eer": 0.08838163175953559,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.904802730285394,
+            "mean_eer": 0.08838163175953559,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.904802730285394,
+            "mean_eer": 0.08838163175953559,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.9035012695167592,
+            "mean_eer": 0.08934567677333906,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.9032150099747747,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.9032150099747747,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.9032150099747747,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.9037038105653838,
+            "mean_eer": 0.08880571996988333,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06740437864207507,
+              "paired_fast": 0.11020706129769159
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.7055217673465985,
+            "mean_eer": 0.2710275783231522,
+            "worst_eer": 0.33802944783815003,
+            "channel_eers": {
+              "clean": 0.2040257088081544,
+              "paired_fast": 0.33802944783815003
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.706782685254647,
+            "mean_eer": 0.27009356505793114,
+            "worst_eer": 0.3361614213077079,
+            "channel_eers": {
+              "clean": 0.2040257088081544,
+              "paired_fast": 0.3361614213077079
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7108376052346421,
+            "mean_eer": 0.26613945152954904,
+            "worst_eer": 0.33191928934614606,
+            "channel_eers": {
+              "clean": 0.20035961371295202,
+              "paired_fast": 0.33191928934614606
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7128845083294633,
+            "mean_eer": 0.2643064039819479,
+            "worst_eer": 0.32947522594934453,
+            "channel_eers": {
+              "clean": 0.19913758201455123,
+              "paired_fast": 0.32947522594934453
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7171655265006728,
+            "mean_eer": 0.2603522904535658,
+            "worst_eer": 0.3245870991557413,
+            "channel_eers": {
+              "clean": 0.1961174817513902,
+              "paired_fast": 0.3245870991557413
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.7187763830838663,
+            "mean_eer": 0.2588422403219853,
+            "worst_eer": 0.3227890305909811,
+            "channel_eers": {
+              "clean": 0.19489545005298947,
+              "paired_fast": 0.3227890305909811
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7220758686695483,
+            "mean_eer": 0.2563981769251837,
+            "worst_eer": 0.3179009037973779,
+            "channel_eers": {
+              "clean": 0.19489545005298947,
+              "paired_fast": 0.3179009037973779
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7265584997439836,
+            "mean_eer": 0.2524440633968016,
+            "worst_eer": 0.3124367401374153,
+            "channel_eers": {
+              "clean": 0.19245138665618783,
+              "paired_fast": 0.3124367401374153
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7301940440467259,
+            "mean_eer": 0.2481669524523988,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18634122816418391,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7279149772562188,
+            "mean_eer": 0.2493889841507996,
+            "worst_eer": 0.31423480870217557,
+            "channel_eers": {
+              "clean": 0.18454315959942363,
+              "paired_fast": 0.31423480870217557
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7303812560282927,
+            "mean_eer": 0.24787893401921907,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7295258338394122,
+            "mean_eer": 0.2478789340192191,
+            "worst_eer": 0.3124367401374153,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.3124367401374153
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7311755766322533,
+            "mean_eer": 0.2466569023208183,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7311450258397932,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.31121470843901455,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.31121470843901455
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7323365067457339,
+            "mean_eer": 0.24421283892401674,
+            "worst_eer": 0.31121470843901455,
+            "channel_eers": {
+              "clean": 0.17721096940901895,
+              "paired_fast": 0.31121470843901455
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7319698972362139,
+            "mean_eer": 0.24543487062241748,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7315727369342335,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7328558702175544,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.3063265816454114,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.3063265816454114
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7339212407268484,
+            "mean_eer": 0.24572288905559725,
+            "worst_eer": 0.3038825182486098,
+            "channel_eers": {
+              "clean": 0.1875632598625847,
+              "paired_fast": 0.3038825182486098
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7373690520844497,
+            "mean_eer": 0.24270278879243617,
+            "worst_eer": 0.2996403862870479,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.2996403862870479
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7398131154812513,
+            "mean_eer": 0.24025872539563464,
+            "worst_eer": 0.2971963228902464,
+            "channel_eers": {
+              "clean": 0.1833211279010229,
+              "paired_fast": 0.2971963228902464
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.8655122071343138,
+            "mean_eer": 0.12299186191045756,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.0901463448955182,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8668756156335748,
+            "mean_eer": 0.12089431037313256,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8668756156335748,
+            "mean_eer": 0.12089431037313256,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8675998645606136,
+            "mean_eer": 0.1203578296864373,
+            "worst_eer": 0.1547644175520064,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1547644175520064
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.869823547691081,
+            "mean_eer": 0.11861793194024249,
+            "worst_eer": 0.15164227585074697,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.15164227585074697
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8697073102089636,
+            "mean_eer": 0.11879675883580758,
+            "worst_eer": 0.15164227585074697,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15164227585074697
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8718147558573137,
+            "mean_eer": 0.11723568798517786,
+            "worst_eer": 0.14852013414948753,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14852013414948753
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8718147558573137,
+            "mean_eer": 0.11723568798517786,
+            "worst_eer": 0.14852013414948753,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14852013414948753
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8722975884753394,
+            "mean_eer": 0.11687803419404769,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.8720651135111048,
+            "mean_eer": 0.11723568798517789,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.0866665494031286,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8729055999202608,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.1467318651938366,
+            "channel_eers": {
+              "clean": 0.08630889561199842,
+              "paired_fast": 0.1467318651938366
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8745302129505851,
+            "mean_eer": 0.115316963343418,
+            "worst_eer": 0.14432503107483757,
+            "channel_eers": {
+              "clean": 0.08630889561199842,
+              "paired_fast": 0.14432503107483757
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8746464504327024,
+            "mean_eer": 0.11513813644785288,
+            "worst_eer": 0.14432503107483757,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14432503107483757
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8748878667417153,
+            "mean_eer": 0.1149593095522878,
+            "worst_eer": 0.1439673772837074,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1439673772837074
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8751292830507282,
+            "mean_eer": 0.11478048265672271,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8742397658247145,
+            "mean_eer": 0.11634155350735242,
+            "worst_eer": 0.14325206970144705,
+            "channel_eers": {
+              "clean": 0.0894310373132578,
+              "paired_fast": 0.14325206970144705
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8738821120335842,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.08978869110438797,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8747805706043763,
+            "mean_eer": 0.115316963343418,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.08702420319425877,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8751292830507282,
+            "mean_eer": 0.11478048265672271,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14360972349257722
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8754869368418583,
+            "mean_eer": 0.11442282886559253,
+            "worst_eer": 0.14325206970144705,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.14325206970144705
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8774781450080913,
+            "mean_eer": 0.1130405849105279,
+            "worst_eer": 0.14012992800018761,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14012992800018761
+            }
+          }
+        ]
+      }
+    },
+    "uniform_ensemble": {
+      "selected_task_weights": {
+        "voice": 0.7000000000000001,
+        "music": 0.9500000000000001,
+        "file": 1.0
+      },
+      "development_ads_objective": 0.8421897517983625,
+      "mean_ads": 0.8553055319982907,
+      "worst_ads": 0.8178318742842103,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.06227593395581791,
+          "music_eer": 0.17843300110741972,
+          "file_eer": 0.08247144632847864,
+          "ads": 0.8927791897123711,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.6939847789618068,
+              "file_mean": 0.9896414149202925
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.2856915115078634,
+              "file_mean": 0.9550849942295948
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.6749789367508345,
+              "file_mean": 0.7307882982003037
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.25703350240466516,
+              "file_mean": 0.3037183057130663
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.2687756881305269
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.1703149001536098
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.23515857956085662
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.2566613494032849
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.14168586789554533
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.1934895220155404
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.10785488305973691,
+          "music_eer": 0.2959742911918456,
+          "file_eer": 0.14360972349257722,
+          "ads": 0.8178318742842103,
+          "cells": {
+            "FF": {
+              "n": 555,
+              "music_mean": 0.6295431715587065,
+              "file_mean": 0.9711540339042979
+            },
+            "FR": {
+              "n": 624,
+              "music_mean": 0.39351661746842115,
+              "file_mean": 0.9169768329400728
+            },
+            "RF": {
+              "n": 219,
+              "music_mean": 0.643446732918569,
+              "file_mean": 0.7124379978860486
+            },
+            "RR": {
+              "n": 244,
+              "music_mean": 0.39133362054742094,
+              "file_mean": 0.4550445275942429
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 37,
+              "music_eer_vs_all_real": 0.302450491966621
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 30,
+              "music_eer_vs_all_real": 0.43325652841781875
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 34,
+              "music_eer_vs_all_real": 0.3824207102195717
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 39,
+              "music_eer_vs_all_real": 0.41019732955216825
+            },
+            "SONICS:Suno": {
+              "n_fake": 360,
+              "music_eer_vs_all_real": 0.23614311315924222
+            },
+            "SONICS:Udio": {
+              "n_fake": 274,
+              "music_eer_vs_all_real": 0.32898012042113767
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8993647378438732,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8980632770752386,
+            "mean_eer": 0.09287394413027109,
+            "worst_eer": 0.1187675978288149,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.1187675978288149
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8992269091755103,
+            "mean_eer": 0.09212194322164154,
+            "worst_eer": 0.116839507801208,
+            "channel_eers": {
+              "clean": 0.06740437864207507,
+              "paired_fast": 0.116839507801208
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.9000395693535357,
+            "mean_eer": 0.09190989911646764,
+            "worst_eer": 0.11491141777360103,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11491141777360103
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.9003258288955205,
+            "mean_eer": 0.09169785501129375,
+            "worst_eer": 0.11448732956325325,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11448732956325325
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.9006120884375052,
+            "mean_eer": 0.09148581090611989,
+            "worst_eer": 0.11406324135290552,
+            "channel_eers": {
+              "clean": 0.06890838045933426,
+              "paired_fast": 0.11406324135290552
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.9022539189231273,
+            "mean_eer": 0.08976976498368679,
+            "worst_eer": 0.11255923953564628,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11255923953564628
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.903555379691762,
+            "mean_eer": 0.08880571996988333,
+            "worst_eer": 0.11063114950803937,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11063114950803937
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.9025401784651119,
+            "mean_eer": 0.08955772087851292,
+            "worst_eer": 0.11213515132529855,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11213515132529855
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.9038416392337469,
+            "mean_eer": 0.08859367586470944,
+            "worst_eer": 0.11020706129769159,
+            "channel_eers": {
+              "clean": 0.06698029043172729,
+              "paired_fast": 0.11020706129769159
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.9047545280347038,
+            "mean_eer": 0.08741758674573209,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06505220040412033,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.9061938174717015,
+            "mean_eer": 0.08624149762675476,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.9061938174717015,
+            "mean_eer": 0.08624149762675476,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.0646281121937726,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.9068204467306737,
+            "mean_eer": 0.08527745261295128,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06270002216616563,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.9069582753990368,
+            "mean_eer": 0.08506540850777741,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.9069582753990368,
+            "mean_eer": 0.08506540850777741,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.9069582753990368,
+            "mean_eer": 0.08506540850777741,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.9069582753990368,
+            "mean_eer": 0.08506540850777741,
+            "worst_eer": 0.10785488305973691,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.10785488305973691
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.905656814630402,
+            "mean_eer": 0.08602945352158088,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06227593395581791,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.9055189859620391,
+            "mean_eer": 0.08624149762675475,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06270002216616563,
+              "paired_fast": 0.10978297308734386
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.9055189859620391,
+            "mean_eer": 0.08624149762675475,
+            "worst_eer": 0.10978297308734386,
+            "channel_eers": {
+              "clean": 0.06270002216616563,
+              "paired_fast": 0.10978297308734386
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.7055217673465985,
+            "mean_eer": 0.2710275783231522,
+            "worst_eer": 0.33802944783815003,
+            "channel_eers": {
+              "clean": 0.2040257088081544,
+              "paired_fast": 0.33802944783815003
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7063549741602067,
+            "mean_eer": 0.27009356505793114,
+            "worst_eer": 0.3373834530061087,
+            "channel_eers": {
+              "clean": 0.2028036771097536,
+              "paired_fast": 0.3373834530061087
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7091878624418009,
+            "mean_eer": 0.26736148322794984,
+            "worst_eer": 0.3343633527429476,
+            "channel_eers": {
+              "clean": 0.20035961371295202,
+              "paired_fast": 0.3343633527429476
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7161534431226855,
+            "mean_eer": 0.26125132473594587,
+            "worst_eer": 0.3258091308541421,
+            "channel_eers": {
+              "clean": 0.19669351861774967,
+              "paired_fast": 0.3258091308541421
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7187458322914061,
+            "mean_eer": 0.25823122447278485,
+            "worst_eer": 0.32401106228938187,
+            "channel_eers": {
+              "clean": 0.19245138665618783,
+              "paired_fast": 0.32401106228938187
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.723236798783029,
+            "mean_eer": 0.2539541135283821,
+            "worst_eer": 0.31912293549577875,
+            "channel_eers": {
+              "clean": 0.18878529156098545,
+              "paired_fast": 0.31912293549577875
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7245199320663498,
+            "mean_eer": 0.2539541135283821,
+            "worst_eer": 0.31545684040057637,
+            "channel_eers": {
+              "clean": 0.19245138665618783,
+              "paired_fast": 0.31545684040057637
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7269334446706914,
+            "mean_eer": 0.25089903428238014,
+            "worst_eer": 0.31423480870217557,
+            "channel_eers": {
+              "clean": 0.1875632598625847,
+              "paired_fast": 0.31423480870217557
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7312061274247132,
+            "mean_eer": 0.2472679181700187,
+            "worst_eer": 0.3087706450422129,
+            "channel_eers": {
+              "clean": 0.18576519129782446,
+              "paired_fast": 0.3087706450422129
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7315727369342335,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7316032877266936,
+            "mean_eer": 0.24665690232081827,
+            "worst_eer": 0.3087706450422129,
+            "channel_eers": {
+              "clean": 0.18454315959942363,
+              "paired_fast": 0.3087706450422129
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7348722225199158,
+            "mean_eer": 0.24360182307481631,
+            "worst_eer": 0.30510454994701053,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.30510454994701053
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7352693828218959,
+            "mean_eer": 0.2429908072256159,
+            "worst_eer": 0.30510454994701053,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.30510454994701053
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7315727369342335,
+            "mean_eer": 0.2460458864716179,
+            "worst_eer": 0.3099926767406137,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.3099926767406137
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7364914145202968,
+            "mean_eer": 0.24176877552721515,
+            "worst_eer": 0.3038825182486098,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.3038825182486098
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7340168003310352,
+            "mean_eer": 0.24360182307481631,
+            "worst_eer": 0.3075486133438121,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.3075486133438121
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7377051108015099,
+            "mean_eer": 0.240869741244835,
+            "worst_eer": 0.3020844496838495,
+            "channel_eers": {
+              "clean": 0.1796550328058205,
+              "paired_fast": 0.3020844496838495
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7381328218959502,
+            "mean_eer": 0.240869741244835,
+            "worst_eer": 0.30086241798544877,
+            "channel_eers": {
+              "clean": 0.18087706450422125,
+              "paired_fast": 0.30086241798544877
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.741035147179652,
+            "mean_eer": 0.23903669369723385,
+            "worst_eer": 0.2959742911918456,
+            "channel_eers": {
+              "clean": 0.18209909620262207,
+              "paired_fast": 0.2959742911918456
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7422266280855928,
+            "mean_eer": 0.23720364614963266,
+            "worst_eer": 0.2959742911918456,
+            "channel_eers": {
+              "clean": 0.17843300110741972,
+              "paired_fast": 0.2959742911918456
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7405463345002917,
+            "mean_eer": 0.23781466199883303,
+            "worst_eer": 0.2996403862870479,
+            "channel_eers": {
+              "clean": 0.17598893771061813,
+              "paired_fast": 0.2996403862870479
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.8655122071343138,
+            "mean_eer": 0.12299186191045756,
+            "worst_eer": 0.15583737892539692,
+            "channel_eers": {
+              "clean": 0.0901463448955182,
+              "paired_fast": 0.15583737892539692
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8671170319425878,
+            "mean_eer": 0.12071548347756747,
+            "worst_eer": 0.15547972513426675,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15547972513426675
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8694658938999509,
+            "mean_eer": 0.11897558573137267,
+            "worst_eer": 0.15199992964187714,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.15199992964187714
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8699487265179764,
+            "mean_eer": 0.11861793194024249,
+            "worst_eer": 0.1512846220596168,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1512846220596168
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8703063803091067,
+            "mean_eer": 0.11826027814911232,
+            "worst_eer": 0.15092696826848662,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.15092696826848662
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8728294519102231,
+            "mean_eer": 0.11567461713454817,
+            "worst_eer": 0.14852013414948753,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.14852013414948753
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8722975884753394,
+            "mean_eer": 0.11687803419404769,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8722975884753394,
+            "mean_eer": 0.11687803419404769,
+            "worst_eer": 0.14780482656722718,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14780482656722718
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.872771479748587,
+            "mean_eer": 0.11634155350735242,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08523593423860784,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.872771479748587,
+            "mean_eer": 0.11634155350735242,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08523593423860784,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.872771479748587,
+            "mean_eer": 0.11634155350735242,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08523593423860784,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8726552422664697,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8725390047843524,
+            "mean_eer": 0.1166992072984826,
+            "worst_eer": 0.147447172776097,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.147447172776097
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8727804210933652,
+            "mean_eer": 0.11652038040291751,
+            "worst_eer": 0.14708951898496683,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14708951898496683
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8746464504327024,
+            "mean_eer": 0.11513813644785288,
+            "worst_eer": 0.14432503107483757,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14432503107483757
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8730218374023782,
+            "mean_eer": 0.1163415535073524,
+            "worst_eer": 0.1467318651938366,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.1467318651938366
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8746464504327024,
+            "mean_eer": 0.11513813644785288,
+            "worst_eer": 0.14432503107483757,
+            "channel_eers": {
+              "clean": 0.08595124182086819,
+              "paired_fast": 0.14432503107483757
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8731380748844955,
+            "mean_eer": 0.11616272661178731,
+            "worst_eer": 0.1467318651938366,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.1467318651938366
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8747626879148197,
+            "mean_eer": 0.1149593095522878,
+            "worst_eer": 0.14432503107483757,
+            "channel_eers": {
+              "clean": 0.08559358802973802,
+              "paired_fast": 0.14432503107483757
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8759025627946246,
+            "mean_eer": 0.1133982387016581,
+            "worst_eer": 0.1439673772837074,
+            "channel_eers": {
+              "clean": 0.08282910011960881,
+              "paired_fast": 0.1439673772837074
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8762602165857549,
+            "mean_eer": 0.11304058491052793,
+            "worst_eer": 0.14360972349257722,
+            "channel_eers": {
+              "clean": 0.08247144632847864,
+              "paired_fast": 0.14360972349257722
+            }
+          }
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "clean": {
+      "voice_eer": 0.06698029043172729,
+      "music_eer": 0.2040257088081544,
+      "file_eer": 0.0901463448955182,
+      "ads": 0.8803230568234491,
+      "cells": {
+        "FF": {
+          "n": 555,
+          "music_mean": 0.7020295345850651,
+          "file_mean": 0.9884207694597568
+        },
+        "FR": {
+          "n": 624,
+          "music_mean": 0.3420475886318955,
+          "file_mean": 0.9433119704795329
+        },
+        "RF": {
+          "n": 219,
+          "music_mean": 0.8643253175468029,
+          "file_mean": 0.8426352761962397
+        },
+        "RR": {
+          "n": 244,
+          "music_mean": 0.43754276105198686,
+          "file_mean": 0.44241828775833997
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 37,
+          "music_eer_vs_all_real": 0.2653194669323702
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 30,
+          "music_eer_vs_all_real": 0.16685867895545314
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 34,
+          "music_eer_vs_all_real": 0.20605177554892928
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 39,
+          "music_eer_vs_all_real": 0.21085903343967863
+        },
+        "SONICS:Suno": {
+          "n_fake": 360,
+          "music_eer_vs_all_real": 0.18579749103942653
+        },
+        "SONICS:Udio": {
+          "n_fake": 274,
+          "music_eer_vs_all_real": 0.23727673315617748
+        }
+      }
+    },
+    "paired_fast": {
+      "voice_eer": 0.116839507801208,
+      "music_eer": 0.33802944783815003,
+      "file_eer": 0.15583737892539692,
+      "ads": 0.7973045746256149,
+      "cells": {
+        "FF": {
+          "n": 555,
+          "music_mean": 0.667869759036567,
+          "file_mean": 0.9735951734461435
+        },
+        "FR": {
+          "n": 624,
+          "music_mean": 0.47727725972600554,
+          "file_mean": 0.9192140737741517
+        },
+        "RF": {
+          "n": 219,
+          "music_mean": 0.8362511361700699,
+          "file_mean": 0.8243481338330413
+        },
+        "RR": {
+          "n": 244,
+          "music_mean": 0.6264892391000371,
+          "file_mean": 0.6056302035626726
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 37,
+          "music_eer_vs_all_real": 0.3519429567816664
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 30,
+          "music_eer_vs_all_real": 0.3728494623655914
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 34,
+          "music_eer_vs_all_real": 0.3887571157495256
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 39,
+          "music_eer_vs_all_real": 0.35863464492496744
+        },
+        "SONICS:Suno": {
+          "n_fake": 360,
+          "music_eer_vs_all_real": 0.30854454685099847
+        },
+        "SONICS:Udio": {
+          "n_fake": 274,
+          "music_eer_vs_all_real": 0.36508543846076225
+        }
+      }
+    }
+  },
+  "winner": "seed25_music",
+  "winner_weights": {
+    "voice": 0.9500000000000001,
+    "music": 0.8500000000000001,
+    "file": 1.0
+  }
+}

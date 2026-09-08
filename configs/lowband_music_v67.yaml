@@ -1,0 +1,38 @@
+# Frozen before v67 training or candidate scoring. No v61/retired blind data.
+schema_version: lowband_music_v67
+seed: 20260905
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+window: 64600
+temperature: 2.0
+batch_size: 8
+eval_batch_size: 16
+window_chunk_size: 32
+workers: 4
+epochs: 8
+eval_every: 2
+patience: 3
+samples_per_epoch: 4096
+learning_rate: 0.0003
+weight_decay: 0.01
+ranking_weight: 0.10
+gain_min: 0.7
+gain_max: 1.3
+channels: [g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+selection: 1-(0.50*pooled_music_EER+0.25*mean_domain_music_EER+0.25*worst_domain_music_EER)
+variants:
+  magnitude:
+    phase: false
+  magnitude_phase:
+    phase: true
+decision:
+  candidate_choice: highest_full_development_selection_after_both_complete
+  music_logit_weight: 0.10
+  minimum_pooled_music_eer_gain: 0.01
+  maximum_domain_music_eer_regression: 0.025
+  maximum_channel_music_eer_regression: 0.025
+  require_mean_domain_improvement: true
+  require_worst_domain_nonworse: true
+  no_automatic_submission: true
+  prospective_check_required: true
+  runtime_check_required: true

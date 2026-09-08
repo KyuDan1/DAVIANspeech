@@ -1,0 +1,31 @@
+{
+  "method": "uniform_logit_mean",
+  "members": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_00/predictions.csv",
+      "sha256": "501eefb54acbf6273f75e283a38688cb52a811019c4c55cc7b5934951138f6d4"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_01/predictions.csv",
+      "sha256": "d2e5ec463f520232a697493d01b4d4e285d438974eee7660d568822a7d849590"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_02/predictions.csv",
+      "sha256": "8212332f46c4cd69f49c8524bc2c7e4067e4883002a8e2208644a4a4e446f0b0"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_03/predictions.csv",
+      "sha256": "e11dcc091b6cde477f5c6c9eb7f4cad9218bcb58831e4d724d42a9f0c965c5d6"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_04/predictions.csv",
+      "sha256": "fd02855b77798f9df7cfc0c411ea558e65ae513cd18dd271f666fb4b8f7fbc52"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v12/scale_050/member_05/predictions.csv",
+      "sha256": "a07e7cf8a8829172513d4bc49d5e55e328d5c54b4f87122e98ad597ca3f02cd5"
+    }
+  ],
+  "rows": 5377,
+  "prediction_sha256": "02d44ce3ad325cfa4eff48c56b587ee6d40d307333abab35f52d5523fdb84cd3"
+}

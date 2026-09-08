@@ -1,0 +1,8 @@
+DATASET,ROWS,MUSIC_EER
+factorial_eval_1200_v2,1050,0.39428571428571424
+multigen_music_v2,480,0.525
+phone_factorial_1200_v1,800,0.45999999999999996
+source_disjoint_music_v1,400,0.53
+suno_vocals_v1,13,
+temporal_mixed_train_v2,3200,0.083125
+yue_cross_component_audit_v1,124,0.5967741935483871

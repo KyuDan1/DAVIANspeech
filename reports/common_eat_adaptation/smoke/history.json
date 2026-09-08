@@ -1,0 +1,16 @@
+[
+  {
+    "epoch": 1,
+    "variant": "control",
+    "loss": 0.5032903850078583,
+    "selection": 0.0,
+    "smoke_only": true
+  },
+  {
+    "epoch": 1,
+    "variant": "adapted",
+    "loss": 0.5031008422374725,
+    "selection": 0.0,
+    "smoke_only": true
+  }
+]

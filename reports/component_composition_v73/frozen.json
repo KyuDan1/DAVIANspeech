@@ -1,0 +1,50 @@
+{
+  "config": {
+    "schema": "component_composition_v73",
+    "data_matrix": "configs/music_specialist_v58.yaml",
+    "partition_config": "configs/data_partitions.yaml",
+    "predictions": {
+      "xlsr": "reports/common_encoder_probe/xlsr_file_local_mean/development_predictions.csv",
+      "eat": "reports/common_eat_adaptation/full_file_local/development_predictions.csv",
+      "spear": "reports/common_encoder_probe/spear_independent_file_local_mean/development_predictions.csv"
+    },
+    "variants": {
+      "xlsr_voice_eat_music": "xlsr",
+      "equal_voice_pair_eat_music": "equal_xlsr_spear_logits"
+    },
+    "music_source": "eat",
+    "presence_source": "eat",
+    "file_rule": "noisy_or_of_presence_weighted_components",
+    "voice_pair_weights": [
+      0.5,
+      0.5
+    ],
+    "probability_clip_for_logit": 1e-06,
+    "weight_or_temperature_search": false,
+    "no_automatic_submission": true
+  },
+  "sources_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr_file_local_mean/development_predictions.csv": "3e9abae8c68dc9922fa60a0a5e7f461f2a5a0b969d971cf7d412634e102eba73",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr_file_local_mean/report.json": "40a6c340089d35f277002e204cb7c24990f3dec9aced443915583ecb5eb30ce3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/development_predictions.csv": "0dd5f8292cc713df91805e79e954e5cf48ccd989ddaf027808d6bda961a137bc",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/report.json": "826a82a3dab54911dbf3f634534113622ef634bc4f83d7fd25c79760d69a9d22",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear_independent_file_local_mean/development_predictions.csv": "d70b62d60746d58d6c8cf806e8ca714ae05c1c2087e9219bbf7976eceaeaf109",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear_independent_file_local_mean/report.json": "431d21292f9b03039bd4a95b4d8ec6eac071cd89ae003dd34a5650fe06411ea2",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_dev_v1/truth.csv": "573ce51bcf538642aefe91e707df77f0821c2c330f451eae3b8ecc717c34dfc1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_dev.csv": "5c37cf92eeb7ee9ab5c6d56f2e1c4a01094a8e8792e82f2f8735d564a445cf87",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1/truth.csv": "fd3d366121f7fdd45453b76c0525dc9b6c937ba5c60491f53ca289cb5f19a264",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1/truth.csv": "0fa827ea96058cbf3e560b5530551901271f9ed1e33665228ac1e1d355da15c9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_music_v1/truth.csv": "c8f993d7cec793fda7614b61db35b1a347329f282c8f88a6cb6af7b8d53260a0",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof_voice_wav_dev_v1/truth.csv": "7b67fc354ea5a20508319284f1ebbf296c8e8641fea1f10345e5ca56c731b3cf",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1_telephone_v1/truth.csv": "db022924235f4e6683bab72063dcfcec9623dc18008a4ab371389714aa5cb3a9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv": "e6550ead73ec783f64012f83b1d6da527557792cf9b41ce45a8485a70c41bd52",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_dev.csv": "e03157a88ecb74192087b4cc3a602d65d4e2ffeb5d34f56e5d5b1db5a16ed17b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_dev.csv": "368d2443c61805158936bfc20e1fb2b980af3b64f3c2cedec3b774753ef22309",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b"
+  },
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/evaluate_component_composition_v73.py": "c0dbbfb243a3718525529497530821a247d9f860f92eafc1377f50f4dbeefffe",
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/component_composition_v73.yaml": "abc6636661e088d3d7781966124af2655c14b5bcbeb3a00a3facc332bb698301",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/component_composition_v73.py": "f7c6f6c2b3fab4e5b27cb468e041c459f5e15333cf3453ebdb6014c4d88278b3"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "stage": "reserved",
+  "seed": 20260906,
+  "id_prefix": "cmbv5",
+  "per_cell": 4,
+  "base_rows": 48,
+  "rendered_rows_planned": 240,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "provenance_mode": "strict",
+  "generator_ood_claim": false,
+  "warning": "ASV provenance is complete; fake music is limited to the explicitly declared seen FakeMusicCaps generator families passing a conservative text screen.",
+  "inputs": {
+    "unmixed_details": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/unmixed_details.csv",
+      "sha256": "8432062f5a743fd5830d23f05479b9e976f0a80184ca3427b183e3889588f9e7"
+    },
+    "mixfake_foreground_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Fore_ForeLabel.txt",
+      "sha256": "c477bdcf1a16e9efa91445927d2f63a74d66259a5e446297f27f787f4391cc79"
+    },
+    "mixfake_background_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Back_BackLabel.txt",
+      "sha256": "fd123a041a97fe5104d2825d9007f81ff7de43e1ea0b4ef53e780313f099a63f"
+    },
+    "partition_config": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml",
+      "sha256": "5a3da174e5f5f300c4953b3bf443d82cf541d0f2b8375bb1964528afcbba2c9c"
+    },
+    "musiccaps_metadata": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/sources/musiccaps_metadata/musiccaps-public.csv",
+      "sha256": "8cc109ac507b5e5aed8ea73a5c8f897a9d0793f7397427e000adf4c05f6021c7"
+    },
+    "asvspoof_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/source_protocols/ASVspoof2019.LA.cm.eval.trl.txt",
+      "sha256": "84fce576efff092269a0a6ad247d2e9f2f7b4d4e25a4545efb2518da92708036"
+    },
+    "semantic_exclusions": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_blind_v5_design/acoustic_screen_initial/source_scores.csv",
+      "sha256": "5d0a607fed9cc0b0b1787b5003daade0b761ec1d9f4f86e49083b006215a94df"
+    }
+  },
+  "licenses": [
+    {
+      "source": "MixFake",
+      "url": "https://huggingface.co/datasets/Tnxts/MixFake",
+      "license": "CC-BY-4.0 (repository declaration; verify redistribution terms)"
+    },
+    {
+      "source": "ASVspoof2019 LA foreground",
+      "url": "https://www.asvspoof.org/index2019.html",
+      "license": "ASVspoof terms; verify for the intended use"
+    },
+    {
+      "source": "FMA / FakeMusicCaps / SONICS backgrounds",
+      "url": "recorded by MixFake protocols",
+      "license": "upstream per-item/dataset terms; verify before redistribution"
+    }
+  ],
+  "music_vocal_screen": {
+    "version": "musiccaps_instrumental_text_v1",
+    "pass_value": "musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1",
+    "metadata_fields": [
+      "caption",
+      "aspect_list"
+    ],
+    "rule": "Require an explicit instrumental/no-voice/no-vocal phrase and reject any remaining vocal/singing/speech/rap/choir/chant/humming/voice/lyrics/narration signal. Exclude all SONICS.",
+    "explicit_patterns": [
+      "\\binstrumental(?:\\s+(?:music|track|piece|song|recording))?\\b",
+      "\\bno\\s+(?:human\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\bwithout\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\b(?:does|do)\\s+not\\s+(?:contain|include|feature|have)\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b"
+    ],
+    "positive_voice_pattern": "\\b(?:vocal(?:s|ist|ists)?|singer(?:s)?|singing|sings|sang|sung|speech|spoken|talk(?:s|er|ers|ing)?|rap(?:s|per|pers|ping)?|choir|choral|chant(?:s|er|ers|ing)?|humm(?:ed|ing)?|voice(?:s)?|voice[- ]?over|lyrics?|narrat(?:e|ed|es|ing|ion|or)|a\\s*cappella|acapella)\\b",
+    "counts": {
+      "eligible_fake_after_screen_and_protection": 166,
+      "eligible_real_after_protection": 1654,
+      "excluded_no_explicit_instrumental_or_no_vocal": 1059,
+      "excluded_positive_voice_signal": 2134,
+      "excluded_protected_identity": 899,
+      "excluded_sonics_suno_udio": 5000,
+      "excluded_unsupported_fake_music_generator": 1088,
+      "fake_music_candidates": 10000,
+      "fake_musiccaps_candidates": 3912,
+      "fake_musiccaps_passed_text_screen": 719,
+      "official_eval_music_candidates": 12000,
+      "real_music_candidates": 2000
+    }
+  },
+  "semantic_exclusions": {
+    "applied": true,
+    "selection_rule": "ACOUSTIC_SCREEN_PASS=false",
+    "input_rows": 24,
+    "input_unique_source_ids": 24,
+    "exclusion_rows": 1,
+    "exclusion_unique_ids": 1,
+    "eligible_pool_matches": 1,
+    "selected_replacement_count": 1,
+    "replacements": [
+      {
+        "excluded_source_id": "FM_stable_audio_open_7ITwarmdyfI",
+        "replacement_source_id": "FM_stable_audio_open_r0Xvr8maR34",
+        "generator": "stable_audio_open"
+      }
+    ]
+  },
+  "selection": {
+    "protected_roles": "all roles in partition_config",
+    "exact_identity_columns": [
+      "ID",
+      "GROUP_ID",
+      "VOICE_SOURCE_ID",
+      "MUSIC_SOURCE_ID",
+      "SOURCE_FILE",
+      "FIRST_SOURCE_ID",
+      "SECOND_SOURCE_ID",
+      "FIRST_GROUP",
+      "SECOND_GROUP",
+      "MUSIC_GROUP",
+      "MUSIC_GROUP_ID",
+      "FMA_TRACK_ID",
+      "PAIR_GROUP",
+      "PARENT_ID"
+    ],
+    "canonical_music_group_exclusion": true,
+    "fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "stable_audio_open"
+    ],
+    "requested_fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "stable_audio_open"
+    ],
+    "within_holdout_source_reuse": "paired channel variants only"
+  },
+  "reservation_sha256": "991cd9f12a24e24cc50bb672b768aad5f76c0c65812f2fd118b0b84050404ef6",
+  "builder_sha256": "0885d3c8a26df1f2d60aa77f0571213b5f2295084a11b5d53ecd303ab0dd84d9"
+}

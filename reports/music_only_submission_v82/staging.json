@@ -1,0 +1,92 @@
+{
+  "status": "staged_not_validated_not_submitted",
+  "files": {
+    "branch82/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "branch82/common_eat_adaptation.py": {
+      "bytes": 5425,
+      "sha256": "bda6668610602d0b67f3b353c9dc28625daf95c955a81de20e1978dce8ffaff4"
+    },
+    "branch82/common_eat_adaptation_inference.py": {
+      "bytes": 2608,
+      "sha256": "a0df72e128bf9180bf6dc7ff2f6689e03c88ccf664184f46002ea15664076e20"
+    },
+    "branch82/common_encoder_probe.py": {
+      "bytes": 11718,
+      "sha256": "102a93fa491a1356d5868f6fcd73d83eed68a4773549fd13a458da58f9a42556"
+    },
+    "branch82/eat_large_aasist.py": {
+      "bytes": 19876,
+      "sha256": "f3eb5a20c73ec19adb444c52d5f5ca20856dab6757bda44c6220028e55d2a69d"
+    },
+    "branch82/eat_large_aasist_inference.py": {
+      "bytes": 10255,
+      "sha256": "d54a72c74c709aff437820f6fa44beff141bcfedc06bef53848486eba910f27e"
+    },
+    "branch82/eat_music_adapter.py": {
+      "bytes": 9125,
+      "sha256": "d8d9dbd0aab0a842ca3cb5255f8b934fc513dc53168c238f936866228339d01a"
+    },
+    "branch82/eat_timm_compat.py": {
+      "bytes": 2750,
+      "sha256": "f09fc0d648634d4fe68f73c25f92430e3ea4beff95edcbe54dc573e8eeffb701"
+    },
+    "branch82/full_coverage_wpt.py": {
+      "bytes": 3715,
+      "sha256": "d2ebb262532f8cb093ebf9b5352a6c92d52bddc4bcd4ae3998fc6751c3efdc7f"
+    },
+    "branch82/music_only_submission_v82.py": {
+      "bytes": 2070,
+      "sha256": "1b71289bacca1eca1559bfd2e1a826864fd21b07a6bfbf1af1620e8f60731794"
+    },
+    "branch82/telephone_channel.py": {
+      "bytes": 11651,
+      "sha256": "2c3734150eb6671d8934846062a58e621962361290dfaa920672d3d5fee031c6"
+    },
+    "models/eat-large-as2m-v56/README.md": {
+      "bytes": 2985,
+      "sha256": "035bcea5bf991a45410bf63107847f5dcf089210f72cab3b8cc1a1a206de9347"
+    },
+    "models/eat-large-as2m-v56/config.json": {
+      "bytes": 780,
+      "sha256": "f57897ee1adfbd317c94cbd9a48f24294931caf2d3bfb35c57bcbb7be8518a1e"
+    },
+    "models/eat-large-as2m-v56/configuration_eat.py": {
+      "bytes": 1768,
+      "sha256": "761f19555f0d53aa7725ffb83a6e4eec652af97244134ea5147edca71be9b9e5"
+    },
+    "models/eat-large-as2m-v56/eat_model.py": {
+      "bytes": 3670,
+      "sha256": "9a836c65a7e02e7b3df80cca93324ff96d50b3c380a777c393803671e17faf37"
+    },
+    "models/eat-large-as2m-v56/model.safetensors": {
+      "bytes": 1237667364,
+      "sha256": "2c7660b3678817e1c4aec04826a1a0f573aa7d1eb82355fca92747cb2b11bce2"
+    },
+    "models/eat-large-as2m-v56/model_core.py": {
+      "bytes": 6928,
+      "sha256": "f0157ab1d7f59e07db6da9d7845099dac7b818e1ea69322936da83364d8a2768"
+    },
+    "models/eat-large-as2m-v56/modeling_eat.py": {
+      "bytes": 467,
+      "sha256": "41eaf4b87923a56ef13899cbbe6d6ec9642d1f58db2e0b2661aae611eccfce9f"
+    },
+    "run/adapted/head.pt": {
+      "bytes": 1517241,
+      "sha256": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f"
+    },
+    "run/completed.json": {
+      "bytes": 157,
+      "sha256": "1acf240bbccde01a56c7ecd37be4d04c17ad80f7e670d6821bec623542f57e02"
+    }
+  },
+  "changed_column": "MUSIC_FAKE_PROB",
+  "unchanged_columns": [
+    "FILE_FAKE_PROB",
+    "VOICE_FAKE_PROB",
+    "VOICE_PRESENT_PROB",
+    "MUSIC_PRESENT_PROB"
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "epoch": 1,
+    "variant": "adapted_dense",
+    "loss": 2.0426796078681946,
+    "selection": 0.0,
+    "smoke_only": true
+  }
+]

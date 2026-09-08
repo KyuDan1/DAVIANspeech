@@ -1,0 +1,15 @@
+{
+  "status": "complete",
+  "rows": 320,
+  "score_name": "clean",
+  "music_eer": 0.06874999999999999,
+  "subgroup_eer": {
+    "voice_real": 0.050000000000000024,
+    "voice_fake": 0.09999999999999999
+  },
+  "manifest": "reports/mixfake_component_v93/channel_audit/development.csv",
+  "manifest_sha256": "042f32af0840753399c9fff9f09b4016e148c56bde88215443694af47bd842ff",
+  "checkpoint_sha256": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f",
+  "locked_scores_read": false,
+  "seconds": 13.556033213622868
+}

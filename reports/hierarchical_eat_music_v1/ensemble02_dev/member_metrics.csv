@@ -1,0 +1,15 @@
+DATASET,N,MUSIC_EER,MEMBER
+mixfake_music_dev_v1,1600,0.140625,no_dsu_seed00
+external_mixed_v1,400,0.16500000000000004,no_dsu_seed00
+source_disjoint_mixed_v1,200,0.10999999999999999,no_dsu_seed00
+source_disjoint_mixed_equal_v1,200,0.12,no_dsu_seed00
+source_disjoint_music_v1,400,0.06499999999999997,no_dsu_seed00
+factorial_eval_1200_v2_dev,350,0.2571428571428571,no_dsu_seed00
+telephone_mixed_dev_v1,600,0.22999999999999998,no_dsu_seed00
+mixfake_music_dev_v1,1600,0.14375000000000002,no_dsu_seed02
+external_mixed_v1,400,0.15500000000000003,no_dsu_seed02
+source_disjoint_mixed_v1,200,0.17000000000000004,no_dsu_seed02
+source_disjoint_mixed_equal_v1,200,0.15000000000000002,no_dsu_seed02
+source_disjoint_music_v1,400,0.06999999999999998,no_dsu_seed02
+factorial_eval_1200_v2_dev,350,0.2457142857142857,no_dsu_seed02
+telephone_mixed_dev_v1,600,0.2366666666666667,no_dsu_seed02

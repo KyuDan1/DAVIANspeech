@@ -1,0 +1,1607 @@
+{
+  "status": "complete_exposed_long_slices",
+  "results": [
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.41388888888888886
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3277777777777777
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3027777777777778
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3916666666666667
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30833333333333335
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30833333333333335
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.31666666666666665
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3416666666666667
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.2583333333333333
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.2833333333333333
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.18333333333333335
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.2666666666666667
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3833333333333333
+    },
+    {
+      "bank": "uniform",
+      "axis": "POSITION",
+      "group": "uniform",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.41388888888888886
+    },
+    {
+      "bank": "uniform",
+      "axis": "POSITION",
+      "group": "uniform",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3277777777777777
+    },
+    {
+      "bank": "uniform",
+      "axis": "POSITION",
+      "group": "uniform",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "uniform",
+      "axis": "POSITION",
+      "group": "uniform",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3027777777777778
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "anchor",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.40555555555555556
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "parent",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.2944444444444444
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "global",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.2666666666666667
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "local",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.25555555555555554
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "anchor",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "parent",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.37777777777777777
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "global",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.3666666666666667
+    },
+    {
+      "bank": "uniform",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "local",
+      "rows": 360,
+      "real_n": 180,
+      "fake_n": 180,
+      "FILE_EER": 0.3222222222222222
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.15000000000000002
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.475
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.475
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.19999999999999998
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.15000000000000002
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "anchor",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.5
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "parent",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "global",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "uniform",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "local",
+      "rows": 80,
+      "real_n": 40,
+      "fake_n": 40,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor",
+      "rows": 2160,
+      "real_n": 1080,
+      "fake_n": 1080,
+      "FILE_EER": 0.312037037037037
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "parent",
+      "rows": 2160,
+      "real_n": 1080,
+      "fake_n": 1080,
+      "FILE_EER": 0.3481481481481481
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global",
+      "rows": 2160,
+      "real_n": 1080,
+      "fake_n": 1080,
+      "FILE_EER": 0.350925925925926
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "local",
+      "rows": 2160,
+      "real_n": 1080,
+      "fake_n": 1080,
+      "FILE_EER": 0.31018518518518523
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3194444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.2861111111111111
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3138888888888889
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3555555555555555
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3222222222222222
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.36388888888888893
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.37222222222222223
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3111111111111111
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.19166666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.2944444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3305555555555556
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.18611111111111112
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.23055555555555554
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3583333333333333
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3555555555555555
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.2694444444444445
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3388888888888889
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.4222222222222223
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.4083333333333333
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "early",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3055555555555556
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "early",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3916666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "early",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.4027777777777778
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "early",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3027777777777778
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "late",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.30833333333333335
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "late",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3194444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "late",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3194444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "late",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.2944444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "middle",
+      "model": "anchor",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.30833333333333335
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "middle",
+      "model": "parent",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3416666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "middle",
+      "model": "global",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.35277777777777775
+    },
+    {
+      "bank": "fixed",
+      "axis": "POSITION",
+      "group": "middle",
+      "model": "local",
+      "rows": 720,
+      "real_n": 360,
+      "fake_n": 360,
+      "FILE_EER": 0.3305555555555556
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "anchor",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.24629629629629632
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "parent",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.2944444444444444
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "global",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.312962962962963
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "direct",
+      "model": "local",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.27222222222222225
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "anchor",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.3648148148148148
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "parent",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.3907407407407407
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "global",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.40740740740740744
+    },
+    {
+      "bank": "fixed",
+      "axis": "RECORDING",
+      "group": "replay",
+      "model": "local",
+      "rows": 1080,
+      "real_n": 540,
+      "fake_n": 540,
+      "FILE_EER": 0.3462962962962963
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.19166666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.2666666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.29166666666666663
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:clean",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.15833333333333333
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.22499999999999998
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.32499999999999996
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:g711_ulaw",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.31666666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.4083333333333333
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "30:opus_nb_8k",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.4
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.19999999999999998
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.31666666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:clean",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.19166666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.21666666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3666666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3666666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:g711_ulaw",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.30833333333333335
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.44166666666666665
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "45:opus_nb_8k",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.20833333333333337
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:clean",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.19999999999999998
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.25
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3583333333333333
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.3666666666666667
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:g711_ulaw",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.275
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "anchor",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.35
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "parent",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "global",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "fixed",
+      "axis": "DURATION_CHANNEL",
+      "group": "60:opus_nb_8k",
+      "model": "local",
+      "rows": 240,
+      "real_n": 120,
+      "fake_n": 120,
+      "FILE_EER": 0.4083333333333333
+    }
+  ],
+  "automatic_submission_allowed": false,
+  "limitation": "Previously exposed, source-reused synthetic voice-only diagnostics; no threshold/weight fitting."
+}

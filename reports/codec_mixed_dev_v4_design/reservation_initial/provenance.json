@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "stage": "reserved",
+  "seed": 20260905,
+  "per_cell": 10,
+  "base_rows": 120,
+  "rendered_rows_planned": 600,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "provenance_mode": "strict",
+  "generator_ood_claim": false,
+  "warning": "ASV provenance is complete; fake music is limited to five seen FakeMusicCaps generator families passing a conservative text screen.",
+  "inputs": {
+    "unmixed_details": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/unmixed_details.csv",
+      "sha256": "8432062f5a743fd5830d23f05479b9e976f0a80184ca3427b183e3889588f9e7"
+    },
+    "mixfake_foreground_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Fore_ForeLabel.txt",
+      "sha256": "c477bdcf1a16e9efa91445927d2f63a74d66259a5e446297f27f787f4391cc79"
+    },
+    "mixfake_background_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Back_BackLabel.txt",
+      "sha256": "fd123a041a97fe5104d2825d9007f81ff7de43e1ea0b4ef53e780313f099a63f"
+    },
+    "partition_config": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml",
+      "sha256": "20e51f2265f94da16d5a1e397dc66165f14d338f05c8cbccc02efade533b18ab"
+    },
+    "musiccaps_metadata": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/sources/musiccaps_metadata/musiccaps-public.csv",
+      "sha256": "8cc109ac507b5e5aed8ea73a5c8f897a9d0793f7397427e000adf4c05f6021c7"
+    },
+    "asvspoof_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/source_protocols/ASVspoof2019.LA.cm.eval.trl.txt",
+      "sha256": "84fce576efff092269a0a6ad247d2e9f2f7b4d4e25a4545efb2518da92708036"
+    }
+  },
+  "licenses": [
+    {
+      "source": "MixFake",
+      "url": "https://huggingface.co/datasets/Tnxts/MixFake",
+      "license": "CC-BY-4.0 (repository declaration; verify redistribution terms)"
+    },
+    {
+      "source": "ASVspoof2019 LA foreground",
+      "url": "https://www.asvspoof.org/index2019.html",
+      "license": "ASVspoof terms; verify for the intended use"
+    },
+    {
+      "source": "FMA / FakeMusicCaps / SONICS backgrounds",
+      "url": "recorded by MixFake protocols",
+      "license": "upstream per-item/dataset terms; verify before redistribution"
+    }
+  ],
+  "music_vocal_screen": {
+    "version": "musiccaps_instrumental_text_v1",
+    "pass_value": "musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1",
+    "metadata_fields": [
+      "caption",
+      "aspect_list"
+    ],
+    "rule": "Require an explicit instrumental/no-voice/no-vocal phrase and reject any remaining vocal/singing/speech/rap/choir/chant/humming/voice/lyrics/narration signal. Exclude all SONICS.",
+    "explicit_patterns": [
+      "\\binstrumental(?:\\s+(?:music|track|piece|song|recording))?\\b",
+      "\\bno\\s+(?:human\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\bwithout\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\b(?:does|do)\\s+not\\s+(?:contain|include|feature|have)\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b"
+    ],
+    "positive_voice_pattern": "\\b(?:vocal(?:s|ist|ists)?|singer(?:s)?|singing|sings|sang|sung|speech|spoken|talk(?:s|er|ers|ing)?|rap(?:s|per|pers|ping)?|choir|choral|chant(?:s|er|ers|ing)?|humm(?:ed|ing)?|voice(?:s)?|voice[- ]?over|lyrics?|narrat(?:e|ed|es|ing|ion|or)|a\\s*cappella|acapella)\\b",
+    "counts": {
+      "eligible_fake_after_screen_and_protection": 352,
+      "eligible_real_after_protection": 1714,
+      "excluded_no_explicit_instrumental_or_no_vocal": 1372,
+      "excluded_positive_voice_signal": 2715,
+      "excluded_protected_identity": 847,
+      "excluded_sonics_suno_udio": 5000,
+      "fake_music_candidates": 10000,
+      "fake_musiccaps_candidates": 5000,
+      "fake_musiccaps_passed_text_screen": 913,
+      "official_eval_music_candidates": 12000,
+      "real_music_candidates": 2000
+    }
+  },
+  "semantic_exclusions": {
+    "applied": false,
+    "input_rows": 0,
+    "exclusion_rows": 0,
+    "exclusion_unique_ids": 0,
+    "eligible_pool_matches": 0,
+    "selected_replacement_count": 0,
+    "replacements": []
+  },
+  "selection": {
+    "protected_roles": "all roles in partition_config",
+    "exact_identity_columns": [
+      "ID",
+      "GROUP_ID",
+      "VOICE_SOURCE_ID",
+      "MUSIC_SOURCE_ID",
+      "SOURCE_FILE",
+      "FIRST_SOURCE_ID",
+      "SECOND_SOURCE_ID",
+      "FIRST_GROUP",
+      "SECOND_GROUP",
+      "MUSIC_GROUP",
+      "MUSIC_GROUP_ID",
+      "FMA_TRACK_ID",
+      "PAIR_GROUP",
+      "PARENT_ID"
+    ],
+    "canonical_music_group_exclusion": true,
+    "fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "musicldm",
+      "mustango",
+      "stable_audio_open"
+    ],
+    "within_holdout_source_reuse": "paired channel variants only"
+  },
+  "reservation_sha256": "bcdb086a740280314bb41680bccc4f21fbad226cdba3675b3dc0fab83daffc90",
+  "builder_sha256": "77a5c2f1b5a3c89f567f04e5441211dbdb2c9fc9c81df73e6d351f4179f68371"
+}

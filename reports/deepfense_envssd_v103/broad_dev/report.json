@@ -1,0 +1,45 @@
+{
+  "by_dataset": {
+    "codec_mixed_dev_v4": {
+      "eer_mean_margin": 0.42666666666666664,
+      "n": 600
+    },
+    "echoes_fma_paired_v3": {
+      "eer_mean_margin": 0.41444805194805195,
+      "n": 111
+    },
+    "external_mixed_v1": {
+      "eer_mean_margin": 0.35,
+      "n": 400
+    },
+    "external_mixed_v1_telephone_v1": {
+      "eer_mean_margin": 0.47,
+      "n": 400
+    },
+    "factorial_eval_1200_v2": {
+      "eer_mean_margin": 0.44571428571428573,
+      "n": 350
+    },
+    "mixfake_music_dev_v1": {
+      "eer_mean_margin": 0.608125,
+      "n": 1600
+    },
+    "source_disjoint_mixed_v1": {
+      "eer_mean_margin": 0.53,
+      "n": 200
+    },
+    "source_disjoint_mixed_v1_telephone_v1": {
+      "eer_mean_margin": 0.54,
+      "n": 200
+    },
+    "source_disjoint_music_v1": {
+      "eer_mean_margin": 0.6475,
+      "n": 400
+    }
+  },
+  "eer_head": 0.5240550293785236,
+  "eer_mean_margin": 0.5102088992582117,
+  "eer_mid": 0.511617570273825,
+  "eer_tail": 0.5102087891025175,
+  "n": 4261
+}

@@ -1,0 +1,7 @@
+{
+  "best_epoch": 0,
+  "selection_error": 0.5625,
+  "clean_eer": 0.5625,
+  "phone_eer": 0.5625,
+  "elapsed_seconds": 24.86057574301958
+}

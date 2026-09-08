@@ -1,0 +1,8 @@
+{
+  "inputs_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/exact_anchor_v74/codec_recomputed/predictions.csv": "7d73597c1132daab11214ee44e4452a16429fabfff0e6d5cd867f96ca38ad160",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/equal_voice_pair_eat_music_predictions.csv": "d13b0d9818d6d583da6c8cf4cfdc136e6e27d5af81a4e01624e8666ff015b183"
+  },
+  "code_sha256": "73956c12755cb3279a293f88b68cff5fec765fee194ff37130b81bfcf9004fc0",
+  "scope": "Previously exposed codec-mixed development; not private-test composition inference"
+}

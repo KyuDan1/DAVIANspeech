@@ -1,0 +1,23 @@
+# Paired representation intervention, not another output-residual sweep.
+schema: common_eat_adaptation_v1
+seed: 20260905
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+encoder_path: models/eat-large-as2m-v56
+window: 163840
+head_width: 96
+pooling: mean
+batch_size: 4
+workers: 4
+encoder_chunk: 2
+samples_per_epoch: 4096
+epochs: 6
+eval_every: 2
+learning_rate: 0.001
+weight_decay: 0.01
+temperature: 2.0
+adapter_blocks: [20, 21, 22, 23]
+adapter_bottleneck: 32
+adapter_learning_rate: 0.0003
+selection: 0.5*pooled_ADS+0.5*mean_available_component_macro_ADS
+no_automatic_submission: true

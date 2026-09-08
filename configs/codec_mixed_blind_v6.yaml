@@ -1,0 +1,112 @@
+# Frozen, built, and validated before any authenticity detector prediction was
+# produced for this bank. Register under locked_eval only.
+schema_version: codec_mixed_blind_v6
+status: retired_after_one_shot_score
+purpose: one_shot_final_candidate_confirmation
+seed: 20260912
+id_prefix: cmbv6
+per_cell: 4
+base_rows: 48
+rendered_rows: 240
+
+component_cells:
+  - RR
+  - RF
+  - FR
+  - FF
+layouts:
+  - concurrent
+  - partial_overlap
+  - sequential
+channels:
+  - clean
+  - g711_ulaw
+  - g722_wb
+  - opus_nb_8k
+  - transcode_g711_opus
+
+fake_music_generators:
+  - MusicGen_medium
+  - audioldm2
+  - stable_audio_open
+fake_music_sources_per_generator: 8
+generator_ood_claim: false
+
+leakage_policy:
+  protect_all_roles_in: configs/data_partitions.yaml
+  source_identity_disjoint: true
+  speaker_identity_disjoint: true
+  canonical_music_group_disjoint: true
+  within_bank_source_reuse: paired_channel_variants_only
+  validation_before_registration:
+    registered_truth_manifests: 49
+    registered_roles: 9
+    overlap_rows_with_nonzero_count: 0
+
+# The explicitly instrumental/no-vocal MusicCaps pool was exhausted for
+# MusicGen_medium and audioldm2 after protecting all roles including blind v5.
+# Neutral captions are therefore allowed only when they contain no positive
+# vocal term and the source then passes both frozen acoustic gates.
+semantic_policy:
+  positive_vocal_text_rejection: true
+  neutral_text_requires_acoustic_pass: true
+  panns_speech_or_vocal_probability_max: 0.20
+  demucs_vocals_to_mixture_db_max: -1.5
+  initial_sources_screened: 24
+  initial_passes: 23
+  deterministic_same_generator_replacements: 1
+  replacement_passes: 1
+  final_passes: 24
+
+voice_policy:
+  real:
+    dataset: LibriSpeech_test-clean
+    selected_sources: 24
+    selected_speakers: 16
+    maximum_sources_per_speaker_inside_v6: 2
+  fake:
+    dataset: ASVspoof2021_DF_eval_nocodec
+    huggingface_repository: SpeechAntiSpoofingBenchmarks/ASVspoof2021_DF
+    revision: 89e8ad0bd2819f09b65aee839c58885b1414c0f2
+    selected_sources: 24
+    selected_speakers: 1
+    selected_attacks: 17
+    maximum_sources_per_speaker_inside_v6: 24
+  note: >-
+    Speaker repetition occurs only inside v6 because earlier registered roles
+    exhaust all other available test-clean/DF speakers. Every selected source
+    and speaker remains disjoint from every pre-existing registered role.
+
+integrity:
+  validation_checks_passed: 18
+  validation_checks_total: 18
+  mixfake_archive_volumes: 67
+  mixfake_archive_total_bytes: 71577624470
+  mixfake_archive_all_sha256_verified: true
+  truth_sha256: c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a
+  reservation_sha256: c0c85b4ac831ca27fbefd27aa3450b4bc1adf116039b6ca7f9248c76845cc56d
+  source_hashes_sha256: 16867ac28e54341c864bcd939c74e76f2da9a0d90b5b62b11d5570a195c6fcbd
+  audio_hashes_sha256: 9c19511b7afb27f09fd9c12c190fef5c2e370a2b2099d34cf0ca7404759718d7
+
+decision_policy:
+  score_times: 1
+  candidate_configuration_must_be_frozen_before_inference: true
+  no_weight_threshold_router_or_stopping_tuning: true
+  authenticity_detector_inference_completed: true
+  authenticity_score_computed: true
+  score_open_count: 1
+  opened_candidates:
+    - component_query_or_v47
+    - sparse_voice_wpt_file_v50_frozen
+  result:
+    component_query_or_v47:
+      file_eer: 0.300000
+      voice_eer: 0.158333
+      music_eer: 0.258333
+      ads: 0.740833
+    sparse_voice_wpt_file_v50_frozen:
+      file_eer: 0.233333
+      voice_eer: 0.083333
+      music_eer: 0.258333
+      ads: 0.789167
+  selection_after_opening_forbidden: true

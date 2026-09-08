@@ -1,0 +1,61 @@
+{
+  "scope": "authorized TRAIN raw-music semantics review; NOT accuracy/automatic labels",
+  "rows": 667,
+  "model_names": [
+    "pretrained AudioSet EAT-base",
+    "pretrained AudioSet PANNs"
+  ],
+  "review_threshold": 0.5,
+  "decision_rule": "both voice evidence >= .5 creates review flag, never ground truth",
+  "protected_source_overlap": 0,
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/dense_component_v71/source_catalog/sources.csv": "75c582b2db1439f1c5ae87678d52796b6475c3fb51a42455c5f02041f00c15b9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/dense_component_v71.yaml": "475561b445f928f0d113dc4b763b391c6466d0c90456099ea484d93b1abbbcdb",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/audit_training_music_semantics_v75.py": "e71e68575793ef21943280ed8a7636dbe68c7b90418d7936e6fd5b86becc2d45",
+    "/home/nas_main/kyudanjung/DAVIANspeech/models/panns/Cnn14_mAP=0.431.pth": "0dc499e40e9761ef5ea061ffc77697697f277f6a960894903df3ada000e34b31",
+    "/home/nas_main/kyudanjung/DAVIANspeech/models/panns/component_labels.json": "e68f1106c4b4424123f9aa4c5460e61ff6e5cc1282aaf310dd0276b21b67109e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/competition_v2_bad_presence/truth.csv": "4cf9f7af2d9d44491ce29a1c8b0fdb82c85661eb3ec82fc5a5dcbf2e0afb0d71",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_v1/truth.csv": "7eda433693248567b0f102165adad861992b43ef0bedf965b27f2e759b2cab0c"
+  },
+  "automatic_training_changes": false,
+  "automatic_submission_allowed": false,
+  "status": "complete",
+  "by_source": [
+    {
+      "SOURCE_BANK": "competition_v2_bad_presence",
+      "LABEL": 0,
+      "rows": 118,
+      "both_voice_flags": 7,
+      "either_voice_flags": 11
+    },
+    {
+      "SOURCE_BANK": "competition_v2_bad_presence",
+      "LABEL": 1,
+      "rows": 104,
+      "both_voice_flags": 0,
+      "either_voice_flags": 3
+    },
+    {
+      "SOURCE_BANK": "echoes_v1",
+      "LABEL": 0,
+      "rows": 79,
+      "both_voice_flags": 9,
+      "either_voice_flags": 18
+    },
+    {
+      "SOURCE_BANK": "echoes_v1",
+      "LABEL": 1,
+      "rows": 366,
+      "both_voice_flags": 11,
+      "either_voice_flags": 38
+    }
+  ],
+  "mixfake_rf_suno_udio_rows_requiring_background_semantics_review": 667,
+  "seconds": 116.31795983202755,
+  "peak_allocated_mb": 2579.4716796875,
+  "limitations": [
+    "Presence detectors can make false positives; no automatic corrections",
+    "A Suno/Udio generator name alone does not prove vocals exist",
+    "This catalog covers raw training components, not every original training mixture"
+  ]
+}

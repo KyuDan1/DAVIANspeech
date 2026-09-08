@@ -1,0 +1,9 @@
+[
+  {
+    "epoch": 1,
+    "losses": {
+      "control": 0.07618356496095657,
+      "mask_reviewed_negatives": 0.010869036079384387
+    }
+  }
+]

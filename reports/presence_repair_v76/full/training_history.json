@@ -1,0 +1,44 @@
+[
+  {
+    "epoch": 1,
+    "losses": {
+      "control": 0.008509972340789318,
+      "mask_reviewed_negatives": 0.007156708513775811
+    }
+  },
+  {
+    "epoch": 2,
+    "losses": {
+      "control": 0.008520020948026286,
+      "mask_reviewed_negatives": 0.006946725987290847
+    }
+  },
+  {
+    "epoch": 3,
+    "losses": {
+      "control": 0.006789633105427129,
+      "mask_reviewed_negatives": 0.005522550156456418
+    }
+  },
+  {
+    "epoch": 4,
+    "losses": {
+      "control": 0.009424658845773592,
+      "mask_reviewed_negatives": 0.00784022272398488
+    }
+  },
+  {
+    "epoch": 5,
+    "losses": {
+      "control": 0.0077357326701985585,
+      "mask_reviewed_negatives": 0.005881647523438005
+    }
+  },
+  {
+    "epoch": 6,
+    "losses": {
+      "control": 0.008261285285243503,
+      "mask_reviewed_negatives": 0.006418054633343218
+    }
+  }
+]

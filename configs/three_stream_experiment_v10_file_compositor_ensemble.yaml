@@ -1,0 +1,24 @@
+# Frozen before scoring and before opening codec_mixed_blind_v5. The 0.45
+# component weight is inherited unchanged from the predeclared v6 compositor
+# matrix; it is not re-swept on the six-head ensemble.
+schema_version: three_stream_experiment_v10_file_compositor_ensemble
+base_ensemble: diverse_six
+base_selection: 0.8404679728058254
+base_codec_mixed_dev_v4_ads: 0.7712222222222223
+file_compositor:
+  domain: each_member_before_uniform_logit_ensemble
+  direct_file_weight: 0.55
+  component_noisy_or_weight: 0.45
+  members:
+    - robust_l2_core_seed_20260904
+    - robust_l2_seed_20260905
+    - robust_l2_seed_20260906
+    - robust_l4_core_seed_20260904
+    - disentangle_l2_seed_20260904
+    - disentangle_l1_seed_20260904
+
+decision_rule: >-
+  Accept only if fixed development selection and codec_mixed_dev_v4 ADS both
+  exceed the unchanged diverse-six ensemble, while clean and G.722 ADS each
+  regress by no more than 0.01. No compositor or member-weight sweep is
+  permitted.

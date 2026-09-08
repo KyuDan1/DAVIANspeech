@@ -1,0 +1,22 @@
+{
+  "task": "voice",
+  "channel": "clean",
+  "rows": 320,
+  "anchor_eer": 0.08750000000000001,
+  "expert_eer": 0.03749999999999999,
+  "best_fused_eer": 0.03125,
+  "selected_expert_weight": 0.38,
+  "anchor_subgroup_eer": {
+    "music_real": 0.08750000000000001,
+    "music_fake": 0.0625
+  },
+  "expert_subgroup_eer": {
+    "music_real": 0.03749999999999999,
+    "music_fake": 0.025000000000000012
+  },
+  "fused_subgroup_eer": {
+    "music_real": 0.03749999999999999,
+    "music_fake": 0.025000000000000012
+  },
+  "locked_scores_read": false
+}

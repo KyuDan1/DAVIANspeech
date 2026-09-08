@@ -1,0 +1,519 @@
+{
+  "config": {
+    "schema": "dense_component_v71",
+    "seed": 20260905,
+    "data_matrix": "configs/music_specialist_v58.yaml",
+    "partition_config": "configs/data_partitions.yaml",
+    "parent_checkpoint": "reports/common_eat_adaptation/full/adapted/head.pt",
+    "source_catalog": "reports/dense_component_v71/source_catalog/sources.csv",
+    "epochs": 6,
+    "samples_per_epoch": 4096,
+    "batch_size": 4,
+    "workers": 4,
+    "encoder_chunk": 16,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "head_width": 96,
+    "pooling": "mean",
+    "temperature": 5.0,
+    "dense_loss_weight": 0.5,
+    "boundary_margin_seconds": 0.08,
+    "synthetic_probability": 0.5,
+    "synthetic_durations": [
+      4,
+      8,
+      16,
+      32,
+      60
+    ],
+    "insertion_durations": [
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "synthetic_channels": [
+      "clean",
+      "g711_ulaw",
+      "g722_wb",
+      "opus_nb_8k",
+      "transcode_g711_opus"
+    ],
+    "synthetic_layouts": [
+      "concurrent",
+      "sequential_voice_first",
+      "sequential_music_first",
+      "sparse_voice",
+      "sparse_music",
+      "pure_voice",
+      "pure_music"
+    ],
+    "synthetic_snr": [
+      -10,
+      -5,
+      0,
+      5,
+      10
+    ],
+    "selection": "0.5*pooled_ADS+0.5*mean_available_component_macro_ADS",
+    "no_automatic_submission": true
+  },
+  "audit": {
+    "component": {
+      "train": {
+        "rows": 18738,
+        "mixed_rows": 17410,
+        "voice_identities": 6706,
+        "music_identities": 8634,
+        "parent_identities": 13420
+      },
+      "development": {
+        "rows": 4577,
+        "mixed_rows": 3700,
+        "voice_identities": 1971,
+        "music_identities": 2523,
+        "parent_identities": 3012
+      },
+      "overlap": {
+        "voice": 0,
+        "music": 0,
+        "parent": 0
+      },
+      "generator_signatures": {
+        "train": 364,
+        "development": 130,
+        "shared": 28,
+        "policy": "domain_overlap_reported_not_identity_leakage"
+      }
+    },
+    "strict": {
+      "train_identity_tokens": 43714,
+      "development_identity_tokens": 11093,
+      "overlap": 0,
+      "columns": [
+        "ID",
+        "VOICE_SOURCE_ID",
+        "FIRST_SOURCE_ID",
+        "SECOND_SOURCE_ID",
+        "VOICE_SPEAKER",
+        "VOICE_GROUP",
+        "FIRST_GROUP",
+        "SECOND_GROUP",
+        "VOICE_ARCHIVE_ID",
+        "VOICE_ARCHIVE_MEMBER",
+        "MUSIC_SOURCE_ID",
+        "MUSIC_GROUP",
+        "MUSIC_GROUP_ID",
+        "MUSIC_ARCHIVE_ID",
+        "MUSIC_ARCHIVE_MEMBER",
+        "PARENT_ID",
+        "MIXTURE_ID",
+        "PAIR_GROUP",
+        "GROUP_ID",
+        "SOURCE_FILE",
+        "SPEAKER",
+        "FMA_TRACK_ID",
+        "ORIGINAL_AUDIO",
+        "BASE_ID"
+      ]
+    },
+    "excluded_train_ids": [
+      "temporal_mix_02183",
+      "temporal_mix_02439",
+      "FS-RM_LA_T_5084847_116870",
+      "FS-RM_LA_T_8539376_145761",
+      "RS-RM_LA_T_4408648_121346",
+      "RS-RM_LA_T_9474664_136994"
+    ],
+    "manifests": [
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/forensic_call_train_v1/truth_train.csv",
+        "sha256": "37228340ff587003bea23a7ced9928fc7d06a1b7537c5bdb673b4bd2a119e3fe"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v2/truth_train.csv",
+        "sha256": "f9e812a0d7e4d9cae889449d3b630f4585a1ecfd4037a4942ce200c16149c68d"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_train_v1/truth.csv",
+        "sha256": "e68436b27d92dce2e6ec7a287ee31be14d42f083fdd01f3ea21cec533d923090"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_devvoice_train_v1/truth.csv",
+        "sha256": "edbb002ac3c153a12447797afaf0d44954d2a159022012da08cca365aef2b566"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_fmc_music_train_v1/truth.csv",
+        "sha256": "c70b7e0b73cdad037bbf1e81176adaa849bdeb69b86be383110ab80f55b14a60"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_train_v1/truth.csv",
+        "sha256": "0ca558fded2c8d8985a0c61d7c5cccee80d2ba0018f86d9d31db05020a9d2822"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/telephone_mixed_train_v1/truth.csv",
+        "sha256": "858b67ad005f61fdcfd2e3477a8b9804e9eed0a8c68985c18c1b866c28dae8a2"
+      },
+      {
+        "role": "train",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/truth.csv",
+        "sha256": "c1638c1c34832d6459b5098b7a181edc8e488c7237fde9439a71ee8ad948644d"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_dev_v1/truth.csv",
+        "sha256": "573ce51bcf538642aefe91e707df77f0821c2c330f451eae3b8ecc717c34dfc1"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_dev.csv",
+        "sha256": "5c37cf92eeb7ee9ab5c6d56f2e1c4a01094a8e8792e82f2f8735d564a445cf87"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1/truth.csv",
+        "sha256": "fd3d366121f7fdd45453b76c0525dc9b6c937ba5c60491f53ca289cb5f19a264"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1/truth.csv",
+        "sha256": "0fa827ea96058cbf3e560b5530551901271f9ed1e33665228ac1e1d355da15c9"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_music_v1/truth.csv",
+        "sha256": "c8f993d7cec793fda7614b61db35b1a347329f282c8f88a6cb6af7b8d53260a0"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof_voice_wav_dev_v1/truth.csv",
+        "sha256": "7b67fc354ea5a20508319284f1ebbf296c8e8641fea1f10345e5ca56c731b3cf"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1_telephone_v1/truth.csv",
+        "sha256": "db022924235f4e6683bab72063dcfcec9623dc18008a4ab371389714aa5cb3a9"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv",
+        "sha256": "e6550ead73ec783f64012f83b1d6da527557792cf9b41ce45a8485a70c41bd52"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_dev.csv",
+        "sha256": "e03157a88ecb74192087b4cc3a602d65d4e2ffeb5d34f56e5d5b1db5a16ed17b"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_dev.csv",
+        "sha256": "368d2443c61805158936bfc20e1fb2b980af3b64f3c2cedec3b774753ef22309"
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv",
+        "sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b"
+      }
+    ],
+    "matrix_sha256": "dec326dd7ea73102992177ad1bb31d1d824f84e13d6f622a192da27597d20ddc",
+    "all_protected_roles": [
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_dev_v1/truth.csv",
+        "sha256": "573ce51bcf538642aefe91e707df77f0821c2c330f451eae3b8ecc717c34dfc1",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_dev.csv",
+        "sha256": "5c37cf92eeb7ee9ab5c6d56f2e1c4a01094a8e8792e82f2f8735d564a445cf87",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1/truth.csv",
+        "sha256": "fd3d366121f7fdd45453b76c0525dc9b6c937ba5c60491f53ca289cb5f19a264",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1/truth.csv",
+        "sha256": "0fa827ea96058cbf3e560b5530551901271f9ed1e33665228ac1e1d355da15c9",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_equal_v1/truth.csv",
+        "sha256": "80319abef8354949981c20e2e9788d92c6f8cc79cca5306c6c88fe1a7afdfa47",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_music_v1/truth.csv",
+        "sha256": "c8f993d7cec793fda7614b61db35b1a347329f282c8f88a6cb6af7b8d53260a0",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof_voice_wav_dev_v1/truth.csv",
+        "sha256": "7b67fc354ea5a20508319284f1ebbf296c8e8641fea1f10345e5ca56c731b3cf",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1_telephone_v1/truth.csv",
+        "sha256": "db022924235f4e6683bab72063dcfcec9623dc18008a4ab371389714aa5cb3a9",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv",
+        "sha256": "e6550ead73ec783f64012f83b1d6da527557792cf9b41ce45a8485a70c41bd52",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/telephone_mixed_dev_v1/truth.csv",
+        "sha256": "2608398b9bf6fcd29f4054073f4fd1b08c93ea662bfd2ec8870da0976a289e9a",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_dev.csv",
+        "sha256": "e03157a88ecb74192087b4cc3a602d65d4e2ffeb5d34f56e5d5b1db5a16ed17b",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_dev.csv",
+        "sha256": "368d2443c61805158936bfc20e1fb2b980af3b64f3c2cedec3b774753ef22309",
+        "overlap": 0
+      },
+      {
+        "role": "development",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv",
+        "sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+        "overlap": 0
+      },
+      {
+        "role": "locked_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/reservations/long_voice_v61_v3/truth_sources.csv",
+        "sha256": "0fa00235feb428e6dbb95bec42cb6ab086f8a49d7c453a488fc412b0ab9fafc2",
+        "overlap": 0
+      },
+      {
+        "role": "locked_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_sparse_v61/truth.csv",
+        "sha256": "eca55bb31eee7029dbcaf4dbc132a500b937ffd0b0702aba02e12e5ea31d3afe",
+        "overlap": 0
+      },
+      {
+        "role": "locked_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_uniform_v61/truth.csv",
+        "sha256": "c8d66f7cab9ca8b6931f919152569c01433ff2680856e70b993feef5e9d06c90",
+        "overlap": 0
+      },
+      {
+        "role": "ood_holdout",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_holdout.csv",
+        "sha256": "52a4bd6f03daa2838bc2dba8e4a616dc398782030c8f91badae6e593e619570e",
+        "overlap": 0
+      },
+      {
+        "role": "ood_holdout",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_holdout.csv",
+        "sha256": "0461126ce17497bd4d68ca74dc6e225974dee69da66e52ae4a17b2bac4636f7b",
+        "overlap": 0
+      },
+      {
+        "role": "ood_holdout",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_holdout.csv",
+        "sha256": "86b6a8cf1a6c8e1430825ee3e561bcc9a3ad6a86cc43c982cdf43b5ddc6ae0c5",
+        "overlap": 0
+      },
+      {
+        "role": "ood_holdout",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_v1/truth.csv",
+        "sha256": "11734b395cfc5e019807c9d70a670947ae92007fe365b1bfc2a84b4d6d80c86c",
+        "overlap": 0
+      },
+      {
+        "role": "stress_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_music_telephone_v1/truth.csv",
+        "sha256": "2a249dd3b69d98728c95a9c40615f0e6626d81ffc95d0be507af7ab685753493",
+        "overlap": 0
+      },
+      {
+        "role": "stress_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_equal_v1_telephone_v1/truth.csv",
+        "sha256": "57e08162ca9b359569537ce1aaf9858fcc1dab4fffc5a567aadd8bf26d49841a",
+        "overlap": 0
+      },
+      {
+        "role": "stress_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof_voice_telephone_dev_v1/truth.csv",
+        "sha256": "0143a1a5b4bdce377b07960d9d1252fe4a18fae0238b128e2611156d53aef7ed",
+        "overlap": 0
+      },
+      {
+        "role": "stress_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/suno_vocals_codec_stress_v1/truth.csv",
+        "sha256": "7b9a94b9a591e0687ac6fed295849f483dc89e498e1eb8d2b4e0ef9f9154c502",
+        "overlap": 0
+      },
+      {
+        "role": "stress_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_component_stress_v70/truth.csv",
+        "sha256": "9c9f822fc724b8825e58ac332c9fd2d526b415e58781231a57512e0aac2ae922",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/all_type_blind_v9/truth.csv",
+        "sha256": "b11b0fecb01ac976d0b38842700d1574918012e0b53d84286737ebe183754bff",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v8/truth.csv",
+        "sha256": "7c299e957541c8bb7431f256e43c2ae9576a968366d62dcd0519e3141abcb342",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v5/truth.csv",
+        "sha256": "d84a2a691c717dc1db2e8820dc1e263bf87239a382d47f9b1e58db9b6726f9a3",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v6/truth.csv",
+        "sha256": "c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v7/truth.csv",
+        "sha256": "75fe464b32b4b9f11f14c334e5fba38c871d0c11bf5d73b7b0d0f9bd0c303ac5",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/prospective_mixed_phone_v3_instrumental_v2/truth.csv",
+        "sha256": "d45c5a3ce0f20496e6d6d4754a94f8b43633cbe5cd1a273e1cf06599313cd388",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/phone_factorial_1200_v1/truth.csv",
+        "sha256": "ac978fece5935c9271193afabd52e80e8b056ed6beaf725072d96a1b65a7ce2d",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/forensic_call_audit_v1/truth.csv",
+        "sha256": "6cc3c14a9192851e95dda6d61604cc10a20a3d2c3065c9958b20d7283808993d",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof2021_la_channel_audit_v1/truth.csv",
+        "sha256": "ad0213fa00127c05ebfccf4aacfae0476f770a920672da578f51e5d529a6cf78",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_locked_v1/truth.csv",
+        "sha256": "313130fb5db0e242a7f342589cdc62c696008f359d79497ccbe69fee8ace029c",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_locked.csv",
+        "sha256": "c152db96fffa91200caa56b22e5f70b6b3994160dc6b4fad7598bc46d9fff131",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_locked.csv",
+        "sha256": "5ddeea36e557c15f356331bc1065678e685031d3ed0a8abcf1fdea5dc2374e87",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_locked.csv",
+        "sha256": "dd0a4564094a6ffb05f523e45135ac4322ad71311c20b8a0cf67d32b1b952715",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/yue_cross_component_audit_v1/truth.csv",
+        "sha256": "773ddfa8616fe14921394164ba9a29b84ff3c8bda5573f218b6958f5da617289",
+        "overlap": 0
+      },
+      {
+        "role": "retrospective_diagnostic",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/phone_router_librispeech_final_v1/truth.csv",
+        "sha256": "f93759f5410adf56b43387bab8ecfe257fee48be3589317fadac392bc7337b11",
+        "overlap": 0
+      },
+      {
+        "role": "invalid_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/prospective_mixed_phone_v3/truth.csv",
+        "sha256": "a310be3cc5f58c0e3dbae752bb9b4010b140c80bb15a22aa964523e06b3bc7e6",
+        "overlap": 0
+      },
+      {
+        "role": "invalid_eval",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/prospective_mixed_phone_v3_instrumental/truth.csv",
+        "sha256": "b63b061bc90b3e314f5e55060e6af99d466cf37a1d4403338b69fe65b540da43",
+        "overlap": 0
+      },
+      {
+        "role": "training_validation",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/forensic_call_train_v1/truth_dev.csv",
+        "sha256": "2e4c60e6bba9ff0381c1d8941311ca4a56a3eac6610d0282c342efe19c59bdb3",
+        "overlap": 0
+      },
+      {
+        "role": "training_validation",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v2/truth_dev.csv",
+        "sha256": "bbee299c807cab12d111710f19e02ff0fb78470e3ddb4bd5a223d4a2250e10a4",
+        "overlap": 0
+      },
+      {
+        "role": "training_validation",
+        "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v1/truth_dev.csv",
+        "sha256": "dd8ba4e34061b1af2e5e9e3e0fe6a7d42eb96a89d375f807de2f2170523d6101",
+        "overlap": 0
+      }
+    ]
+  },
+  "train_rows": 18738,
+  "development_rows": 4577,
+  "smoke": false,
+  "parent_checkpoint_sha256": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f",
+  "source_catalog_sha256": "75c582b2db1439f1c5ae87678d52796b6475c3fb51a42455c5f02041f00c15b9",
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_dense_component_v71.py": "1b5f62e3dba981f409fccef8602f600f961113939ed5a1b3bc7d3e2f1a06604e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/dense_component_v71.yaml": "475561b445f928f0d113dc4b763b391c6466d0c90456099ea484d93b1abbbcdb",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/dense_component_v71.py": "e534ceffd7256c42ef78778c4d5563c7f96fc762be76717f3b2bd9c2e730b8c3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/dense_component_data_v71.py": "01d5b09db3a6b28ddc7767ebd0dca0eda98c5bc9cabe779319f8b61fb693d6e8",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/long_component_stress.py": "138f8875bce530fa7daabb297f64325b885e7a3aacf72ee98031d5472dbbbb15",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe.py": "102a93fa491a1356d5868f6fcd73d83eed68a4773549fd13a458da58f9a42556",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_eat_adaptation.py": "bda6668610602d0b67f3b353c9dc28625daf95c955a81de20e1978dce8ffaff4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_eat_adaptation_inference.py": "a0df72e128bf9180bf6dc7ff2f6689e03c88ccf664184f46002ea15664076e20",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/telephone_channel.py": "2c3734150eb6671d8934846062a58e621962361290dfaa920672d3d5fee031c6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_common_encoder_probe.py": "bdaee4c386fa4e323ad396b47bc38d159f4e87adecf6ca6f815d99cc234b254a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py": "0ac8d283bd9195c30aea64408fd431a1369b1773c06b23de119398c31f7fe34d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/reserve_dense_component_sources_v71.py": "691c21d4890ce66f9f955864a063644cb52d05ba56dde15fdb2773b644ec6c1e"
+  },
+  "purpose": "TRAIN-only dense labels; paired shared encoder; no automatic submission"
+}

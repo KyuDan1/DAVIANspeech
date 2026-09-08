@@ -1,0 +1,23 @@
+# A separate development experiment, frozen before any slot-replacement scores.
+# Does not change or waive the direct File replacement gates of v60.
+schema_version: wpt_slot_replacement_v62
+data_matrix: configs/music_specialist_v58.yaml
+training_runs: reports/paired_wpt_file_v60
+checkpoint_choice: highest_full_development_selection_among_completed_v60_runs
+slot_weight: 0.4
+other_four_outputs: unchanged
+old_wpt_views: 5
+old_wpt_temperature: 2.0
+candidate_wpt_views: full_coverage
+weight_sweep: false
+anchor_csv: reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv
+anchor_package: v50_v57m_challenger_v2
+development_subset: [codec_mixed_dev_v4]
+decision:
+  minimum_pooled_file_eer_gain: 0.01
+  maximum_domain_file_eer_regression: 0.025
+  maximum_channel_file_eer_regression: 0.025
+  require_mean_domain_improvement: true
+  require_worst_domain_nonworse: true
+  no_automatic_submission: true
+remaining_gates: [independent_file_equivalence, prospective_all_type, long_voice, full_L4_runtime, offline_package]

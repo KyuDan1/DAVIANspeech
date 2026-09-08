@@ -1,0 +1,15 @@
+{
+  "prediction": {
+    "dataset_filter": null,
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/v50_candidate_blind_v5/predictions.csv",
+    "rows": 240,
+    "sha256": "af1b80f436d008448545ff66ed9b5ab9bb2094b113ac5f88555c659dc54851f0"
+  },
+  "purpose": "repeatable_development_checkpoint_evaluation",
+  "threshold_or_weight_search": false,
+  "truth": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v5/truth.csv",
+    "rows": 240,
+    "sha256": "d84a2a691c717dc1db2e8820dc1e263bf87239a382d47f9b1e58db9b6726f9a3"
+  }
+}

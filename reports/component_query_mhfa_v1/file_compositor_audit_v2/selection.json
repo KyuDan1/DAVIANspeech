@@ -1,0 +1,16 @@
+{
+  "selection_data": "factorial_eval_1200_v2_dev only",
+  "safety_rule": "target EER improves; overall and every other controlled File contrast EER do not regress versus exact v47",
+  "selected": {
+    "METHOD": "three_source_logsumexp",
+    "OUTER_WEIGHT": 0.675,
+    "TEMPERATURE": 4.0,
+    "QUERY_VOICE_WEIGHT": null,
+    "QUERY_EXTRA_MASS": 0.05,
+    "EER_OVERALL": 0.1981818181818182,
+    "EER_CONCURRENT_VFMR": 0.24,
+    "MAX_OTHER_DELTA": 0.0
+  },
+  "locked_truth_loaded_after_selection": true,
+  "v47_reconstruction_matches_reference_atol": 1e-09
+}

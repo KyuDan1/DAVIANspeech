@@ -1,0 +1,15 @@
+{
+  "selection": 0.6531716589861751,
+  "datasets": [
+    "mixfake_music_dev_v1",
+    "external_mixed_v1",
+    "source_disjoint_mixed_v1",
+    "source_disjoint_mixed_equal_v1",
+    "source_disjoint_music_v1",
+    "factorial_eval_1200_v2_dev",
+    "telephone_mixed_dev_v1",
+    "factorial_eval_1200_v2_holdout",
+    "phone_factorial_1200_v1",
+    "yue_cross_component_audit_v1"
+  ]
+}

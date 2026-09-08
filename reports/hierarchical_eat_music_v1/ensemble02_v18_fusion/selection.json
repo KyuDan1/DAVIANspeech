@@ -1,0 +1,7 @@
+{
+  "music_weight": 0.15,
+  "file_weight": 0.15,
+  "presence_gate": 0.5,
+  "dev_ads": 0.7436363636363637,
+  "dev_delta": 0.04571428571428571
+}

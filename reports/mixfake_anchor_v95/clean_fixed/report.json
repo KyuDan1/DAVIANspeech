@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "channel": "clean",
+  "rows": 320,
+  "seconds": 317.74570329207927,
+  "predictions_sha256": "aed2fef96da88b4260a279402519140937b031dc97b6ff6d0b52bf32519c625b",
+  "frozen_sha256": "da9b4e96d7b11e08f1347b9cc17dded6c36a24b5d109079c3fed0d4bafb68ff6"
+}

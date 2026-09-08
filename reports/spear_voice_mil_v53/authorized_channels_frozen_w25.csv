@@ -1,0 +1,7 @@
+DATASET,CHANNEL,N,ANCHOR_VOICE_EER,FROZEN_VOICE_EER
+factorial_eval_1200_v2:truth_dev.csv,clean_flac,58,0.2068965517241379,0.24137931034482762
+factorial_eval_1200_v2:truth_dev.csv,mp3_64k,58,0.27586206896551724,0.3448275862068966
+factorial_eval_1200_v2:truth_dev.csv,noisy_flac,58,0.31034482758620685,0.24137931034482762
+factorial_eval_1200_v2:truth_dev.csv,ogg_48k,59,0.271264367816092,0.271264367816092
+factorial_eval_1200_v2:truth_dev.csv,stereo_wav,59,0.271264367816092,0.3390804597701149
+factorial_eval_1200_v2:truth_dev.csv,telephone_flac,58,0.27586206896551724,0.24137931034482762

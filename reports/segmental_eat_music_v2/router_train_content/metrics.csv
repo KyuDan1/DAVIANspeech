@@ -1,0 +1,3 @@
+DATASET,MEMBER,N,MUSIC_EER
+multigen_music_presence_train_v1,ensemble,474,0.016880341880341907
+phone_presence_factorial_train_v1,ensemble,2000,0.054001600640256095

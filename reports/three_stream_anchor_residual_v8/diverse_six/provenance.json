@@ -1,0 +1,31 @@
+{
+  "method": "uniform_logit_mean",
+  "members": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v1/matrix_v1/robust_l2_core/dev_predictions.csv",
+      "sha256": "42c28b8949aa7ad366e403305281baaa096399088941a0d7201f68b089f81adf"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260905/dev_predictions.csv",
+      "sha256": "5c0ff2123f588e014cd48af5a3015b13c1db65e2910227c04800efd4a30639f4"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260906/dev_predictions.csv",
+      "sha256": "6e50a1e6b28713e370bf8bc3c75af505e7598655a4be2cf47a90ef70d5ea613f"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v3/matrix_v3/robust_l4_core/dev_predictions.csv",
+      "sha256": "9ecf756150b613843936a375b7729a5c68964a64da41001f76fd0c496d89d36d"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v2/matrix_v2/disentangle_l2/dev_predictions.csv",
+      "sha256": "cc6217ac72585aa475698feebab45fa956c841e40406a1264f77b54226c59903"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v2/matrix_v2/disentangle_l1/dev_predictions.csv",
+      "sha256": "33b3ce6a3cd6ec7a45f7176261a603d8613647941032beedd5e3b006adaa7768"
+    }
+  ],
+  "rows": 5377,
+  "prediction_sha256": "7d394904fb5ad287dd91c5f29f74711ceb1fe4a3cba86f7cb096d6a9512c577d"
+}

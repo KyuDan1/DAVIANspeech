@@ -1,0 +1,22 @@
+{
+  "task": "music",
+  "channel": "clean",
+  "rows": 4261,
+  "anchor_eer": 0.12015959356955122,
+  "expert_eer": 0.24383943265411334,
+  "best_fused_eer": 0.11546585944574059,
+  "selected_expert_weight": 0.17,
+  "anchor_subgroup_eer": {
+    "voice_real": 0.19999999999999998,
+    "voice_fake": 0.20666666666666667
+  },
+  "expert_subgroup_eer": {
+    "voice_real": 0.33999999999999997,
+    "voice_fake": 0.27
+  },
+  "fused_subgroup_eer": {
+    "voice_real": 0.20666666666666667,
+    "voice_fake": 0.21333333333333337
+  },
+  "locked_scores_read": false
+}

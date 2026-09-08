@@ -1,0 +1,48 @@
+{
+  "config": {
+    "schema": "wavlm_voice_lora_v79",
+    "inventory": "reports/training_inventory_v78/report.json",
+    "encoder_path": "models/wavlm-large",
+    "initial_head": "reports/common_encoder_probe/wavlm/mean/head.pt",
+    "seed": 20260905,
+    "rank": 8,
+    "last_blocks": 4,
+    "head_width": 96,
+    "pooling": "mean",
+    "batch_size": 8,
+    "workers": 2,
+    "encoder_chunk": 2,
+    "temperature": 2.0,
+    "epochs": 6,
+    "samples_per_epoch": 4096,
+    "head_learning_rate": 0.001,
+    "adapter_learning_rate": 0.0003,
+    "weight_decay": 0.01,
+    "selection": "fixed_final_epoch_no_early_stopping",
+    "filter": "known_voice_targets_excludes_unverified_RF_background",
+    "automatic_submission_allowed": false
+  },
+  "train_rows": 13814,
+  "excluded_train_rows": 4924,
+  "development_voice_rows": 4016,
+  "train_voice_classes": {
+    "1.0": 9159,
+    "0.0": 4655
+  },
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_wavlm_voice_lora_v79.py": "2fa94253f4cfe4650c73556c6bec863267b739e7828f2a42f36f163c02c1619d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/wavlm_voice_lora_v79.yaml": "03757d23951748d70aef2645b92a98bb311df873f4e36a9ee01bdbb8675b0ca9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/wavlm_voice_lora_v79.py": "52393a54eb7c02d771b817f629159c47a8baa9688577134bb3a711074752e4a3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe.py": "102a93fa491a1356d5868f6fcd73d83eed68a4773549fd13a458da58f9a42556",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_eat_adaptation.py": "bda6668610602d0b67f3b353c9dc28625daf95c955a81de20e1978dce8ffaff4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_common_encoder_probe.py": "bdaee4c386fa4e323ad396b47bc38d159f4e87adecf6ca6f815d99cc234b254a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py": "0ac8d283bd9195c30aea64408fd431a1369b1773c06b23de119398c31f7fe34d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/models/wavlm-large/pytorch_model.bin": "fdee460e529396ddb2f8c8e8ce0ad74cfb747b726bc6f612e666c7c1e1963c9d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/mean/head.pt": "c8a672643c98f3e41f9a07f59348b600749838532137359f839e0067e0fcf0c8",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/training_inventory_v78/report.json": "cf73cbcd6be5294c09d9a691d17f7988c3241e55386940432746ecd9600f3f80",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wavlm_voice_lora_v79/smoke/report.json": "37c9abb7769db239c44f35d8efe550e420ff5b29659a768ba4afd3fe6d96d0d1"
+  },
+  "selection": "fixed final epoch, no early stopping",
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

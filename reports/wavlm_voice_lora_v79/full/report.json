@@ -1,0 +1,22 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "variant": "control",
+      "rows": 4016,
+      "VOICE_EER": 0.18949191385192327
+    },
+    {
+      "variant": "adapted",
+      "rows": 4016,
+      "VOICE_EER": 0.19297811574954207
+    }
+  ],
+  "lora_parameters": 131072,
+  "seconds": 2068.5719424616545,
+  "peak_cuda_mib": 5549.45361328125,
+  "frozen_sha256": "7b7ec273b865bbe184b28893637ec1c7ffad61de7417cba87fea6a8ea6b649a9",
+  "final_epoch_only": true,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

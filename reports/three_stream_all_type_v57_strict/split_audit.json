@@ -1,0 +1,114 @@
+{
+  "component_contract": {
+    "development": {
+      "mixed_rows": 3700,
+      "music_identities": 2523,
+      "parent_identities": 3012,
+      "rows": 4577,
+      "voice_identities": 1971
+    },
+    "generator_signatures": {
+      "development": 130,
+      "policy": "domain_overlap_reported_not_identity_leakage",
+      "shared": 28,
+      "train": 364
+    },
+    "overlap": {
+      "music": 0,
+      "parent": 0,
+      "voice": 0
+    },
+    "train": {
+      "mixed_rows": 17410,
+      "music_identities": 8634,
+      "parent_identities": 13420,
+      "rows": 18738,
+      "voice_identities": 6706
+    }
+  },
+  "development": {
+    "audio_rows": 4577,
+    "datasets": [
+      "mixfake_music_dev_v1",
+      "factorial_eval_1200_v2",
+      "external_mixed_v1",
+      "source_disjoint_mixed_v1",
+      "source_disjoint_music_v1",
+      "asvspoof_voice_wav_dev_v1",
+      "external_mixed_v1_telephone_v1",
+      "source_disjoint_mixed_v1_telephone_v1",
+      "multigen_voice_v2",
+      "echoes_fma_paired_v3",
+      "codec_mixed_dev_v4"
+    ],
+    "identity_columns": {
+      "BASE_ID": 120,
+      "FMA_TRACK_ID": 56,
+      "GROUP_ID": 486,
+      "ID": 4577,
+      "MUSIC_ARCHIVE_ID": 120,
+      "MUSIC_ARCHIVE_MEMBER": 120,
+      "MUSIC_GROUP_ID": 174,
+      "MUSIC_SOURCE_ID": 2169,
+      "ORIGINAL_AUDIO": 56,
+      "PARENT_ID": 896,
+      "SOURCE_FILE": 1630,
+      "SPEAKER": 56,
+      "VOICE_ARCHIVE_ID": 120,
+      "VOICE_ARCHIVE_MEMBER": 120,
+      "VOICE_SOURCE_ID": 1661,
+      "VOICE_SPEAKER": 70
+    },
+    "identity_tokens": 11091,
+    "rows": 4577,
+    "unique_audio_sha256": 4568
+  },
+  "matrix_sha256": "86ddf3e29ecedb8367b57c1f4ca20e2f1adfe9470237ac0a30e3166ef07c1e80",
+  "non_scope_roles_read": [],
+  "overlap": {
+    "identity_tokens": 0,
+    "rendered_audio_sha256": 0
+  },
+  "partition_config_sha256": "5c9f98177a7f49defec0bc120a0399c358c10a32efb674f9219585a3db38dd1c",
+  "scope": "explicit matrix train/development only",
+  "status": "PASS",
+  "train": {
+    "audio_rows": 18738,
+    "datasets": [
+      "forensic_call_train_v1",
+      "temporal_mixed_train_v2",
+      "external_mixed_train_v1",
+      "mixed_devvoice_train_v1",
+      "mixed_fmc_music_train_v1",
+      "mixfake_music_train_v1",
+      "telephone_mixed_train_v1",
+      "channel_invariant_factorial_train_v1"
+    ],
+    "excluded_rows": [
+      "temporal_mix_02183",
+      "temporal_mix_02439",
+      "FS-RM_LA_T_5084847_116870",
+      "FS-RM_LA_T_8539376_145761",
+      "RS-RM_LA_T_4408648_121346",
+      "RS-RM_LA_T_9474664_136994"
+    ],
+    "identity_columns": {
+      "FIRST_GROUP": 263,
+      "FIRST_SOURCE_ID": 300,
+      "ID": 18738,
+      "MIXTURE_ID": 1000,
+      "MUSIC_GROUP": 242,
+      "MUSIC_SOURCE_ID": 8392,
+      "PAIR_GROUP": 640,
+      "PARENT_ID": 3784,
+      "SECOND_GROUP": 263,
+      "SECOND_SOURCE_ID": 315,
+      "SOURCE_FILE": 7996,
+      "VOICE_GROUP": 480,
+      "VOICE_SOURCE_ID": 6075
+    },
+    "identity_tokens": 43714,
+    "rows": 18738,
+    "unique_audio_sha256": 18701
+  }
+}

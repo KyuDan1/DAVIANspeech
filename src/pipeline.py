@@ -19,7 +19,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+import os
 import sys
+import tempfile
+import zipfile
 from pathlib import Path
 
 import librosa
@@ -37,6 +40,7 @@ from spear_detector import SpearMusicDetector  # noqa: E402
 from xlsr_antideepfake import XlsrAntiDeepfake  # noqa: E402
 
 AUDIO_SR = 16_000
+XLSR_EMBEDDING_DIM = 1_920
 SILENCE_RMS = 1e-5
 PRESENCE_GATE = 0.7
 # Source separation can erase generator traces and can also introduce traces
@@ -181,15 +185,20 @@ def fake_probability(detector, audio, device, window, batch_size,
     return pool_window_scores(np.asarray(scores), pooling, temperature)
 
 
-def fake_probability_and_embedding(detector, audio, device, window, batch_size):
+def fake_probability_and_embedding(
+    detector, audio, device, window, batch_size, return_windows=False,
+):
     """Return the released head score and mean pooled file representation.
 
     The raw-audio XLS-R pass is shared by the speech head and the adapted
     music head, so adding the latter has no extra 2B-encoder inference cost.
+    ``return_windows`` additionally exposes the ordered representations and
+    sample starts produced by that same encoder pass for label-blind caching.
     """
+    starts = segment_starts(audio.size, window)
     windows = np.stack([
         extract_segment(audio, start, window)
-        for start in segment_starts(audio.size, window)
+        for start in starts
     ])
     best, embeddings = 0.0, []
     for offset in range(0, len(windows), batch_size):
@@ -201,7 +210,106 @@ def fake_probability_and_embedding(detector, audio, device, window, batch_size):
             )[:, 0]
         best = max(best, float(probabilities.max()))
         embeddings.append(pooled.float().cpu())
-    return best, torch.cat(embeddings).mean(dim=0)
+    per_window = torch.cat(embeddings)
+    result = (best, per_window.mean(dim=0))
+    if return_windows:
+        return (*result, per_window, np.asarray(starts, dtype=np.int64))
+    return result
+
+
+def _xlsr_window_embedding_arrays(ids, embeddings, starts, window):
+    """Pad ordered per-file XLS-R windows into a label-blind archive schema."""
+    ids = [str(item_id) for item_id in ids]
+    embeddings = list(embeddings)
+    starts = list(starts)
+    if not ids:
+        raise ValueError("XLS-R window export requires at least one file")
+    if len(set(ids)) != len(ids):
+        raise ValueError("XLS-R window export IDs must be unique")
+    if len(embeddings) != len(ids) or len(starts) != len(ids):
+        raise ValueError("XLS-R window export fields have different file counts")
+    if int(window) <= 0:
+        raise ValueError("XLS-R window size must be positive")
+
+    matrices, positions = [], []
+    for item_id, item_embeddings, item_starts in zip(ids, embeddings, starts):
+        matrix = np.asarray(item_embeddings, dtype=np.float32)
+        position = np.asarray(item_starts, dtype=np.int64)
+        if matrix.ndim != 2 or matrix.shape[1] != XLSR_EMBEDDING_DIM:
+            raise ValueError(
+                f"XLS-R embeddings for {item_id!r} must have shape "
+                f"[windows, {XLSR_EMBEDDING_DIM}]"
+            )
+        if not matrix.shape[0] or position.shape != (matrix.shape[0],):
+            raise ValueError(
+                f"XLS-R starts for {item_id!r} must match non-empty windows"
+            )
+        if not np.isfinite(matrix).all():
+            raise ValueError(f"XLS-R embeddings for {item_id!r} are non-finite")
+        if np.any(position < 0) or np.any(position[1:] < position[:-1]):
+            raise ValueError(
+                f"XLS-R starts for {item_id!r} must be ordered and non-negative"
+            )
+        matrices.append(matrix)
+        positions.append(position)
+
+    max_windows = max(matrix.shape[0] for matrix in matrices)
+    values = np.zeros(
+        (len(ids), max_windows, XLSR_EMBEDDING_DIM), dtype=np.float32
+    )
+    mask = np.zeros((len(ids), max_windows), dtype=np.bool_)
+    padded_starts = np.full((len(ids), max_windows), -1, dtype=np.int64)
+    for index, (matrix, position) in enumerate(zip(matrices, positions)):
+        count = matrix.shape[0]
+        values[index, :count] = matrix
+        mask[index, :count] = True
+        padded_starts[index, :count] = position
+    return {
+        "ids": np.asarray(ids),
+        "embeddings": values,
+        "mask": mask,
+        "starts": padded_starts,
+        "window": np.asarray(window, dtype=np.int64),
+        "sample_rate": np.asarray(AUDIO_SR, dtype=np.int64),
+    }
+
+
+def _write_deterministic_npz(handle, arrays):
+    """Write an unpickled-loadable NPZ without wall-clock ZIP metadata."""
+    with zipfile.ZipFile(
+        handle, mode="w", compression=zipfile.ZIP_DEFLATED, compresslevel=6,
+    ) as archive:
+        for name, value in arrays.items():
+            info = zipfile.ZipInfo(f"{name}.npy", date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            with archive.open(info, mode="w", force_zip64=True) as member:
+                np.lib.format.write_array(
+                    member, np.asarray(value), allow_pickle=False
+                )
+
+
+def save_xlsr_window_embeddings(
+    output_path: Path, ids, embeddings, starts, window,
+) -> None:
+    """Atomically save ordered original-mixture XLS-R window embeddings."""
+    arrays = _xlsr_window_embedding_arrays(ids, embeddings, starts, window)
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w+b", prefix=f".{output_path.name}.", suffix=".tmp",
+            dir=output_path.parent, delete=False,
+        ) as handle:
+            temporary_path = Path(handle.name)
+            _write_deterministic_npz(handle, arrays)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary_path.replace(output_path)
+    except BaseException:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
+        raise
 
 
 def combine(voice_fake, music_fake, voice_present, music_present):
@@ -293,6 +401,8 @@ def run(args):
     fourier_detector = FourierMusicDetector(args.fourier_music_head)
 
     diagnostic_rows = []
+    xlsr_window_output = getattr(args, "xlsr_window_embeddings_output", None)
+    xlsr_window_ids, xlsr_window_embeddings, xlsr_window_starts = [], [], []
     for row, path in zip(rows, tqdm(audio_files, desc="detect")):
         original_audio = load_audio(path)
         voice_audio, _ = separator.separate(path)
@@ -312,9 +422,19 @@ def run(args):
                 voice_stem_embedding.to(device) @ xlsr_echofake_weight
                 + xlsr_echofake_bias
             ))
-        raw_fake_xlsr, raw_xlsr_embedding = fake_probability_and_embedding(
-            detector, original_audio, device, args.window, args.batch_size
-        )
+        if xlsr_window_output is None:
+            raw_fake_xlsr, raw_xlsr_embedding = fake_probability_and_embedding(
+                detector, original_audio, device, args.window, args.batch_size
+            )
+        else:
+            (raw_fake_xlsr, raw_xlsr_embedding, raw_window_embeddings,
+             raw_window_starts) = fake_probability_and_embedding(
+                detector, original_audio, device, args.window, args.batch_size,
+                return_windows=True,
+            )
+            xlsr_window_ids.append(path.stem)
+            xlsr_window_embeddings.append(raw_window_embeddings.numpy())
+            xlsr_window_starts.append(raw_window_starts)
         music_fake_xlsr_adapted = float(torch.sigmoid(
             raw_xlsr_embedding.to(device) @ xlsr_music_weight + xlsr_music_bias
         ))
@@ -419,6 +539,15 @@ def run(args):
         writer.writeheader()
         writer.writerows(rows)
     print(f"Saved {len(rows)} predictions to {args.output}")
+    if xlsr_window_output is not None:
+        save_xlsr_window_embeddings(
+            xlsr_window_output, xlsr_window_ids, xlsr_window_embeddings,
+            xlsr_window_starts, args.window,
+        )
+        print(
+            f"Saved {len(xlsr_window_ids)} ordered XLS-R window embeddings "
+            f"to {xlsr_window_output}"
+        )
     if args.diagnostic_output is not None:
         args.diagnostic_output.parent.mkdir(parents=True, exist_ok=True)
         with args.diagnostic_output.open(
@@ -445,6 +574,11 @@ def parse_args(argv=None):
         "--diagnostic-output", type=Path, default=None,
         help="Optional per-expert CSV for offline ablations. Never required "
              "by the submission path.",
+    )
+    parser.add_argument(
+        "--xlsr-window-embeddings-output", type=Path, default=None,
+        help="Optional label-blind NPZ of ordered original-mixture XLS-R "
+             "window embeddings produced during the existing encoder pass.",
     )
     parser.add_argument("--panns-dir", type=Path, default=Path("models/panns"))
     parser.add_argument("--xlsr-dir", type=Path,

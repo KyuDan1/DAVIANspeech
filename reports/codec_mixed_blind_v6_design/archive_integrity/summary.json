@@ -1,0 +1,8 @@
+{
+  "volumes": 67,
+  "total_bytes": 71577624470,
+  "all_pass": true,
+  "reference_manifest": "reports/codec_mixed_dev_v4_design/archive_volume_validation.csv",
+  "reference_manifest_sha256": "31b26fb54b33a0b0ffcbee3957630c932ae418cc5e1f6d4087adc25ded75c21c",
+  "authenticity_detector_scores_read": false
+}

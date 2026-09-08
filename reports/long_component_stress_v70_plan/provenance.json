@@ -1,0 +1,162 @@
+{
+  "schema": "long_component_stress_v70",
+  "config": {
+    "schema": "long_component_stress_v70",
+    "seed": 20260905,
+    "parent_truth": "data/eval/codec_mixed_dev_v4/truth.csv",
+    "parent_sources": "data/eval/codec_mixed_dev_v4/source_hashes.csv",
+    "partition_config": "configs/data_partitions.yaml",
+    "groups": 10,
+    "sources_per_pool_per_group": 6,
+    "durations": [
+      10,
+      30,
+      60
+    ],
+    "channels": [
+      "clean",
+      "g711_ulaw",
+      "opus_nb_8k"
+    ],
+    "layouts": [
+      "concurrent",
+      "sequential_voice_first",
+      "sequential_music_first",
+      "sparse_voice",
+      "sparse_music"
+    ],
+    "component_cases": [
+      "RR",
+      "RF",
+      "FR",
+      "FF"
+    ],
+    "pure_cases": [
+      "real_voice",
+      "fake_voice",
+      "real_music",
+      "fake_music"
+    ],
+    "snr_cycle": [
+      -10,
+      0,
+      10
+    ],
+    "voice_piece_seconds": 4,
+    "music_piece_seconds": 10,
+    "insertion_seconds": 2,
+    "crossfade_seconds": 0.02,
+    "workers": 4,
+    "expected_rows": 2160,
+    "role": "stress_eval",
+    "selection_allowed": false
+  },
+  "stage": "planned",
+  "expected_rows": 2160,
+  "training_identity_audit": [
+    {
+      "role": "train",
+      "path": "data/eval/forensic_call_train_v1/truth_train.csv",
+      "sha256": "37228340ff587003bea23a7ced9928fc7d06a1b7537c5bdb673b4bd2a119e3fe",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/temporal_mixed_train_v2/truth_train.csv",
+      "sha256": "f9e812a0d7e4d9cae889449d3b630f4585a1ecfd4037a4942ce200c16149c68d",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/temporal_mixed_train_v1/truth_train.csv",
+      "sha256": "2c5c0876c7665d7cb7a8d8ac187b7ea12d806fbdbf496ee2698785b04245c1c9",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/external_mixed_train_v1/truth.csv",
+      "sha256": "e68436b27d92dce2e6ec7a287ee31be14d42f083fdd01f3ea21cec533d923090",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/mixed_devvoice_train_v1/truth.csv",
+      "sha256": "edbb002ac3c153a12447797afaf0d44954d2a159022012da08cca365aef2b566",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/mixed_fmc_music_train_v1/truth.csv",
+      "sha256": "c70b7e0b73cdad037bbf1e81176adaa849bdeb69b86be383110ab80f55b14a60",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/mixfake_music_train_v1/truth.csv",
+      "sha256": "0ca558fded2c8d8985a0c61d7c5cccee80d2ba0018f86d9d31db05020a9d2822",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/telephone_mixed_train_v1/truth.csv",
+      "sha256": "858b67ad005f61fdcfd2e3477a8b9804e9eed0a8c68985c18c1b866c28dae8a2",
+      "overlap": 0
+    },
+    {
+      "role": "train",
+      "path": "data/eval/channel_invariant_factorial_train_v1/truth.csv",
+      "sha256": "c1638c1c34832d6459b5098b7a181edc8e488c7237fde9439a71ee8ad948644d",
+      "overlap": 0
+    },
+    {
+      "role": "router_train",
+      "path": "data/eval/phone_router_voice_train_v1/truth.csv",
+      "sha256": "e7b1ea19faab2598ee9a81ca6abe3ac1ef74b406eb6edcbe44bc1cd1477c174d",
+      "overlap": 0
+    },
+    {
+      "role": "router_train",
+      "path": "data/eval/multigen_music_presence_train_v1/truth.csv",
+      "sha256": "d39ae96598d6c56702a531d3c3de0f3cf049bb9c6ac59c26ceb563ee6202f4b1",
+      "overlap": 0
+    },
+    {
+      "role": "router_train",
+      "path": "data/eval/phone_presence_factorial_train_v1/truth.csv",
+      "sha256": "411cd849e6f979fe2a97282a35c28d3b476836bbaee8e77ca30082d522468476",
+      "overlap": 0
+    },
+    {
+      "role": "training_validation",
+      "path": "data/eval/forensic_call_train_v1/truth_dev.csv",
+      "sha256": "2e4c60e6bba9ff0381c1d8941311ca4a56a3eac6610d0282c342efe19c59bdb3",
+      "overlap": 0
+    },
+    {
+      "role": "training_validation",
+      "path": "data/eval/temporal_mixed_train_v2/truth_dev.csv",
+      "sha256": "bbee299c807cab12d111710f19e02ff0fb78470e3ddb4bd5a223d4a2250e10a4",
+      "overlap": 0
+    },
+    {
+      "role": "training_validation",
+      "path": "data/eval/temporal_mixed_train_v1/truth_dev.csv",
+      "sha256": "dd8ba4e34061b1af2e5e9e3e0fe6a7d42eb96a89d375f807de2f2170523d6101",
+      "overlap": 0
+    }
+  ],
+  "source_sha256": "d421901c04baec6a34dae4e8a3e8a3c7b40c4f327bc2c478b1e550bda6893048",
+  "parent_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+  "builder_sha256": "0cc60d776a84d580be4b22631255e41bf8eb83a8b14ef14b059df465d9f78ba8",
+  "renderer_sha256": "138f8875bce530fa7daabb297f64325b885e7a3aacf72ee98031d5472dbbbb15",
+  "config_sha256": "80c8fc1a59f89fcecefe3118d9283e766d5b306558afc51afc2e3c45eeb62419",
+  "selection_allowed": false,
+  "source_ood_claim": false,
+  "limitations": [
+    "development-parent derived; not new-source or new-generator evidence",
+    "fixed voice/music pieces are looped to reach long duration; not natural conversations",
+    "repetition and synthetic source-switch seams may bias absolute accuracy",
+    "instrumental semantics inherit prior development source screening",
+    "10 source groups reused across lengths/layouts/classes/channels, not 2160 independent sources"
+  ]
+}

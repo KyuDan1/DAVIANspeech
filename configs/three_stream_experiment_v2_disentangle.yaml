@@ -1,0 +1,74 @@
+# Frozen before any three-stream detector score was read.
+schema_version: three_stream_experiment_v2_disentangle
+parent_matrix: configs/three_stream_experiment_v1.yaml
+seed: 20260904
+anchor: exact_component_query_or_v47
+train_set: train_core
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+# These are prospective follow-ups to the v1 matrix, not post-hoc choices.
+# The quartet terms specifically remove other-component leakage in RF/FR,
+# while batch AUC ranking aligns optimization with the competition's global
+# EER ordering. All other hyperparameters remain the v1 core defaults.
+variants:
+  disentangle_l1:
+    residual_limits: [1.0, 1.0, 1.0]
+    quartet_invariance_weight: 0.10
+    quartet_latent_invariance_weight: 0.01
+    auc_ranking_weight: 0.05
+  disentangle_l2:
+    residual_limits: [2.0, 2.0, 2.0]
+    quartet_invariance_weight: 0.10
+    quartet_latent_invariance_weight: 0.01
+    auc_ranking_weight: 0.05
+  auc_l1:
+    residual_limits: [1.0, 1.0, 1.0]
+    quartet_invariance_weight: 0.0
+    quartet_latent_invariance_weight: 0.0
+    auc_ranking_weight: 0.10
+  disentangle_strong_l1:
+    residual_limits: [1.0, 1.0, 1.0]
+    quartet_invariance_weight: 0.20
+    quartet_latent_invariance_weight: 0.02
+    auc_ranking_weight: 0.10
+
+fixed_training:
+  xlsr: true
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  ranking_weight: 0.10
+  ranking_margin: 0.0
+  auc_ranking_margin: 0.0
+  logit_consistency_weight: 0.05
+  latent_consistency_weight: 0.01
+  group_dro_weight: 0.20
+  group_dro_temperature: 0.10
+
+decision_rule:
+  compare_against:
+    - exact_v47_anchor
+    - best_three_stream_experiment_v1
+  constraints:
+    - pooled_development_ads_must_not_regress_from_anchor
+    - codec_mixed_dev_v4_ads_must_improve_from_anchor
+    - codec_mixed_dev_v4_RF_and_FR_component_eer_must_not_regress
+    - clean_and_g722_codec_mixed_dev_v4_ads_must_not_regress_by_more_than_0.01

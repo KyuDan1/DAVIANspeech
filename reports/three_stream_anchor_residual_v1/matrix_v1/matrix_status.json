@@ -1,0 +1,32 @@
+[
+  {
+    "elapsed_seconds": 818.2027839254588,
+    "gpu": "4",
+    "name": "robust_l1_no_xlsr_core",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 912.2304406212643,
+    "gpu": "2",
+    "name": "robust_l2_strong_channel_core",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 962.286808827892,
+    "gpu": "0",
+    "name": "robust_l1_core",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 1156.2889148043469,
+    "gpu": "3",
+    "name": "robust_l1_all",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 1188.3142250403762,
+    "gpu": "1",
+    "name": "robust_l2_core",
+    "returncode": 0
+  }
+]

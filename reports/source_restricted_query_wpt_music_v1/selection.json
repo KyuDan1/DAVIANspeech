@@ -1,0 +1,35 @@
+{
+  "selection_data": [
+    "mixfake_music_dev_v1",
+    "external_mixed_v1",
+    "source_disjoint_mixed_v1",
+    "source_disjoint_mixed_equal_v1",
+    "source_disjoint_music_v1",
+    "factorial_eval_1200_v2_dev",
+    "telephone_mixed_dev_v1"
+  ],
+  "locked_data_opened": false,
+  "weights": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "selected_wpt_weight_inside_query_expert": 0.5,
+  "query_weight_inside_consensus": 0.5,
+  "baseline_robust_score": 0.8514923469387755,
+  "selected_robust_score": 0.8608503401360544,
+  "baseline_mean_music_eer": 0.11415816326530613,
+  "selected_mean_music_eer": 0.10496598639455781,
+  "baseline_worst_music_eer": 0.18285714285714283,
+  "selected_worst_music_eer": 0.17333333333333334,
+  "lodo_non_regressing_banks": 7,
+  "lodo_banks": 7,
+  "factorial_v47_file_eer_delta": 0.0,
+  "factorial_v47_music_eer_delta": 0.03428571428571425,
+  "minimum_factorial_channel_ads_delta": -0.020391705069124355,
+  "decision": "reject_candidate",
+  "deployment_note": "Do not alter deployment; at least one predeclared dev safety condition failed."
+}

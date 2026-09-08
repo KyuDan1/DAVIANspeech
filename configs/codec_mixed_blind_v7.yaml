@@ -1,0 +1,94 @@
+# Frozen before any authenticity detector output was produced.
+schema_version: codec_mixed_blind_v7
+status: retired_after_one_shot_score
+purpose: one_shot_final_candidate_confirmation
+seed: 20260914
+id_prefix: cmbv7
+per_cell: 6
+base_rows: 72
+rendered_rows: 360
+
+component_cells: [RR, RF, FR, FF]
+layouts: [concurrent, partial_overlap, sequential]
+channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+
+balance:
+  each_layout_component_cell_bases: 6
+  each_channel_rows: 72
+  real_voice_sources: 36
+  fake_voice_sources: 36
+  real_music_sources: 36
+  fake_music_sources: 36
+
+fake_voice_generators:
+  XTTS-v2: 4
+  StyleTTS2: 4
+  F5-TTS: 4
+  IndexTTS: 3
+  SpeechT5: 3
+  MaskGCT: 3
+  OpenVoice-V2: 3
+  OpenAudio-S1-mini: 3
+  LLaSA: 3
+  CosyVoice2: 3
+  FireRedTTS: 3
+
+fake_music_generators:
+  mustango: 8
+  stable_audio_open: 7
+  audioldm2: 7
+  MusicGen_medium: 7
+  musicldm: 7
+
+leakage_policy:
+  protection_scope: every pre-existing data/**/truth*.csv and source_hashes.csv
+  protected_truth_manifests: 83
+  protected_source_hash_manifests: 6
+  source_identity_disjoint: true
+  speaker_identity_disjoint: true
+  reference_speaker_identity_disjoint: true
+  canonical_music_group_disjoint: true
+  known_source_audio_hash_disjoint: true
+  within_bank_source_reuse: paired_channel_variants_only
+
+semantic_policy:
+  positive_vocal_text_rejection: true
+  sonics_suno_udio_selected: 0
+  every_real_and_fake_music_source_acoustically_screened: true
+  panns_speech_or_vocal_probability_max: 0.20
+  demucs_vocals_to_mixture_db_max: -1.5
+  initial_sources: 72
+  deterministic_same_label_generator_replacements: 33
+  final_passes: 72
+
+integrity:
+  source_validation_status: PASS
+  bank_validation_checks_passed: 16
+  bank_validation_checks_total: 16
+  reservation_sha256: 950c57ece9132dfb77b7a6c7299872dcfb82160db774a711a35b35f65b393874
+  truth_sha256: 75fe464b32b4b9f11f14c334e5fba38c871d0c11bf5d73b7b0d0f9bd0c303ac5
+  source_hashes_sha256: f0d8a8d5b149c0fa19522287873ebf7aabfbfcd6c57fb97a28d7366f0bfc4d6b
+  audio_hashes_sha256: f2556161518081297c10855555446152e96e78c40479ee810c25c2448d21a35b
+  duration_seconds_min: 8.0
+  duration_seconds_max: 16.924
+
+decision_policy:
+  locked_before_authenticity_inference: true
+  authenticity_detector_inference_completed: true
+  authenticity_score_computed: true
+  score_open_count: 1
+  candidate_configuration_must_be_frozen_before_inference: true
+  no_weight_threshold_router_or_stopping_tuning: true
+  scoring_limit: one frozen candidate only
+
+one_shot_result:
+  compared_models:
+    v47_alias: sparse_voice_wpt_file_v50_frozen
+    v48_alias: sota_candidate_v52_frozen
+  v50_file_voice_music_eer: [0.2111111111, 0.2000000000, 0.3055555556]
+  v50_ads: 0.7627777778
+  v52_file_voice_music_eer: [0.2129629630, 0.2000000000, 0.3055555556]
+  v52_ads: 0.7618518519
+  v52_minus_v50_ads: -0.0009259259
+  selected_for_submission: false
+  retired_immediately_after_scoring: true

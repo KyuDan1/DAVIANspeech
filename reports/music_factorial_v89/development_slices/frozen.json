@@ -1,0 +1,10 @@
+{
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/analyze_music_factorial_v89.py": "324a21d3c4403be652bc32a159b733ce8a9a2fe2816a5dbaa74a4a1741f43a95",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_factorial_v89/full/report.json": "a07594b3a3b731fad2df6a5befb9685b8c51cf9abaeaea49b4d5f782ede5d400",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/development_predictions.csv": "0dd5f8292cc713df91805e79e954e5cf48ccd989ddaf027808d6bda961a137bc",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_factorial_v89/full/factorial_bce_development.csv": "680ff791973410eaad8d043281fecb18974fa54ed858338e1ba0963333872d5e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_factorial_v89/full/factorial_ranked_development.csv": "97c6a0b247621dda481c19ec071a146f08458a9b9ccb11867590b65d745aca08"
+  },
+  "scope": "exposed development, fixed-final comparison, no fitting"
+}

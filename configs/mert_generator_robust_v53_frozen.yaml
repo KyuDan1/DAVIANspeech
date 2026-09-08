@@ -1,0 +1,56 @@
+schema_version: mert_generator_robust_v53_frozen_v1
+frozen_at_utc: "2026-09-04"
+status: frozen_before_retrospective_codec_audit
+
+checkpoint:
+  path: reports/mert_generator_robust_v53_dual/mert_generator_robust_music.pt
+  sha256: 73d4e398382fd806cf150bde77be8554abbff82e7e816c3bee5e951f0fd46cb9
+  mode: compressed_v1_dual
+  seed: 20260904
+
+features:
+  input: original_mixture_mert_temporal_statistics
+  shape: [3, 13, 2, 768]
+  extra_mert_forward_passes: 0
+  separation: none
+  local_summary: shallow_layer_fakeprint
+  long_summary: deep_start_middle_end_direction_curvature
+
+training:
+  music_present_examples: 17760
+  source_balanced: true
+  objective: source_balanced_bce_plus_generator_groupdro
+  group_dro_temperature: 0.10
+  clean_to_codec_bernoulli_kl_weight: 0.35
+  train_datasets:
+    - external_mixed_train_v1
+    - mixed_devvoice_train_v1
+    - mixed_fmc_music_train_v1
+    - mixfake_music_train_v1
+    - telephone_mixed_train_v1
+    - temporal_mixed_train_v2_truth_train_only
+    - channel_invariant_factorial_train_v1
+
+selection:
+  authorized_dev_maximin: 0.6890858843537415
+  logo_mean: 0.719722311387156
+  logo_worst: 0.590080842320484
+  combined_robust_score: 0.6719937306037808
+  logo_generators: [suno, udio, musicgen, audioldm, musicldm, mubert]
+  compared_modes: [compressed_local, compressed_long, compressed_dual, rich_dual]
+  chosen_mode: compressed_dual
+
+fusion:
+  axes_changed: [MUSIC_FAKE_PROB]
+  fixed_logit_residual_weight: 0.025
+  weight_sweep_after_freeze: forbidden
+
+retrospective_policy:
+  used_for_training_or_selection: false
+  datasets:
+    - codec_mixed_dev_v4
+    - codec_mixed_blind_v5
+    - codec_mixed_blind_v6
+    - codec_mixed_blind_v7
+  v7_role: retrospective_diagnostic_only
+  post_audit_tuning: forbidden

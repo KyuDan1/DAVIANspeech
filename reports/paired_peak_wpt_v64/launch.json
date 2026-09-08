@@ -1,0 +1,22 @@
+{
+  "config": "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_peak_wpt_v64.yaml",
+  "config_sha256": "96f351cedace22f74b36c051bbef8fd12a004d901ca6127074756d2f97cbf0b8",
+  "python": "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+  "runs": [
+    {
+      "name": "paired_peak",
+      "gpu": "0",
+      "pid": 3315942,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_peak_wpt_v64.yaml",
+        "--variant",
+        "paired_peak",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/paired_peak_wpt_v64/paired_peak"
+      ]
+    }
+  ]
+}

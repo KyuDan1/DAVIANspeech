@@ -1,0 +1,9 @@
+{
+  "best_epoch": 6,
+  "selection": 0.8215460272273037,
+  "selection_formula": "1-(0.50*pooled_music_EER+0.25*mean_domain_music_EER+0.25*worst_domain_music_EER)",
+  "parameters": 935809,
+  "trainable_parameters": 935809,
+  "train_examples": 18738,
+  "xlsr_enabled": true
+}

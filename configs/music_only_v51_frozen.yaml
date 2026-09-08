@@ -1,0 +1,131 @@
+schema_version: music_only_v51_frozen_v1
+frozen_at_utc: "2026-09-04"
+status: frozen_for_next_unopened_blind_bank
+
+objective:
+  output_axis: MUSIC_FAKE_PROB
+  separation_free: true
+  file_independent: true
+  extra_ssl_backbone_passes: 0
+  preserve_other_four_outputs_exactly: true
+
+anchor:
+  package_directory: sparse_voice_wpt_file_v50_frozen
+  script_sha256: 238cc39a493e9df9e5a9e088c9f97494641e03ddee923df3c04c8f7806897713
+
+feature_inputs:
+  eat: original_mixture_patch_graph_already_computed_by_v47
+  spear: original_mixture_component_bins_already_computed_by_v47
+  separator_or_stem: none
+
+expert:
+  architecture: component_query_mhfa_v1
+  task_weights: [0.0, 1.0, 0.0]
+  member_fusion: uniform_mean_in_logit_space
+  anchor_fusion: convex_mean_in_logit_space
+  anchor_weight: 0.9625
+  expert_weight: 0.0375
+  members:
+    - seed: 20260911
+      channel_consistency_weight: 0.0
+      best_epoch: 6
+      development_selection: 0.8139370748299319
+      checkpoint: reports/music_expert_v51/music_cq_seed11/component_query_mhfa.pt
+      sha256: 32d846904629c7a99c253fdd7fbd7931176ea919c20652344a7422d5e4f6a3dd
+    - seed: 20260913
+      channel_consistency_weight: 0.01
+      best_epoch: 42
+      development_selection: 0.8273809523809523
+      checkpoint: reports/music_expert_v51/music_cq_inv001_seed13/component_query_mhfa.pt
+      sha256: b32c8fdcef7f4aa34d1d78833fc5a18b35e9664a49a626de4ae2111b78a15316
+    - seed: 20260914
+      channel_consistency_weight: 0.05
+      best_epoch: 36
+      development_selection: 0.8315008503401361
+      checkpoint: reports/music_expert_v51/music_cq_inv005_seed14/component_query_mhfa.pt
+      sha256: 8cd61a05bfcf974ad396a828a0a06345ff87a959ae0f3b5a0db24a2103b3c0a8
+
+training:
+  examples: 15800
+  selection_task: music
+  view_dropout: 0.20
+  validation_interval_epochs: 2
+  train_datasets:
+    - external_mixed_train_v1
+    - mixed_devvoice_train_v1
+    - mixed_fmc_music_train_v1
+    - mixfake_music_train_v1
+    - telephone_mixed_train_v1
+    - channel_invariant_factorial_train_v1
+  development_datasets:
+    - mixfake_music_dev_v1
+    - external_mixed_v1
+    - source_disjoint_mixed_v1
+    - source_disjoint_mixed_equal_v1
+    - source_disjoint_music_v1
+    - factorial_eval_1200_v2_dev
+    - telephone_mixed_dev_v1
+  forbidden_training_datasets:
+    - codec_mixed_dev_v4
+    - codec_mixed_blind_v5
+    - codec_mixed_blind_v6
+    - codec_mixed_blind_v7
+    - suno_vocals_v1
+
+selection_policy:
+  primary_banks:
+    - codec_mixed_dev_v4
+    - codec_mixed_blind_v5_retrospective
+  constraints:
+    - improve_music_eer_on_both_primary_banks
+    - do_not_regress_worst_channel_music_eer_on_either_primary_bank
+    - use_one_fixed_weight_for_all_files_and_channels
+    - change_music_fake_probability_only
+  rejected_aggressive_alternative:
+    members: [20260913, 20260914]
+    expert_weight: 0.075
+    reason: blind_v5_transcode_music_eer_regressed_from_0.1667_to_0.2500
+
+development_evidence:
+  seven_source_disjoint_banks_improved: 7
+  seven_source_disjoint_banks_total: 7
+  codec_mixed_dev_v4:
+    anchor_file_voice_music_eer: [0.2333333333, 0.2066666667, 0.2733333333]
+    frozen_file_voice_music_eer: [0.2333333333, 0.2066666667, 0.2533333333]
+    anchor_ads: 0.7600000000
+    frozen_ads: 0.7660000000
+    worst_channel_music_eer_before: 0.4166666667
+    worst_channel_music_eer_after: 0.3833333333
+  codec_mixed_blind_v5_retrospective:
+    anchor_file_voice_music_eer: [0.2166666667, 0.1166666667, 0.1916666667]
+    frozen_file_voice_music_eer: [0.2166666667, 0.1166666667, 0.1833333333]
+    anchor_ads: 0.8108333333
+    frozen_ads: 0.8133333333
+    worst_channel_music_eer_before: 0.2083333333
+    worst_channel_music_eer_after: 0.2083333333
+
+blind_policy:
+  codec_mixed_blind_v6:
+    status: opened_before_this_expert_was_frozen
+    allowed_use: diagnostic_context_only
+    music_prediction_generated_for_this_expert: false
+    weight_or_member_selection_use: forbidden
+  codec_mixed_blind_v7:
+    status_at_freeze: unopened
+    allowed_score_count: 1
+    no_post_open_tuning: true
+
+implementation:
+  package_directory: music_only_v51_frozen
+  runtime_module: src/music_only_residual.py
+  builder: scripts/build_music_only_v51_submission.py
+  built_uncompressed_bytes: 9192078715
+  top_level_entries: [model, script.py, requirements.txt]
+  generated_script_sha256: e3f0ad9be9f01876fc89872f897a6389472fbcf940a90c2967046d734225a4dd
+  runtime_module_sha256: d8bd7e51ed4ac68b7a3e23e5f964c19ba197cc5bf9051f7a0f0e6ccae3d211bf
+  requirements_sha256: 978befe6e5c8a064cddd2690e7e55b4b153f87eabf0dcf3b0604a567f4edd6ed
+  requirements:
+    - onnxruntime-gpu==1.23.2
+  focused_tests:
+    command: /home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python -m pytest -q tests/test_music_only_residual.py tests/test_build_music_only_v51_submission.py
+    result: 8_passed

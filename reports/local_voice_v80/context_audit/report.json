@@ -1,0 +1,150 @@
+{
+  "status": "complete",
+  "rows": 4016,
+  "matched_ids_and_labels": true,
+  "source_sha256": {
+    "reports/local_voice_v80/full/global_parent_development.csv": "a711347f792059212bcd0212ee32c071dfb88237cb4cb494e4537e0dd9cc24da",
+    "reports/local_voice_v80/full/file_only_development.csv": "5c844d3424ba2fb577f2d160e2604746bb4db7ecd81c956b0ebf6c55579f42e6",
+    "reports/local_voice_v80/full/dense_development.csv": "59e9b25bbf69343dda815c4dc7edd7098dbd344fa327341c819258691c2b8e9c"
+  },
+  "script_sha256": "47009aad837868d131e71e184ba3113699f1b2d6645624e4e2494801edd8bf0a",
+  "overall": [
+    {
+      "variant": "global_parent",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.12624547514258183,
+      "FPR_at_fixed_half": 0.0786967418546366,
+      "FNR_at_fixed_half": 0.19396338446313707
+    },
+    {
+      "variant": "file_only",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.20742095218253453,
+      "FPR_at_fixed_half": 0.6160401002506266,
+      "FNR_at_fixed_half": 0.06927263730826323
+    },
+    {
+      "variant": "dense",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.17031941556017705,
+      "FPR_at_fixed_half": 0.3273182957393484,
+      "FNR_at_fixed_half": 0.10687778327560614
+    }
+  ],
+  "contexts": [
+    {
+      "variant": "global_parent",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.1275675675675676,
+      "FPR_at_fixed_half": 0.08108108108108109,
+      "FNR_at_fixed_half": 0.18162162162162163
+    },
+    {
+      "variant": "global_parent",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.18029844726759425,
+      "FPR_at_fixed_half": 0.2,
+      "FNR_at_fixed_half": 0.15204678362573099
+    },
+    {
+      "variant": "global_parent",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.12540540540540546,
+      "FPR_at_fixed_half": 0.057297297297297295,
+      "FNR_at_fixed_half": 0.21405405405405406
+    },
+    {
+      "variant": "file_only",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.2118918918918919,
+      "FPR_at_fixed_half": 0.6994594594594594,
+      "FNR_at_fixed_half": 0.046486486486486484
+    },
+    {
+      "variant": "file_only",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.19304295220810647,
+      "FPR_at_fixed_half": 0.2482758620689655,
+      "FNR_at_fixed_half": 0.1286549707602339
+    },
+    {
+      "variant": "file_only",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.21297297297297302,
+      "FPR_at_fixed_half": 0.5902702702702702,
+      "FNR_at_fixed_half": 0.08108108108108109
+    },
+    {
+      "variant": "dense",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.18270270270270267,
+      "FPR_at_fixed_half": 0.3816216216216216,
+      "FNR_at_fixed_half": 0.08216216216216216
+    },
+    {
+      "variant": "dense",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.19304295220810647,
+      "FPR_at_fixed_half": 0.20689655172413793,
+      "FNR_at_fixed_half": 0.19298245614035087
+    },
+    {
+      "variant": "dense",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.16756756756756758,
+      "FPR_at_fixed_half": 0.2918918918918919,
+      "FNR_at_fixed_half": 0.11567567567567567
+    }
+  ],
+  "limitation": "Development diagnostics, no statistical significance or official-score claim; RF vocal truth may be unverified.",
+  "thresholds_selected": false,
+  "model_or_submission_modified": false
+}

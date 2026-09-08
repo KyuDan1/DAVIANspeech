@@ -1,0 +1,15 @@
+# Frozen before evaluation and before opening codec_mixed_blind_v5. The grid
+# tests conservative shrinkage of each member's bounded residual; the v47
+# anchor is reconstructed algebraically and the fixed 30% noisy-OR retained.
+schema_version: three_stream_experiment_v12_residual_scale
+base_ensemble: diverse_six
+members: 6
+scales: [0.50, 0.75, 1.00]
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+decision_rule: >-
+  Select the highest fixed development selection score only if codec_mixed_v4
+  ADS is at least 0.768 and clean/G.722 regress by no more than 0.01 versus
+  scale 1.00. Ties choose the smaller scale. The locked bank is not used.

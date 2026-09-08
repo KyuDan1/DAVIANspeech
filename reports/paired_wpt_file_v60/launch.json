@@ -1,0 +1,37 @@
+{
+  "config": "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_wpt_file_v60.yaml",
+  "config_sha256": "a312be5c2a8240863c4dc1ba3a7fb7c7a0afad57d53b67efd52b9e2900ae4472",
+  "python": "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+  "runs": [
+    {
+      "name": "paired_bce",
+      "gpu": "0",
+      "pid": 1777099,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_wpt_file_v60.yaml",
+        "--variant",
+        "paired_bce",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/paired_wpt_file_v60/paired_bce"
+      ]
+    },
+    {
+      "name": "paired_consistency",
+      "gpu": "7",
+      "pid": 1777100,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_paired_wpt_file_v60.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_wpt_file_v60.yaml",
+        "--variant",
+        "paired_consistency",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/paired_wpt_file_v60/paired_consistency"
+      ]
+    }
+  ]
+}

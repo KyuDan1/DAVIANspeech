@@ -1,0 +1,16 @@
+{
+  "archive": "v109_generator_broad.zip",
+  "sha256": "4269959362a68ff255c69df322ca9c152760442374e1db22304f8deab050cd92",
+  "smoke_report": "reports/submission_triplet_20260907/v109_smoke/report.json",
+  "memo": "Same joint File/Voice as v108; Music uses broad ArtifactBench expert w0.50 without codec refinement. Strongest newer-generator recall, higher codec risk. Offline packaged smoke and CRC checked.",
+  "status": "accepted",
+  "competition": "236749",
+  "team": "DAVIANspeech",
+  "quota_before": 1,
+  "started_utc": "2026-09-07T12:01:34.417834+00:00",
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-07T12:03:10.347070+00:00"
+}

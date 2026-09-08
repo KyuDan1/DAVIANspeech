@@ -22,7 +22,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from component_query_mhfa import ComponentQueryMHFA, component_query_loss  # noqa: E402
 from data_guard import assert_no_locked_eval_leakage  # noqa: E402
 from evaluate_diagnostic import score_frame  # noqa: E402
-from train_eat_patch_graph import load_cache, sample_weights  # noqa: E402
+from train_eat_patch_graph import (  # noqa: E402
+    load_cache, paired_channel_groups, sample_weights,
+)
 from train_spear_temporal_bin_mil import load_archive  # noqa: E402
 from train_unified_dual_ssl_head import (  # noqa: E402
     DEV_DEFAULT, TRAIN_DEFAULT, align, spear_name, targets, truth_for,
@@ -107,6 +109,7 @@ def evaluate(
     blocks: tuple[dict[str, torch.Tensor], ...],
     device: torch.device,
     batch_size: int,
+    selection_task: str = "file_music",
 ) -> tuple[pd.DataFrame, pd.DataFrame, float]:
     metrics, predictions, qualities = [], [], []
     for frame, block in zip(frames, blocks):
@@ -123,11 +126,17 @@ def evaluate(
         current = prediction.reset_index().rename(columns={"index": "ID"})
         current.insert(0, "DATASET", frame.DATASET.to_numpy())
         predictions.append(current)
-        # Deployment initially changes File/Music only.  Match their official
-        # 0.5:0.3 contribution instead of selecting on an unused Voice output.
-        qualities.append(
-            .625 * (1 - metric["FILE_EER"]) + .375 * (1 - metric["MUSIC_EER"])
-        )
+        if selection_task == "music":
+            qualities.append(1 - metric["MUSIC_EER"])
+        elif selection_task == "file_music":
+            # Deployment initially changes File/Music only.  Match their
+            # official 0.5:0.3 contribution instead of selecting on Voice.
+            qualities.append(
+                .625 * (1 - metric["FILE_EER"])
+                + .375 * (1 - metric["MUSIC_EER"])
+            )
+        else:
+            raise ValueError(f"unknown selection task: {selection_task}")
     values = np.asarray(qualities, dtype=np.float64)
     selection = .5 * values.mean() + .5 * values.min()
     return pd.DataFrame(metrics), pd.concat(predictions), float(selection)
@@ -156,6 +165,13 @@ def main() -> None:
     parser.add_argument("--joint-weight", type=float, default=.15)
     parser.add_argument("--ranking-weight", type=float, default=.15)
     parser.add_argument("--view-dropout", type=float, default=.15)
+    parser.add_argument(
+        "--channel-consistency-weight", type=float, default=0.0,
+        help=(
+            "Penalty on Music-logit variance across paired channel renders. "
+            "Zero preserves the historical trainer."
+        ),
+    )
     parser.add_argument("--epochs", type=int, default=80)
     parser.add_argument("--batch-size", type=int, default=48)
     parser.add_argument("--eval-batch-size", type=int, default=96)
@@ -164,9 +180,16 @@ def main() -> None:
     parser.add_argument("--eval-every", type=int, default=2)
     parser.add_argument("--patience", type=int, default=10)
     parser.add_argument("--seed", type=int, default=20260904)
+    parser.add_argument(
+        "--selection-task", choices=("file_music", "music"),
+        default="file_music",
+        help="Checkpoint-selection objective; Music-only experts must use music.",
+    )
     args = parser.parse_args()
     if not 0 <= args.view_dropout < 1:
         parser.error("view dropout must lie in [0,1)")
+    if args.channel_consistency_weight < 0:
+        parser.error("channel consistency weight must be non-negative")
     for name in args.train_datasets:
         assert_no_locked_eval_leakage(
             ROOT / "data/eval" / name / "truth.csv",
@@ -206,6 +229,8 @@ def main() -> None:
     fake = torch.from_numpy(fake_numpy).to(device)
     presence = torch.from_numpy(presence_numpy).to(device)
     weights = torch.from_numpy(weight_numpy).to(device)
+    channel_groups = paired_channel_groups(train_frame)
+    channel_groups = [group for group in channel_groups if len(group) == 5]
     shape = train["temporal"].shape
     spear_shape = train["spear"].shape
     model = ComponentQueryMHFA(
@@ -235,7 +260,7 @@ def main() -> None:
             len(train_frame), size=len(train_frame), replace=True, p=sampling
         )
         losses = []
-        for offset in range(0, len(order), args.batch_size):
+        for batch_index, offset in enumerate(range(0, len(order), args.batch_size)):
             indices = order[offset:offset + args.batch_size]
             items = list(batch(train, indices, device))
             items[2], items[4] = drop_views(
@@ -252,6 +277,18 @@ def main() -> None:
                 joint_weight=args.joint_weight,
                 ranking_weight=args.ranking_weight,
             )
+            # The same underlying mixture is rendered through five codecs in
+            # channel_invariant_factorial_train_v1.  A sparse auxiliary pass
+            # makes the Music decision invariant to that nuisance without
+            # pairing unrelated songs or voices.
+            if args.channel_consistency_weight and channel_groups and not batch_index % 4:
+                group_count = max(1, args.batch_size // 5)
+                chosen = generator.integers(0, len(channel_groups), size=group_count)
+                pair_indices = np.concatenate([channel_groups[item] for item in chosen])
+                pair_logits, _, _ = model(*batch(train, pair_indices, device))
+                pair_music = pair_logits[:, 1].reshape(group_count, 5)
+                consistency = pair_music.var(dim=1, unbiased=False).mean()
+                loss = loss + args.channel_consistency_weight * consistency
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 5.)
@@ -261,7 +298,8 @@ def main() -> None:
         if epoch % args.eval_every:
             continue
         metrics, _, selection = evaluate(
-            model, dev_frames, dev, device, args.eval_batch_size
+            model, dev_frames, dev, device, args.eval_batch_size,
+            selection_task=args.selection_task,
         )
         row = {
             "EPOCH": epoch, "LOSS": float(np.mean(losses)),
@@ -284,7 +322,8 @@ def main() -> None:
         raise RuntimeError("training produced no checkpoint")
     model.load_state_dict(best_state)
     metrics, predictions, selection = evaluate(
-        model, dev_frames, dev, device, args.eval_batch_size
+        model, dev_frames, dev, device, args.eval_batch_size,
+        selection_task=args.selection_task,
     )
     config = {
         "eat_layers": shape[2], "eat_dimension": shape[-1],
@@ -307,6 +346,8 @@ def main() -> None:
         "spear_bins": spear_metadata["bins"],
         "train_datasets": args.train_datasets, "dev_datasets": args.dev_datasets,
         "task_weights": list(args.task_weights), "seed": args.seed,
+        "selection_task": args.selection_task,
+        "channel_consistency_weight": args.channel_consistency_weight,
         "best_epoch": best_epoch, "selection": selection,
     }
     args.output_dir.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,27 @@
+{
+  "format": "davian_lossless_weights_v77",
+  "source_name": "model.safetensors",
+  "raw_bytes": 2387980808,
+  "raw_sha256": "2430597be74dee2271e44f71dbb48f7942423c20313147a5fb85e2af3402e266",
+  "parts": [
+    {
+      "name": "weights-00000.dw77",
+      "raw_offset": 0,
+      "raw_bytes": 2369781760,
+      "blocks": 565,
+      "sha256": "07f041d9f3006b2dad18d10105ad631dc5c6037b3fe515d696d944b1d6f93bd1",
+      "packed_bytes": 1997676156
+    },
+    {
+      "name": "weights-00001.dw77",
+      "raw_offset": 2369781760,
+      "raw_bytes": 18199048,
+      "blocks": 5,
+      "sha256": "cfb0796815cf908b8ffd570dba52fc2d893d4769c59e51433c9fb3f80478ae75",
+      "packed_bytes": 15318060
+    }
+  ],
+  "packed_bytes": 2012994216,
+  "tensor_dtype_changes": false,
+  "all_blocks_roundtrip_exact": true
+}

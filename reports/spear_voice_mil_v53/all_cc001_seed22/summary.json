@@ -1,0 +1,8 @@
+{
+  "best_epoch": 24,
+  "selection": 0.7309697468232148,
+  "mean_voice_eer": 0.23249107142857145,
+  "worst_voice_eer": 0.3542857142857143,
+  "worst_generator_eer": 0.4,
+  "train_examples": 17760
+}

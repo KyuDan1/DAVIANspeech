@@ -1,0 +1,4 @@
+MUSIC_SOURCE,MUSIC_FAKE,rows,unique_sources,semantic_flags,semantic_learned_disagreements
+FMA,0.0,300,82,14,8
+SONICS-suno,1.0,123,38,2,2
+SONICS-udio,1.0,177,52,28,27

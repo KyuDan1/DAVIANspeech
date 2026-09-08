@@ -1,0 +1,11 @@
+{
+  "purpose": "instrumental semantic screen only; not authenticity evaluation",
+  "reservation_sha256": "b11df4951f53754b5162b1b809a54585aa38a6526c3997774155858731246c5b",
+  "sources": 1,
+  "passes": 1,
+  "failures": 0,
+  "panns_threshold": 0.2,
+  "demucs_threshold_db": -1.5,
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false
+}

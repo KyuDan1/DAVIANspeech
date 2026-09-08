@@ -1,0 +1,27 @@
+{
+  "candidate": "eat_control",
+  "rows": 2160,
+  "overall": {
+    "N": 2160,
+    "FILE_N": 2160,
+    "VOICE_N": 1980,
+    "MUSIC_N": 1980,
+    "FILE_EER": 0.2616713352007469,
+    "VOICE_EER": 0.2646464646464647,
+    "MUSIC_EER": 0.297979797979798,
+    "VOICE_AUC": 0.9815628507295173,
+    "MUSIC_AUC": 0.9998737373737373,
+    "ADS": 0.7268411000763942,
+    "CPS": 0.9907182940516273,
+    "SCORE": 0.7532288194739176
+  },
+  "elapsed_seconds": 129.3314627688378,
+  "selection_allowed": false,
+  "automatic_submission_allowed": false,
+  "checkpoint_sha256": "8cc7b1a8bd7c48da87e21fbdb9b8f4ec7a3fe01e0dba318d950330d7394caa10",
+  "frozen_sha256": "1732431c24845c389f0655c51dead7bd8fd647820b894e7d191af1d5b5eacf26",
+  "truth_sha256": "9c9f822fc724b8825e58ac332c9fd2d526b415e58781231a57512e0aac2ae922",
+  "repeated_files": 3,
+  "repeated_files_bit_exact": true,
+  "scope": "development-derived mechanism stress, not natural-call or source-OOD generalization"
+}

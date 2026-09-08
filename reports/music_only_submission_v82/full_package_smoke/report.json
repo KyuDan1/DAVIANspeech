@@ -1,0 +1,8 @@
+{
+  "status": "complete_full_packaged_entrypoint_smoke",
+  "rows": 3,
+  "archive_sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+  "seconds": 154.79084497876465,
+  "anchor_vs_candidate_non_music_maximum_difference": 0.0,
+  "scope": "B200, grader-core environment; not full 1200-file L4 deadline guarantee"
+}

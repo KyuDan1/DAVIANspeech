@@ -1,0 +1,31 @@
+{
+  "gpu": "NVIDIA B200",
+  "checkpoint": "reports/paired_peak_wpt_v64_smoke/best.pt",
+  "smoke": true,
+  "load_seconds": 5.543925047852099,
+  "files": [
+    {
+      "duration": 4,
+      "windows": 1,
+      "seconds_per_file": 0.02431501044581334,
+      "peak_allocated_gib": 1.2747502326965332,
+      "peak_reserved_gib": 1.310546875
+    },
+    {
+      "duration": 30,
+      "windows": 8,
+      "seconds_per_file": 0.05960393697023392,
+      "peak_allocated_gib": 1.8831262588500977,
+      "peak_reserved_gib": 2.001953125
+    },
+    {
+      "duration": 60,
+      "windows": 15,
+      "seconds_per_file": 0.03753384699424108,
+      "peak_allocated_gib": 2.492121696472168,
+      "peak_reserved_gib": 3.115234375
+    }
+  ],
+  "reordered_file_predictions_bit_exact": true,
+  "scope": "Synthetic runtime only; NOT L4 runtime or detection accuracy"
+}

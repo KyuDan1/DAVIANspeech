@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "checks": {
+    "unscored_open_zero": true,
+    "source_validation": true,
+    "reservation_hash": true,
+    "manifest_hashes": true,
+    "rows_ids": true,
+    "five_channels": true,
+    "recipe_exact": true,
+    "audio_properties": true,
+    "audio_hashes": true,
+    "audio_hash_unique": true,
+    "prior_hash_disjoint": true,
+    "sample_neutral": true,
+    "ads_cps_defined": true,
+    "no_prediction_artifacts": true
+  },
+  "checks_passed": 14,
+  "checks_total": 14,
+  "base_rows": 120,
+  "rendered_rows": 600,
+  "truth_sha256": "ed583b026c6be2e23a2f3202491472f5a2851bab778aa6e641f3cdae2df109a4",
+  "reservation_sha256": "4f61dea0e4f13047e12b2aa7a89de517b7be75f69a75c489136f356761592ce3",
+  "authenticity_detector_scores_read": false,
+  "score_open_count": 0
+}

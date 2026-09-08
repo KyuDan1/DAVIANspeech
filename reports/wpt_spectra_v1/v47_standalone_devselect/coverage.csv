@@ -1,0 +1,8 @@
+DATASET,PATCH_ROWS,QUERY_ROWS,WPT_ROWS,EXACT_V47_RECONSTRUCTIBLE,USED_FOR_SELECTION,EXCLUSION_REASON
+external_mixed_v1,400,400,400,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable
+factorial_eval_1200_v2_dev,400,400,400,True,True,
+mixfake_music_dev_v1,1600,1600,1600,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable
+source_disjoint_mixed_equal_v1,200,200,200,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable
+source_disjoint_mixed_v1,200,200,200,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable
+source_disjoint_music_v1,400,400,400,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable
+telephone_mixed_dev_v1,600,600,600,False,False,no complete frozen exact-v18 reconstruction chain; exact v47 unavailable

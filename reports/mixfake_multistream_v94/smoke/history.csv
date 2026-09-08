@@ -1,0 +1,2 @@
+epoch,loss,clean_eer,phone_eer,selection_error,seconds
+0,1.2611932903528214,0.5625,0.5625,0.5625,24.479584461078048

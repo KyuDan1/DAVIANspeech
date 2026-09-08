@@ -1,0 +1,22 @@
+{
+  "status": "complete_archive_validation",
+  "archive": "current_music_probe_v84.zip",
+  "sha256": "56ae933c18f838d7c0202871884afb87e38828ba4f278ab025994decdee529a8",
+  "base_sha256": "92d5f2f3508f7b3d7748f2214a7319c5a9029d826f85779bb8ccb64f18ecf48f",
+  "all_crc_verified": true,
+  "inventory": {
+    "member_count": 130,
+    "expanded_bytes": 10425247179,
+    "compressed_member_bytes": 9012540849,
+    "top_level": [
+      "model",
+      "requirements.txt",
+      "script.py"
+    ],
+    "duplicates": [],
+    "unsafe_paths": [],
+    "symlinks": []
+  },
+  "only_output_change": "MUSIC_FAKE_PROB=0.5",
+  "purpose": "diagnostic_not_performance_improvement"
+}

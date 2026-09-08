@@ -1,0 +1,45 @@
+candidate: eat_music_adapter_v55
+status: rejected_after_one_shot_retrospective_audit
+input: original_mixture_only
+source_separation: forbidden
+base_eat:
+  path: models/eat-base-as2m
+  sha256: 5fa59385650eeb7b6c74414461306e055d943523cd7206c181e2d329969fff1b
+adapter:
+  checkpoint: reports/eat_music_adapter_v55/seed00/eat_music_adapter_v55.pt
+  sha256: d544ca01efc625e3a7f3cd85770dd753da81e3b600f4226f24ca19030d91d58c
+  adapter_blocks: [10, 11]
+  bottleneck: 32
+  pooling_heads: 4
+  pooling_width: 128
+  hidden: 192
+  trainable_parameters: 427341
+training:
+  seed: 20260904
+  epochs_run: 8
+  selected_epoch: 5
+  learning_rate: 0.0001
+  samples_per_epoch: 6144
+  training_examples: 17760
+  codec_paired_examples: 2400
+selection:
+  dataset: codec_mixed_dev_v4
+  direct_music_eer: 0.25
+  v50_anchor_music_eer: 0.2733333333333333
+  logit_residual_weight: 0.15
+  fused_music_eer: 0.2466666666666667
+protected_audit:
+  codec_mixed_blind_v5:
+    music_eer_before: 0.19166666666666665
+    music_eer_after: 0.18333333333333335
+    ads_delta: 0.0025
+  codec_mixed_blind_v6:
+    music_eer_before: 0.2583333333333333
+    music_eer_after: 0.2583333333333333
+    ads_delta: 0.0
+  codec_mixed_blind_v7:
+    music_eer_before: 0.3055555555555556
+    music_eer_after: 0.31666666666666665
+    ads_delta: -0.0033333333333333
+forbidden:
+  - codec_mixed_blind_v8

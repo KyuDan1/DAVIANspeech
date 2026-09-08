@@ -1,0 +1,14 @@
+{
+  "chosen_by_authorized_dev_only": "seed20260904_w0.2",
+  "authorized_selection": 0.8431138392857143,
+  "ensemble_allowed": false,
+  "eligible_seeds": [
+    20260904
+  ],
+  "codec_v4_anchor_eer": 0.2733333333333333,
+  "codec_v4_chosen_eer": 0.19666666666666666,
+  "blind_v5_anchor_eer": 0.19166666666666665,
+  "blind_v5_chosen_eer": 0.25,
+  "overfit_warning": true,
+  "blind_v6_used_for_selection": false
+}

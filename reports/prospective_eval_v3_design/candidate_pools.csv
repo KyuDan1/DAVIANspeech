@@ -1,0 +1,11 @@
+pool,local_capacity,source_disjoint_status,generator_disjoint_status,recommended_role,decision,reason
+MixFake_official_eval,"35578 eligible rows; RR 9811, RF 7938, FR 9811, FF 8018","yes after exact ID and canonical music-group exclusion","no for music; unverified for ASVspoof voice attacks","prospective mixed+telephone source holdout","use with caveat","Only complete local source pool; import official attack/speaker metadata before sampling"
+FMA_small_remaining,"7385 unused track IDs","yes at exact track level","not applicable: real only","real music reserve","use","Reserve IDs before frozen instrumental/voice screening"
+Echoes_FMA_matched_remaining,"15 unseen source groups / 191 fake renderings before voice screen","yes at original/FMA group level","no; all 12 generator families already seen","small auxiliary generator-seen audit","too small for main holdout","Cannot supply 120 distinct fake-music groups and may shrink after screening"
+SONICS_part01_remaining,"2086 unused song groups","exact IDs unused but all are official train split","no: Suno/Udio seen and SONICS-trained model exists","native vocal fake stress only","reject for prospective holdout","All no_vocal=false; not valid music-only and not model-unseen"
+ASVspoof2021_DF_local_shards,"15296 metadata rows in 2 shards","exact utterances can be excluded; speaker disjointness insufficient","many attack tokens unused but model pretraining overlap is unresolved","secondary speech/channel audit","do not use as primary holdout","Existing ASVspoof-derived banks and pretrained XLS-R make unseen claims weak"
+Squillo_real_acappella,"24 files","unused exact singers/files","not applicable: real only","CPS vocal-presence audit","reserve only","Useful for real singing presence; not representative telephone speech"
+VocalSet_real_acappella,"60 files","unused exact singers/files","not applicable: real only","CPS vocal-presence audit","reserve only","Useful for real singing presence; not representative telephone speech"
+RTCFake_dev,"0 audio; label and pair files are zero bytes","cannot assess","potentially yes","real RTC speech holdout","blocked","Acquire authorized audio and labels first"
+new_AI_music_generator,"0 local files","not available","required for true music generator OOD","generator-OOD extension","blocked","Every usable local fake-music generator family is already seen"
+

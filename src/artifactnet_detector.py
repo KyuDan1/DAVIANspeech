@@ -34,18 +34,24 @@ class ArtifactNetMusicDetector:
             starts.append(tail)
         return np.stack([audio[start:start + window] for start in starts]).astype(np.float32)
 
-    def fake_probability(self, audio: np.ndarray, source_sr=16_000) -> float:
+    def window_probabilities(
+        self, audio: np.ndarray, source_sr: int = 16_000,
+    ) -> np.ndarray:
+        """Return one released-model score per non-overlapping 4 s window."""
         if source_sr != self.SAMPLE_RATE:
             audio = librosa.resample(
                 audio, orig_sr=source_sr, target_sr=self.SAMPLE_RATE, res_type="soxr_hq"
             )
         # The released graph exposes a dynamic batch axis but contains a
         # reshape that is only valid for batch size one. Run chunks singly.
-        probabilities = [
+        probabilities = np.asarray([
             float(np.asarray(self.session.run(
                 None, {self.input_name: window[None]}
             )[0]).reshape(-1)[0])
             for window in self._windows(audio)
-        ]
-        probabilities = [value if np.isfinite(value) else 0.5 for value in probabilities]
+        ], dtype=np.float64)
+        return np.where(np.isfinite(probabilities), probabilities, 0.5)
+
+    def fake_probability(self, audio: np.ndarray, source_sr=16_000) -> float:
+        probabilities = self.window_probabilities(audio, source_sr=source_sr)
         return float(np.median(probabilities))

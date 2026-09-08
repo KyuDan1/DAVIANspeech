@@ -1,0 +1,12 @@
+{
+  "status": "complete_native_equivalence",
+  "files": 80,
+  "calls": 320,
+  "max_probability_difference": {
+    "bce": 1.1102230246251565e-16,
+    "invariant": 1.1102230246251565e-16
+  },
+  "reverse_order_bit_exact": true,
+  "seconds": 8.927350285463035,
+  "official_improvement_verified": false
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "current_anchor_component_v90",
+  "rows": 2160,
+  "shards": 4,
+  "runners": [
+    {
+      "shard": 0,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90b/runner_0",
+      "sample_sha256": "ceb8f2345297741ee9da054bef3f09c08b2f98ab9a1c992575f73a68b8853c9f"
+    },
+    {
+      "shard": 1,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90b/runner_1",
+      "sample_sha256": "1467d473a5297d65bf483b80b0ec00d91841d48a66f3dc812030eddeba2b9161"
+    },
+    {
+      "shard": 2,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90b/runner_2",
+      "sample_sha256": "2110cbbdecb66385de202a7a99e1b8704304f5f33bacf994886b755266d9ec4a"
+    },
+    {
+      "shard": 3,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90b/runner_3",
+      "sample_sha256": "87d32587f1dfefdaeec5263a3f8375b7ed4f6c1f76e432a2bb3ac25262b2d943"
+    }
+  ],
+  "truth": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_component_stress_v70/truth.csv",
+  "truth_sha256": "9c9f822fc724b8825e58ac332c9fd2d526b415e58781231a57512e0aac2ae922",
+  "validation_sha256": "bad4e81ad2794989217312c231612d6792bd845a258b457de6eac473b5cc615b",
+  "script": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/script_anchor.py",
+  "script_sha256": "aad2a5facff20650b733fc55c34e070baa9e9535da36cc9b136bf0c89ff50cde",
+  "package_smoke": {
+    "status": "complete_full_packaged_entrypoint_smoke",
+    "rows": 3,
+    "archive_sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+    "seconds": 154.79084497876465,
+    "anchor_vs_candidate_non_music_maximum_difference": 0.0,
+    "scope": "B200, grader-core environment; not full 1200-file L4 deadline guarantee"
+  },
+  "anchor_identity": "v50+v57 script_anchor packaged alongside v82/v83 non-Music-exact smoke",
+  "scope": "PREVIOUSLY EXPOSED synthetic v70; diagnostic only",
+  "selection_allowed": false,
+  "automatic_submission_allowed": false
+}

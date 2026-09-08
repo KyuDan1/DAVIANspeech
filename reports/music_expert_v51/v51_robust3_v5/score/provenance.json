@@ -1,0 +1,15 @@
+{
+  "prediction": {
+    "dataset_filter": null,
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_expert_v51/v51_robust3_v5/predictions.csv",
+    "rows": 240,
+    "sha256": "ca47b7cc4757fda70763f13dcd6883f6611e5e1d277dba9dc55800c0104fab00"
+  },
+  "purpose": "repeatable_development_checkpoint_evaluation",
+  "threshold_or_weight_search": false,
+  "truth": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_blind_v5/truth.csv",
+    "rows": 240,
+    "sha256": "d84a2a691c717dc1db2e8820dc1e263bf87239a382d47f9b1e58db9b6726f9a3"
+  }
+}

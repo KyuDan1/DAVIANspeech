@@ -1,0 +1,12 @@
+{
+  "status": "complete_deadpass_equivalence",
+  "rows": 3,
+  "all_five_maximum_difference": 0.0,
+  "all_fields_string_exact": true,
+  "timings": {
+    "reference": 83.37288443837315,
+    "fast": 74.24619547091424
+  },
+  "limitation": "One sequential run per arm on three files with model loading; NOT L4 throughput guarantee",
+  "automatic_submission_allowed": false
+}

@@ -1,0 +1,19 @@
+{
+  "bank": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_component_stress_v70",
+  "candidates": {
+    "eat_control": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/mean/head.pt",
+      "sha256": "8cc7b1a8bd7c48da87e21fbdb9b8f4ec7a3fe01e0dba318d950330d7394caa10",
+      "epoch": 6
+    },
+    "eat_adapted": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full/adapted/head.pt",
+      "sha256": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f",
+      "epoch": 6
+    }
+  },
+  "truth_sha256": "9c9f822fc724b8825e58ac332c9fd2d526b415e58781231a57512e0aac2ae922",
+  "purpose": "fixed-candidate mechanism stress, not model selection",
+  "selection_allowed": false,
+  "automatic_submission_allowed": false
+}

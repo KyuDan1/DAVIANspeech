@@ -1,0 +1,14 @@
+[
+  {
+    "elapsed_seconds": 370.07176258508116,
+    "gpu": "3",
+    "name": "frozen_base_interaction_l2",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 371.06987394113094,
+    "gpu": "4",
+    "name": "frozen_base_interaction_disentangle_l2",
+    "returncode": 0
+  }
+]

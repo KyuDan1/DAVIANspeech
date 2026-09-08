@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "checks": {
+    "bank_provenance_unscored": true,
+    "source_validation_pass": true,
+    "reservation_hash_carried": true,
+    "truth_hash": true,
+    "source_hashes_hash": true,
+    "audio_hash_manifest_hash": true,
+    "rendered_row_count": true,
+    "unique_rendered_ids": true,
+    "five_paired_channels": true,
+    "recipe_metadata_exact": true,
+    "audio_id_alignment": true,
+    "audio_format_and_duration": true,
+    "audio_hash_id_alignment": true,
+    "audio_hash_values": true,
+    "sample_is_neutral_template_only": true,
+    "no_prediction_artifacts": true
+  },
+  "checks_passed": 16,
+  "checks_total": 16,
+  "base_rows": 72,
+  "rendered_rows": 360,
+  "truth_sha256": "75fe464b32b4b9f11f14c334e5fba38c871d0c11bf5d73b7b0d0f9bd0c303ac5",
+  "reservation_sha256": "950c57ece9132dfb77b7a6c7299872dcfb82160db774a711a35b35f65b393874",
+  "authenticity_detector_scores_read": false
+}

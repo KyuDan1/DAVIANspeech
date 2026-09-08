@@ -1,0 +1,14 @@
+[
+  {
+    "elapsed_seconds": 175.04393837600946,
+    "gpu": "4",
+    "name": "music_only_training",
+    "returncode": 1
+  },
+  {
+    "elapsed_seconds": 654.1769902873784,
+    "gpu": "0",
+    "name": "joint_music_selection",
+    "returncode": 0
+  }
+]

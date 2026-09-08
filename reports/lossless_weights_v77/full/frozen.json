@@ -1,0 +1,14 @@
+{
+  "sources": {
+    "xlsr": "models/xls-r-2b-anti-deepfake/model.safetensors",
+    "spear": "models/spear-xlarge-speech-audio-v2/model.safetensors",
+    "eat": "models/eat-large-as2m-v56/model.safetensors"
+  },
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/pack_lossless_weights_v77.py": "0fd757f8cf97786a76fda5843c4bae08c552aa73fe058645b3a7008362f991e3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/lossless_weights_v77.py": "f3cf38706c0a3b26aff8f06a4649b7b6dbf4b5ecdf06f411fb9a81144c05a400"
+  },
+  "workers": 4,
+  "purpose": "lossless weights only; not a promoted candidate or submission ZIP",
+  "automatic_submission_allowed": false
+}

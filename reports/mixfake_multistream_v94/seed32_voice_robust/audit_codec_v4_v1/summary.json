@@ -1,0 +1,44 @@
+{
+  "task": "voice",
+  "rows": 600,
+  "views": 1,
+  "checkpoint": "reports/mixfake_multistream_v94/seed32_voice_robust/multistream_prompt.pt",
+  "checkpoint_sha256": "3b1fc97c39852b602cff10d3aadd2a7fd59e6cc2bb3a5d7d4f3ddb2fce74123b",
+  "manifest": "data/eval/codec_mixed_dev_v4/truth.csv",
+  "manifest_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.485,
+      "task_eer": {
+        "voice": 0.485
+      },
+      "ads": null,
+      "subgroup_eer": {
+        "music_real": 0.48333333333333334,
+        "music_fake": 0.48
+      },
+      "manifest_channel_eer": {
+        "clean": 0.5,
+        "g711_ulaw": 0.41666666666666663,
+        "g722_wb": 0.55,
+        "opus_nb_8k": 0.5166666666666666,
+        "transcode_g711_opus": 0.5
+      },
+      "layout_eer": {
+        "concurrent": 0.42000000000000004,
+        "partial_overlap": 0.51,
+        "sequential": 0.51
+      },
+      "mean_score_by_case": {
+        "RR": 0.7069067358970642,
+        "RF": 0.7204453349113464,
+        "FR": 0.8236709833145142,
+        "FF": 0.8184404373168945
+      }
+    }
+  ],
+  "mean_eer": 0.485,
+  "worst_eer": 0.485,
+  "locked_scores_read": false
+}

@@ -1,0 +1,9 @@
+{
+  "music_weight": 0.2,
+  "file_weight": 0.4,
+  "presence_gate": 0.5,
+  "phone_music_weight": 0.3,
+  "phone_file_weight": 0.3,
+  "dev_ads": 0.7436363636363637,
+  "dev_delta": 0.04571428571428571
+}

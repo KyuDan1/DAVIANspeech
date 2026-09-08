@@ -1,0 +1,70 @@
+{
+  "scope": "TRAIN-only CUDA smoke, not generalization evaluation",
+  "rank": 8,
+  "last_blocks": 4,
+  "native_window_batch_size": 1,
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/smoke_wavlm_voice_lora_v79.py": "4ba26c950ddfb481329cc323594e4342a1df66ea83f994f268acd3eee59e3f3a",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/wavlm_voice_lora_v79.py": "52393a54eb7c02d771b817f629159c47a8baa9688577134bb3a711074752e4a3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/training_inventory_v78/report.json": "cf73cbcd6be5294c09d9a691d17f7988c3241e55386940432746ecd9600f3f80",
+    "/home/nas_main/kyudanjung/DAVIANspeech/models/wavlm-large/pytorch_model.bin": "fdee460e529396ddb2f8c8e8ce0ad74cfb747b726bc6f612e666c7c1e1963c9d"
+  },
+  "selected_train": [
+    {
+      "DATASET": "forensic_call_train_v1",
+      "ID": "forensic_train_00000"
+    },
+    {
+      "DATASET": "forensic_call_train_v1",
+      "ID": "forensic_train_00001"
+    },
+    {
+      "DATASET": "forensic_call_train_v1",
+      "ID": "forensic_train_00096"
+    },
+    {
+      "DATASET": "forensic_call_train_v1",
+      "ID": "forensic_train_00097"
+    }
+  ],
+  "automatic_submission_allowed": false,
+  "status": "complete_smoke_only",
+  "steps": [
+    {
+      "ID": "forensic_train_00000",
+      "losses": {
+        "control": 0.6655762195587158,
+        "adapted": 0.6655762195587158
+      }
+    },
+    {
+      "ID": "forensic_train_00001",
+      "losses": {
+        "control": 0.5813843011856079,
+        "adapted": 0.5811533331871033
+      }
+    },
+    {
+      "ID": "forensic_train_00096",
+      "losses": {
+        "control": 0.9097755551338196,
+        "adapted": 0.9109596610069275
+      }
+    },
+    {
+      "ID": "forensic_train_00097",
+      "losses": {
+        "control": 0.9037317037582397,
+        "adapted": 0.9043561220169067
+      }
+    }
+  ],
+  "initial_control_adapted_bit_exact": true,
+  "lora_parameters": 131072,
+  "frozen_base_gradients_none": true,
+  "updated_lora_b_l1": 116.81107425689697,
+  "eval_repeat_bit_exact": true,
+  "peak_cuda_mib": 1951.85498046875,
+  "seconds": 4.530944141559303,
+  "accuracy_evaluated": false
+}

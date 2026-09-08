@@ -1,0 +1,1025 @@
+{
+  "package_attestation": {
+    "package": "/home/nas_main/kyudanjung/DAVIANspeech/v50_v57m_challenger_v2",
+    "archive": "/home/nas_main/kyudanjung/DAVIANspeech/v50_v57m_challenger_v2.zip",
+    "archive_sha256": "a5730fde4e0c49100ee9aca5cc373eb550bf02948517072f23afe02fd62b91d6",
+    "files_sha256": {
+      "model/artifactnet/.gitattributes": "24bf08d398b9f863039bcd7f3bea027e6a23a623b8699b3f862ef43e468c6671",
+      "model/artifactnet/README.md": "6301ad78defc542b04162a32d831c27274d91568d54adcb85e35497dfc009d3f",
+      "model/artifactnet/artifactnet_v94_full.onnx": "a923b53899fbb01fcf4436cc5e1837628516de6044c9f238b31b4b02ed601a19",
+      "model/artifactnet/artifactnet_v94_full.onnx.data": "d3f291b4f531e22e5c17dff8b3888050033d301c7b7f3cb24bf4741cdaabbc05",
+      "model/channel-invariant/dual_domain_head.pt": "8b689e2103716ddd23d56a9f345317dad63ffe2209a91e886aa495fea115bd4c",
+      "model/component-query/head.pt": "287fc1308bdc41dc1f2744100504652740ad18463edb4633390f0b9d264ba831",
+      "model/eat/.cache/huggingface/.gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "model/eat/.cache/huggingface/CACHEDIR.TAG": "f6572428f6d5e1575e73a1502895a8731f10757dfbb634909c6e154b849af91d",
+      "model/eat/.cache/huggingface/download/.gitattributes.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/.gitattributes.metadata": "f1864742c8409a496beebd85448d3a6bb5bcf8c8781187aa0c01c1a6beca39c9",
+      "model/eat/.cache/huggingface/download/README.md.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/README.md.metadata": "887bb40bafb3f0685f05efd4ddce8161d6172f5a3fa5760bf179e6eccf901c7f",
+      "model/eat/.cache/huggingface/download/config.json.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/config.json.metadata": "45f23ff409e3d07847cf4c688f0b635ad4bde42b253cee9760ecc0f83bf2d375",
+      "model/eat/.cache/huggingface/download/configuration_eat.py.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/configuration_eat.py.metadata": "c963a483bf45317ef560f1ba41d2de538d6b3e3ef68fcd450a1bd85c6cd26ddb",
+      "model/eat/.cache/huggingface/download/eat_model.py.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/eat_model.py.metadata": "0a4f2fa76b2aa7091a9f619b8b90800642186baa0990b112c721fe6aea265a12",
+      "model/eat/.cache/huggingface/download/model.safetensors.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/model.safetensors.metadata": "1e74e3fcf11b0b2ee3ef661ae22345670d48c07240090dbceb93d27201dff8e6",
+      "model/eat/.cache/huggingface/download/model_core.py.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/model_core.py.metadata": "05b68f5a91e763a819375bce3033ece30b2822b773b2ce38252dd70aa16561a7",
+      "model/eat/.cache/huggingface/download/modeling_eat.py.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model/eat/.cache/huggingface/download/modeling_eat.py.metadata": "2b0141dcce7c71f0798f7c17b8be434747ed7685c9727ef6786bba751388624b",
+      "model/eat/.cache/huggingface/trees/60d61e8b2e9e5ba3be6860285de80cb7d625ccbb.json": "0498fccdc669ebbb1e55f26472ecee1a41d405e7f20f573010d0ae3868526cfb",
+      "model/eat/config.json": "1ef430641081c2dc8bb558aece34f278083b69b3701ac4dde36765f539781be9",
+      "model/eat/configuration_eat.py": "761f19555f0d53aa7725ffb83a6e4eec652af97244134ea5147edca71be9b9e5",
+      "model/eat/eat_model.py": "9a836c65a7e02e7b3df80cca93324ff96d50b3c380a777c393803671e17faf37",
+      "model/eat/model.safetensors": "5fa59385650eeb7b6c74414461306e055d943523cd7206c181e2d329969fff1b",
+      "model/eat/model_core.py": "f0157ab1d7f59e07db6da9d7845099dac7b818e1ea69322936da83364d8a2768",
+      "model/eat/modeling_eat.py": "828987c753963b7419447e115cdcbacf5231f7405fac309762ea41fd50539a6e",
+      "model/eat-patch-graph/head.pt": "577e0f101c0ac13c5562780b2c451b186e0798f1c0d82e5f165c9119404f58d6",
+      "model/eat-presence-head-v1.npz": "f962535046e1377c872d484cc44187c1912c846a6b7af8cbfec4c31429e066b6",
+      "model/htdemucs/955717e8-8726e21a.th": "8726e21a993978c7ba086d3872e7608d7d5bfca646ca4aca459ffda844faa8b4",
+      "model/htdemucs/htdemucs.yaml": "239c445d0b14454d541ad8bd9bb271c9e536d267e8a4625208744cbb2e7bb66c",
+      "model/modern-fakeprint/LICENSE": "2a7f7ac65322b9d24d21a783c31020201013f9ad3f76543a64387833af0fe261",
+      "model/modern-fakeprint/weights.npz": "d0bc3877a5d575bbe46a97794a72e463fd772258c395a2cbf3d4117aec72a29c",
+      "model/panns/Cnn14_mAP=0.431.pth": "0dc499e40e9761ef5ea061ffc77697697f277f6a960894903df3ada000e34b31",
+      "model/panns/class_labels_indices.csv": "cdd1049833c4b86127c2773ac0d14a2754b6a6d0d1798002ed5c66e699708429",
+      "model/panns/component_labels.json": "e68f1106c4b4424123f9aa4c5460e61ff6e5cc1282aaf310dd0276b21b67109e",
+      "model/phone-voice-presence-head.npz": "92052388947b479354e9fdc2d937d8d4a3452e494e70bae8f2985534e0de0fe5",
+      "model/sofia-mert/mert/config.json": "ea2627c4c7825cd66f3c944b6b966331604c35928174e0100cd4a82829424e32",
+      "model/sofia-mert/mert/configuration_MERT.py": "ae0ec2bab8f59c724ba9878a7c20b67210189536ea62d34a56775968e9decb03",
+      "model/sofia-mert/mert/modeling_MERT.py": "6c3ee73cef6f0c30ef494f88d96f891fa6925ffe663fa391b512f4b57abecc6c",
+      "model/sofia-mert/mert/preprocessor_config.json": "cc5a5e4a5d3b1a758a5ed984b2eaa15bb0522d811d44a9eed82bfca4baa0dc8f",
+      "model/sofia-mert/mert/pytorch_model.bin": "a2b8b747f72c06e0595aeae41ae5473f4364938c6b39b2c58be38c48e6bd3fcd",
+      "model/sofia-mert/sofia_g1_mert_head.pt": "1b692a7d84e834bf2cf3c4e81d22ee65e9a6e6868ae0287264abcfbe97398ec1",
+      "model/sparse-call-consensus.npz": "bbe68298bb86cdb103a10b4caa3fb6b983cc2defa1617166dd30aa89a3a4f128",
+      "model/spear/.gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "model/spear/config.json": "2db3f5e02610635a9bc5f47b8c215dd8b218e0bc05cfad40d113240bb5f1e76f",
+      "model/spear/configuration_spear.py": "756fd33eb7a6e247484b07a9101c11511a9e3d1af1ae6db48a69468ba92755bf",
+      "model/spear/model.safetensors": "2430597be74dee2271e44f71dbb48f7942423c20313147a5fb85e2af3402e266",
+      "model/spear/modeling_spear.py": "6aa3c3885d3aef09cd01b1e971346f6bd00f41af10432800fc52fad78fd7a698",
+      "model/spear/spear_model.py": "67fb98cece56404a3b1addfd5e1c4567f60705d86a8966cb2081e77171f8a23e",
+      "model/spear/spear_modules.py": "0aa0c542b0e4139c3861c821348a13f56179c5b6ac64c8645f776becf49a7288",
+      "model/spear/zipformer.py": "c5535c4cd2a6acd54fc385af6a1448e7e11d4dd6ffb0dad639e4d26b87976021",
+      "model/spear-cross-component-joint-v1.npz": "bca8f2130638efdcce383d3787c6f7309c03271cca354f817ad0ae7665d4af58",
+      "model/spear-mixed-music-head.npz": "d3b0c106ebe7aa515780f330068d2c6911bad7798781c8ff1f8c6e9a4b769f24",
+      "model/spectra-aasist/model.py": "0e8141a7b182463737f685e1593427e4cc25f0d21042523fb308706789d6d207",
+      "model/spectra-aasist/model.safetensors": "2e2727a7397f78d28b0a2a2b8ee031ff08143b9c431ea7f06fc29a808b0180db",
+      "model/spectra-aasist/wpt_spectra_multitask.pt": "584c5abf964d7b2e772905503c084daac45a83c52755ddb12291b77447cbe37e",
+      "model/spectra-aasist/xlsr_config/config.json": "ba742f733410ca021711e10e0d5902f09af4845469d32bbb05063ae9ac6df32b",
+      "model/src/anchor_spear_fusion.py": "29a9d71e0bf782908bacfd614b6f50aebd81a9b199ff03c77beb00b7f9a67522",
+      "model/src/anchor_spear_stats_fusion.py": "fff57826196d8ea76707f3fd548363366011fddc7caf5c6282fe112952b7d20e",
+      "model/src/artifactnet_detector.py": "e06d74e136e3307f361713a4e14a8730d3ea8371af3ccc56f86621db2b0d1996",
+      "model/src/component_query_mhfa.py": "60af86572a744d943d528cccdb255a444fbc7e8dd8a6e315a1b9a3528b8f462a",
+      "model/src/component_query_mhfa_inference.py": "3896bbf9717c476ea4d8205056f412ada98f72ba8dba804555a827a548e8a39d",
+      "model/src/dual_domain_head.py": "dd09e5defc522168e713dc00033dfd432f9d4bc5415ee4c8a19038039c482c73",
+      "model/src/dual_domain_inference.py": "48378afdc64c0d8f3d3ef37a4cf62b9e7acc859a43a0c4c8cb81deed8f4d7f0f",
+      "model/src/dual_domain_stats.py": "6a211801a40eefe95062af80816c35652fefcf308b9803b8b9c127becce3955a",
+      "model/src/eat_detector.py": "97d16d262d3c0bdca00f826e1d19d2d5a82efc39e678d03bc392df4cb31714f5",
+      "model/src/eat_hierarchical.py": "6d6263df28dd6d27cbec910b5b357352fd4b7f8e38b317acaef5e83d4eea2a03",
+      "model/src/eat_patch_graph.py": "56ee408e241f00a30ccb5e47b52003ef0870661c3efdb987c7378e24123b255f",
+      "model/src/eat_patch_graph_inference.py": "c6b61730214b6ddb4be4f7284c660ee309fda921b62dedaca6d96f50446f7e5a",
+      "model/src/eat_presence.py": "129cf3378b02ec4960dd31660b6310046232428d65c9cab95cfc364aaeca3eb9",
+      "model/src/eat_presence_fusion.py": "5965ffee95669ae442283d8c5c76b0456fb7c54d700b3c4c9258e22aef22e157",
+      "model/src/eat_timm_compat.py": "f09fc0d648634d4fe68f73c25f92430e3ea4beff95edcbe54dc573e8eeffb701",
+      "model/src/invariant_dual_domain_head.py": "e5d1c2744fc02fe915fe64c5511c5e089f8a5ad4fd46c2de7cefa4c46a890382",
+      "model/src/modern_fakeprint_detector.py": "b473290625e03f682a84da6cd3c401b31000631095132318dc8317f777eccf93",
+      "model/src/pipeline.py": "4eaebff2b464b9949fec1a6b96c59e111d577a297f45ac4bbb760718286d1baf",
+      "model/src/presence.py": "166bb3c38a34211fe24c688d9d732d72c4d3fad1a951f1b844ccde8aeec1c797",
+      "model/src/separation.py": "7a0381faafc4dc58fd67f3f5668633064eded0d53faa0de94efc608d5b6865ec",
+      "model/src/sofia_mert_detector.py": "e909392ccfeaefb6a7ed66fa8445e0ffe81028618b092f36de6f5b2815d0b0e2",
+      "model/src/sonics_detector.py": "81666d9d81e6d1b276083251cec29e6ba29f4ccfeb2cfea7b92f1784104593b3",
+      "model/src/sparse_call_consensus.py": "24f348682754b6f48b17806d0edae48d6b5f5a37ec71d5275f46a94408701be1",
+      "model/src/spear_detector.py": "6d6cb86520a29ebf687667a6d7fa0c02bf303d304a38240cf3389b5b7b394947",
+      "model/src/spear_temporal_bins.py": "4a672c49f2981ed35d8ff10ae5149c3aef6f1d0ae35291b2d44ca25b7e7f8755",
+      "model/src/spectra_aasist_detector.py": "c3de01da2bcd314523c836e8198f2042ea34093c1dcc8f92cdf60036638808fe",
+      "model/src/telephone_router.py": "1b99ae73826c2d7d9b515e43f872c91a8559b0ff0e2a7963c5c91a6d77e72097",
+      "model/src/temporal_dual_domain_head.py": "f5d56fb13e4a6ff73ba46e084e53ece2ae1a98ccc318ae0284827235193da62f",
+      "model/src/temporal_dual_domain_inference.py": "42d22b7464175ac8261b6b1bda90e1f505d1b598120ee92ad2ef95d702b4505d",
+      "model/src/three_stream_anchor_residual.py": "d9d3b2b05e753664ef1581763ac9b271862e7437112d25a971186eb2e6f2cbce",
+      "model/src/three_stream_anchor_residual_inference.py": "d4226387cea2a58f5dde49c2d3f696bbcf984d7914a77bd7361ac4f108003b32",
+      "model/src/wpt_file_expert.py": "ed80902545edb0775d434667332b0ca09f9b66189bd14ef62a7f26eb82e7b04b",
+      "model/src/wpt_spectra.py": "e1cd575d7f6e3b907efe3535ee418638a674488e44bca330a3531cb05c2bd823",
+      "model/src/wpt_spectra_inference.py": "080b82ef457c982b97e0008225c4d53eb3374f516eeab0b519ddf6ca5c2b8df4",
+      "model/src/xlsr_antideepfake.py": "c493c19ec732a7cb9a83c47b8e9cc7f67990ed542213dd31a1cbc29d97d69d3e",
+      "model/telephone-router.npz": "a8ef1a7d5e82d06e5803e19a6324e95e70e4de8c5cdedf688f275a82cf6c8ad5",
+      "model/temporal-domain-v1/seed_00.pt": "c86c875593fe280d91857d1f9bf36d46ec1d999fb3e52f9409ddc6420f1d8676",
+      "model/temporal-domain-v1/seed_01.pt": "d3eb3710c1c67573014eab072437852e37fe25ff45a7abbeabf76360b3f560e2",
+      "model/temporal-domain-v1/seed_02.pt": "0cd193e1ff4cd520383ad8a1f46e7af82b4f518b46e1645f43eea3fd3c292227",
+      "model/temporal-domain-v2/seed_00.pt": "f20260c30d9a8fd72e88e86bf94205ebf90f0f88d43f062bf6a20fa303ab2e71",
+      "model/temporal-domain-v2/seed_01.pt": "21daa84a9886f9580b2025b5045170f8ad5f6a5424d3fd6d5c70445f57b9f7e6",
+      "model/temporal-domain-v2/seed_02.pt": "8b5beb127690c87268d18f3fc7a9b3f023b4e79a4fe9689a79314ddd28aca0ae",
+      "model/three-stream-v57/head.pt": "1f7904ee37f4fb16b0d699945e8898a0476c42e2fffb2e6c5971211bf3423b99",
+      "model/xlsr/model-00001-of-00003.safetensors": "2820500be4372136533d77cef5ba5bc046e7a4d0c9cb52fe7fb4ea480a14b88f",
+      "model/xlsr/model-00002-of-00003.safetensors": "cdc49ba6e43f10a683615b4ba2db9fb7b340f38b60bb296e9355965a6131926e",
+      "model/xlsr/model-00003-of-00003.safetensors": "4c364b39a129db94dfa87e51979927b45fb7d764b7ad014afaecef72820cba10",
+      "requirements.txt": "978befe6e5c8a064cddd2690e7e55b4b153f87eabf0dcf3b0604a567f4edd6ed",
+      "script.py": "aad2a5facff20650b733fc55c34e070baa9e9535da36cc9b136bf0c89ff50cde"
+    },
+    "archive_crc_matches_package": true
+  },
+  "inputs": [
+    {
+      "ID": "pmv3_0000__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0000__g722_wb.flac",
+      "SHA256": "2706ac14faf7104084029f81733771e7f55ec832a88acd4f0cf1bf283ac39dda"
+    },
+    {
+      "ID": "pmv3_0001__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0001__g711_ulaw.flac",
+      "SHA256": "94e1eda953b7a1403e93763a092e8cbcd7faa69bc6b0d62ba0c5b7e24cd0f946"
+    },
+    {
+      "ID": "pmv3_0002__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0002__clean.flac",
+      "SHA256": "20df17dcf56fe59df0f020e4b06c9041b382951e37ee00cc2844f256786701ed"
+    },
+    {
+      "ID": "pmv3_0002__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0002__transcode_g711_opus.flac",
+      "SHA256": "66a6b9d94787d4e62492ef4acbfc467f3a206e93425aa23cdbd101d261f47354"
+    },
+    {
+      "ID": "pmv3_0003__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0003__opus_nb_8k.flac",
+      "SHA256": "27ed5e7bab397249ecf755b4ea738ff2b15ce4ef0c55bbf5cd01ce75b2c74e21"
+    },
+    {
+      "ID": "pmv3_0004__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0004__g722_wb.flac",
+      "SHA256": "3029ec504187e35ea556a40a9fa0afdf5b7ce366cae7a39d9ddb54814da7bf80"
+    },
+    {
+      "ID": "pmv3_0005__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0005__g711_ulaw.flac",
+      "SHA256": "0c9693a71f996a7fe190e9d692683565078076d2c25b0f779c1b54ed115e26cc"
+    },
+    {
+      "ID": "pmv3_0006__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0006__clean.flac",
+      "SHA256": "f9b60a3609aa1ef8bdd768cae355f9190952c524067fa2dfa93cf56a134f522a"
+    },
+    {
+      "ID": "pmv3_0006__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0006__transcode_g711_opus.flac",
+      "SHA256": "b0127f42c0db16dcf0a36bf1a2bfebc49ebe7df94bcd7c746476bbd453b1bfeb"
+    },
+    {
+      "ID": "pmv3_0007__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0007__opus_nb_8k.flac",
+      "SHA256": "22e84d118540529099d2bd425b38bce9252c31f40f83fdc9c7e4445185965687"
+    },
+    {
+      "ID": "pmv3_0008__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0008__g722_wb.flac",
+      "SHA256": "5056f5b60943e14bf6b6ad13f4b0a212a0ec554e69d56675e1f39592a0ccd8a4"
+    },
+    {
+      "ID": "pmv3_0009__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0009__g711_ulaw.flac",
+      "SHA256": "470aeeb570f8fd226b285e29440f98da9e527111bcf29e3b426aaa52ba1316f9"
+    },
+    {
+      "ID": "pmv3_0010__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0010__clean.flac",
+      "SHA256": "5bc891a98f416761e872dfad538b8db3d444e81bc61cd2d9d63a689bd2952a30"
+    },
+    {
+      "ID": "pmv3_0010__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0010__transcode_g711_opus.flac",
+      "SHA256": "6b58255d0facd948fe72937a6487a29f9a44e215418f8875acbd7d4c9ef53754"
+    },
+    {
+      "ID": "pmv3_0011__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0011__opus_nb_8k.flac",
+      "SHA256": "0e0df01be47211c15af842b69d931dec785a5be622049d70e6166641c3a2ce76"
+    },
+    {
+      "ID": "pmv3_0012__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0012__g722_wb.flac",
+      "SHA256": "c9b065aeb18a3ecf335b4fa36bce16a9e064f9fd8b92f6a1b52e0b6972942a4b"
+    },
+    {
+      "ID": "pmv3_0013__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0013__g711_ulaw.flac",
+      "SHA256": "8518d458519ca7649dca49fe5f8d15602f6c2e9f049d7acfb1662937984c3ff6"
+    },
+    {
+      "ID": "pmv3_0014__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0014__clean.flac",
+      "SHA256": "24c346d795a813d23a88b22f173dbb1b14b55da513e1433cab21cc190b544fd6"
+    },
+    {
+      "ID": "pmv3_0014__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0014__transcode_g711_opus.flac",
+      "SHA256": "46b176fa69c42647fcdaf6c474fc4cf949c6b8730c749978225211f0342572d7"
+    },
+    {
+      "ID": "pmv3_0015__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0015__opus_nb_8k.flac",
+      "SHA256": "27182e9b053cd64b32f277b895cd5e690286226e409bee4e086eb66d3516bfb2"
+    },
+    {
+      "ID": "pmv3_0016__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0016__g722_wb.flac",
+      "SHA256": "ad251c2d90eb568badaf44f73a1cf385ed672440fdf553fe0cdf53e522d76be6"
+    },
+    {
+      "ID": "pmv3_0017__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0017__g711_ulaw.flac",
+      "SHA256": "49ef7597e53d520f61df65779ce76ee149dcf886ce8242f8cc3e795dfa3d219e"
+    },
+    {
+      "ID": "pmv3_0018__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0018__clean.flac",
+      "SHA256": "0f30a7fa9e303146c3b90d31574e59289f3d3aea2ff4315ed29400fa504cdaa3"
+    },
+    {
+      "ID": "pmv3_0018__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0018__transcode_g711_opus.flac",
+      "SHA256": "4ea9c06acd489b08f373b2971df35e1be469940504b74ba8d6134e08a6ab9443"
+    },
+    {
+      "ID": "pmv3_0019__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0019__opus_nb_8k.flac",
+      "SHA256": "9d31af8b62bf4f1f2de59657136ded37f72b9ef93edaf8fa2837352bdc5c99cd"
+    },
+    {
+      "ID": "pmv3_0020__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0020__g722_wb.flac",
+      "SHA256": "da62bdbd702174efbeaac79ec9b7eaa5616a7670883b3578cafe7e648deb0290"
+    },
+    {
+      "ID": "pmv3_0021__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0021__g711_ulaw.flac",
+      "SHA256": "f846bd6bfef4c303d556f330c6e520535093d16369c4032a281bc16a0b6fbe8a"
+    },
+    {
+      "ID": "pmv3_0022__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0022__clean.flac",
+      "SHA256": "f7d9838589238912091155fa721aaff2f18289b58055a17d8b6fe4a0b6f943f4"
+    },
+    {
+      "ID": "pmv3_0022__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0022__transcode_g711_opus.flac",
+      "SHA256": "b871b8225fef0d2a7249c61fcaa55dff23317bbda69cefd168bf7cf70c30e0d9"
+    },
+    {
+      "ID": "pmv3_0023__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0023__opus_nb_8k.flac",
+      "SHA256": "6f0f707c0d6c08ad021f00248fe3ec9c73199bcf1f1cfeb92cf2665177fe17ed"
+    },
+    {
+      "ID": "pmv3_0024__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0024__g722_wb.flac",
+      "SHA256": "33fbfd455427f87db9bafe0f4ca2ff02f5f6f069ec9fa3daa2bcd73b088830f1"
+    },
+    {
+      "ID": "pmv3_0025__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0025__g711_ulaw.flac",
+      "SHA256": "0bc06041761dd0b1b491c9de8b067ff13ee4648f56d684b622a0b155565a886e"
+    },
+    {
+      "ID": "pmv3_0026__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0026__clean.flac",
+      "SHA256": "d8a77725bcb161663df59c690b3cb75111c7dfff5d69aa9345af70f6ce778a12"
+    },
+    {
+      "ID": "pmv3_0026__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0026__transcode_g711_opus.flac",
+      "SHA256": "2a3c205027c01e69e78547c8eb9cd20ed4af9201a55f9ec65eed67db7aab0919"
+    },
+    {
+      "ID": "pmv3_0027__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0027__opus_nb_8k.flac",
+      "SHA256": "608dac9e4b5a59f567837770829be7434a60f13a59992093954e49abfd15af7b"
+    },
+    {
+      "ID": "pmv3_0028__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0028__g722_wb.flac",
+      "SHA256": "22a5acb826b21c63e70485eff97f3da19e7190e54ba0d68a5d7540ee577a3c1b"
+    },
+    {
+      "ID": "pmv3_0029__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0029__g711_ulaw.flac",
+      "SHA256": "62868e8b3be5738deb7d70cbd49272d6069944e8026fc51395125c0b68c17b55"
+    },
+    {
+      "ID": "pmv3_0030__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0030__clean.flac",
+      "SHA256": "148d4c14e73a8789cd93fd1ecc721cd12f35bdf530caba045cc1ad95e0586df3"
+    },
+    {
+      "ID": "pmv3_0030__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0030__transcode_g711_opus.flac",
+      "SHA256": "47e36e84c1a59a5c774a5d5f8db9783b644fc0760a56acbcf55f71d53ecc06fb"
+    },
+    {
+      "ID": "pmv3_0031__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0031__opus_nb_8k.flac",
+      "SHA256": "7b5e112adef467c814b929d97c81bb365bb6856f39034c9d172e9e5001a2f531"
+    },
+    {
+      "ID": "pmv3_0032__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0032__g722_wb.flac",
+      "SHA256": "4b14ea6c8954dd25defac7c4960942b40b5592c7b797c8f3d47590923ca6ce65"
+    },
+    {
+      "ID": "pmv3_0033__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0033__g711_ulaw.flac",
+      "SHA256": "368d3d13114e4a196b0b77bff5ebfb7768501328813495360a6bd5b76f6b3fdd"
+    },
+    {
+      "ID": "pmv3_0034__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0034__clean.flac",
+      "SHA256": "d7220eaa991ab405966ca98ec743fedf365f718911a494c037f1c1c67e9eb197"
+    },
+    {
+      "ID": "pmv3_0034__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0034__transcode_g711_opus.flac",
+      "SHA256": "5123919f27ae3ba5ea57fce1f312bcb0715a663578a59c0a817f9c4cc1dd1e4b"
+    },
+    {
+      "ID": "pmv3_0035__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0035__opus_nb_8k.flac",
+      "SHA256": "7c229c161cddff715db2cef8219b5c63908e43e25ef6d75b138c476748cc62cd"
+    },
+    {
+      "ID": "pmv3_0036__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0036__g722_wb.flac",
+      "SHA256": "f40973b9800aa3fd4fd0d56049b527c855790fabfca49db35e73a86fc4fce962"
+    },
+    {
+      "ID": "pmv3_0037__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0037__g711_ulaw.flac",
+      "SHA256": "cf2d0f9554a2860de187ca98df59c2baf5224e6ceff5732b3d82d867be498319"
+    },
+    {
+      "ID": "pmv3_0038__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0038__clean.flac",
+      "SHA256": "6e435b60dbdf6a6fd8cb917f086cfe0c308d943ff288496e693ca6f7bee89cc5"
+    },
+    {
+      "ID": "pmv3_0038__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0038__transcode_g711_opus.flac",
+      "SHA256": "ad3ca708e3e3cb38edeabb1c35163e32e43570f7125df9272ab3aeebb3647f1d"
+    },
+    {
+      "ID": "pmv3_0039__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0039__opus_nb_8k.flac",
+      "SHA256": "c29642f6f88be649b8283e6cbb7a209a36f29bebfe3995d265f868ee9b79b4a0"
+    },
+    {
+      "ID": "pmv3_0040__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0040__g722_wb.flac",
+      "SHA256": "ce7621766d19ae5428a64d7edac60043dcbe2bc64aa185d9560b9298605044e8"
+    },
+    {
+      "ID": "pmv3_0041__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0041__g711_ulaw.flac",
+      "SHA256": "fc320ff502d4f234a97c9f1fa5f324a3101606fd5893c8263792249398bb39a6"
+    },
+    {
+      "ID": "pmv3_0042__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0042__clean.flac",
+      "SHA256": "00a9c190eddb5e151c780378415b25f19d09dbbf42f781ebb30c89c5c646f225"
+    },
+    {
+      "ID": "pmv3_0042__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0042__transcode_g711_opus.flac",
+      "SHA256": "6ad32870df1bee72abb878ab26c850f362c1fb0cda0dad8072ffa95b34fd4331"
+    },
+    {
+      "ID": "pmv3_0043__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0043__opus_nb_8k.flac",
+      "SHA256": "df04b65b906c3a957a66b4842bb45ab598df4da2a7bc319bea653860ead2edf6"
+    },
+    {
+      "ID": "pmv3_0044__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0044__g722_wb.flac",
+      "SHA256": "bc261e86abb354fac70a65b2ec6e132f81eb0852be4d62786f9ff490657e6e7d"
+    },
+    {
+      "ID": "pmv3_0045__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0045__g711_ulaw.flac",
+      "SHA256": "5d217aced928a8fc515014336c1f701b9ffe6238522954e6fc3ddd471ab5425b"
+    },
+    {
+      "ID": "pmv3_0046__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0046__clean.flac",
+      "SHA256": "95c78c68b3966fac5bf38c12a2566ec123cd67df46586d1f20024c7d12622577"
+    },
+    {
+      "ID": "pmv3_0046__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0046__transcode_g711_opus.flac",
+      "SHA256": "a06e10612be3d077e54f2382753edb82bf42776cc2f3a9337ba58698e1506e30"
+    },
+    {
+      "ID": "pmv3_0047__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0047__opus_nb_8k.flac",
+      "SHA256": "876beaa1331f80a6295adcd260eb7bc0a70a16e656661e030bf5a774121eff8f"
+    },
+    {
+      "ID": "pmv3_0048__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0048__g722_wb.flac",
+      "SHA256": "1c1064273185c814ada877153245ebac38e2aa2133fc0073adb1986340262a95"
+    },
+    {
+      "ID": "pmv3_0049__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0049__g711_ulaw.flac",
+      "SHA256": "069787416e6e96491020f1d83f65d0feac695fc7135dce7fe1b72ddd2d572a36"
+    },
+    {
+      "ID": "pmv3_0050__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0050__clean.flac",
+      "SHA256": "75b52e7c2796fc79797c42030f2772a19e53df8e6718fb1e3196847d38a0413f"
+    },
+    {
+      "ID": "pmv3_0050__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0050__transcode_g711_opus.flac",
+      "SHA256": "d9d52045fe5499c07d353e07ede3d85f92ba25b21cdb72a55f1ffb2e745fef3d"
+    },
+    {
+      "ID": "pmv3_0051__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0051__opus_nb_8k.flac",
+      "SHA256": "0302cfb502c2ff75d6fda88c986e255e584527301ef525ffc23f8ff8cf76eb82"
+    },
+    {
+      "ID": "pmv3_0052__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0052__g722_wb.flac",
+      "SHA256": "8759af06408f83a121b5d88d2e8a44094966a1119e3d7822f503df8f317b15b9"
+    },
+    {
+      "ID": "pmv3_0053__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0053__g711_ulaw.flac",
+      "SHA256": "5534398267c25470b82c8f7db535f0228b5ca3c52d7cf429e55fc07e89c95f90"
+    },
+    {
+      "ID": "pmv3_0054__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0054__clean.flac",
+      "SHA256": "51fac6b2529b1b94f6e9cdcb1d7f40840f4bec39f696b51a1afed7086d2a5fd5"
+    },
+    {
+      "ID": "pmv3_0054__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0054__transcode_g711_opus.flac",
+      "SHA256": "0502764c23dd3459c316839b08d68f4b329294cfafcbe49113e1d26e6ca10699"
+    },
+    {
+      "ID": "pmv3_0055__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0055__opus_nb_8k.flac",
+      "SHA256": "acfe842a53d83d306c6b3589e18c5e472fdb328f80aa03d96de03113c5aa58b6"
+    },
+    {
+      "ID": "pmv3_0056__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0056__g722_wb.flac",
+      "SHA256": "e4c556c778b99555d57b1a8fe1f5c87777c4ceb904fd42524257cf95b90d7f4a"
+    },
+    {
+      "ID": "pmv3_0057__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0057__g711_ulaw.flac",
+      "SHA256": "3aa461340c95b5eecfe04f020c51eebca07b628eccf005feaa0761d9989776bf"
+    },
+    {
+      "ID": "pmv3_0058__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0058__clean.flac",
+      "SHA256": "a696b48eb55220f32cbf3cf098fae8b54ef3b16ecfb85f544151ca9da9010769"
+    },
+    {
+      "ID": "pmv3_0058__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0058__transcode_g711_opus.flac",
+      "SHA256": "9b45fe19a928d719ea0c1372a7c077b1b04c4c6f6a81fe9fef8e2ff9b7bba4c1"
+    },
+    {
+      "ID": "pmv3_0059__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0059__opus_nb_8k.flac",
+      "SHA256": "6c6f5abd56ecd2f6b204cd7c994d9817d57d26c76757bab8fb22214bf6f0303a"
+    },
+    {
+      "ID": "pmv3_0060__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0060__g722_wb.flac",
+      "SHA256": "71c0e150385686563ad2e2551ade3f1cbcb3885818fad51a224b99861d085005"
+    },
+    {
+      "ID": "pmv3_0061__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0061__g711_ulaw.flac",
+      "SHA256": "ee87995b77b825b1c8355e0589bbfd0e31d57e097fae049652ce82476fda01ef"
+    },
+    {
+      "ID": "pmv3_0062__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0062__clean.flac",
+      "SHA256": "49f19b4a7effae090fecf9eb9768b3e25b34e4c98348e32061d9ac06826dbfab"
+    },
+    {
+      "ID": "pmv3_0062__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0062__transcode_g711_opus.flac",
+      "SHA256": "9ebab7b68ce8abe5c3b08be7e289c5147d4d2f34ce8464702bbaab9abc3c4693"
+    },
+    {
+      "ID": "pmv3_0063__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0063__opus_nb_8k.flac",
+      "SHA256": "0e1689eccd71ecc319007b52919f2660658fc619c445642936b36bd1c1083b0c"
+    },
+    {
+      "ID": "pmv3_0064__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0064__g722_wb.flac",
+      "SHA256": "d3c6a373002f470fbea983c49577423f61b9ed1ffb9800d3d252814985a2ea4b"
+    },
+    {
+      "ID": "pmv3_0065__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0065__g711_ulaw.flac",
+      "SHA256": "8a49edb6486238d610ff0e1f22e2d456c86ff55c348d6de0da28fe51ff51d5a6"
+    },
+    {
+      "ID": "pmv3_0066__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0066__clean.flac",
+      "SHA256": "20f40908d2997fd8b49301ac40f244bc122fd62903a0d3fcd8f842810dc6af9a"
+    },
+    {
+      "ID": "pmv3_0066__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0066__transcode_g711_opus.flac",
+      "SHA256": "31b8388c217774214c46c3ddb4dfb5ca5e46641d8f63a3ac8be15c18b80961e8"
+    },
+    {
+      "ID": "pmv3_0067__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0067__opus_nb_8k.flac",
+      "SHA256": "13ad9eab2fcd3b7f3db7d87d3eed72b749fdc07349f8a5b3aa87656af1ed7b7c"
+    },
+    {
+      "ID": "pmv3_0068__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0068__g722_wb.flac",
+      "SHA256": "eb82514b8841312eb906dbb2a93891ee8ef9d971d8e1887a726a4fa7ecb10778"
+    },
+    {
+      "ID": "pmv3_0069__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0069__g711_ulaw.flac",
+      "SHA256": "746ca2ea215043a882cf47f973a8ea7c66ef0091ab260c843714a03089cdf1c4"
+    },
+    {
+      "ID": "pmv3_0070__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0070__clean.flac",
+      "SHA256": "9b29e411a2209aefa3ea3066396129e48f9bdc952e7b55d80b9714c10f935ffc"
+    },
+    {
+      "ID": "pmv3_0070__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0070__transcode_g711_opus.flac",
+      "SHA256": "49e02be5763ac075b9a9e828da257dedf01be490b0a77803e91ff29de69577a8"
+    },
+    {
+      "ID": "pmv3_0071__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0071__opus_nb_8k.flac",
+      "SHA256": "8cad59939be707f5679bfc7935760a803a302bb4a29f33746a1cd6f3a7180593"
+    },
+    {
+      "ID": "pmv3_0072__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0072__g722_wb.flac",
+      "SHA256": "cee4b94dffe31fbf11aa327ae3debf416e8594b2123fb2122d277f08fe756e7a"
+    },
+    {
+      "ID": "pmv3_0073__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0073__g711_ulaw.flac",
+      "SHA256": "112b7b0f02bd24e997ae4169d8b0d23418c7ca6bc024bf415f3df847442a5667"
+    },
+    {
+      "ID": "pmv3_0074__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0074__clean.flac",
+      "SHA256": "cfe56a4eba5c5d4d9ccbe6084849568d8f3d5b06008c8b3e404031555f61e777"
+    },
+    {
+      "ID": "pmv3_0074__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0074__transcode_g711_opus.flac",
+      "SHA256": "fa29494832f184c9c0c8a9cf1e84a75f6b5212f82eb86b756db6d778eac51c48"
+    },
+    {
+      "ID": "pmv3_0075__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0075__opus_nb_8k.flac",
+      "SHA256": "951725eac415c35ae87967c03c16460ac7d27bac8bfcc9790481add3c08494a3"
+    },
+    {
+      "ID": "pmv3_0076__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0076__g722_wb.flac",
+      "SHA256": "2d89c2457856498d5dd048f0f0ccc78d999f1c723f2bb8f6e0f4849eaaedf51a"
+    },
+    {
+      "ID": "pmv3_0077__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0077__g711_ulaw.flac",
+      "SHA256": "0778a75fa6bc3a8172dadcdc4ce7235f773112918a7e8d315069e5876bd9695e"
+    },
+    {
+      "ID": "pmv3_0078__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0078__clean.flac",
+      "SHA256": "79f4397d8043bd43f127466422adbd33d746646e3c8eed5ae893f96b696ca3e8"
+    },
+    {
+      "ID": "pmv3_0078__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0078__transcode_g711_opus.flac",
+      "SHA256": "6e0da9e17a97c16a8690246dc606ed3adfa276de47aa2f2716eff9bd0d523b6b"
+    },
+    {
+      "ID": "pmv3_0079__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0079__opus_nb_8k.flac",
+      "SHA256": "12c69cf99910802b7c61433a88dd0acdfd9244f82176fd9f2a5cee4a2c3bf11b"
+    },
+    {
+      "ID": "pmv3_0080__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0080__g722_wb.flac",
+      "SHA256": "d23cdf2a18cdd733dfdac6607b28043376601cb527b2194808fc62175d6d42cb"
+    },
+    {
+      "ID": "pmv3_0081__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0081__g711_ulaw.flac",
+      "SHA256": "d2e48393b7a79ec720ed7a9929026b6a043df118d5e490d947055ae4c36e38f0"
+    },
+    {
+      "ID": "pmv3_0082__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0082__clean.flac",
+      "SHA256": "7184dc4694943764bf2116fc886b735858e829c33dd063ffe478f4bdf7c5586e"
+    },
+    {
+      "ID": "pmv3_0082__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0082__transcode_g711_opus.flac",
+      "SHA256": "847b57c01aed9aacec6476839fc76274b3e59009968828415cc12bfef5b4e01b"
+    },
+    {
+      "ID": "pmv3_0083__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0083__opus_nb_8k.flac",
+      "SHA256": "77eff5b9382dc5bec6ab79e3f5d28850912d8e34d4ff6e6b8edf2368ee6fbc29"
+    },
+    {
+      "ID": "pmv3_0084__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0084__g722_wb.flac",
+      "SHA256": "9de058353c444214a2d9164416b02e536e3d2cd155dd7aaee391e3ee3123797f"
+    },
+    {
+      "ID": "pmv3_0085__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0085__g711_ulaw.flac",
+      "SHA256": "9fde88e31f5dceee6fd252c5d042866739d3c528bfad8ef69b5720ca781e57fb"
+    },
+    {
+      "ID": "pmv3_0086__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0086__clean.flac",
+      "SHA256": "361f59c023fbb4570297418e83536d9f088f8c0bc7be58c3e0aafdb9ee136ad2"
+    },
+    {
+      "ID": "pmv3_0086__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0086__transcode_g711_opus.flac",
+      "SHA256": "5a406f548c731144f5d1ca23d46dd9aee84c5f0bcf190768525ab370e4f279ea"
+    },
+    {
+      "ID": "pmv3_0087__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0087__opus_nb_8k.flac",
+      "SHA256": "631b8d78388c1f726c459752dd8dbf8089949537af6904dd507ff9f3330a3956"
+    },
+    {
+      "ID": "pmv3_0088__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0088__g722_wb.flac",
+      "SHA256": "1f082f9bda0a1556094c7bfb0347cbbeb96ef764df877a42b1a1bdfa8e55b00b"
+    },
+    {
+      "ID": "pmv3_0089__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0089__g711_ulaw.flac",
+      "SHA256": "92540d9476aa7f1d66dd8926aceeb2587b47e2b45705455b945e6679b71c25ae"
+    },
+    {
+      "ID": "pmv3_0090__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0090__clean.flac",
+      "SHA256": "f17807b3c96b27d9b29842ebe9a9b96193e4f33ab81522456c1fd23ec0e7c716"
+    },
+    {
+      "ID": "pmv3_0090__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0090__transcode_g711_opus.flac",
+      "SHA256": "9503b5d8053bdf5ff5dd0a04de6820fce4747f4cade745618a3556cb9b7e86d8"
+    },
+    {
+      "ID": "pmv3_0091__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0091__opus_nb_8k.flac",
+      "SHA256": "3e3528256e512c65ff47677711acaa3fa7fa39e81da9fd7e2240fbbad108d8a9"
+    },
+    {
+      "ID": "pmv3_0092__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0092__g722_wb.flac",
+      "SHA256": "80e1e1f98963849c4f9f4d17e0e5eeb80ed892d81e3164815c4bf50286638c54"
+    },
+    {
+      "ID": "pmv3_0093__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0093__g711_ulaw.flac",
+      "SHA256": "9632e30c733683a9337e59cd319e0f2e15446c522b34a5ca65487cc18fd54539"
+    },
+    {
+      "ID": "pmv3_0094__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0094__clean.flac",
+      "SHA256": "9809771cf27396aac90bb12aa167d08674e9cdd6fc3087b48a30da618ce47cf2"
+    },
+    {
+      "ID": "pmv3_0094__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0094__transcode_g711_opus.flac",
+      "SHA256": "813d34a9a01f704a429429eeb20ddbf2250d446547dee72278ef7478108c13aa"
+    },
+    {
+      "ID": "pmv3_0095__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0095__opus_nb_8k.flac",
+      "SHA256": "2cc41c9459a1cbdc1f65aeb3d4cfa3eaddceaa12302822f09b5ae0f355bd69e3"
+    },
+    {
+      "ID": "pmv3_0096__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0096__g722_wb.flac",
+      "SHA256": "0c6134e5835dcf7e15f9f6bbff1266befe6baf0ac30316248c2135d9c6e2c63f"
+    },
+    {
+      "ID": "pmv3_0097__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0097__g711_ulaw.flac",
+      "SHA256": "bca77b7ed423b68ed42c99e46ec30a84b6a18bcd01150fc9311cd1b33e615d0a"
+    },
+    {
+      "ID": "pmv3_0098__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0098__clean.flac",
+      "SHA256": "2221e86eb7016be088ff200a116e609bd898066a1643f0ca4307ea002890d41c"
+    },
+    {
+      "ID": "pmv3_0098__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0098__transcode_g711_opus.flac",
+      "SHA256": "b87d8af6ec57834a888486735e0a027d75fbed2217a0691571e6ec7c1e4c00e1"
+    },
+    {
+      "ID": "pmv3_0099__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0099__opus_nb_8k.flac",
+      "SHA256": "5aa1d2992d40d18dcfad57e809c4a89c9214cb0e66c628c2abd0ce1a1cb096f5"
+    },
+    {
+      "ID": "pmv3_0100__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0100__g722_wb.flac",
+      "SHA256": "82cdf7da443702dbcdb0f04470d44d5f757506ab4e46e0b686e63dc0070c006a"
+    },
+    {
+      "ID": "pmv3_0101__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0101__g711_ulaw.flac",
+      "SHA256": "80ce270e0cccf35a8a3eb9cfd244277d28296018649aa7bf0dde0fdb191d02fd"
+    },
+    {
+      "ID": "pmv3_0102__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0102__clean.flac",
+      "SHA256": "c40bb6a836053a4caab3d5c996eaa75241c88b381795413dac460a478c4c29ad"
+    },
+    {
+      "ID": "pmv3_0102__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0102__transcode_g711_opus.flac",
+      "SHA256": "12fcd2750c42ae1e129a79c061afb2d1395c4fe2619f035eaa9b317ea0650cdf"
+    },
+    {
+      "ID": "pmv3_0103__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0103__opus_nb_8k.flac",
+      "SHA256": "f7c8ece8649a636287bbe3d546307cd9ae238ad2a8928148b97f4a9f2ca3ee4c"
+    },
+    {
+      "ID": "pmv3_0104__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0104__g722_wb.flac",
+      "SHA256": "5aee04b185865904793a2e599d02b25fb3839b240afc9ffb5cb90be30531d990"
+    },
+    {
+      "ID": "pmv3_0105__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0105__g711_ulaw.flac",
+      "SHA256": "a5e880254c6a77aab5a644f94eaa526748016564b85ed180832741cdf8710b28"
+    },
+    {
+      "ID": "pmv3_0106__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0106__clean.flac",
+      "SHA256": "a51348f74f63285f599cc84be6be80bed30559d95dd17181386e097a143cffec"
+    },
+    {
+      "ID": "pmv3_0106__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0106__transcode_g711_opus.flac",
+      "SHA256": "4b5930049a62fb3e3c6679788ecd77ea3e76e157c20f2c2cc6508e4a519e64cf"
+    },
+    {
+      "ID": "pmv3_0107__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0107__opus_nb_8k.flac",
+      "SHA256": "5a71ce2e99fac61f80bb950c2bd574fba58a1479211d7a103529b6c8a9848941"
+    },
+    {
+      "ID": "pmv3_0108__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0108__g722_wb.flac",
+      "SHA256": "0381848e4c2063f38c4a944c19983b90f36cf09a304c69446df9c150e72e63e2"
+    },
+    {
+      "ID": "pmv3_0109__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0109__g711_ulaw.flac",
+      "SHA256": "cb60fcf14a0af5c409a2bbec368fab98636f3f1da62754f42e4b93aa3f46d31c"
+    },
+    {
+      "ID": "pmv3_0110__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0110__clean.flac",
+      "SHA256": "2d30451f30d77d61edf81bd4201609173caca7a7379a1332db45d5f9bf7ed31b"
+    },
+    {
+      "ID": "pmv3_0110__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0110__transcode_g711_opus.flac",
+      "SHA256": "8f9afacb9b79345b44205369205ebca1c9bcb9cfeec5678fd972b0b6f9641749"
+    },
+    {
+      "ID": "pmv3_0111__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0111__opus_nb_8k.flac",
+      "SHA256": "c25d1d90139be512febb92ad89c47163a0c916a2cfbd1249464bf97e735d3c85"
+    },
+    {
+      "ID": "pmv3_0112__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0112__g722_wb.flac",
+      "SHA256": "5670ada1742e5dfaa1e52b2bcd749ca4babcf104dcb54b1ae53110883d5623a5"
+    },
+    {
+      "ID": "pmv3_0113__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0113__g711_ulaw.flac",
+      "SHA256": "cff62521d568d06fd276e4da28af3ebe4d9a9ff27415e26811434ab483c6751a"
+    },
+    {
+      "ID": "pmv3_0114__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0114__clean.flac",
+      "SHA256": "8df0f935c2136a0623b9c4d0585bf00ff0250ee778b1b7450cae293138bedad6"
+    },
+    {
+      "ID": "pmv3_0114__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0114__transcode_g711_opus.flac",
+      "SHA256": "b6f49d41e23dbcfe1636c4895d9ce26968453e8eeb962067c2763234d5d8c625"
+    },
+    {
+      "ID": "pmv3_0115__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0115__opus_nb_8k.flac",
+      "SHA256": "c3e0d9142b6980269800843f9c8d089d50a79fcc725b551c1131ec6044810164"
+    },
+    {
+      "ID": "pmv3_0116__g722_wb",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0116__g722_wb.flac",
+      "SHA256": "e98123512ba0efaef4eba1bde6c6e77fda7128c4e26d5ea94ff6c43d1998c6c3"
+    },
+    {
+      "ID": "pmv3_0117__g711_ulaw",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0117__g711_ulaw.flac",
+      "SHA256": "4cda4c7a255d4cdbbd7ca535ab82668aa28b842c401c581cbbe6e9d678281c0c"
+    },
+    {
+      "ID": "pmv3_0118__clean",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0118__clean.flac",
+      "SHA256": "2a845e450b13f46720171e804a176aa2ff7e37096e390599fd92d179b1106870"
+    },
+    {
+      "ID": "pmv3_0118__transcode_g711_opus",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0118__transcode_g711_opus.flac",
+      "SHA256": "1d998cde81057c9cd4c21af515f762c4468f6569040dda20d33fe042ddfe1bc9"
+    },
+    {
+      "ID": "pmv3_0119__opus_nb_8k",
+      "DATASET": "codec_mixed_dev_v4",
+      "PATH": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/audio/pmv3_0119__opus_nb_8k.flac",
+      "SHA256": "444ac44e3b307e99391de51c20466380dca3a715e2a9370f6ff7b459fe4fb0fd"
+    }
+  ],
+  "root_frozen_sha256": "85763a72df7f216c341a4bd83cf53b83dec428ec85e907d79c04f8cd7b42f961",
+  "scope": "development recomputation",
+  "automatic_submission_allowed": false
+}

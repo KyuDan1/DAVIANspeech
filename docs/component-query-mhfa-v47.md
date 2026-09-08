@@ -54,8 +54,10 @@ EAT patch는 fake music 증거에는 강하지만 fake voice 증거를 File로 �
 
 ## 모델
 
-source separation 없이 원본 mixture만 사용한다. 별도 backbone은 추가하지 않고
-v44가 이미 계산하는 특징을 재사용한다.
+component-query **branch 자체는** source separation 없이 원본 mixture만 사용한다.
+별도 backbone은 추가하지 않고 v44가 이미 계산하는 특징을 재사용한다. 단 전체
+제출은 v18 anchor의 Demucs stem branch를 그대로 포함하므로 v47 전체가
+separation-free인 것은 아니다.
 
 - EAT: view 3개, layer `[1,3,5,7,9,11]`, 시간 node 38개와 주파수 node 8개
 - SPEAR: view 3개, bin 8개, layer 4개, 각 bin의 4개 통계
@@ -164,4 +166,8 @@ v44 패키지의 SPEAR helper에는 temporal-bin export가 없었다. 첫 smoke�
 
 1. `eat_patch_graph_v44.zip`: 새 EAT patch representation의 hidden 방향 확인
 2. v44가 상승하면 `component_query_or_v47.zip`: query와 논리적 File 보정 확인
-3. 둘 다 상승한 뒤에만 WPT 5% Voice/File residual을 검토
+3. 둘 다 상승한 뒤에만 개발셋에서 고정한 WPT Voice 5% residual을 검토
+
+WPT File residual은 개발 factorial의 통제 비교에서 작은 회귀가 발생해 0으로
+고정했다. Voice `0.05`, File `0.0` 선택 과정과 사후 잠금 평가는
+`reports/wpt_spectra_v1/v47_standalone_devselect/`에 기록했다.

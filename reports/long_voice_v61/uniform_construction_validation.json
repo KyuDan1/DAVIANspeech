@@ -1,0 +1,15 @@
+{
+  "status": "PASS_CONSTRUCTION_NOT_DETECTION",
+  "files": 720,
+  "source_groups": 20,
+  "independent_files": false,
+  "source_identity_overlap": 0,
+  "known_protected_source_hash_overlap": 0,
+  "known_protected_rendered_hash_overlap": 0,
+  "maximum_peak": 1.0,
+  "truth_sha256": "c8d66f7cab9ca8b6931f919152569c01433ff2680856e70b993feef5e9d06c90",
+  "audio_hashes_sha256": "b8b212bf2f1141e4a5559e20e306227a680263907642a1fde7e9a8933aacd847",
+  "authenticity_scores_used": false,
+  "requires_partition_registration": true,
+  "scope": "Synthetic long-voice File/Voice detection; not music/CPS or natural-call validation."
+}

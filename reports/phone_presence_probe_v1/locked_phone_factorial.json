@@ -1,0 +1,7 @@
+{
+  "base_voice_auc": 0.9820468750000001,
+  "phone_probe_voice_auc": 0.987903125,
+  "fused_voice_auc": 0.997465625,
+  "music_auc": 1.0,
+  "fused_cps": 0.9987328125
+}

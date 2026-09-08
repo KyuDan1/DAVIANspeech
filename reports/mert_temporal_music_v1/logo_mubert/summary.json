@@ -1,0 +1,11 @@
+{
+  "best_epoch": 175,
+  "selection": 0.7663180272108843,
+  "mean_dev_eer": 0.20236394557823129,
+  "worst_dev_eer": 0.265,
+  "feature_mode": "both",
+  "group_dro_temperature": 0.1,
+  "excluded_music_generators": [
+    "mubert"
+  ]
+}

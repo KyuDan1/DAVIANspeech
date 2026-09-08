@@ -1,0 +1,8 @@
+{
+  "chosen_mode": "long",
+  "robust_selection": 0.6216892230714068,
+  "authorized_selection": 0.6282865646258503,
+  "logo_mean": 0.6756143560009139,
+  "logo_worst": 0.5545694070330128,
+  "retrospective_banks_used_for_selection": []
+}

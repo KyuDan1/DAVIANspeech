@@ -1,0 +1,72 @@
+{
+  "stage": "development_decision_only",
+  "variants": {
+    "paired_bce": {
+      "best_epoch": 6,
+      "selection": 0.7801254824955858,
+      "pooled_file_eer": 0.2078408086040374,
+      "files": {
+        "complete.json": "89d0f5c7bd91bb9d5dd9a0e35001b14375390c972ec4fd08f82c909dff0360ba",
+        "best.pt": "2e5db771956af33c6db3d8ca478d79fc05b2895ffded06413828fe49a66acd7f",
+        "dev_predictions.csv": "b4a16c0117815999fd64b0fc97e575f89b0cea86232e1566104fae917dc6abbc",
+        "history.csv": "cebfa71f31ac992cde4195c83243b4d29dd56b4659fffb69c2b049a8d04082a5",
+        "manifest.json": "9f3e57a9b2651b5438004cee2de05e21d3375ca7584b61193cf719b6e46bfea1"
+      }
+    },
+    "paired_consistency": {
+      "best_epoch": 8,
+      "selection": 0.7807150629541657,
+      "pooled_file_eer": 0.2177667526476908,
+      "files": {
+        "complete.json": "7e5b995d74f483ee336e342febf561c14637aa41ba99173ecb58be8a1d6ac8d8",
+        "best.pt": "2d00ed0076a0106772f54b459f36710426855d38c6a9e9fb6add7f9bb8c997c4",
+        "dev_predictions.csv": "8b7990c99e50476b39b969d34679c6f009365141cecedda2af27f49057591f75",
+        "history.csv": "2b4dbcc4a0cf785d610037b35a45d332ae6400533666e395244b33232853cb44",
+        "manifest.json": "13e5f794b809bbbc002fb6cfbac9bde86863f300add0e5f1e3fb1e9f770c626c"
+      }
+    }
+  },
+  "anchor_gates": {
+    "paired_bce": {
+      "pass_gate": false,
+      "checks": {
+        "pooled_improves": false,
+        "domains_nonregressing": false,
+        "channels_nonregressing": false,
+        "mean_domain_improves": false,
+        "worst_domain_nonworse": false
+      },
+      "pooled_gain": -0.0677777777777778,
+      "mean_domain_gain": -0.0677777777777778,
+      "worst_domain_gain": -0.0677777777777778,
+      "max_domain_regression": 0.0677777777777778,
+      "max_channel_regression": 0.07222222222222219
+    },
+    "paired_consistency": {
+      "pass_gate": false,
+      "checks": {
+        "pooled_improves": false,
+        "domains_nonregressing": false,
+        "channels_nonregressing": false,
+        "mean_domain_improves": false,
+        "worst_domain_nonworse": false
+      },
+      "pooled_gain": -0.03444444444444447,
+      "mean_domain_gain": -0.03444444444444447,
+      "worst_domain_gain": -0.03444444444444447,
+      "max_domain_regression": 0.03444444444444447,
+      "max_channel_regression": 0.1333333333333333
+    }
+  },
+  "frozen_candidate": null,
+  "anchor_predictions_sha256": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+  "automatic_submission_allowed": false,
+  "official_score_improvement_verified": false,
+  "remaining_if_pass": [
+    "independent_file_inference_equivalence",
+    "prospective_all_type_confirmation",
+    "long_voice_confirmation",
+    "full_pipeline_L4_runtime",
+    "offline_package_checks"
+  ]
+}

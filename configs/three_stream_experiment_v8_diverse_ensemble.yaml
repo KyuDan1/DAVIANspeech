@@ -1,0 +1,39 @@
+# Frozen before scoring either ensemble and before opening codec_mixed_blind_v5.
+# All members were independently selected by the fixed development rule or by
+# a declared complementary task property; logits are averaged uniformly.
+schema_version: three_stream_experiment_v8_diverse_ensemble
+anchor: exact_component_query_or_v47
+baseline:
+  name: robust_l2_three_seed
+  selection: 0.8369515959846564
+  codec_mixed_dev_v4_ads: 0.7681111111111112
+
+ensembles:
+  seed3_plus_file_capacity:
+    members:
+      - robust_l2_core_seed_20260904
+      - robust_l2_seed_20260905
+      - robust_l2_seed_20260906
+      - robust_l4_core_seed_20260904
+    weights: [0.25, 0.25, 0.25, 0.25]
+    rationale: >-
+      Add the independently trained residual-limit-4 head, which has the best
+      pooled File EER among single heads, to the stable three-seed ensemble.
+  diverse_six:
+    members:
+      - robust_l2_core_seed_20260904
+      - robust_l2_seed_20260905
+      - robust_l2_seed_20260906
+      - robust_l4_core_seed_20260904
+      - disentangle_l2_seed_20260904
+      - disentangle_l1_seed_20260904
+    weights: [0.166666666667, 0.166666666667, 0.166666666667,
+              0.166666666667, 0.166666666666, 0.166666666666]
+    rationale: >-
+      Combine seed diversity with the best single-head pooled File capacity,
+      low Voice EER disentanglement, and low Music EER disentanglement.
+
+decision_rule: >-
+  Replace the three-seed baseline only if both fixed development selection and
+  codec_mixed_dev_v4 ADS increase, while clean and G.722 ADS each regress by
+  no more than 0.01. No ensemble-weight search is permitted.

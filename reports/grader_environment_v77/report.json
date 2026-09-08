@@ -1,0 +1,41 @@
+{
+  "status": "complete_core_environment_smoke",
+  "executable": "/tmp/davian_grader_v77.o2Sm4v/venv/bin/python",
+  "python": "3.11.16",
+  "platform": "Linux-6.8.0-87-generic-x86_64-with-glibc2.35",
+  "packages": {
+    "torch": "2.7.1+cu128",
+    "torchaudio": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "pandas": "2.0.3",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.8.0",
+    "joblib": "1.5.3",
+    "threadpoolctl": "3.6.0",
+    "transformers": "4.57.6",
+    "accelerate": "1.9.0",
+    "huggingface-hub": "0.34.4",
+    "safetensors": "0.6.2",
+    "sentencepiece": "0.1.99",
+    "regex": "2023.12.25",
+    "einops": "0.8.1",
+    "librosa": "0.10.2.post1",
+    "soundfile": "0.12.1",
+    "soxr": "0.5.0.post1",
+    "tqdm": "4.66.4",
+    "pyyaml": "6.0.1"
+  },
+  "torch_cuda": "12.8",
+  "cudnn": 90701,
+  "gpu": "NVIDIA B200",
+  "native_torchaudio_import_and_resample": true,
+  "pandas_numpy_abi_import": true,
+  "cuda_bf16_matmul": true,
+  "limitations": [
+    "Python 3.11.16 locally vs supplied grader 3.11.15",
+    "B200 research hardware, not L4; CPU/RAM limits not enforced",
+    "Only relevant pinned core packages replicated; unspecified transitive dependencies may differ",
+    "No model probability equivalence, submission installation time, or official score implied"
+  ],
+  "automatic_submission_allowed": false
+}

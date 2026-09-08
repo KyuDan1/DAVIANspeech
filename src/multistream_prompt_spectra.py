@@ -219,7 +219,12 @@ class MultiStreamPromptedWav2Vec2Encoder(nn.Module):
                 attention_mask=None,
                 output_attentions=False,
             )[0]
-            hidden = combined if index == len(encoder.layers) - 1 else combined[:, count:]
+            # Deep prompts condition every transformer layer but are not audio
+            # observations.  Match the released MixFake implementation by
+            # stripping them before the next layer *and* before the backend;
+            # retaining the final prompt tokens lets AASIST exploit a learned
+            # constant shortcut and changes its expected time-axis geometry.
+            hidden = combined[:, count:]
         return encoder.layer_norm(hidden)
 
 

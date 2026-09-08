@@ -1,0 +1,27 @@
+{
+  "scope": "authorized development only; descriptive diagnosis, no candidate selection",
+  "rows": 600,
+  "distinct_base_mixtures": 120,
+  "voice_sources": 120,
+  "music_sources": 120,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "limitations": [
+    "same source audio repeats across channels; rows are not independent",
+    "component contrasts have both classes; individual cells do not have EER",
+    "clean EER thresholds are diagnostic only, not deployment thresholds",
+    "all files are mixed; no music-only, voice-only or CPS AUC coverage",
+    "does not estimate official test distribution, EER or total score"
+  ],
+  "source_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml": "dee35f80cf26d1c5d73093d2ed2901b360655a244a8a70541898b7c28257266e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/audit_mixed_channel_failures_v66.py": "c83a1590670d260da0967e4650ddbf1e4c35cc67945b999288a738e9372d9764"
+  }
+}

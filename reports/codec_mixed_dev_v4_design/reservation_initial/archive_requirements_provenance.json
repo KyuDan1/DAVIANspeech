@@ -1,0 +1,15 @@
+{
+  "repository": "Tnxts/MixFake",
+  "revision": "fbaf2e953daf3779559ae2ba300a53300a9616f2",
+  "repository_last_modified": "2026-05-17T11:48:32.000Z",
+  "archive_index_path": "/tmp/mixfake_api.json",
+  "archive_index_sha256": "8d12af4a9e323c677aa554704c3034c281e935ebf09477ddd0e1ec3612949ccb",
+  "repository_json_path": "/tmp/mixfake_repo_api.json",
+  "repository_json_sha256": "df7e1cf61f1f5cddad7323f8a1cae7d3ddf12df87ec50ba1c23cd3246ba1fb06",
+  "reservation_path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_dev_v4_design/reservation_initial/reservation.csv",
+  "reservation_sha256": "bcdb086a740280314bb41680bccc4f21fbad226cdba3675b3dc0fab83daffc90",
+  "source_requirement_rows": 240,
+  "archive_member_target_rows": 240,
+  "archive_volume_rows": 67,
+  "archive_total_bytes": 71577624470
+}

@@ -1,0 +1,8 @@
+{
+  "best_epoch": 2,
+  "best_dev_eer": 0.3125,
+  "width": 128,
+  "layers": 3,
+  "heads": 4,
+  "dropout": 0.15
+}

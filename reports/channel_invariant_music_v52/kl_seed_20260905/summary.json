@@ -1,0 +1,7 @@
+{
+  "best_epoch": 7,
+  "selection": 0.8232217261904762,
+  "mean_music_score": 0.8714434523809524,
+  "worst_music_score": 0.7749999999999999,
+  "channel_pairs": 1600
+}

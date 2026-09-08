@@ -1,0 +1,15 @@
+{
+  "schema": "mixfake_v93_channel_audit",
+  "rows": 320,
+  "per_cell": {
+    "FF": 80,
+    "FR": 80,
+    "RF": 80,
+    "RR": 80
+  },
+  "unique_voice": 242,
+  "unique_music": 318,
+  "source_manifest_sha256": "3451a1ae6c117efa921e5973f6ee521e4207099b2331f5f215a954a7fa0dc3d2",
+  "manifest_sha256": "042f32af0840753399c9fff9f09b4016e148c56bde88215443694af47bd842ff",
+  "detector_scores_read": false
+}

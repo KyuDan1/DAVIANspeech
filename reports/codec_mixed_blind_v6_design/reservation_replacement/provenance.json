@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "stage": "reserved_blind_v6_replace",
+  "seed": 20260912,
+  "id_prefix": "cmbv6",
+  "per_cell": 4,
+  "base_rows": 48,
+  "rendered_rows_planned": 240,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "provenance_mode": "strict",
+  "generator_ood_claim": false,
+  "warning": "ASV provenance is complete; fake music is limited to the explicitly declared seen FakeMusicCaps generator families passing a conservative text screen.",
+  "inputs": {
+    "unmixed_details": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/unmixed_details.csv",
+      "sha256": "8432062f5a743fd5830d23f05479b9e976f0a80184ca3427b183e3889588f9e7"
+    },
+    "mixfake_foreground_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Fore_ForeLabel.txt",
+      "sha256": "c477bdcf1a16e9efa91445927d2f63a74d66259a5e446297f27f787f4391cc79"
+    },
+    "mixfake_background_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Back_BackLabel.txt",
+      "sha256": "fd123a041a97fe5104d2825d9007f81ff7de43e1ea0b4ef53e780313f099a63f"
+    },
+    "partition_config": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_blind_v6_design/music_only_protection/data_partitions_music_only.yaml",
+      "sha256": "b7ab42d497b7c74b5aa5ce19a6889ba3c999e8a44293d1a36900afd8c51044fe"
+    },
+    "musiccaps_metadata": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/sources/musiccaps_metadata/musiccaps-public.csv",
+      "sha256": "8cc109ac507b5e5aed8ea73a5c8f897a9d0793f7397427e000adf4c05f6021c7"
+    },
+    "asvspoof_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/source_protocols/ASVspoof2019.LA.cm.eval.trl.txt",
+      "sha256": "84fce576efff092269a0a6ad247d2e9f2f7b4d4e25a4545efb2518da92708036"
+    }
+  },
+  "licenses": [
+    {
+      "source": "MixFake",
+      "url": "https://huggingface.co/datasets/Tnxts/MixFake",
+      "license": "CC-BY-4.0 (repository declaration; verify redistribution terms)"
+    },
+    {
+      "source": "ASVspoof2019 LA foreground",
+      "url": "https://www.asvspoof.org/index2019.html",
+      "license": "ASVspoof terms; verify for the intended use"
+    },
+    {
+      "source": "FMA / FakeMusicCaps / SONICS backgrounds",
+      "url": "recorded by MixFake protocols",
+      "license": "upstream per-item/dataset terms; verify before redistribution"
+    }
+  ],
+  "music_vocal_screen": {
+    "version": "musiccaps_instrumental_text_v1",
+    "pass_value": "musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1",
+    "metadata_fields": [
+      "caption",
+      "aspect_list"
+    ],
+    "rule": "Require an explicit instrumental/no-voice/no-vocal phrase and reject any remaining vocal/singing/speech/rap/choir/chant/humming/voice/lyrics/narration signal. Exclude all SONICS.",
+    "explicit_patterns": [
+      "\\binstrumental(?:\\s+(?:music|track|piece|song|recording))?\\b",
+      "\\bno\\s+(?:human\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\bwithout\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b",
+      "\\b(?:does|do)\\s+not\\s+(?:contain|include|feature|have)\\s+(?:any\\s+)?(?:voice|voices|vocal|vocals)\\b"
+    ],
+    "positive_voice_pattern": "\\b(?:vocal(?:s|ist|ists)?|singer(?:s)?|singing|sings|sang|sung|speech|spoken|talk(?:s|er|ers|ing)?|rap(?:s|per|pers|ping)?|choir|choral|chant(?:s|er|ers|ing)?|humm(?:ed|ing)?|voice(?:s)?|voice[- ]?over|lyrics?|narrat(?:e|ed|es|ing|ion|or)|a\\s*cappella|acapella)\\b",
+    "counts": {
+      "eligible_fake_after_screen_and_protection": 131,
+      "eligible_real_after_protection": 1630,
+      "excluded_no_explicit_instrumental_or_no_vocal": 771,
+      "excluded_positive_voice_signal": 1524,
+      "excluded_protected_identity": 755,
+      "excluded_sonics_suno_udio": 5000,
+      "excluded_unsupported_fake_music_generator": 2189,
+      "fake_music_candidates": 10000,
+      "fake_musiccaps_candidates": 2811,
+      "fake_musiccaps_passed_text_screen": 516,
+      "official_eval_music_candidates": 12000,
+      "real_music_candidates": 2000
+    }
+  },
+  "semantic_exclusions": {
+    "applied": false,
+    "input_rows": 0,
+    "exclusion_rows": 0,
+    "exclusion_unique_ids": 0,
+    "eligible_pool_matches": 0,
+    "selected_replacement_count": 0,
+    "replacements": []
+  },
+  "selection": {
+    "protected_roles": "all roles in actual partition_config",
+    "canonical_music_group_exclusion": true,
+    "requested_fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "stable_audio_open"
+    ],
+    "fake_music_sources_per_generator": 8,
+    "generator_ood_claim": false,
+    "within_holdout_source_reuse": "paired channel variants only"
+  },
+  "reservation_sha256": "72a094e2e43074e936b80e02c21955a3e2b57b6509ee726cb3841ea00d83915f",
+  "builder_sha256": "5a3a67871dee4ec1df03bfec3e5edbd27d30a0f2f01a285932abe22aeb736b81",
+  "base_reservation": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_blind_v6_design/reservation_initial/reservation.csv",
+    "sha256": "37e4483d83337756ab2a37f0b666e5f8fd4c824c7d1d7734012d6711b547629d"
+  },
+  "actual_partition_config": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml",
+    "sha256": "d254c40812d554e5c41ce02af6843c402b00f23016919d20bd81c40f85621094"
+  },
+  "semantic_policy": {
+    "positive_vocal_text_rejection": true,
+    "neutral_text_status_before_audio_screen": "musiccaps_no_positive_voice_signal_acoustic_pending_v1",
+    "neutral_text_status_after_audio_screen": "musiccaps_no_positive_voice_text_panns_demucs_pass_v1",
+    "panns_max": 0.2,
+    "demucs_vocals_to_mixture_db_max": -1.5
+  },
+  "candidate_counts": {
+    "MusicGen_medium:eligible_acoustic_pending": 78,
+    "MusicGen_medium:positive_vocal_rejected": 319,
+    "MusicGen_medium:raw": 581,
+    "MusicGen_medium:registered_identity_rejected": 184,
+    "audioldm2:eligible_acoustic_pending": 80,
+    "audioldm2:positive_vocal_rejected": 291,
+    "audioldm2:raw": 520,
+    "audioldm2:registered_identity_rejected": 149,
+    "stable_audio_open:eligible_acoustic_pending": 355,
+    "stable_audio_open:eligible_text_pass": 131,
+    "stable_audio_open:positive_vocal_rejected": 1524,
+    "stable_audio_open:raw": 2811,
+    "stable_audio_open:registered_identity_rejected": 801
+  },
+  "replacements": [
+    {
+      "excluded_source_id": "FM_stable_audio_open_4mC6K77Y_Ho",
+      "excluded_group": "fmc:4mC6K77Y_Ho",
+      "replacement_source_id": "FM_stable_audio_open_RV05BW-2WIc",
+      "replacement_group": "fmc:RV05BW-2WIc",
+      "generator": "stable_audio_open"
+    }
+  ],
+  "acoustic_scores": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_blind_v6_design/acoustic_screen_initial/source_scores.csv",
+    "sha256": "ad7accb7078effac5696b53533069252829f8a95e04567f14f2cb26105157343"
+  },
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false
+}

@@ -1,0 +1,8 @@
+{
+  "best_epoch": 7,
+  "selection": 0.7814880952380953,
+  "train_examples": 18936,
+  "trainable_parameters": 7413935,
+  "warm_start_checkpoint": null,
+  "warm_start_report": null
+}

@@ -1,0 +1,77 @@
+{
+  "stage": "completed development benchmark; not submission approval",
+  "development_rank_leader": {
+    "encoder": "spear",
+    "pooling": "mean",
+    "epoch": 6
+  },
+  "next_adaptation_candidate": null,
+  "promotion_requires": "file-local encoder equivalence for each candidate; scores alone cannot promote",
+  "sampler_equality": [
+    {
+      "epoch": 1,
+      "count": 4096,
+      "sha256": "38d9e426cdb8eb3f097d2c5cc23b715128848c86aa606a4f69603c110149c1dc"
+    },
+    {
+      "epoch": 2,
+      "count": 4096,
+      "sha256": "dc40dce293e29a957571bc62318d115c8971b2e12f6a00c4291425e475733bc9"
+    },
+    {
+      "epoch": 3,
+      "count": 4096,
+      "sha256": "947f38f73f7a965637cf101b2aea3a1def53aff3e689a0bcfb65b59cd92dfb9b"
+    },
+    {
+      "epoch": 4,
+      "count": 4096,
+      "sha256": "393683f05231f1bd9ee139f21e5f63a1db33f30a235188c87ca0fafc93ebeb07"
+    },
+    {
+      "epoch": 5,
+      "count": 4096,
+      "sha256": "3cf80b0bfd6f821dac28c25c8c7a89a85be9579a13097d0a5b0c55824c6ae7fb"
+    },
+    {
+      "epoch": 6,
+      "count": 4096,
+      "sha256": "6356aae31ec216512e63c012bfd03696d2cc31eff5c0ef682f49b0bfeb6e48f8"
+    }
+  ],
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/mean/development_predictions.csv": "eec191ce5a2cb93fee5b10e8fe10edf8b4ae67cf5daa9110c2255821190840c4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/mean/head.pt": "8cc7b1a8bd7c48da87e21fbdb9b8f4ec7a3fe01e0dba318d950330d7394caa10",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/completed.json": "03f34a4fb2e238aa13237f3742642cc70e40ab6a303e7ef983d46a4eca6fd1c1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/attention/development_predictions.csv": "fd370ed82353be975da9b5dc6c0ebc7d9d191595ba7964f76d5d083dd16fce5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/eat_large/attention/head.pt": "63bb9ff94335f47471a4bcb103e93b6fe3e19b20aa01b2437ae5229aca904688",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear/mean/development_predictions.csv": "dc4b006be3436a52516505ffc611b6818eb88e15908fa0250b1d72794bb4d7ce",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear/mean/head.pt": "392c30692a0ce0eedfd08089ce921b784cfa2c084047a1e8a25bd0eb20ae0c4c",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear/completed.json": "6f4ae7a175b7f2568ddfd12d9bc4e09dc8c3e23983a1ce8892d3c90c8efb5401",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear/attention/development_predictions.csv": "96dd4929d14173cfbafe80a89c75472b9839a747b9d54362992d8e14010940cc",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear/attention/head.pt": "5abd171eb876379ec3046f27863aafbf2b4086dbf61aa0a7e7bafae2e63c0596",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/mean/development_predictions.csv": "b5d99e82b611a8f8d176087018edaab7959b387a297f0067b193c250ae314f8e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/mean/head.pt": "be7c69e27a0407fd341672e809aa044dfa5371f3d4b0f415ad9fc22926cc6d34",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/completed.json": "f0c052e2907312222d47426bc3d920b9bc5777fbbecd0765928c4d2e9569dc83",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/attention/development_predictions.csv": "ea677b0cdd84d8439bc12af017d62161c2f87a526d4c5135d45b267b2ff7e956",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/attention/head.pt": "47c0f70f5a7a298e7a48c1cd15c0b312b1a08bd61298f2900b84942a2c443b68",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/mean/development_predictions.csv": "aa87b88f9c691ae24c153bf1de7f705e123db7ce9ad3a922db4c552ac4e4e13c",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/mean/head.pt": "c8a672643c98f3e41f9a07f59348b600749838532137359f839e0067e0fcf0c8",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/completed.json": "4444ca7ab1cfdf201c8c8146e8c7489483a22918b9908f1bc2b4c064c179650d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/attention/development_predictions.csv": "d6fb80f15dc89c4e9c5a4f69b12e0a1af0878834f93bf80e8e398dae6d27d4e4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/wavlm/attention/head.pt": "9b5f3654160c2014952a04e4837a0b3ba06bff319ec40e77c6803d59cff56f42"
+  },
+  "unique_sampled_train_rows": 10165,
+  "eligible_train_rows": 18738,
+  "limitations": [
+    "development selection is not unseen-generator evidence",
+    "bootstrap is conditional on the balanced local codec bank, not official test composition",
+    "intervals do not correct for checkpoint or model selection",
+    "native-width projections have different parameter counts",
+    "no probabilities were ensemble-fitted or calibrated",
+    "SPEAR mean independent verification failed; saved batch metrics are provisional"
+  ],
+  "official_improvement_verified": false,
+  "automatic_submission_allowed": false
+}

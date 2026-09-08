@@ -1,0 +1,13 @@
+DATASET,N,MUSIC_EER,MEMBER
+factorial_eval_1200_v2_holdout,350,0.2571428571428571,no_dsu_seed00
+phone_factorial_1200_v1,800,0.08999999999999998,no_dsu_seed00
+yue_cross_component_audit_v1,124,0.27419354838709675,no_dsu_seed00
+source_disjoint_music_telephone_v1,400,0.13,no_dsu_seed00
+suno_vocals_v1,13,,no_dsu_seed00
+suno_vocals_codec_stress_v1,65,,no_dsu_seed00
+factorial_eval_1200_v2_holdout,350,0.2571428571428571,no_dsu_seed02
+phone_factorial_1200_v1,800,0.10250000000000001,no_dsu_seed02
+yue_cross_component_audit_v1,124,0.20967741935483875,no_dsu_seed02
+source_disjoint_music_telephone_v1,400,0.16500000000000004,no_dsu_seed02
+suno_vocals_v1,13,,no_dsu_seed02
+suno_vocals_codec_stress_v1,65,,no_dsu_seed02

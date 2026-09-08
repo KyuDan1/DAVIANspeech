@@ -1,0 +1,9 @@
+{
+  "purpose": "component presence semantics only; no authenticity evaluation",
+  "reservation_sha256": "0775d99df59332fc50bbdaf2f0c1bb058a88820862150fdf20945d41399132f0",
+  "sources": 72,
+  "passes": 72,
+  "failures": 0,
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false
+}

@@ -1,0 +1,67 @@
+# Frozen before v58 training. Only the existing strict train/development inputs.
+# This is a replacement Music head, not an additional backbone or nested expert.
+schema_version: music_specialist_v58
+seed: 20260905
+train_set: train_v58
+development_set: development_v58
+train_identity_exclusions: configs/three_stream_all_type_v57_exclusions.txt
+selected_split_only: true
+train_v58:
+  - forensic_call_train_v1
+  - temporal_mixed_train_v2
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - channel_invariant_factorial_train_v1
+development_v58:
+  - mixfake_music_dev_v1
+  - factorial_eval_1200_v2
+  - external_mixed_v1
+  - source_disjoint_mixed_v1
+  - source_disjoint_music_v1
+  - asvspoof_voice_wav_dev_v1
+  - external_mixed_v1_telephone_v1
+  - source_disjoint_mixed_v1_telephone_v1
+  - multigen_voice_v2
+  - echoes_fma_paired_v3
+  - codec_mixed_dev_v4
+fixed_training:
+  xlsr: true
+  selection_task: music
+  generator_aware: true
+  residual_limits: [2.0, 2.0, 2.0]
+  epochs: 30
+  eval_every: 2
+  patience: 6
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  ranking_weight: 0.10
+  ranking_margin: 0.0
+  quartet_invariance_weight: 0.0
+  quartet_latent_invariance_weight: 0.0
+  auc_ranking_weight: 0.0
+  logit_consistency_weight: 0.05
+  latent_consistency_weight: 0.01
+  group_dro_weight: 0.20
+  group_dro_temperature: 0.10
+variants:
+  joint_music_selection:
+    task_weights: [0.2, 0.3, 0.5]
+  music_only_training:
+    task_weights: [0.0, 1.0, 0.0]
+decision:
+  incumbent: v57_strict_v1_music_only
+  compare: component_music_on_identical_development_rows
+  minimum_pooled_music_eer_gain: 0.01
+  maximum_domain_music_eer_regression: 0.025
+  maximum_channel_music_eer_regression: 0.025
+  require_mean_domain_improvement: true
+  require_worst_domain_nonworse: true
+  no_retrospective_selection: true
+  no_automatic_submission: true

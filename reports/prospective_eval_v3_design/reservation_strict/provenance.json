@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "stage": "reserved",
+  "seed": 20260904,
+  "per_cell": 20,
+  "base_rows": 240,
+  "rendered_rows_planned": 1200,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "provenance_mode": "strict",
+  "generator_ood_claim": false,
+  "warning": "ASV provenance is complete, but fake-music generator families are seen.",
+  "inputs": {
+    "unmixed_details": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/unmixed_details.csv",
+      "sha256": "8432062f5a743fd5830d23f05479b9e976f0a80184ca3427b183e3889588f9e7"
+    },
+    "mixfake_foreground_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Fore_ForeLabel.txt",
+      "sha256": "c477bdcf1a16e9efa91445927d2f63a74d66259a5e446297f27f787f4391cc79"
+    },
+    "mixfake_background_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Back_BackLabel.txt",
+      "sha256": "fd123a041a97fe5104d2825d9007f81ff7de43e1ea0b4ef53e780313f099a63f"
+    },
+    "partition_config": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml",
+      "sha256": "3d4915f39012ceca7c99734a82210c284406acb70c930250ce57bca7f0356d47"
+    },
+    "asvspoof_protocol": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/prospective_eval_v3_design/source_protocols/ASVspoof2019.LA.cm.eval.trl.txt",
+      "sha256": "84fce576efff092269a0a6ad247d2e9f2f7b4d4e25a4545efb2518da92708036"
+    }
+  },
+  "licenses": [
+    {
+      "source": "MixFake",
+      "url": "https://huggingface.co/datasets/Tnxts/MixFake",
+      "license": "CC-BY-4.0 (repository declaration; verify redistribution terms)"
+    },
+    {
+      "source": "ASVspoof2019 LA foreground",
+      "url": "https://www.asvspoof.org/index2019.html",
+      "license": "ASVspoof terms; verify for the intended use"
+    },
+    {
+      "source": "FMA / FakeMusicCaps / SONICS backgrounds",
+      "url": "recorded by MixFake protocols",
+      "license": "upstream per-item/dataset terms; verify before redistribution"
+    }
+  ],
+  "selection": {
+    "protected_roles": "all roles in partition_config",
+    "exact_identity_columns": [
+      "ID",
+      "GROUP_ID",
+      "VOICE_SOURCE_ID",
+      "MUSIC_SOURCE_ID",
+      "SOURCE_FILE",
+      "FIRST_SOURCE_ID",
+      "SECOND_SOURCE_ID",
+      "FIRST_GROUP",
+      "SECOND_GROUP",
+      "MUSIC_GROUP",
+      "MUSIC_GROUP_ID",
+      "FMA_TRACK_ID",
+      "PAIR_GROUP",
+      "PARENT_ID"
+    ],
+    "canonical_music_group_exclusion": true,
+    "within_holdout_source_reuse": "paired channel variants only"
+  },
+  "reservation_sha256": "b8bfc00ae7b4368631fd7875c1988df102101550fa3f427a3a5d41cde5d4edf4",
+  "builder_sha256": "03da3e1d4a7042465b2904ff9bd79817e4b4d4adf694486454dd8f70062a99ac"
+}

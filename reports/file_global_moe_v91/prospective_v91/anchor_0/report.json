@@ -1,0 +1,9 @@
+{
+  "status": "complete",
+  "kind": "anchor",
+  "shard": 0,
+  "rows": 150,
+  "seconds": 239.06303407717496,
+  "prediction_sha256": "96621385c33677217d329e9d3ec5085ac87b53094155daa9a9d82130a9c2aa83",
+  "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+}

@@ -1,0 +1,80 @@
+{
+  "status": "metadata_complete_not_training_ready",
+  "fetched_at": "2026-09-05T12:46:00.718949+00:00",
+  "official_record": "https://zenodo.org/api/records/10467648",
+  "license": "CC BY-NC-ND 4.0",
+  "protocols": {
+    "train": {
+      "url": "https://zenodo.org/api/records/10467648/files/train.txt/content",
+      "size": 5019516,
+      "official_checksum": "md5:f1e7e1cb297f6128e3f072703dfeb473",
+      "sha256": "8fba1c2e4aef2027ffdd84fc36c6b8d1c60a6e232238728dd4605c8c0f19ab37",
+      "rows": 84404,
+      "singers": 59,
+      "source_counts": {
+        "m4singer": 43389,
+        "opencpop": 30254,
+        "oniku": 4406,
+        "ofuton": 3584,
+        "jvsmusic": 2771
+      },
+      "label_counts": {
+        "1": 72235,
+        "0": 12169
+      },
+      "attack_counts": {
+        "-": 12169,
+        "A01": 11506,
+        "A02": 11506,
+        "A05": 11506,
+        "A07": 9931,
+        "A08": 9931,
+        "A06": 7717,
+        "A03": 5331,
+        "A04": 4807
+      }
+    },
+    "dev": {
+      "url": "https://zenodo.org/api/records/10467648/files/dev.txt/content",
+      "size": 2595588,
+      "official_checksum": "md5:5f713185a1189e85a16630cf6691a8d8",
+      "sha256": "8911292eb9f11fee5e64e20f3c2e16588996b468911f8d4d095f979720e53210",
+      "rows": 43625,
+      "singers": 55,
+      "source_counts": {
+        "m4singer": 32048,
+        "kiritan": 8818,
+        "jvsmusic": 2759
+      },
+      "label_counts": {
+        "1": 37078,
+        "0": 6547
+      },
+      "attack_counts": {
+        "A01": 6592,
+        "A02": 6592,
+        "A05": 6592,
+        "-": 6547,
+        "A06": 5535,
+        "A07": 4650,
+        "A08": 4650,
+        "A03": 1942,
+        "A04": 525
+      }
+    }
+  },
+  "train_dev_singer_overlap": [],
+  "train_dev_file_overlap": [],
+  "audio_downloaded": false,
+  "model_downloaded": false,
+  "registered_for_training": false,
+  "automatic_submission_allowed": false,
+  "warnings": [
+    "Official audio archives are incomplete for some real source datasets due to licensing",
+    "Dataset-specific original licenses must be checked; do not silently drop only missing real clips",
+    "NoDerivative restrictions and downstream use/distribution require separate review",
+    "Protocol IDs do not establish decoded-PCM or song/content disjointness",
+    "Before any training, reserve new dev/eval IDs and check all existing protected data",
+    "Official baseline pretrained score orientation has a documented label-flip caveat"
+  ]
+}

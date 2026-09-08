@@ -1,0 +1,99 @@
+{
+  "schema_version": "codec_mixed_blind_v8",
+  "stage": "reserved_pending_semantic_screen",
+  "seed": 20260915,
+  "per_cell": 6,
+  "base_rows": 72,
+  "rendered_rows_planned": 360,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "protected_truth_manifests": 84,
+  "protected_source_hash_manifests": 7,
+  "voice_candidate_counts": {
+    "eligible:bonafide:bonafide": 3265,
+    "eligible:replay_fake:replay:CosyVoice2": 283,
+    "eligible:replay_fake:replay:F5-TTS": 18,
+    "eligible:replay_fake:replay:FireRedTTS": 303,
+    "eligible:replay_fake:replay:IndexTTS": 249,
+    "eligible:replay_fake:replay:LLaSA": 18,
+    "eligible:replay_fake:replay:MaskGCT": 256,
+    "eligible:replay_fake:replay:OpenAudio-S1-mini": 16,
+    "eligible:replay_fake:replay:OpenVoice-V2": 259,
+    "eligible:replay_fake:replay:SpeechT5": 22,
+    "eligible:replay_fake:replay:StyleTTS2": 18,
+    "eligible:replay_fake:replay:XTTS-v2": 19,
+    "excluded_protected:bonafide": 4135,
+    "excluded_protected:replay_fake": 5929
+  },
+  "music_candidate_counts": {
+    "eligible:0:FMA:panns_demucs_semantic_screen_pending_v7": 1570,
+    "eligible:1:MusicGen_medium:panns_demucs_semantic_screen_pending_v7": 59,
+    "eligible:1:audioldm2:panns_demucs_semantic_screen_pending_v7": 63,
+    "eligible:1:musicldm:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 1,
+    "eligible:1:musicldm:panns_demucs_semantic_screen_pending_v7": 78,
+    "eligible:1:mustango:panns_demucs_semantic_screen_pending_v7": 76,
+    "eligible:1:stable_audio_open:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 116,
+    "eligible:1:stable_audio_open:panns_demucs_semantic_screen_pending_v7": 337,
+    "excluded_positive_voice_signal": 2715,
+    "excluded_protected:FMA": 430,
+    "excluded_protected:MusicGen_medium": 203,
+    "excluded_protected:audioldm2": 166,
+    "excluded_protected:musicldm": 183,
+    "excluded_protected:mustango": 169,
+    "excluded_protected:stable_audio_open": 834,
+    "excluded_sonics_suno_udio": 5000
+  },
+  "sonics_candidate_counts": {
+    "eligible:suno:chirp-v2-xxl-alpha": 670,
+    "eligible:suno:chirp-v3": 1373,
+    "eligible:suno:chirp-v3.5": 510,
+    "eligible:udio:udio-120s": 490,
+    "eligible:udio:udio-30s": 1633,
+    "excluded_protected:chirp-v2-xxl-alpha": 20,
+    "excluded_protected:chirp-v3": 36,
+    "excluded_protected:chirp-v3.5": 104,
+    "excluded_protected:udio-120s": 118,
+    "excluded_protected:udio-30s": 46
+  },
+  "selection": {
+    "replay_voice_generators": [
+      "replay:CosyVoice2",
+      "replay:F5-TTS",
+      "replay:FireRedTTS",
+      "replay:IndexTTS",
+      "replay:LLaSA",
+      "replay:MaskGCT",
+      "replay:OpenAudio-S1-mini",
+      "replay:OpenVoice-V2",
+      "replay:SpeechT5",
+      "replay:StyleTTS2",
+      "replay:XTTS-v2"
+    ],
+    "instrumental_fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "musicldm",
+      "mustango",
+      "stable_audio_open"
+    ],
+    "sonics_joint_generators": [
+      "sonics:chirp-v2-xxl-alpha",
+      "sonics:chirp-v3",
+      "sonics:chirp-v3.5",
+      "sonics:udio-120s",
+      "sonics:udio-30s"
+    ],
+    "suno_udio_only_in_ff": true
+  },
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false,
+  "reservation_sha256": "d583b3bf0fe24722980561293a1453523725b6bad949607a5ca308742d10a4f7",
+  "candidate_pool_sha256": "75a15ea686bf7fe56133b1190560c759d5e5d6f16d5fa4f7a1aa9331d77a20f0",
+  "protected_inputs_sha256": "94fe1e1892a03452d0fc78ab3833eed42e5bf5b482b21b7e239b97863d1690f7",
+  "builder_sha256": "1486bfa66c88d2f84e7bea70cf57badb406c5a04788f9554ce4e2a31471dd769"
+}

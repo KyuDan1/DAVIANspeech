@@ -1,0 +1,62 @@
+{
+  "sources": {
+    "xlsr": "models/xls-r-2b-anti-deepfake/model.safetensors",
+    "spear": "models/spear-xlarge-speech-audio-v2/model.safetensors",
+    "eat": "models/eat-large-as2m-v56/model.safetensors"
+  },
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/pack_lossless_weights_v77.py": "0fd757f8cf97786a76fda5843c4bae08c552aa73fe058645b3a7008362f991e3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/lossless_weights_v77.py": "f3cf38706c0a3b26aff8f06a4649b7b6dbf4b5ecdf06f411fb9a81144c05a400"
+  },
+  "workers": 4,
+  "purpose": "lossless weights only; not a promoted candidate or submission ZIP",
+  "automatic_submission_allowed": false,
+  "status": "complete",
+  "results": [
+    {
+      "model": "xlsr",
+      "source": "/home/nas_main/kyudanjung/DAVIANspeech/models/xls-r-2b-anti-deepfake/model.safetensors",
+      "raw_bytes": 8651845440,
+      "packed_bytes": 7299154280,
+      "raw_sha256": "a608dd3ac12f8cec50856e70db7d0705d82bfb8f1b6aa1dac437aca6995872aa",
+      "restored_sha256": "a608dd3ac12f8cec50856e70db7d0705d82bfb8f1b6aa1dac437aca6995872aa",
+      "manifest_sha256": "8d7317e23808fdb68e89d4ac9a33b9257d58646c10cb5b5a25c9484e7a826a8b",
+      "pack_seconds": 562.5935071567073,
+      "restore_seconds": 91.26203817874193
+    },
+    {
+      "model": "spear",
+      "source": "/home/nas_main/kyudanjung/DAVIANspeech/models/spear-xlarge-speech-audio-v2/model.safetensors",
+      "raw_bytes": 2387980808,
+      "packed_bytes": 2012994216,
+      "raw_sha256": "2430597be74dee2271e44f71dbb48f7942423c20313147a5fb85e2af3402e266",
+      "restored_sha256": "2430597be74dee2271e44f71dbb48f7942423c20313147a5fb85e2af3402e266",
+      "manifest_sha256": "899e83b40fa07cb904b95b565f554f3ff6649a531e3cea57f848528e2bac045e",
+      "pack_seconds": 161.69367921724916,
+      "restore_seconds": 25.432144745253026
+    },
+    {
+      "model": "eat",
+      "source": "/home/nas_main/kyudanjung/DAVIANspeech/models/eat-large-as2m-v56/model.safetensors",
+      "raw_bytes": 1237667364,
+      "packed_bytes": 544092360,
+      "raw_sha256": "2c7660b3678817e1c4aec04826a1a0f573aa7d1eb82355fca92747cb2b11bce2",
+      "restored_sha256": "2c7660b3678817e1c4aec04826a1a0f573aa7d1eb82355fca92747cb2b11bce2",
+      "manifest_sha256": "0108a779f8f89cc03ce114f598829f032a39605dd71349a41f9cbf7e9c7e8e02",
+      "pack_seconds": 85.48089927434921,
+      "restore_seconds": 15.110836828127503
+    }
+  ],
+  "total_raw_bytes": 12277493612,
+  "total_packed_bytes": 9856240856,
+  "remaining_decimal_10gb_bytes": 143759144,
+  "weights_only_under_decimal_10gb": true,
+  "all_models_restored_sha256_exact": true,
+  "elapsed_seconds": 941.668488651514,
+  "limitations": [
+    "Actual ZIP size includes code, heads, manifests and ZIP metadata",
+    "No submission ZIP was created",
+    "No L4 end-to-end execution or package installation verified",
+    "Full-size verified_restore files are research artifacts; do not include them in ZIP"
+  ]
+}
