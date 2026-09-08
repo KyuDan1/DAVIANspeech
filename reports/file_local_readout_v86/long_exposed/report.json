@@ -1,0 +1,54 @@
+{
+  "status": "complete_exposed_diagnostic",
+  "results": [
+    {
+      "bank": "uniform",
+      "model": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.41388888888888886
+    },
+    {
+      "bank": "uniform",
+      "model": "parent",
+      "rows": 720,
+      "FILE_EER": 0.3277777777777777
+    },
+    {
+      "bank": "uniform",
+      "model": "global",
+      "rows": 720,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "uniform",
+      "model": "local",
+      "rows": 720,
+      "FILE_EER": 0.3027777777777778
+    },
+    {
+      "bank": "fixed",
+      "model": "anchor",
+      "rows": 2160,
+      "FILE_EER": 0.312037037037037
+    },
+    {
+      "bank": "fixed",
+      "model": "parent",
+      "rows": 2160,
+      "FILE_EER": 0.3481481481481481
+    },
+    {
+      "bank": "fixed",
+      "model": "global",
+      "rows": 2160,
+      "FILE_EER": 0.350925925925926
+    },
+    {
+      "bank": "fixed",
+      "model": "local",
+      "rows": 2160,
+      "FILE_EER": 0.31018518518518523
+    }
+  ],
+  "automatic_submission_allowed": false
+}

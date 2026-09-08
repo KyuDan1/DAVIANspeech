@@ -1,0 +1,4 @@
+DATASET,MEMBER,N,MUSIC_EER
+external_mixed_v1_telephone_v1,ensemble,400,0.18000000000000002
+source_disjoint_mixed_v1_telephone_v1,ensemble,200,0.31000000000000005
+source_disjoint_mixed_equal_v1_telephone_v1,ensemble,200,0.24

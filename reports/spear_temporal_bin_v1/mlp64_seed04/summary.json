@@ -1,0 +1,6 @@
+{
+  "best_epoch": 180,
+  "selection": 0.8240773809523809,
+  "mean_music_eer": 0.13851190476190478,
+  "worst_music_eer": 0.21333333333333337
+}

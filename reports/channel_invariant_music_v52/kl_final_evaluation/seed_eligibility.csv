@@ -1,0 +1,3 @@
+CHECKPOINT,SEED,DEV_SELECTION,ENSEMBLE_ELIGIBLE
+reports/channel_invariant_music_v52/kl_seed_20260904/music_head.pt,20260904,0.8289639136904762,False
+reports/channel_invariant_music_v52/kl_seed_20260905/music_head.pt,20260905,0.8232217261904762,False

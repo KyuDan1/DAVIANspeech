@@ -1,0 +1,78 @@
+# Frozen before any authenticity detector output was produced.
+schema_version: codec_mixed_blind_v8
+status: locked_unscored
+purpose: prospective_one_shot_candidate_confirmation
+seed: 20260915
+id_prefix: cmbv8
+per_cell: 6
+base_rows: 72
+rendered_rows: 360
+
+component_cells: [RR, RF, FR, FF]
+layouts: [concurrent, partial_overlap, sequential]
+channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+
+balance:
+  each_layout_component_cell_bases: 6
+  each_channel_rows: 72
+  real_voice_sources: 36
+  fake_voice_sources: 36
+  real_music_sources: 36
+  fake_music_sources: 36
+
+voice_policy:
+  real_source: EchoFake bonafide
+  instrumental_fake_voice_source: EchoFake replay_fake
+  replay_tts_families: 11
+  joint_fake_song_voice_source: SONICS synchronized vocal stem
+  suno_udio_vocal_label: fake
+
+music_policy:
+  real_source: FMA
+  instrumental_fake_source: FakeMusicCaps
+  instrumental_fake_generator_families: 5
+  joint_fake_song_source: SONICS
+  joint_fake_song_algorithms: 5
+  joint_fake_song_platforms: [suno, udio]
+  sonics_usage: every_and_only_FF
+
+leakage_policy:
+  protection_scope: every pre-existing data/**/truth*.csv and source_hashes.csv
+  protected_truth_manifests: 84
+  protected_source_hash_manifests: 7
+  source_identity_disjoint: true
+  speaker_identity_disjoint: true
+  reference_speaker_identity_disjoint: true
+  canonical_music_group_disjoint: true
+  known_source_audio_hash_disjoint: true
+  within_bank_source_reuse: paired_channel_variants_only
+
+semantic_policy:
+  purpose: component_presence_only
+  frozen_before_screening: true
+  music_panns_speech_or_vocal_probability_max: 0.20
+  music_demucs_vocals_to_mixture_db_max: -1.5
+  sonics_vocal_panns_probability_min: 0.20
+  replacement_order: same_label_same_generator_precommitted_stable_hash
+  failed_sources_never_reused: true
+  screened_replacement_failures_recorded: 38
+  final_passes: 72
+  authenticity_outputs_used: false
+
+integrity:
+  source_validation_status: PASS
+  bank_validation_checks_passed: 18
+  bank_validation_checks_total: 18
+  reservation_sha256: 6532bf244444d868fef351c1b24d35c70152a1ba0460d0040ea496cafb82301b
+  truth_sha256: 7c299e957541c8bb7431f256e43c2ae9576a968366d62dcd0519e3141abcb342
+  source_hashes_sha256: 2387799427fc65e59a2a1165368acd65b0a91933074d7520f52d674be84440db
+  audio_hashes_sha256: 25949e4ae5c8d8f05419cac154e53093720b507d14bad845e99b0c969fe58622
+
+decision_policy:
+  locked_before_authenticity_inference: true
+  authenticity_detector_inference_completed: false
+  authenticity_score_computed: false
+  score_open_count: 0
+  candidate_configuration_must_be_frozen_before_inference: true
+  no_weight_threshold_router_or_stopping_tuning: true
+  scoring_limit: one_frozen_candidate_only

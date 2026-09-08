@@ -3,6 +3,7 @@ import torch
 from src.multistream_prompt_spectra import (
     DeepMultiStreamPrompts,
     MultiScaleInstantaneousFrequency,
+    MultiStreamPromptedWav2Vec2Encoder,
     SignalTextureConditioner,
     warm_start_shared_backend,
 )
@@ -52,6 +53,55 @@ def test_multistream_prompts_have_expected_order_shape_and_gradients():
     assert prompts.base.grad is not None
     assert prompts.frequency.grad is not None
     assert prompts.texture.grad is not None
+
+
+class _IdentityEncoderLayer(torch.nn.Module):
+    def forward(self, hidden, **_kwargs):
+        return (hidden,)
+
+
+class _FeatureExtractor(torch.nn.Module):
+    def __init__(self, width):
+        super().__init__()
+        self.width = width
+
+    def forward(self, waveform):
+        return waveform[:, None, :].expand(-1, self.width, -1)
+
+
+class _FeatureProjection(torch.nn.Module):
+    def forward(self, features):
+        return features, None
+
+
+class _Encoder(torch.nn.Module):
+    def __init__(self, layers):
+        super().__init__()
+        self.layers = torch.nn.ModuleList([_IdentityEncoderLayer() for _ in range(layers)])
+        self.pos_conv_embed = torch.nn.Identity()
+        self.dropout = torch.nn.Identity()
+        self.layer_norm = torch.nn.Identity()
+
+
+class _Backbone(torch.nn.Module):
+    def __init__(self, width=8, layers=3):
+        super().__init__()
+        self.config = type("Config", (), {
+            "hidden_size": width, "apply_spec_augment": True, "layerdrop": .1,
+        })()
+        self.feature_extractor = _FeatureExtractor(width)
+        self.feature_projection = _FeatureProjection()
+        self.encoder = _Encoder(layers)
+
+
+def test_prompt_encoder_never_leaks_prompt_tokens_into_backend_time_axis():
+    model = MultiStreamPromptedWav2Vec2Encoder(
+        _Backbone(), base_tokens=4, frequency_tokens=6,
+        texture_tokens=2, dropout=0,
+    )
+    waveform = torch.randn(2, 17)
+    output = model(waveform)
+    assert output.shape == (2, 17, 8)
 
 
 class _WarmStartTarget(torch.nn.Module):

@@ -1,0 +1,22 @@
+# Development-parent mechanism stress; NOT unseen-source or natural-call evidence.
+schema: long_component_stress_v70
+seed: 20260905
+parent_truth: data/eval/codec_mixed_dev_v4/truth.csv
+parent_sources: data/eval/codec_mixed_dev_v4/source_hashes.csv
+partition_config: configs/data_partitions.yaml
+groups: 10
+sources_per_pool_per_group: 6
+durations: [10, 30, 60]
+channels: [clean, g711_ulaw, opus_nb_8k]
+layouts: [concurrent, sequential_voice_first, sequential_music_first, sparse_voice, sparse_music]
+component_cases: [RR, RF, FR, FF]
+pure_cases: [real_voice, fake_voice, real_music, fake_music]
+snr_cycle: [-10, 0, 10]
+voice_piece_seconds: 4
+music_piece_seconds: 10
+insertion_seconds: 2
+crossfade_seconds: 0.02
+workers: 4
+expected_rows: 2160
+role: stress_eval
+selection_allowed: false

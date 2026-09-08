@@ -1,0 +1,79 @@
+# Frozen before v57 validation/training/development scores were read.  This is
+# a two-point reproduction of the previously declared v1/v2 range, not a new
+# hyperparameter sweep.  No OOD, stress, locked, or retrospective role is an
+# input to this matrix.
+schema_version: three_stream_all_type_v57_strict
+seed: 20260904
+anchor: exact_component_query_or_v47
+train_set: train_v57
+development_set: development_v57
+train_identity_exclusions: configs/three_stream_all_type_v57_exclusions.txt
+selected_split_only: true
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_v57:
+  - forensic_call_train_v1
+  - temporal_mixed_train_v2
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - channel_invariant_factorial_train_v1
+
+development_v57:
+  - mixfake_music_dev_v1
+  - factorial_eval_1200_v2
+  - external_mixed_v1
+  - source_disjoint_mixed_v1
+  - source_disjoint_music_v1
+  - asvspoof_voice_wav_dev_v1
+  - external_mixed_v1_telephone_v1
+  - source_disjoint_mixed_v1_telephone_v1
+  - multigen_voice_v2
+  - echoes_fma_paired_v3
+  - codec_mixed_dev_v4
+
+variants:
+  v1_robust_l2:
+    residual_limits: [2.0, 2.0, 2.0]
+    quartet_invariance_weight: 0.0
+    quartet_latent_invariance_weight: 0.0
+    auc_ranking_weight: 0.0
+  v2_disentangle_l2:
+    residual_limits: [2.0, 2.0, 2.0]
+    quartet_invariance_weight: 0.10
+    quartet_latent_invariance_weight: 0.01
+    auc_ranking_weight: 0.05
+
+fixed_training:
+  generator_aware: true
+  xlsr: true
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  ranking_weight: 0.10
+  ranking_margin: 0.0
+  auc_ranking_margin: 0.0
+  logit_consistency_weight: 0.05
+  latent_consistency_weight: 0.01
+  group_dro_weight: 0.20
+  group_dro_temperature: 0.10
+
+decision_rule:
+  baseline: exact zero-residual v47 identity on the same 4,577 development rows
+  accept_only_if:
+    - pooled ADS exceeds identity
+    - normalized domain mean and worst both exceed identity
+    - no dataset ADS regresses by more than 0.02
+    - no RR/RF/FR/FF, layout, or channel ADS regresses by more than 0.02
+  tie_breaker: lower worst-domain File/Music EER

@@ -1,0 +1,25 @@
+{
+  "competition": "236749",
+  "team": "DAVIANspeech",
+  "authorization": "User requested the three most promising candidates on 2026-09-07",
+  "jobs": [
+    {
+      "archive": "v108_generator_codec.zip",
+      "sha256": "0add6b804f070ce4307dca5cfe9aa7a49cc0b24f984293f8c75a696a48f00fe6",
+      "smoke_report": "reports/submission_triplet_20260907/v108_smoke/report.json",
+      "memo": "v83 + original-mixture joint File/Voice prompts; ArtifactBench music expert with codec refinement w0.37. Balanced generator/channel candidate; offline packaged smoke and CRC checked."
+    },
+    {
+      "archive": "v101_prompt_codec.zip",
+      "sha256": "5bd6cea0d260129a747930e49935f80a11d4c4bc7d9a55ee3cb13d795f4bbb7b",
+      "smoke_report": "reports/submission_triplet_20260907/v101_smoke/report.json",
+      "memo": "v83 + joint File/Voice prompts and exact-codec Music expert w0.28; strongest codec candidate. Frozen v101 with source-disjoint one-shot confirmation; offline packaged smoke and CRC checked."
+    },
+    {
+      "archive": "v109_generator_broad.zip",
+      "sha256": "4269959362a68ff255c69df322ca9c152760442374e1db22304f8deab050cd92",
+      "smoke_report": "reports/submission_triplet_20260907/v109_smoke/report.json",
+      "memo": "Same joint File/Voice as v108; Music uses broad ArtifactBench expert w0.50 without codec refinement. Strongest newer-generator recall, higher codec risk. Offline packaged smoke and CRC checked."
+    }
+  ]
+}

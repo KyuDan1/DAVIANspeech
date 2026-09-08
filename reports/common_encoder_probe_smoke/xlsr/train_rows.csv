@@ -1,0 +1,9 @@
+DATASET,ID,PATH,FILE_FAKE,VOICE_FAKE,MUSIC_FAKE,VOICE_PRESENT,MUSIC_PRESENT
+channel_invariant_factorial_train_v1,channel_inv_0000__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0000__clean.flac,0,,0.0,0,1
+channel_invariant_factorial_train_v1,channel_inv_0001__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0001__clean.flac,1,,1.0,0,1
+channel_invariant_factorial_train_v1,channel_inv_0200__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0200__clean.flac,0,0.0,,1,0
+channel_invariant_factorial_train_v1,channel_inv_0201__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0201__clean.flac,1,1.0,,1,0
+channel_invariant_factorial_train_v1,channel_inv_0400__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0400__clean.flac,0,0.0,0.0,1,1
+channel_invariant_factorial_train_v1,channel_inv_0401__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0401__clean.flac,1,0.0,1.0,1,1
+channel_invariant_factorial_train_v1,channel_inv_0402__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0402__clean.flac,1,1.0,0.0,1,1
+channel_invariant_factorial_train_v1,channel_inv_0403__clean,/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/audio/channel_inv_0403__clean.flac,1,1.0,1.0,1,1

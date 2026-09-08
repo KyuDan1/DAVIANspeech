@@ -1,0 +1,13 @@
+{
+  "best_epoch": 0,
+  "selection": 0.43269230769230765,
+  "trainable_parameters": 443736,
+  "base_parameters": 309409295,
+  "elapsed_seconds": 9.834042310714722,
+  "all_train_rows": 21304,
+  "optimization_rows": 512,
+  "selection_rows": 64,
+  "all_groups": 4187,
+  "optimization_groups": 2803,
+  "selection_groups": 1384
+}

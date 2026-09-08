@@ -1,0 +1,48 @@
+{
+  "scope": "TRAIN-only review of voice-absent supervision; NOT ground-truth correction",
+  "rows": 600,
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/audit_training_presence_negatives_v75.py": "48d83d94bc79041a7efb8f44ce94784c6f9a46443a111d5921e6b33ea562c0ac",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full/adapted/head.pt": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_music_presence_train_v1/truth.csv": "d39ae96598d6c56702a531d3c3de0f3cf049bb9c6ac59c26ceb563ee6202f4b1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/truth.csv": "c1638c1c34832d6459b5098b7a181edc8e488c7237fde9439a71ee8ad948644d"
+  },
+  "thresholds": {
+    "review": 0.5,
+    "learned_low": 0.5
+  },
+  "automatic_training_changes": false,
+  "automatic_submission_allowed": false,
+  "status": "complete",
+  "summary": [
+    {
+      "MUSIC_SOURCE": "FMA",
+      "MUSIC_FAKE": 0.0,
+      "rows": 300,
+      "unique_sources": 82,
+      "semantic_flags": 14,
+      "semantic_learned_disagreements": 8
+    },
+    {
+      "MUSIC_SOURCE": "SONICS-suno",
+      "MUSIC_FAKE": 1.0,
+      "rows": 123,
+      "unique_sources": 38,
+      "semantic_flags": 2,
+      "semantic_learned_disagreements": 2
+    },
+    {
+      "MUSIC_SOURCE": "SONICS-udio",
+      "MUSIC_FAKE": 1.0,
+      "rows": 177,
+      "unique_sources": 52,
+      "semantic_flags": 28,
+      "semantic_learned_disagreements": 27
+    }
+  ],
+  "semantic_review_flags": 44,
+  "semantic_learned_disagreements": 37,
+  "independent_music_sources": 172,
+  "seconds": 54.79356924537569,
+  "limitation": "Correlated channel variants and semantic model flags are not verified vocal annotations."
+}

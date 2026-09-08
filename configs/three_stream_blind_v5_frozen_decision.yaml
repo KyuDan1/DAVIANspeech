@@ -1,0 +1,27 @@
+# Frozen before the first detector pass over codec_mixed_blind_v5.  The locked
+# labels were not read during candidate selection.  Checkpoints are combined by
+# an unweighted mean of their final authenticity logits; presence is unchanged.
+schema_version: three_stream_blind_v5_frozen_decision_v1
+frozen_at: "2026-09-04T14:00:00+09:00"
+anchor: exact_component_query_or_v47
+candidate: diverse_six_uniform_logits
+checkpoints:
+  - path: reports/three_stream_anchor_residual_v1/matrix_v1/robust_l2_core/three_stream_anchor_residual.pt
+    sha256: a334ec3aee22052b3230faa3855ed3aac12e3ba1370ed7cbe1403c889fe31714
+  - path: reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260905/three_stream_anchor_residual.pt
+    sha256: a196916554ee9dad9a66d300bb36b61d3ea2a122ccac4d627540cc3aae5b8c86
+  - path: reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260906/three_stream_anchor_residual.pt
+    sha256: dfff1b2c65199ae8cbd72e4acb4bb5e0e5f55957ab939ae0e3eda5dee3d3a320
+  - path: reports/three_stream_anchor_residual_v3/matrix_v3/robust_l4_core/three_stream_anchor_residual.pt
+    sha256: 4b9f4458c4dab52a29010677bea64a6295dd1a5f3c0a22d1101485a6e1180e86
+  - path: reports/three_stream_anchor_residual_v2/matrix_v2/disentangle_l2/three_stream_anchor_residual.pt
+    sha256: 6cca42327f921504126a986cbd695f41091426442b32b211a5f40c4a75384d6f
+  - path: reports/three_stream_anchor_residual_v2/matrix_v2/disentangle_l1/three_stream_anchor_residual.pt
+    sha256: c1c1438752c6cf9b9204daf8421095908d789e0512f561860ac38dff368b4df7
+development_selection: 0.8404679728058254
+codec_mixed_dev_v4_ads: 0.7712222222
+fallback: exact_component_query_or_v47
+decision_rule: >-
+  Adopt the candidate only if its one-shot locked score improves over the exact
+  anchor without a severe channel-family regression. No weights, thresholds,
+  architecture, or training settings may be changed after locked labels open.

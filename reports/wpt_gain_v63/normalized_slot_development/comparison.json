@@ -1,0 +1,447 @@
+{
+  "decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": true,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": false
+    },
+    "pooled_gain": -0.006666666666666682,
+    "mean_domain_gain": -0.006666666666666682,
+    "worst_domain_gain": -0.006666666666666682,
+    "max_domain_regression": 0.006666666666666682,
+    "max_channel_regression": 0.005555555555555591
+  },
+  "rows": [
+    {
+      "axis": "pooled",
+      "group": "all",
+      "incumbent": {
+        "n": 600,
+        "real": 150,
+        "fake": 450,
+        "eer": 0.2333333333333333,
+        "fpr_at_05": 0.7066666666666667,
+        "fnr_at_05": 0.044444444444444446
+      },
+      "candidate": {
+        "n": 600,
+        "real": 150,
+        "fake": 450,
+        "eer": 0.24,
+        "fpr_at_05": 0.6666666666666666,
+        "fnr_at_05": 0.06
+      },
+      "gain": -0.006666666666666682
+    },
+    {
+      "axis": "DATASET",
+      "group": "codec_mixed_dev_v4",
+      "incumbent": {
+        "n": 600,
+        "real": 150,
+        "fake": 450,
+        "eer": 0.2333333333333333,
+        "fpr_at_05": 0.7066666666666667,
+        "fnr_at_05": 0.044444444444444446
+      },
+      "candidate": {
+        "n": 600,
+        "real": 150,
+        "fake": 450,
+        "eer": 0.24,
+        "fpr_at_05": 0.6666666666666666,
+        "fnr_at_05": 0.06
+      },
+      "gain": -0.006666666666666682
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "clean",
+      "incumbent": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.5,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.09999999999999999,
+        "fpr_at_05": 0.5,
+        "fnr_at_05": 0.044444444444444446
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g711_ulaw",
+      "incumbent": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.5,
+        "fnr_at_05": 0.05555555555555555
+      },
+      "candidate": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.19999999999999998,
+        "fpr_at_05": 0.4666666666666667,
+        "fnr_at_05": 0.08888888888888889
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "g722_wb",
+      "incumbent": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.16666666666666663,
+        "fpr_at_05": 0.7,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.17222222222222222,
+        "fpr_at_05": 0.5666666666666667,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "gain": -0.005555555555555591
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "opus_nb_8k",
+      "incumbent": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.33333333333333337,
+        "fpr_at_05": 0.9,
+        "fnr_at_05": 0.044444444444444446
+      },
+      "candidate": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.3055555555555556,
+        "fpr_at_05": 0.9,
+        "fnr_at_05": 0.05555555555555555
+      },
+      "gain": 0.02777777777777779
+    },
+    {
+      "axis": "CHANNEL_V57",
+      "group": "transcode_g711_opus",
+      "incumbent": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.30000000000000004,
+        "fpr_at_05": 0.9333333333333333,
+        "fnr_at_05": 0.05555555555555555
+      },
+      "candidate": {
+        "n": 120,
+        "real": 30,
+        "fake": 90,
+        "eer": 0.2666666666666667,
+        "fpr_at_05": 0.9,
+        "fnr_at_05": 0.07777777777777778
+      },
+      "gain": 0.033333333333333326
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "concurrent",
+      "incumbent": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.28,
+        "fpr_at_05": 0.58,
+        "fnr_at_05": 0.08666666666666667
+      },
+      "candidate": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.28,
+        "fpr_at_05": 0.58,
+        "fnr_at_05": 0.12
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "partial_overlap",
+      "incumbent": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.25666666666666665,
+        "fpr_at_05": 0.78,
+        "fnr_at_05": 0.04
+      },
+      "candidate": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.24,
+        "fpr_at_05": 0.76,
+        "fnr_at_05": 0.05333333333333334
+      },
+      "gain": 0.016666666666666663
+    },
+    {
+      "axis": "LAYOUT_V57",
+      "group": "sequential",
+      "incumbent": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.1433333333333333,
+        "fpr_at_05": 0.76,
+        "fnr_at_05": 0.006666666666666667
+      },
+      "candidate": {
+        "n": 200,
+        "real": 50,
+        "fake": 150,
+        "eer": 0.16000000000000003,
+        "fpr_at_05": 0.66,
+        "fnr_at_05": 0.006666666666666667
+      },
+      "gain": -0.01666666666666672
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FF",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.013333333333333334
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.013333333333333334
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "FR",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.08666666666666667
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.12666666666666668
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RF",
+      "incumbent": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 150,
+        "real": 0,
+        "fake": 150,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.04
+      },
+      "gain": null
+    },
+    {
+      "axis": "CELL_V57",
+      "group": "RR",
+      "incumbent": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.7066666666666667,
+        "fnr_at_05": null
+      },
+      "candidate": {
+        "n": 150,
+        "real": 150,
+        "fake": 0,
+        "eer": null,
+        "fpr_at_05": 0.6666666666666666,
+        "fnr_at_05": null
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "FMA",
+      "incumbent": {
+        "n": 300,
+        "real": 150,
+        "fake": 150,
+        "eer": 0.26,
+        "fpr_at_05": 0.7066666666666667,
+        "fnr_at_05": 0.08666666666666667
+      },
+      "candidate": {
+        "n": 300,
+        "real": 150,
+        "fake": 150,
+        "eer": 0.26,
+        "fpr_at_05": 0.6666666666666666,
+        "fnr_at_05": 0.12666666666666668
+      },
+      "gain": 0.0
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "MusicGen_medium",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "audioldm2",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "musicldm",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.0
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "mustango",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.03333333333333333
+      },
+      "gain": null
+    },
+    {
+      "axis": "MUSIC_GENERATOR_V57",
+      "group": "stable_audio_open",
+      "incumbent": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05
+      },
+      "candidate": {
+        "n": 60,
+        "real": 0,
+        "fake": 60,
+        "eer": null,
+        "fpr_at_05": null,
+        "fnr_at_05": 0.05
+      },
+      "gain": null
+    }
+  ],
+  "scope": "file only; not official ADS or total score estimate",
+  "files": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/wpt_peak_v63.yaml": "05b663fe02fb16767fb663341460548d8cf0fc41bbfc83064fde9c6d5505ee46",
+    "configs/music_specialist_v58.yaml": "dec326dd7ea73102992177ad1bb31d1d824f84e13d6f622a192da27597d20ddc",
+    "configs/data_partitions.yaml": "dee35f80cf26d1c5d73093d2ed2901b360655a244a8a70541898b7c28257266e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "reports/wpt_gain_v63/normalized_slot_development/predictions.csv": "7d8dc6b40cb018a52ac3eb90bcdf402e6f7a37d7f1425af3546256cf8e124657"
+  }
+}

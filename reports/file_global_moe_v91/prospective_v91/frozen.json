@@ -1,0 +1,52 @@
+{
+  "schema": "file_global_moe_v91_one_shot",
+  "status": "frozen_before_inference_or_scoring",
+  "rows": 600,
+  "shards": 4,
+  "runners": [
+    {
+      "shard": 0,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_global_moe_v91/prospective_v91/anchor_0",
+      "sample_sha256": "fb351f37ea6e9b910217ed55098dcfef62a0fa518244976c261e73a88b462986"
+    },
+    {
+      "shard": 1,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_global_moe_v91/prospective_v91/anchor_1",
+      "sample_sha256": "01a5ee162a11d0b85b8470249f1e30e3f7d535c53990f59df4b5a5d168578eb3"
+    },
+    {
+      "shard": 2,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_global_moe_v91/prospective_v91/anchor_2",
+      "sample_sha256": "722becc54e1afd4531d0888276591c5ea981179ad381d3fae947c4d25565ad46"
+    },
+    {
+      "shard": 3,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_global_moe_v91/prospective_v91/anchor_3",
+      "sample_sha256": "28343888ede05f2558ae14a6890f50330a565f07df7b7f3c5e248566fed07067"
+    }
+  ],
+  "artifacts_sha256": {
+    "configs/file_global_moe_v91.yaml": "bf789d5fb0aa3c544e9da08f9c451100a8834ddb49b9a56824041dd8a933de30",
+    "reports/file_local_readout_v86/full/global.pt": "a8660031af38d6465f9d7df292f161ef932eec90edfea0302e945af70bf02762",
+    "reports/file_local_readout_v86/full/frozen.json": "e250a3d9d4e3a5b177814336b086535cbcb4308b41115c44763102cc63977fdb",
+    "reports/file_local_readout_v86/full/report.json": "7f4bb62a89845782cfdf85af97f3916855794ef56ab6cd14083cd3526ed3e7d1",
+    "src/file_local_inference_v86.py": "28828f3063a1b3d636f3175787b956c485cb2c309e7bce1f9a619acaae80cfa0",
+    "src/file_local_readout_v86.py": "389567edd72fae479b1e6389f868f840d8c5bde7f819d2a4ec315b60575f7beb",
+    "src/common_encoder_probe.py": "102a93fa491a1356d5868f6fcd73d83eed68a4773549fd13a458da58f9a42556",
+    "src/xlsr_antideepfake.py": "c493c19ec732a7cb9a83c47b8e9cc7f67990ed542213dd31a1cbc29d97d69d3e",
+    "reports/current_anchor_component_v90b/frozen.json": "bec315c83ca268d1229b63fc6c9d1bef1da074b974c2c208b07cc4064c386096",
+    "reports/current_anchor_component_v90b/report.json": "bf8b61df569048d093842e5912d7e21745b0d391d06440a4956ffbb173ec9d60",
+    "reports/current_anchor_component_v90b/metrics.csv": "ca2268a9a4572badb1ee43e56ca3de9f04e75f47b864321bad18c88dc20f553b",
+    "scripts/build_all_type_blind_v9.py": "4ee969ee60971f213b81c31609ac7ebd27d8f6720b9ee1cedeb9670d250aac28",
+    "reports/all_type_blind_v91_design/bank_validation/validation.json": "30d3a226c46e9cbfd0cbaad4da5d7b42af641972c99e2a32aff9b8e4235657ba",
+    "data/eval/all_type_blind_v91/truth.csv": "ed583b026c6be2e23a2f3202491472f5a2851bab778aa6e641f3cdae2df109a4",
+    "data/eval/all_type_blind_v91/sample_submission.csv": "5cd40f1b2f1b7ad5f954dc30e7cf585d2a7ee30b2a1a8189af21cb0398b579ae",
+    "reports/music_only_submission_v82/full_package_smoke/script_anchor.py": "aad2a5facff20650b733fc55c34e070baa9e9535da36cc9b136bf0c89ff50cde",
+    "scripts/evaluate_file_global_moe_v91.py": "02e84904124548091e3119cd2d5c89454c0dcce0881d28c5ce9ea63f4cad8a14"
+  },
+  "candidate_sha256": "8287ebadc7690f944c3d10582a9f6d259e0f11c0e2908f2e2e2bfb22c2db6ad8",
+  "truth_open_policy": "workers use neutral IDs only; score opens labels once",
+  "score_open_count": 0,
+  "selection_allowed_after_score": false,
+  "automatic_submission_allowed": false
+}

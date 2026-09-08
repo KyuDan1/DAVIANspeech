@@ -1,0 +1,33 @@
+{
+  "rows": 80,
+  "maximum_absolute_difference": 3.8746783559417963e-14,
+  "mean_absolute_difference": 2.489463713298279e-16,
+  "tolerance": 0.0005,
+  "saved_evaluation_close": true,
+  "file_order_bit_exact": true,
+  "pass_check": true,
+  "scope": "integrated file-local implementation equivalence; NOT accuracy or L4 time guarantee",
+  "variant": "equal_voice_pair_eat_music",
+  "checkpoints": {
+    "xlsr": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/mean/head.pt",
+      "sha256": "be7c69e27a0407fd341672e809aa044dfa5371f3d4b0f415ad9fc22926cc6d34"
+    },
+    "eat": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full/adapted/head.pt",
+      "sha256": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f"
+    },
+    "spear": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear_independent/mean/head.pt",
+      "sha256": "ee5d05c4a6086a21fc9da7dcee44f2ff932a5af668d32481d36dd58d503f5bf1"
+    }
+  },
+  "elapsed_seconds": 38.34991839248687,
+  "cuda_peak_mb": 12179.38134765625,
+  "gpu": "NVIDIA B200",
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/frozen.json": "6569edfce3a0141e090574da31d32fdbff1bbf06ef6db603c258f729cb1c910d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/equal_voice_pair_eat_music_predictions.csv": "d13b0d9818d6d583da6c8cf4cfdc136e6e27d5af81a4e01624e8666ff015b183"
+  },
+  "automatic_submission_allowed": false
+}

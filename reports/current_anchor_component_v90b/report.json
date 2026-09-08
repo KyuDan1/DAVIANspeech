@@ -1,0 +1,133 @@
+{
+  "status": "complete_exposed_anchor_comparison",
+  "rows": 2160,
+  "results": [
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "current_anchor",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.23478057889822598
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "parent",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.24267040149393093
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2318860877684407
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "local",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.265219421101774
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_global_0.025",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.23155929038281978
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_global_0.05",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2286647992530345
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_global_0.1",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.22689075630252098
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_global_0.2",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2207749766573296
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_local_0.025",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.23011204481792713
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_local_0.05",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.22978524743230622
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_local_0.1",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.22577030812324927
+    },
+    {
+      "scope": "all",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "anchor_local_0.2",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.22254901960784312
+    }
+  ],
+  "selection_allowed": false,
+  "automatic_submission_allowed": false,
+  "interpretation": "Fixed blends diagnose complementarity only; v70 cannot select a submission weight.",
+  "input_sha256": {
+    "anchor_frozen": "bec315c83ca268d1229b63fc6c9d1bef1da074b974c2c208b07cc4064c386096",
+    "v86_frozen": "05b0912bbec3fa10267ef18d71f30322b266271730fe44c9ad306d71f329684d"
+  }
+}

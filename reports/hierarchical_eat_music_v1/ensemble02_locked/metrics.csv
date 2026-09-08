@@ -1,0 +1,7 @@
+DATASET,MEMBER,N,MUSIC_EER
+factorial_eval_1200_v2_holdout,ensemble,350,0.23428571428571432
+phone_factorial_1200_v1,ensemble,800,0.07999999999999999
+yue_cross_component_audit_v1,ensemble,124,0.19354838709677422
+source_disjoint_music_telephone_v1,ensemble,400,0.135
+suno_vocals_v1,ensemble,13,
+suno_vocals_codec_stress_v1,ensemble,65,

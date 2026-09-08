@@ -1,0 +1,7 @@
+# Source identities discovered by the strict all-column train/dev audit.
+# These are data-integrity exclusions, never score-selected exclusions.
+116870
+121346
+136994
+145761
+The Dawn - The One They Fear

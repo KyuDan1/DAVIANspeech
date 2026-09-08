@@ -1,0 +1,75 @@
+{
+  "selected": {
+    "FILE": {
+      "mode": "logit",
+      "weight": 0.4,
+      "metrics": {
+        "TASK": "FILE",
+        "MODE": "logit",
+        "WEIGHT": 0.4,
+        "SELECTION": 0.7970454545454546,
+        "MAX_BANK_REGRESSION": -0.14290909090909093,
+        "EER_external_mixed_v1": 0.14,
+        "EER_factorial_eval_1200_v2_dev_bank": 0.22472727272727272,
+        "EER_source_disjoint_mixed_equal_v1": 0.18000000000000002,
+        "EER_source_disjoint_mixed_v1": 0.18000000000000002
+      }
+    },
+    "VOICE": {
+      "mode": "logit",
+      "weight": 0.2,
+      "metrics": {
+        "TASK": "VOICE",
+        "MODE": "logit",
+        "WEIGHT": 0.2,
+        "SELECTION": 0.7597321428571429,
+        "MAX_BANK_REGRESSION": -0.010000000000000009,
+        "EER_external_mixed_v1": 0.22499999999999998,
+        "EER_factorial_eval_1200_v2_dev_bank": 0.2914285714285715,
+        "EER_source_disjoint_mixed_equal_v1": 0.07999999999999999,
+        "EER_source_disjoint_mixed_v1": 0.16000000000000003
+      }
+    },
+    "MUSIC": {
+      "mode": "logit",
+      "weight": 0.5,
+      "metrics": {
+        "TASK": "MUSIC",
+        "MODE": "logit",
+        "WEIGHT": 0.5,
+        "SELECTION": 0.8091071428571428,
+        "MAX_BANK_REGRESSION": -0.09000000000000005,
+        "EER_external_mixed_v1": 0.14,
+        "EER_factorial_eval_1200_v2_dev_bank": 0.2114285714285714,
+        "EER_source_disjoint_mixed_equal_v1": 0.18999999999999997,
+        "EER_source_disjoint_mixed_v1": 0.14
+      }
+    }
+  },
+  "banks": {
+    "external_mixed_v1": {
+      "FILE_EER": 0.14,
+      "VOICE_EER": 0.22499999999999998,
+      "MUSIC_EER": 0.14,
+      "ADS": 0.843
+    },
+    "factorial_eval_1200_v2_dev_bank": {
+      "FILE_EER": 0.22472727272727272,
+      "VOICE_EER": 0.2914285714285715,
+      "MUSIC_EER": 0.2114285714285714,
+      "ADS": 0.7659220779220779
+    },
+    "source_disjoint_mixed_equal_v1": {
+      "FILE_EER": 0.18000000000000002,
+      "VOICE_EER": 0.07999999999999999,
+      "MUSIC_EER": 0.18999999999999997,
+      "ADS": 0.837
+    },
+    "source_disjoint_mixed_v1": {
+      "FILE_EER": 0.18000000000000002,
+      "VOICE_EER": 0.16000000000000003,
+      "MUSIC_EER": 0.14,
+      "ADS": 0.836
+    }
+  }
+}

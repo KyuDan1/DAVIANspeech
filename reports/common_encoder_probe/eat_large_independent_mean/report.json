@@ -1,0 +1,27 @@
+{
+  "rows": 80,
+  "maximum_absolute_difference": 2.978515623031086e-08,
+  "mean_absolute_difference": 6.8672921142875185e-09,
+  "tolerance": 0.0005,
+  "saved_evaluation_close": true,
+  "file_order_bit_exact": true,
+  "pass_check": true,
+  "scope": "inference equivalence, NOT accuracy or generalization",
+  "full_development": false,
+  "artifacts_sha256": {
+    "reports/common_encoder_probe/eat_large/mean/head.pt": "8cc7b1a8bd7c48da87e21fbdb9b8f4ec7a3fe01e0dba318d950330d7394caa10",
+    "reports/common_encoder_probe/eat_large/mean/development_predictions.csv": "eec191ce5a2cb93fee5b10e8fe10edf8b4ae67cf5daa9110c2255821190840c4"
+  },
+  "per_column_max_abs_difference": {
+    "FILE_FAKE_PROB": 2.978515623031086e-08,
+    "VOICE_FAKE_PROB": 2.9367828391357875e-08,
+    "MUSIC_FAKE_PROB": 2.882690430805468e-08,
+    "VOICE_PRESENT_PROB": 2.951049804522654e-08,
+    "MUSIC_PRESENT_PROB": 2.711639401908883e-08
+  },
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/verify_common_encoder_probe_inference.py": "d495d1de8b7fd8be0b9672cd246e24b7202a32e34b1595b6e4c4abb2c3accdd9",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe_inference.py": "52d51a05e93e4d5fc75b7f588b29daa39f4b5a2313c69bbea611acdb3d9c4c9e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe.py": "7d4151e44a31bae6a73491385ff01339db6030cdfc8401b5ad64bea2d1b5f43b"
+  }
+}

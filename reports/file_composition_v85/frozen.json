@@ -1,0 +1,17 @@
+{
+  "inputs_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/exact_anchor_v74/codec_recomputed/predictions.csv": "7d73597c1132daab11214ee44e4452a16429fabfff0e6d5cd867f96ca38ad160",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/component_composition_v73/equal_voice_pair_eat_music_predictions.csv": "d13b0d9818d6d583da6c8cf4cfdc136e6e27d5af81a4e01624e8666ff015b183",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/comparison/anchor_predictions.csv": "0cefadf7c528dc78cf6caa08bb8bab593dc10a190c5c44512586dfe3300c3e13",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_uniform_v61/truth.csv": "c8d66f7cab9ca8b6931f919152569c01433ff2680856e70b993feef5e9d06c90",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_sparse_v61/truth.csv": "eca55bb31eee7029dbcaf4dbc132a500b937ffd0b0702aba02e12e5ea31d3afe"
+  },
+  "code_sha256": "11a4b0cdcdda3c72eacad2255f1a2645043db82f2ef9653856644c6fb1682dd8",
+  "rules": [
+    "anchor",
+    "presence_weighted_noisy_or",
+    "presence_weighted_max"
+  ],
+  "selection_or_fitting": false,
+  "scope": "Previously exposed diagnostics; no private-test or fresh blind claim"
+}

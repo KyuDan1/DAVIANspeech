@@ -1,0 +1,9 @@
+{
+  "best_selection": {
+    "file_only": 0.8300615328829325,
+    "dense_supervised": 0.8278553271719127
+  },
+  "smoke": false,
+  "elapsed_seconds": 2075.7597319846973,
+  "cuda_peak_mb": 2302.5810546875
+}

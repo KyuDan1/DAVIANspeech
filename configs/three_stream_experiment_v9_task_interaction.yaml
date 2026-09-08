@@ -1,0 +1,60 @@
+# Frozen before codec_mixed_blind_v5 was opened. The only architectural change
+# is one zero-adapter attention block across Voice/Music/File pooled query
+# tokens; all evidence remains separation-free original-mixture evidence.
+schema_version: three_stream_experiment_v9_task_interaction
+seed: 20260908
+anchor: exact_component_query_or_v47
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+variants:
+  task_interaction_l2:
+    train_set: train_core
+    xlsr: true
+    task_interaction_depth: 1
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  task_interaction_disentangle_l2:
+    train_set: train_core
+    xlsr: true
+    task_interaction_depth: 1
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    quartet_invariance_weight: 0.10
+    quartet_latent_invariance_weight: 0.01
+    auc_ranking_weight: 0.05
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+
+fixed_training:
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  group_dro_temperature: 0.10
+
+decision_rule: >-
+  A single head must exceed selection 0.831468 and codec_mixed_dev_v4 ADS
+  0.760556. A fixed uniform ensemble with the six-head candidate may replace
+  it only if it exceeds selection 0.840468 and codec ADS 0.771222 without more
+  than 0.01 clean or G.722 regression. No weight sweep is permitted.

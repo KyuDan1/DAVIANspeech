@@ -1,0 +1,46 @@
+{
+  "accepted": false,
+  "fixed_gate": {
+    "minimum_overall_ads_gain": 0.0025,
+    "maximum_task_eer_regression": 0.025,
+    "maximum_group_ads_regression": 0.035
+  },
+  "anchor": {
+    "N": 600,
+    "FILE_N": 600,
+    "FILE_EER": 0.24816849816849818,
+    "VOICE_N": 480,
+    "VOICE_EER": 0.30000000000000004,
+    "MUSIC_N": 480,
+    "MUSIC_EER": 0.2666666666666667,
+    "AVAILABLE_ADS": 0.7359157509157509,
+    "VOICE_PRESENCE_AUC": 0.993576388888889,
+    "MUSIC_PRESENCE_AUC": 0.9992708333333333,
+    "CPS": 0.9964236111111111
+  },
+  "candidate": {
+    "N": 600,
+    "FILE_N": 600,
+    "FILE_EER": 0.24816849816849818,
+    "VOICE_N": 480,
+    "VOICE_EER": 0.30000000000000004,
+    "MUSIC_N": 480,
+    "MUSIC_EER": 0.26249999999999996,
+    "AVAILABLE_ADS": 0.737165750915751,
+    "VOICE_PRESENCE_AUC": 0.993576388888889,
+    "MUSIC_PRESENCE_AUC": 0.9992708333333333,
+    "CPS": 0.9964236111111111
+  },
+  "overall_ads_delta": 0.0012500000000000844,
+  "task_eer_regressions": {
+    "FILE": 0.0,
+    "VOICE": 0.0,
+    "MUSIC": -0.004166666666666763
+  },
+  "worst_group_ads_delta": -0.020000000000000018,
+  "hashes": {
+    "truth": "b11b0fecb01ac976d0b38842700d1574918012e0b53d84286737ebe183754bff",
+    "anchor": "38cdda497dbe3cc7c45fc307ced78f7f73769c995b7e22e46e6a5d499471924b",
+    "candidate": "2878519f79ac428ccbb200b68e5b7f1310d52ecccedc09b7d00097ca4cc1270f"
+  }
+}

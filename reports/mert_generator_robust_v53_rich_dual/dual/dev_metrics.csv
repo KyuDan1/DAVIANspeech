@@ -1,0 +1,8 @@
+DATASET,MUSIC_EER,MUSIC_SCORE
+mixfake_music_dev_v1,0.20125000000000004,0.79875
+external_mixed_v1,0.375,0.625
+source_disjoint_mixed_v1,0.17000000000000004,0.83
+source_disjoint_mixed_equal_v1,0.18999999999999997,0.81
+source_disjoint_music_v1,0.09499999999999999,0.905
+factorial_eval_1200_v2_dev,0.3771428571428571,0.6228571428571429
+telephone_mixed_dev_v1,0.3733333333333333,0.6266666666666667

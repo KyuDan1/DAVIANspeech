@@ -1,0 +1,166 @@
+{
+  "decisions": [
+    {
+      "accepted": false,
+      "candidate": "v1_strict",
+      "largest_dataset_regression": {
+        "dataset": "source_disjoint_music_v1",
+        "delta": -0.03749999999999987
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.0804924242424242,
+        "group": "source_matched_instrumental"
+      },
+      "mean_domain_ads_delta": 0.012132419979010933,
+      "pooled_ads_delta": 0.016462273830032403,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.0213232323232323
+    },
+    {
+      "accepted": false,
+      "candidate": "v1_strict__voice_only",
+      "largest_dataset_regression": {
+        "dataset": "factorial_eval_1200_v2",
+        "delta": -0.0022857142857143353
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.022857142857142687,
+        "group": "voice_only"
+      },
+      "mean_domain_ads_delta": 0.005046536796536771,
+      "pooled_ads_delta": 0.004432134269369614,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.002666666666666595
+    },
+    {
+      "accepted": false,
+      "candidate": "v1_strict__music_only",
+      "largest_dataset_regression": {
+        "dataset": "source_disjoint_music_v1",
+        "delta": -0.018749999999999933
+      },
+      "largest_decision_group_regression": {
+        "axis": "CHANNEL_V57",
+        "delta": -0.020714285714285685,
+        "group": "noisy_flac"
+      },
+      "mean_domain_ads_delta": -0.0008766233766233089,
+      "pooled_ads_delta": -0.002393804403143518,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.006000000000000005
+    },
+    {
+      "accepted": false,
+      "candidate": "v1_strict__file_only",
+      "largest_dataset_regression": {
+        "dataset": "echoes_fma_paired_v3",
+        "delta": -0.022524350649350655
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.06912878787878796,
+        "group": "source_matched_instrumental"
+      },
+      "mean_domain_ads_delta": 0.006879443788534667,
+      "pooled_ads_delta": 0.00953846729225849,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": -0.0005555555555555314
+    },
+    {
+      "accepted": false,
+      "candidate": "v2_strict",
+      "largest_dataset_regression": {
+        "dataset": "echoes_fma_paired_v3",
+        "delta": -0.011262175324675439
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.05142857142857127,
+        "group": "voice_only"
+      },
+      "mean_domain_ads_delta": 0.01749256362324536,
+      "pooled_ads_delta": 0.02586772356884226,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.02644444444444438
+    },
+    {
+      "accepted": false,
+      "candidate": "v2_strict__voice_only",
+      "largest_dataset_regression": {
+        "dataset": "factorial_eval_1200_v2",
+        "delta": -0.00457142857142856
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.022857142857142687,
+        "group": "voice_only"
+      },
+      "mean_domain_ads_delta": 0.004952380952381041,
+      "pooled_ads_delta": 0.006324643870934121,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.014666666666666606
+    },
+    {
+      "accepted": false,
+      "candidate": "v2_strict__music_only",
+      "largest_dataset_regression": {
+        "dataset": "external_mixed_v1",
+        "delta": -0.007499999999999951
+      },
+      "largest_decision_group_regression": {
+        "axis": "LAYOUT_V57",
+        "delta": -0.008000000000000007,
+        "group": "sequential"
+      },
+      "mean_domain_ads_delta": 0.0015308441558441466,
+      "pooled_ads_delta": -0.0011264961897146097,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": -0.0010000000000000009
+    },
+    {
+      "accepted": false,
+      "candidate": "v2_strict__file_only",
+      "largest_dataset_regression": {
+        "dataset": "source_disjoint_music_v1",
+        "delta": -0.006249999999999978
+      },
+      "largest_decision_group_regression": {
+        "axis": "CHANNEL_V57",
+        "delta": -0.050000000000000044,
+        "group": "opus_nb_8k"
+      },
+      "mean_domain_ads_delta": 0.00955831037649224,
+      "pooled_ads_delta": 0.019571964098142214,
+      "threshold": -0.02,
+      "worst_domain_ads_delta": 0.006111111111111067
+    }
+  ],
+  "development_datasets": [
+    "mixfake_music_dev_v1",
+    "factorial_eval_1200_v2",
+    "external_mixed_v1",
+    "source_disjoint_mixed_v1",
+    "source_disjoint_music_v1",
+    "asvspoof_voice_wav_dev_v1",
+    "external_mixed_v1_telephone_v1",
+    "source_disjoint_mixed_v1_telephone_v1",
+    "multigen_voice_v2",
+    "echoes_fma_paired_v3",
+    "codec_mixed_dev_v4"
+  ],
+  "development_rows": 4577,
+  "minimum_group_size": 20,
+  "models": [
+    "identity",
+    "v1_strict",
+    "v1_strict__voice_only",
+    "v1_strict__music_only",
+    "v1_strict__file_only",
+    "v2_strict",
+    "v2_strict__voice_only",
+    "v2_strict__music_only",
+    "v2_strict__file_only"
+  ]
+}

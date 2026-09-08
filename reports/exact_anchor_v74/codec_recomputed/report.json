@@ -1,0 +1,67 @@
+{
+  "status": "complete",
+  "rows": 600,
+  "seconds": 617.5358199775219,
+  "frozen_sha256": "85763a72df7f216c341a4bd83cf53b83dec428ec85e907d79c04f8cd7b42f961",
+  "predictions_sha256": "7d73597c1132daab11214ee44e4452a16429fabfff0e6d5cd867f96ca38ad160",
+  "maximum_cache_difference": 0.15423284383755276,
+  "eight_file_shard_repeat_maximum_difference": 9.596999999972322e-06,
+  "by_column_cache_difference": {
+    "FILE_FAKE_PROB": 0.0591920145,
+    "VOICE_FAKE_PROB": 0.043654463399999954,
+    "MUSIC_FAKE_PROB": 0.15423284383755276,
+    "VOICE_PRESENT_PROB": 5.42400000025367e-07,
+    "MUSIC_PRESENT_PROB": 1.286999999905447e-07
+  },
+  "overall": [
+    {
+      "model": "cached_anchor",
+      "channel": "all",
+      "N": 600,
+      "FILE_N": 600,
+      "VOICE_N": 600,
+      "MUSIC_N": 600,
+      "FILE_EER": 0.2333333333333333,
+      "VOICE_EER": 0.20666666666666667,
+      "MUSIC_EER": 0.2533333333333333,
+      "VOICE_AUC": NaN,
+      "MUSIC_AUC": NaN,
+      "ADS": 0.766,
+      "CPS": NaN,
+      "SCORE": NaN
+    },
+    {
+      "model": "actual_anchor",
+      "channel": "all",
+      "N": 600,
+      "FILE_N": 600,
+      "VOICE_N": 600,
+      "MUSIC_N": 600,
+      "FILE_EER": 0.2333333333333333,
+      "VOICE_EER": 0.20333333333333337,
+      "MUSIC_EER": 0.2533333333333333,
+      "VOICE_AUC": NaN,
+      "MUSIC_AUC": NaN,
+      "ADS": 0.7666666666666666,
+      "CPS": NaN,
+      "SCORE": NaN
+    },
+    {
+      "model": "v73",
+      "channel": "all",
+      "N": 600,
+      "FILE_N": 600,
+      "VOICE_N": 600,
+      "MUSIC_N": 600,
+      "FILE_EER": 0.1588888888888889,
+      "VOICE_EER": 0.14,
+      "MUSIC_EER": 0.21333333333333337,
+      "VOICE_AUC": NaN,
+      "MUSIC_AUC": NaN,
+      "ADS": 0.8285555555555556,
+      "CPS": NaN,
+      "SCORE": NaN
+    }
+  ],
+  "automatic_submission_allowed": false
+}

@@ -1,0 +1,13 @@
+{
+  "best_epoch": 16,
+  "selection": 0.8030480828695115,
+  "train_examples": 18936,
+  "trainable_parameters": 7413935,
+  "warm_start_checkpoint": "reports/wpt_spectra_v1/seed_20260906/wpt_spectra_multitask.pt",
+  "warm_start_report": {
+    "tensors_loaded": 360,
+    "parameters_loaded": 577291,
+    "prompt_tensors_skipped": 2,
+    "incompatible_tensors_skipped": 0
+  }
+}

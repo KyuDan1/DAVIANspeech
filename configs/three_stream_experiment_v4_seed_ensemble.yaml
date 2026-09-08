@@ -1,0 +1,61 @@
+# Frozen after robust_l2_core won the v1-v3 development comparison and before
+# codec_mixed_blind_v5 was detector-scored.
+schema_version: three_stream_experiment_v4_seed_ensemble
+seed: 20260904
+anchor: exact_component_query_or_v47
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+variants:
+  robust_l2_seed_20260905:
+    train_set: train_core
+    seed: 20260905
+    xlsr: true
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  robust_l2_seed_20260906:
+    train_set: train_core
+    seed: 20260906
+    xlsr: true
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+
+fixed_training:
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  group_dro_temperature: 0.10
+
+ensemble_rule:
+  domain: logit
+  members:
+    - robust_l2_core_seed_20260904
+    - robust_l2_seed_20260905
+    - robust_l2_seed_20260906
+  weights: [0.333333333333, 0.333333333333, 0.333333333334]
+  selection: >-
+    Accept only if pooled development and codec_mixed_dev_v4 ADS exceed the
+    best single seed while clean and G.722 each regress by no more than 0.01.

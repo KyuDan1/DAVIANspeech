@@ -1,0 +1,12 @@
+{
+  "selection": 0.9411130710563964,
+  "datasets": [
+    "external_mixed_train_v1",
+    "mixed_devvoice_train_v1",
+    "mixed_fmc_music_train_v1",
+    "mixfake_music_train_v1",
+    "telephone_mixed_train_v1",
+    "temporal_mixed_train_v2",
+    "channel_invariant_factorial_train_v1"
+  ]
+}

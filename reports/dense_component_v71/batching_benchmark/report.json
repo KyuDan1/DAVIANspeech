@@ -1,0 +1,61 @@
+{
+  "scope": "training-only throughput / numerical equivalence",
+  "gpu": "NVIDIA B200",
+  "checkpoint": "reports/dense_component_v71/smoke_v2/dense_supervised/head.pt",
+  "source_ids": [
+    "echofake_v2:echofake_replay_bonafide_0480",
+    "echofake_v2:echofake_replay_bonafide_0436",
+    "echofake_v2:echofake_bonafide_0172",
+    "echofake_v2:echofake_replay_bonafide_0548",
+    "echofake_v2:echofake_replay_fake_0667",
+    "echofake_v2:echofake_replay_fake_0639",
+    "echofake_v2:echofake_fake_0256",
+    "echofake_v2:echofake_replay_fake_0689",
+    "echoes_v1:echoes_real_0170",
+    "echoes_v1:echoes_real_0072",
+    "echoes_v1:echoes_real_0089",
+    "echoes_v1:echoes_real_0016",
+    "echoes_v1:echoes_fake_0064",
+    "echoes_v1:echoes_fake_0387",
+    "echoes_v1:echoes_fake_0087",
+    "echoes_v1:echoes_fake_0340"
+  ],
+  "results": [
+    {
+      "encoder_chunk": 2,
+      "files": 16,
+      "median_seconds": 0.11870175693184137,
+      "seconds": [
+        0.12030916567891836,
+        0.11870175693184137,
+        0.11545532941818237
+      ],
+      "peak_allocated_mb": 1325.27783203125,
+      "max_abs_probability_difference": 0.0
+    },
+    {
+      "encoder_chunk": 8,
+      "files": 16,
+      "median_seconds": 0.0680000027641654,
+      "seconds": [
+        0.0680000027641654,
+        0.06686355546116829,
+        0.06946290470659733
+      ],
+      "peak_allocated_mb": 1731.36474609375,
+      "max_abs_probability_difference": 0.0
+    },
+    {
+      "encoder_chunk": 16,
+      "files": 16,
+      "median_seconds": 0.06079133786261082,
+      "seconds": [
+        0.061148312874138355,
+        0.06079133786261082,
+        0.060585479252040386
+      ],
+      "peak_allocated_mb": 2082.80859375,
+      "max_abs_probability_difference": 0.0
+    }
+  ]
+}

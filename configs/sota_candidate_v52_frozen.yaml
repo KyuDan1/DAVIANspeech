@@ -1,0 +1,88 @@
+schema_version: sota_candidate_v52_frozen_v1
+frozen_at_utc: "2026-09-04"
+status: rejected_after_blind_v7
+
+base:
+  package_directory: music_only_v51_frozen
+  script_sha256: e3f0ad9be9f01876fc89872f897a6389472fbcf940a90c2967046d734225a4dd
+  music_config: configs/music_only_v51_frozen.yaml
+  music_expert_weight: 0.0375
+
+final_file_consistency:
+  runtime: src/component_consistent_file_fusion.py
+  runtime_sha256: f7ad123f89d83ef6f31cd3af190c47d4087de0bc3e55c0b654522a976aa8c975
+  file_logit_weight: 0.20
+  voice_presence_threshold: 0.10
+  music_presence_threshold: 0.20
+  component_evidence: max_final_voice_fake_final_music_fake
+  execution_position: after_all_music_file_and_voice_specialists_before_cache_cleanup
+  changed_output: FILE_FAKE_PROB
+  byte_preserved_outputs:
+    - VOICE_FAKE_PROB
+    - MUSIC_FAKE_PROB
+    - VOICE_PRESENT_PROB
+    - MUSIC_PRESENT_PROB
+
+development_evidence:
+  codec_mixed_dev_v4:
+    file_voice_music_eer: [0.2200000000, 0.2066666667, 0.2533333333]
+    ads: 0.7726666667
+  codec_mixed_blind_v5_retrospective:
+    file_voice_music_eer: [0.2000000000, 0.1166666667, 0.1833333333]
+    ads: 0.8216666667
+    projected_total_at_cps_0_9893078836: 0.8384307884
+  interpretation: local_proxy_only_not_a_leaderboard_claim
+
+blind_policy:
+  codec_mixed_blind_v6:
+    use_for_v52_selection: false
+    inference_with_v52: false
+  codec_mixed_blind_v7:
+    status_at_freeze: rendered_but_authenticity_unopened
+    truth_sha256: 75fe464b32b4b9f11f14c334e5fba38c871d0c11bf5d73b7b0d0f9bd0c303ac5
+    score_open_count_at_freeze: 0
+    inference_before_freeze: forbidden
+    score_before_freeze: forbidden
+    no_post_open_tuning: true
+    comparison_anchor: sparse_voice_wpt_file_v50_frozen
+    frozen_candidate: sota_candidate_v52_frozen
+    scoring_aliases:
+      v47: v50_anchor
+      v48: v52_frozen
+    one_shot_result:
+      v50_ads: 0.7627777778
+      v52_ads: 0.7618518519
+      v52_minus_v50_ads: -0.0009259259
+      music_eer_before: 0.3055555556
+      music_eer_after: 0.3055555556
+      file_eer_before: 0.2111111111
+      file_eer_after: 0.2129629630
+      selected_for_submission: false
+      no_post_open_tuning_observed: true
+
+package:
+  directory: sota_candidate_v52_frozen
+  builder: scripts/build_sota_candidate_v52_submission.py
+  top_level_entries: [model, script.py, requirements.txt]
+  uncompressed_bytes: 9191998925
+  file_count: 112
+  script_sha256: 9dde04b637e6184a49d23a8ca17f733b9ef938639a6c160724807a2a1b1f5f0f
+  requirements_sha256: 978befe6e5c8a064cddd2690e7e55b4b153f87eabf0dcf3b0604a567f4edd6ed
+  requirements:
+    - onnxruntime-gpu==1.23.2
+  music_runtime_sha256: d8bd7e51ed4ac68b7a3e23e5f964c19ba197cc5bf9051f7a0f0e6ccae3d211bf
+  music_head_sha256:
+    - 32d846904629c7a99c253fdd7fbd7931176ea919c20652344a7422d5e4f6a3dd
+    - b32c8fdcef7f4aa34d1d78833fc5a18b35e9664a49a626de4ae2111b78a15316
+    - 8cd61a05bfcf974ad396a828a0a06345ff87a959ae0f3b5a0db24a2103b3c0a8
+
+verification:
+  source_compile: passed
+  package_entrypoint_compile_without_bytecode_write: passed
+  package_entrypoint_help_exit_code: 0
+  focused_tests:
+    command: /home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python -m pytest -q tests/test_component_consistent_file_fusion.py tests/test_build_component_consistent_file_v51_submission.py tests/test_build_sota_candidate_v52_submission.py tests/test_music_only_residual.py tests/test_build_music_only_v51_submission.py
+    result: 17_passed
+  zip_created: false
+  committed: false
+  submitted: false

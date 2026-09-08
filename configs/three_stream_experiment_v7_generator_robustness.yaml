@@ -1,0 +1,59 @@
+# Frozen before codec_mixed_blind_v5 was detector-scored. This matrix tests
+# whether explicit generator-domain balancing improves the robust_l2 design;
+# it must be accepted by the same fixed development rule as prior matrices.
+schema_version: three_stream_experiment_v7_generator_robustness
+seed: 20260907
+anchor: exact_component_query_or_v47
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+variants:
+  generator_balanced_equal_tasks:
+    train_set: train_core
+    xlsr: true
+    generator_aware: true
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  generator_balanced_music_weighted:
+    train_set: train_core
+    xlsr: true
+    generator_aware: true
+    residual_limits: [2.0, 2.0, 2.0]
+    task_weights: [0.15, 0.40, 0.45]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+
+fixed_training:
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  group_dro_temperature: 0.10
+
+decision_rule: >-
+  Reject any variant unless it exceeds the robust_l2 seed-20260904 selection
+  score 0.831468 and codec_mixed_dev_v4 ADS 0.760556. It may replace the
+  frozen three-seed ensemble only if a uniform logit ensemble containing it
+  exceeds selection 0.836952 and codec ADS 0.768111 without more than 0.01
+  clean or G.722 regression. No weight sweep is permitted.

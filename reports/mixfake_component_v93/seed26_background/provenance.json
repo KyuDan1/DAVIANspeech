@@ -1,0 +1,92 @@
+{
+  "schema": "mixfake_component_readout_v93",
+  "args": {
+    "cache_root": "reports/mixfake_component_v93/features",
+    "output": "reports/mixfake_component_v93/seed26_background",
+    "train_channel": "paired_fast",
+    "dev_channels": [
+      "clean",
+      "paired_fast"
+    ],
+    "device": "cuda",
+    "seed": 20260926,
+    "width": 128,
+    "dropout": 0.15,
+    "residual_limit": 4.0,
+    "batch_size": 256,
+    "eval_batch_size": 1024,
+    "samples_per_epoch": 24576,
+    "epochs": 120,
+    "patience": 20,
+    "lr": 0.0003,
+    "weight_decay": 0.001,
+    "ranking_weight": 0.1,
+    "consistency_weight": 0.2,
+    "independence_weight": 0.1,
+    "residual_weight": 0.002,
+    "voice_weight": 0.05,
+    "music_weight": 0.45,
+    "file_weight": 0.5,
+    "selection_axis": "background"
+  },
+  "train_rows": 9243,
+  "development_rows": {
+    "clean": 1642,
+    "paired_fast": 1642
+  },
+  "train_ids_sha256": "2661a990a793fa0851de955a8b650901bb2e04d97b93b09b81e23fb958e15b18",
+  "cache_files": [
+    {
+      "path": "reports/mixfake_component_v93/features/train_clean_shard0.npz",
+      "sha256": "984f75b1803d718ad474ab11aedd1912b879bfa07a582d7a972703efb616217d"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_clean_shard1.npz",
+      "sha256": "b33f7a749d42d85b57a192a71190b31db1282b036ff02ed88b5145a925fcdcfe"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_clean_shard2.npz",
+      "sha256": "157c2d225f75d6b5f13c3cd63a956a8c09efa5b1bbf0a7908e4ede3d9b835eea"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_clean_shard3.npz",
+      "sha256": "279718f102b114c38cfaa43737d2f80027d939dbd2a52e87e654154d1103f6e1"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_paired_fast_shard0.npz",
+      "sha256": "1a279ddd749af6667e3342d6d1139279a79008f565cf1172dcc671d5616dd2a2"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_paired_fast_shard1.npz",
+      "sha256": "1a9a458b7f4117f6a7a0ea6ec33fe9cac03481871dfefe1dd24bdc04fac84c4d"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_paired_fast_shard2.npz",
+      "sha256": "276abe8362231ac7225e6ae7c6631dd42025efec36ddf576cb53f4b7e6810fb1"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/train_paired_fast_shard3.npz",
+      "sha256": "cfe962c4df159c50e42bd36fe0186789df183f8bf4bf728d4a0ee4f16ef602cd"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/development_clean_shard0.npz",
+      "sha256": "1a8a4aa1656632198e149606136dd09405c251f04745855678dd753517dfbbf8"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/development_clean_shard1.npz",
+      "sha256": "af51d75b0860219a503f4a017ec4b1a6c80d5ac46591a83b9dafc3164c837129"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/development_paired_fast_shard0.npz",
+      "sha256": "c4259c1acc01c451ee8f411d37234b16fe62c03ff116a885622fb119248cf3f0"
+    },
+    {
+      "path": "reports/mixfake_component_v93/features/development_paired_fast_shard1.npz",
+      "sha256": "00303ad4e003b7cdd62c160cb1f856cfbd66e40f93f79553d4b2d9a26cddbcc1"
+    }
+  ],
+  "locked_scores_read": false,
+  "initial_selection": 0.8055157922139206,
+  "best_selection": 0.8258537589355264,
+  "development_gain": 0.020337966721605816
+}

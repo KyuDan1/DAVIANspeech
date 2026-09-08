@@ -1,0 +1,17 @@
+{
+  "anchor": "v38",
+  "dev_anchor_ads": 0.7403376623376623,
+  "dev_anchor_worst_channel_ads": 0.7159238941135493,
+  "selected": {
+    "METHOD": "phone_soft_router",
+    "VOICE_WEIGHT": 0.05,
+    "PHONE_VOICE_WEIGHT": 0.05,
+    "FILE_WEIGHT": 0.15,
+    "PHONE_FILE_WEIGHT": 0.0,
+    "ADS": 0.7619480519480519,
+    "WORST_CHANNEL_ADS": 0.7383986415882968,
+    "MIN_CHANNEL_DELTA": 0.0,
+    "ROBUST_SELECTION": 0.7501733467681744
+  },
+  "locked_all_non_regressing": true
+}

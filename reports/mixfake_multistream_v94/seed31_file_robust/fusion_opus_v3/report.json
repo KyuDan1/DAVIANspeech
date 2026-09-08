@@ -1,0 +1,13 @@
+{
+  "task": "file",
+  "channel": "opus_nb_8k",
+  "rows": 320,
+  "anchor_eer": 0.2895833333333333,
+  "expert_eer": 0.24166666666666667,
+  "best_fused_eer": 0.23541666666666664,
+  "selected_expert_weight": 0.73,
+  "anchor_subgroup_eer": {},
+  "expert_subgroup_eer": {},
+  "fused_subgroup_eer": {},
+  "locked_scores_read": false
+}

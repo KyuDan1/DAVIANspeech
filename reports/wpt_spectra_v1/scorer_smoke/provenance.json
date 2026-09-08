@@ -1,0 +1,8 @@
+[
+  {
+    "checkpoint": "reports/wpt_spectra_v1/smoke2/wpt_spectra_multitask.pt",
+    "seed": 20260905,
+    "best_epoch": 0,
+    "selection": 0.6683333333333332
+  }
+]

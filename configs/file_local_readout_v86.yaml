@@ -1,0 +1,22 @@
+schema: file_local_readout_v86
+seed: 20260906
+inventory: reports/training_inventory_v78/report.json
+partition_config: configs/data_partitions.yaml
+source_catalog: reports/dense_component_v71/source_catalog/sources.csv
+encoder: models/xls-r-2b-anti-deepfake
+parent_head: reports/common_encoder_probe/xlsr/mean/head.pt
+epochs: 4
+samples_per_epoch: 1024
+learning_rate: 0.001
+weight_decay: 0.01
+temperature: 5.0
+workers: 2
+synthetic_probability: 0.5
+synthetic_durations: [4, 8, 16, 32, 60]
+insertion_durations: [0.5, 1, 2, 4]
+synthetic_channels: [clean, g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+synthetic_layouts: [concurrent, sequential_voice_first, sequential_music_first, sparse_voice, sparse_music, pure_voice, pure_music]
+synthetic_snr: [-10, -5, 0, 5, 10]
+boundary_margin_seconds: 0.08
+selection: fixed_final_epoch
+automatic_submission_allowed: false

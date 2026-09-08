@@ -1,0 +1,86 @@
+{
+  "stage": "completed paired adaptation development audit",
+  "matched_control_probabilities_exact": true,
+  "all_six_sampler_epochs_exact": true,
+  "adapted_best_epoch": 6,
+  "overall": [
+    {
+      "variant": "control",
+      "N": 4577,
+      "FILE_N": 4577,
+      "VOICE_N": 4016,
+      "MUSIC_N": 4261,
+      "FILE_EER": 0.18876387401952033,
+      "VOICE_EER": 0.21140518292267038,
+      "MUSIC_EER": 0.14175077053907992,
+      "VOICE_AUC": 0.9983825837470084,
+      "MUSIC_AUC": 0.9981150796597934,
+      "ADS": 0.8208117952439818,
+      "CPS": 0.9982488317034008,
+      "SCORE": 0.8385554988899238,
+      "macro_ads": 0.8349118620853997,
+      "selection": 0.8278618286646908
+    },
+    {
+      "variant": "adapted",
+      "N": 4577,
+      "FILE_N": 4577,
+      "VOICE_N": 4016,
+      "MUSIC_N": 4261,
+      "FILE_EER": 0.16885187110831085,
+      "VOICE_EER": 0.19497023111961,
+      "MUSIC_EER": 0.12907768840479134,
+      "VOICE_AUC": 0.9992702984852035,
+      "MUSIC_AUC": 0.9987567546692254,
+      "ADS": 0.8378567117004851,
+      "CPS": 0.9990135265772144,
+      "SCORE": 0.8539723931881581,
+      "macro_ads": 0.8383245698621844,
+      "selection": 0.8380906407813348
+    }
+  ],
+  "codec_anchor": {
+    "N": 600,
+    "FILE_N": 600,
+    "VOICE_N": 600,
+    "MUSIC_N": 600,
+    "FILE_EER": 0.2333333333333333,
+    "VOICE_EER": 0.20666666666666667,
+    "MUSIC_EER": 0.2533333333333333,
+    "VOICE_AUC": NaN,
+    "MUSIC_AUC": NaN,
+    "ADS": 0.766,
+    "CPS": NaN,
+    "SCORE": NaN
+  },
+  "codec_direct_music_replacement": {
+    "N": 600,
+    "FILE_N": 600,
+    "VOICE_N": 600,
+    "MUSIC_N": 600,
+    "FILE_EER": 0.2333333333333333,
+    "VOICE_EER": 0.20666666666666667,
+    "MUSIC_EER": 0.21333333333333337,
+    "VOICE_AUC": NaN,
+    "MUSIC_AUC": NaN,
+    "ADS": 0.778,
+    "CPS": NaN,
+    "SCORE": NaN
+  },
+  "other_four_music_replacement_outputs_exact": true,
+  "source_ood_verified": false,
+  "official_improvement_verified": false,
+  "automatic_submission_allowed": false,
+  "limitations": [
+    "fixed checkpoint re-evaluated, not reselected using independent inference",
+    "bootstrap is descriptive development evidence, not corrected for model selection",
+    "development has no 30-60 second files; generator families overlap train"
+  ],
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full/adapted/head.pt": "15d4a075f10e0cb7a6d487d1c59a51c0e191283b8ae5bf158c844cf9175c470f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/development_predictions.csv": "0dd5f8292cc713df91805e79e954e5cf48ccd989ddaf027808d6bda961a137bc",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full/completed.json": "1acf240bbccde01a56c7ecd37be4d04c17ad80f7e670d6821bec623542f57e02",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_eat_adaptation/full_file_local/report.json": "826a82a3dab54911dbf3f634534113622ef634bc4f83d7fd25c79760d69a9d22"
+  }
+}

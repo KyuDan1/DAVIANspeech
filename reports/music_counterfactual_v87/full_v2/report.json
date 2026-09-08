@@ -1,0 +1,47 @@
+{
+  "status": "complete",
+  "history": [
+    {
+      "epoch": 1,
+      "losses": {
+        "bce": 0.2994920088519005,
+        "invariant": 0.2999535978950769
+      }
+    },
+    {
+      "epoch": 2,
+      "losses": {
+        "bce": 0.24561143069014574,
+        "invariant": 0.2490128327251
+      }
+    },
+    {
+      "epoch": 3,
+      "losses": {
+        "bce": 0.22465931072477946,
+        "invariant": 0.23621496117742424
+      }
+    },
+    {
+      "epoch": 4,
+      "losses": {
+        "bce": 0.19826168292958848,
+        "invariant": 0.2341865703848498
+      }
+    }
+  ],
+  "results": [
+    {
+      "model": "bce",
+      "MUSIC_EER": 0.13799578324003148
+    },
+    {
+      "model": "invariant",
+      "MUSIC_EER": 0.13940390347717466
+    }
+  ],
+  "seconds": 1494.9039176339284,
+  "peak_cuda_mib": 3313.0107421875,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "mixfake_alltype_v93_reservation",
+  "status": "reserved_unscored",
+  "seed": 20260923,
+  "locked_per_cell": 120,
+  "details_sha256": "c6b4355a918601a36a5f6257a8b4110f277e9eb90cd1b8e0c4fbf24ba9f7b097",
+  "protected_truths": 93,
+  "protected_hash_manifests": 11,
+  "manifests": {
+    "train": {
+      "rows": 9243,
+      "sha256": "cfdcd01437b2d4b3d064cd3ca58dace2d98d8756cdf2f4bcb1ba2741d5951770",
+      "component_cases": {
+        "FF": 3342,
+        "FR": 3215,
+        "RF": 1356,
+        "RR": 1330
+      },
+      "music_generators": {
+        "FMA": 4545,
+        "FakeMusicCaps:MusicGen_medium": 248,
+        "FakeMusicCaps:audioldm2": 259,
+        "FakeMusicCaps:musicldm": 284,
+        "FakeMusicCaps:mustango": 246,
+        "SONICS:Suno": 1837,
+        "SONICS:Udio": 1823,
+        "unknown_fake_music": 1
+      }
+    },
+    "development": {
+      "rows": 1642,
+      "sha256": "3451a1ae6c117efa921e5973f6ee521e4207099b2331f5f215a954a7fa0dc3d2",
+      "component_cases": {
+        "FF": 555,
+        "FR": 624,
+        "RF": 219,
+        "RR": 244
+      },
+      "music_generators": {
+        "FMA": 868,
+        "FakeMusicCaps:MusicGen_medium": 37,
+        "FakeMusicCaps:audioldm2": 30,
+        "FakeMusicCaps:musicldm": 34,
+        "FakeMusicCaps:mustango": 39,
+        "SONICS:Suno": 360,
+        "SONICS:Udio": 274
+      }
+    },
+    "locked": {
+      "rows": 480,
+      "sha256": "d7409df0ae6e36936eb79ab8c8d6377d14f4ef7433f60c75ed0b4a0cc0a0a8d3",
+      "component_cases": {
+        "FF": 120,
+        "FR": 120,
+        "RF": 120,
+        "RR": 120
+      },
+      "music_generators": {
+        "FMA": 240,
+        "FakeMusicCaps:MusicGen_medium": 4,
+        "FakeMusicCaps:audioldm2": 9,
+        "FakeMusicCaps:musicldm": 4,
+        "FakeMusicCaps:mustango": 6,
+        "FakeMusicCaps:stable_audio_open": 24,
+        "SONICS:Suno": 96,
+        "SONICS:Udio": 97
+      }
+    }
+  },
+  "source_overlap": {
+    "train_development": 0,
+    "train_locked": 0,
+    "development_locked": 0
+  },
+  "authenticity_detector_scores_read": false,
+  "locked_selection_allowed": false,
+  "automatic_submission_allowed": false
+}

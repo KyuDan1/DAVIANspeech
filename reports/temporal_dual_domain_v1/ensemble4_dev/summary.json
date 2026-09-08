@@ -1,0 +1,11 @@
+{
+  "checkpoints": [
+    "reports/temporal_dual_domain_v1/seed_20260902/temporal_dual_domain_head.pt",
+    "reports/temporal_dual_domain_v1/seed_20260903/temporal_dual_domain_head.pt",
+    "reports/temporal_dual_domain_v1/seed_20260904/temporal_dual_domain_head.pt",
+    "reports/temporal_dual_domain_v1/aux1_seed_20260902/temporal_dual_domain_head.pt"
+  ],
+  "selection": 0.7927314814814814,
+  "mean_ads": 0.8346058201058201,
+  "worst_ads": 0.7508571428571429
+}

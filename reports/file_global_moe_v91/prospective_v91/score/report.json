@@ -1,0 +1,97 @@
+{
+  "status": "complete_one_shot",
+  "accepted_by_precommitted_statistical_gate": false,
+  "packaging_promotion_allowed": false,
+  "automatic_submission_allowed": false,
+  "score_open_count": 1,
+  "rows": 600,
+  "gate": {
+    "overall_file_eer_minimum_absolute_gain": 0.005,
+    "maximum_channel_eer_regression": 0.01,
+    "maximum_rr_vs_fr_or_rf_regression": 0.02
+  },
+  "anchor_file_eer": 0.20989010989010992,
+  "candidate_file_eer": 0.20494505494505497,
+  "absolute_file_eer_gain": 0.004945054945054955,
+  "maximum_channel_eer_regression": 0.0,
+  "maximum_rr_vs_fr_or_rf_regression": 0.0,
+  "prediction_hashes": {
+    "anchor": "4701beca6f12b3af4b27bf53cc849abad4c06857e139f7d80b2d39614aa2930e",
+    "candidate": "2ed51ca7d5fb13c87b88a8833306a439c3bc25e16d6bf037337ce804add1e9f8"
+  },
+  "worker_seconds": [
+    {
+      "status": "complete",
+      "kind": "anchor",
+      "shard": 0,
+      "rows": 150,
+      "seconds": 239.06303407717496,
+      "prediction_sha256": "96621385c33677217d329e9d3ec5085ac87b53094155daa9a9d82130a9c2aa83",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "expert",
+      "shard": 0,
+      "rows": 150,
+      "seconds": 30.275292033329606,
+      "prediction_sha256": "6aceb9d61eb60ed68f7e725d914837b385650cc4c3e4bf8cc7e66e11065fdbbb",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "anchor",
+      "shard": 1,
+      "rows": 150,
+      "seconds": 239.07662468776107,
+      "prediction_sha256": "bdf08135abd5db0d0b07697cbd013d8c6a2b4326ab71424635c2b6b318aaf6d7",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "expert",
+      "shard": 1,
+      "rows": 150,
+      "seconds": 29.238253274932504,
+      "prediction_sha256": "e2d94ef468ce0f9e0e8d3b3c8834c455d7165d39a1879f8359654bdb13131f28",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "anchor",
+      "shard": 2,
+      "rows": 150,
+      "seconds": 239.10366653651,
+      "prediction_sha256": "c79709997a67924578d829b633f2b9a3b03a1d939198941a32698042dbc7b510",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "expert",
+      "shard": 2,
+      "rows": 150,
+      "seconds": 30.073469831608236,
+      "prediction_sha256": "b8b31d9a311de510ebd7bb83a278be002801d9176428e6c8f3e9b7202df20abb",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "anchor",
+      "shard": 3,
+      "rows": 150,
+      "seconds": 238.88860278949142,
+      "prediction_sha256": "cd9caeb3d9e77b2746741260ffcb00d2a467ecf2104c67377579dd121691c277",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    },
+    {
+      "status": "complete",
+      "kind": "expert",
+      "shard": 3,
+      "rows": 150,
+      "seconds": 29.91284279152751,
+      "prediction_sha256": "07c5794d2f38942c072d9bf7e2637883ace807597a6d3fc534c317f6b0298b66",
+      "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+    }
+  ],
+  "caveat": "Synthetic source-disjoint evidence; not an estimate of private leaderboard EER."
+}

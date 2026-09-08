@@ -1,0 +1,9 @@
+{
+  "dataset": "codec_mixed_blind_v6",
+  "residual_weight": 0.15,
+  "anchor_ads": 0.7891666666666667,
+  "v55_ads": 0.7891666666666667,
+  "anchor_music_eer": 0.2583333333333333,
+  "v55_music_eer": 0.2583333333333333,
+  "expert_music_eer": 0.35
+}

@@ -1,0 +1,15 @@
+{
+  "archive": "best_eat_music_v83.zip",
+  "sha256": "92d5f2f3508f7b3d7748f2214a7319c5a9029d826f85779bb8ccb64f18ecf48f",
+  "team": "DAVIANspeech",
+  "competition": "236749",
+  "memo": "Best anchor + original EAT-large adapted Music only; File/Voice/CPS unchanged. Removed discarded Music residual/XLSR pass; full smoke and CRC verified.",
+  "started_utc": "2026-09-06T04:19:51.523376+00:00",
+  "status": "accepted",
+  "quota_before": 2,
+  "result": {
+    "isSubmitted": true,
+    "detail": "Success"
+  },
+  "finished_utc": "2026-09-06T04:21:26.877663+00:00"
+}

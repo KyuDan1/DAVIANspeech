@@ -1,0 +1,2 @@
+epoch,loss,selection,music_holdout_file_eer,music_holdout_music_eer,voice_holdout_file_eer,voice_holdout_voice_eer,elapsed_seconds
+0,0.7797181978821754,0.4209696905195812,0.4240384615384616,0.36363636363636365,0.6833333333333333,0.5630965005302226,11.123794078826904

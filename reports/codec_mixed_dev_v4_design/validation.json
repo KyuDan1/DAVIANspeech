@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "checks_passed": 30,
+  "checks_total": 30,
+  "checks": {
+    "reservation_hash": true,
+    "reservation_rows": true,
+    "reservation_cell_balance": true,
+    "reservation_unique_ids": true,
+    "reservation_labels": true,
+    "five_balanced_fake_music_generators": true,
+    "instrumental_text_screen": true,
+    "truth_rows_and_ids": true,
+    "rendered_cell_balance": true,
+    "paired_channels": true,
+    "truth_matches_reservation": true,
+    "source_requirement_rows": true,
+    "exact_archive_target_list": true,
+    "exact_extracted_source_tree": true,
+    "selected_source_hashes": true,
+    "acoustic_source_alignment": true,
+    "frozen_acoustic_thresholds": true,
+    "acoustic_screen_all_pass": true,
+    "one_deterministic_acoustic_replacement": true,
+    "exact_rendered_audio_tree": true,
+    "audio_format_and_duration": true,
+    "rendered_audio_hashes": true,
+    "submission_template": true,
+    "built_provenance_hashes": true,
+    "config_unchanged_since_reservation": true,
+    "no_config_role_added": true,
+    "v2_retired_role": true,
+    "all_configured_identity_overlap_zero": true,
+    "all_v2_retired_identity_overlap_zero": true,
+    "archive_volume_integrity": true
+  },
+  "counts": {
+    "base_rows": 120,
+    "rendered_rows": 600,
+    "rendered_audio_files": 600,
+    "selected_source_files": 240,
+    "fake_music_sources_screened": 60,
+    "archive_volumes": 67,
+    "registered_truth_manifests_checked": 47,
+    "identity_overlap_checks": 124
+  },
+  "duration_seconds": {
+    "minimum": 8.0,
+    "maximum": 17.44575
+  },
+  "fake_music_by_generator": {
+    "MusicGen_medium": 12,
+    "audioldm2": 12,
+    "musicldm": 12,
+    "mustango": 12,
+    "stable_audio_open": 12
+  },
+  "acoustic_flags": {
+    "panns": 0,
+    "demucs": 0
+  }
+}

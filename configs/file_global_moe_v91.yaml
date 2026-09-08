@@ -1,0 +1,39 @@
+schema: file_global_moe_v91
+frozen_utc: 2026-09-06T10:30:00Z
+scope: FILE_FAKE_PROB_only
+anchor:
+  identity: v50_plus_v57_current_best_file
+  official_total: 0.7774307884
+  official_ads: 0.7538888889
+  official_cps: 0.9893078836
+expert:
+  kind: original_mixture_xlsr_global_readout_v86
+  run: reports/file_local_readout_v86/full
+  checkpoint: reports/file_local_readout_v86/full/global.pt
+fusion:
+  domain: logit
+  expert_weight: 0.10
+  routing: none
+  unchanged_outputs:
+    - VOICE_FAKE_PROB
+    - MUSIC_FAKE_PROB
+    - VOICE_PRESENT_PROB
+    - MUSIC_PRESENT_PROB
+selection_rationale:
+  - Conservative fixed MoE weight used successfully by prior official ablations.
+  - On exposed v70, 0.10 improved every aggregate duration/channel/audio-type slice.
+  - Weight 0.20 was better on v70 but is not selected because that would tune to an exposed stress bank.
+prospective_protocol:
+  builder: scripts/build_all_type_blind_v9.py
+  seed: 20260921
+  id_prefix: atbv91
+  source_policy: all_existing_truth_identity_speaker_song_and_hash_disjoint
+  one_shot: true
+  no_post_score_weight_threshold_router_or_stopping_tuning: true
+promotion_gate:
+  overall_file_eer_minimum_absolute_gain: 0.005
+  maximum_channel_eer_regression: 0.01
+  maximum_rr_vs_fr_or_rf_regression: 0.02
+  packaged_fp16_native_equivalence_required: true
+  l4_runtime_under_seconds: 3600
+automatic_submission_allowed: false

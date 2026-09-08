@@ -1,0 +1,31 @@
+{
+  "frozen_before_diagnostic": true,
+  "selection_or_sweep_supported": false,
+  "voice_weight": 0.15,
+  "truth": {
+    "path": "data/eval/codec_mixed_dev_v4/truth.csv",
+    "sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b"
+  },
+  "anchor": {
+    "path": "reports/music_expert_v51/v51_frozen_v4/predictions.csv",
+    "sha256": "693bab00113b15662ab6f9d13f4d88d59f32fd045acf2ece9adc66225223e0d0"
+  },
+  "statistics": {
+    "path": "reports/v47_anchor_cache_train_dev_v2/cache/datasets/codec_mixed_dev_v4/spear_component_bins.npz",
+    "sha256": "890e5fba3f07424bbe40d9eee889fa24ea9c768484a853a8467e98cfc1bcdbab"
+  },
+  "checkpoints": [
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc0_seed21/spear_voice_mil_head.pt",
+      "sha256": "2beec339c73e3e88446ab5f63ef56ae09ab2e6a4a1a27b747b5518de93a5bc6e"
+    },
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc001_seed22/spear_voice_mil_head.pt",
+      "sha256": "b02711887ba2127ddd392ac94a01f328299eb15d785d18d7a27c9eb675700d4a"
+    },
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc005_seed23/spear_voice_mil_head.pt",
+      "sha256": "4658598b5165589b49de1002e5924c54348a130e2571a8aef4aa01965111a259"
+    }
+  ]
+}

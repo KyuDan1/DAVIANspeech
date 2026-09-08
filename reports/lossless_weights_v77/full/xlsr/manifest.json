@@ -1,0 +1,43 @@
+{
+  "format": "davian_lossless_weights_v77",
+  "source_name": "model.safetensors",
+  "raw_bytes": 8651845440,
+  "raw_sha256": "a608dd3ac12f8cec50856e70db7d0705d82bfb8f1b6aa1dac437aca6995872aa",
+  "parts": [
+    {
+      "name": "weights-00000.dw77",
+      "raw_offset": 0,
+      "raw_bytes": 2369781760,
+      "blocks": 565,
+      "sha256": "0c46bb2c41f24d5cca276deec5f32083b4232b2a1dcf728bcd7ef69ed82da33e",
+      "packed_bytes": 1999285716
+    },
+    {
+      "name": "weights-00001.dw77",
+      "raw_offset": 2369781760,
+      "raw_bytes": 2369781760,
+      "blocks": 565,
+      "sha256": "83718e8fb462943dbf4b8212892e8bb3a9d400ca93fa7405aced16c5c109757d",
+      "packed_bytes": 1998791676
+    },
+    {
+      "name": "weights-00002.dw77",
+      "raw_offset": 4739563520,
+      "raw_bytes": 2365587456,
+      "blocks": 564,
+      "sha256": "633b557049caf8ae0582b357688f8a2d3448c62f78a4001691c7ed307fc668cd",
+      "packed_bytes": 1996461204
+    },
+    {
+      "name": "weights-00003.dw77",
+      "raw_offset": 7105150976,
+      "raw_bytes": 1546694464,
+      "blocks": 369,
+      "sha256": "4efa0e109c762d9daa52eabdcb80d439e60f6643801dc4ff2a05fa37754958cf",
+      "packed_bytes": 1304615684
+    }
+  ],
+  "packed_bytes": 7299154280,
+  "tensor_dtype_changes": false,
+  "all_blocks_roundtrip_exact": true
+}

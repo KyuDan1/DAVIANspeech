@@ -1,0 +1,29 @@
+{
+  "status": "complete_smoke",
+  "history": [
+    {
+      "epoch": 1,
+      "losses": {
+        "factorial_bce": 0.2549268491566181,
+        "factorial_ranked": 0.273571714758873
+      },
+      "loss_parts": {
+        "factorial_bce": {
+          "bce": 0.2549268491566181,
+          "rank": 0.014751091599464417,
+          "invariant": 0.7881631478667259
+        },
+        "factorial_ranked": {
+          "bce": 0.2548251040279865,
+          "rank": 0.014725151238963008,
+          "invariant": 0.7900794371962547
+        }
+      }
+    }
+  ],
+  "results": [],
+  "seconds": 9.110007882118225,
+  "peak_cuda_mib": 3302.515625,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

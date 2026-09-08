@@ -1,0 +1,31 @@
+{
+  "frozen_before_diagnostic": true,
+  "selection_or_sweep_supported": false,
+  "voice_weight": 0.15,
+  "truth": {
+    "path": "data/eval/codec_mixed_blind_v6/truth.csv",
+    "sha256": "c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a"
+  },
+  "anchor": {
+    "path": "reports/v50_blind_v6_one_shot/v50_frozen/output/submission.csv",
+    "sha256": "668f463a11eb56eda3940a3ae638090dbb95c17517e2a059c08b67bce08fde00"
+  },
+  "statistics": {
+    "path": "reports/spear_voice_mil_v53/codec_mixed_blind_v6_spear_bins.npz",
+    "sha256": "c78fe3f5cc6388301ec0ec0c367587c9dfa567244e3d71464184ebf63e4b2cd8"
+  },
+  "checkpoints": [
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc0_seed21/spear_voice_mil_head.pt",
+      "sha256": "2beec339c73e3e88446ab5f63ef56ae09ab2e6a4a1a27b747b5518de93a5bc6e"
+    },
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc001_seed22/spear_voice_mil_head.pt",
+      "sha256": "b02711887ba2127ddd392ac94a01f328299eb15d785d18d7a27c9eb675700d4a"
+    },
+    {
+      "path": "reports/spear_voice_mil_v53/all_cc005_seed23/spear_voice_mil_head.pt",
+      "sha256": "4658598b5165589b49de1002e5924c54348a130e2571a8aef4aa01965111a259"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# LOCAL complete-pipeline test environment; NOT submission requirements.
+# Keep the core environment pinned with -c requirements-grader-v77.txt.
+demucs==4.0.1
+panns-inference==0.1.1
+torchlibrosa==0.1.0
+julius==0.2.7
+diffq==0.2.4
+loguru==0.7.2
+rich==13.7.1
+matplotlib==3.10.8
+# The sole extra dependency actually shipped in the anchor requirements.txt:
+onnxruntime-gpu==1.23.2

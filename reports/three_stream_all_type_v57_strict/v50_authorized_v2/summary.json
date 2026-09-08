@@ -1,0 +1,116 @@
+{
+  "anchor": "exact v50 predictions",
+  "audits": {
+    "v1_strict__file_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 600,
+        "MUSIC_FAKE_PROB": 0,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 0,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "FILE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v1_strict__full": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 600,
+        "MUSIC_FAKE_PROB": 600,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 600,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "FILE_FAKE_PROB",
+        "MUSIC_FAKE_PROB",
+        "VOICE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v1_strict__music_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 0,
+        "MUSIC_FAKE_PROB": 600,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 0,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "MUSIC_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v1_strict__voice_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 0,
+        "MUSIC_FAKE_PROB": 0,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 600,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "VOICE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v2_strict__file_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 600,
+        "MUSIC_FAKE_PROB": 0,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 0,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "FILE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v2_strict__full": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 600,
+        "MUSIC_FAKE_PROB": 600,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 600,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "FILE_FAKE_PROB",
+        "MUSIC_FAKE_PROB",
+        "VOICE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v2_strict__music_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 0,
+        "MUSIC_FAKE_PROB": 600,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 0,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "MUSIC_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    },
+    "v2_strict__voice_only": {
+      "changed_rows_by_column": {
+        "FILE_FAKE_PROB": 0,
+        "MUSIC_FAKE_PROB": 0,
+        "MUSIC_PRESENT_PROB": 0,
+        "VOICE_FAKE_PROB": 600,
+        "VOICE_PRESENT_PROB": 0
+      },
+      "expected_changed_columns": [
+        "VOICE_FAKE_PROB"
+      ],
+      "other_columns_bit_exact": true
+    }
+  },
+  "forbidden_roles_used": [],
+  "rows": 600,
+  "scope": "authorised codec_mixed_dev_v4 only"
+}

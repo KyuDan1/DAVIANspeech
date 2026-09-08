@@ -1,0 +1,14 @@
+[
+  {
+    "elapsed_seconds": 634.1070914510638,
+    "gpu": "1",
+    "name": "generator_balanced_equal_tasks",
+    "returncode": 0
+  },
+  {
+    "elapsed_seconds": 759.1418157182634,
+    "gpu": "2",
+    "name": "generator_balanced_music_weighted",
+    "returncode": 0
+  }
+]

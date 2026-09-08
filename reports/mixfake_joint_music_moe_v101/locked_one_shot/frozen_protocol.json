@@ -1,0 +1,20 @@
+{
+  "schema": "mixfake_v101_locked_one_shot",
+  "purpose": "validation_only_no_selection",
+  "rows": 480,
+  "manifest_sha256": "d7409df0ae6e36936eb79ab8c8d6377d14f4ef7433f60c75ed0b4a0cc0a0a8d3",
+  "base_script_sha256": "bda587759978b8f1c68c3040b363591edbdea248b0e7fe3ffd918e5ca1653128",
+  "joint_checkpoint_sha256": "c272ef97ecbb3f898a3542a180cddf144e906c017beb6a5d0bc71a2dda04b474",
+  "music_checkpoint_sha256": "95bad61d3d11ba515d981ef6584a3b8d6af6df738eee5ae90abbc79b0d5cb468",
+  "weights": {
+    "file": 0.4,
+    "voice": 0.12,
+    "music": 0.28
+  },
+  "file_or_weight": 0.15,
+  "views": {
+    "joint": 3,
+    "music": 1
+  },
+  "future_weight_tuning_from_this_result_forbidden": true
+}

@@ -1,0 +1,9 @@
+{
+  "status": "complete",
+  "kind": "expert",
+  "shard": 3,
+  "rows": 150,
+  "seconds": 29.91284279152751,
+  "prediction_sha256": "07c5794d2f38942c072d9bf7e2637883ace807597a6d3fc534c317f6b0298b66",
+  "frozen_sha256": "e8c4fa232df5212597099c641505bb09f2d0a4ecf8f236edda162289c4b21ac2"
+}

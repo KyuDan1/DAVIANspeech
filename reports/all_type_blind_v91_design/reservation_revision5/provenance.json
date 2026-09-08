@@ -1,0 +1,688 @@
+{
+  "schema_version": "all_type_blind_v9",
+  "stage": "reserved_pending_semantic_screen",
+  "seed": 20260921,
+  "base_rows": 120,
+  "rendered_rows_planned": 600,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "protected_truth_manifests": 92,
+  "protected_hash_manifests": 22,
+  "voice_candidate_counts": {
+    "eligible:bonafide:bonafide": 2725,
+    "eligible:replay_fake:replay:CosyVoice2": 203,
+    "eligible:replay_fake:replay:F5-TTS": 12,
+    "eligible:replay_fake:replay:FireRedTTS": 219,
+    "eligible:replay_fake:replay:IndexTTS": 186,
+    "eligible:replay_fake:replay:LLaSA": 11,
+    "eligible:replay_fake:replay:MaskGCT": 179,
+    "eligible:replay_fake:replay:OpenAudio-S1-mini": 7,
+    "eligible:replay_fake:replay:OpenVoice-V2": 180,
+    "eligible:replay_fake:replay:SpeechT5": 12,
+    "eligible:replay_fake:replay:StyleTTS2": 7,
+    "eligible:replay_fake:replay:XTTS-v2": 9,
+    "excluded_protected:bonafide": 4675,
+    "excluded_protected:replay_fake": 6365
+  },
+  "music_candidate_counts": {
+    "eligible:0:FMA:panns_demucs_semantic_screen_pending_v7": 1486,
+    "eligible:1:MusicGen_medium:panns_demucs_semantic_screen_pending_v7": 44,
+    "eligible:1:audioldm2:panns_demucs_semantic_screen_pending_v7": 46,
+    "eligible:1:musicldm:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 1,
+    "eligible:1:musicldm:panns_demucs_semantic_screen_pending_v7": 59,
+    "eligible:1:mustango:panns_demucs_semantic_screen_pending_v7": 59,
+    "eligible:1:stable_audio_open:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 113,
+    "eligible:1:stable_audio_open:panns_demucs_semantic_screen_pending_v7": 308,
+    "excluded_positive_voice_signal": 2715,
+    "excluded_protected:FMA": 514,
+    "excluded_protected:MusicGen_medium": 218,
+    "excluded_protected:audioldm2": 183,
+    "excluded_protected:musicldm": 202,
+    "excluded_protected:mustango": 186,
+    "excluded_protected:stable_audio_open": 866,
+    "excluded_sonics_suno_udio": 5000
+  },
+  "joint_candidate_counts": {
+    "eligible:suno:chirp-v2-xxl-alpha": 664,
+    "eligible:suno:chirp-v3": 1366,
+    "eligible:suno:chirp-v3.5": 503,
+    "eligible:udio:udio-120s": 484,
+    "eligible:udio:udio-30s": 1628,
+    "excluded_protected:chirp-v2-xxl-alpha": 26,
+    "excluded_protected:chirp-v3": 43,
+    "excluded_protected:chirp-v3.5": 111,
+    "excluded_protected:udio-120s": 124,
+    "excluded_protected:udio-30s": 51
+  },
+  "semantic_selection_policy": {
+    "instrumental": "PANNs any-voice <= 0.20 AND Demucs vocal/mix <= -1.5 dB",
+    "joint_song": "PANNs any-voice >= 0.20 AND -20 <= Demucs vocal/mix <= -1.5 dB",
+    "replacement": "same source kind, label, and generator; stable hash order",
+    "authenticity_outputs_used": false
+  },
+  "reservation_sha256": "1c11f3f4640c8fe1444a90944f47a986a6e01686c9b0c9c890bd7ed531bd669e",
+  "candidate_pool_sha256": "1f0004fb3d8296050c4002a06c7d303d9669faa6df26ddefd7ab1fca47d958eb",
+  "protected_inputs_sha256": "44de2cf81e343ebba4bfc5928905997e30786d201da950060670f27aac7b40e6",
+  "builder_sha256": "4ee969ee60971f213b81c31609ac7ebd27d8f6720b9ee1cedeb9670d250aac28",
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false,
+  "truth_open_count": 0,
+  "score_open_count": 0,
+  "parent_reservation_sha256": "02aa303f2b599c56946990a1f58764ec8b4f24deb11a67d4917ad6c6004ea69e",
+  "semantic_inputs_history": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/all_type_blind_v91_design/semantic_initial/source_scores.csv",
+      "sha256": "d42ddca651242b11849f07927ecb3030d3c06215093b4a2b6918ea05cf3adb34"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/all_type_blind_v91_design/semantic_revision1/source_scores.csv",
+      "sha256": "c87cd0e702ed14557855d5e6f6aaec13b1ffa05cb752739fb804ac518879278f"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/all_type_blind_v91_design/semantic_revision2/source_scores.csv",
+      "sha256": "97ba6ba84eed581951c500fefd74487fd46e2a434c279bf30e8f29403d9956d4"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/all_type_blind_v91_design/semantic_revision3/source_scores.csv",
+      "sha256": "dcfcabfa3037b1d2ae247bed3297dbbe953c6f34b060a2556023d263bcdb26ff"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/all_type_blind_v91_design/semantic_revision4/source_scores.csv",
+      "sha256": "de76736082c43e7d1b70115ce1ea18b5ac0ca70bbfee164f9f35c010894f2c19"
+    }
+  ],
+  "semantic_failure_history": [
+    {
+      "source_id": "001419",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.20226649940013885",
+      "demucs_db": "-9.721311420512473",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "003519",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.27513107657432556",
+      "demucs_db": "-19.450790077112828",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "004782",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2889898419380188",
+      "demucs_db": "-4.554969138249531",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "010951",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.6164044141769409",
+      "demucs_db": "-4.90687633998814",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "020155",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.8920180201530457",
+      "demucs_db": "-0.024504564685350415",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "037460",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.38049009442329407",
+      "demucs_db": "-2.203442682743008",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "044895",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.3695371747016907",
+      "demucs_db": "-5.7850343277553575",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "044920",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.28697532415390015",
+      "demucs_db": "-5.644753296568103",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "051646",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.49108460545539856",
+      "demucs_db": "-4.581758073619239",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "055479",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.465371310710907",
+      "demucs_db": "-7.272867092587131",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "058605",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2239450067281723",
+      "demucs_db": "-10.72906714435655",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "064739",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.27773186564445496",
+      "demucs_db": "-10.441367645347558",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "066448",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2264145165681839",
+      "demucs_db": "-6.451786008506616",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "093394",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.36482733488082886",
+      "demucs_db": "-4.360133992120037",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "094237",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2803649604320526",
+      "demucs_db": "-5.669431061071855",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "127056",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.23561207950115204",
+      "demucs_db": "-6.372700672039331",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "140561",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.24077360332012177",
+      "demucs_db": "-34.6240553637434",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "146149",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.3720354735851288",
+      "demucs_db": "-10.523818160466616",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "147415",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.28687480092048645",
+      "demucs_db": "-11.4149728531335",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "148213",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.21179842948913574",
+      "demucs_db": "-9.70462351919155",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "FM_mustango_2_kLD3IbF2c",
+      "kind": "fakemusiccaps_instrumental",
+      "generator": "mustango",
+      "panns": "0.22268646955490112",
+      "demucs_db": "-30.561857344515868",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "FM_stable_audio_open_w35p3oCU0g4",
+      "kind": "fakemusiccaps_instrumental",
+      "generator": "stable_audio_open",
+      "panns": "0.2145165354013443",
+      "demucs_db": "-47.828326928261724",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "sonics-music:FM_fake_songs_wav_fake_27442_udio_0",
+      "kind": "sonics_joint_original",
+      "generator": "sonics:udio-30s",
+      "panns": "0.27126312255859375",
+      "demucs_db": "-1.45857194865191",
+      "rule": "joint_voice_and_accompaniment_presence"
+    },
+    {
+      "source_id": "sonics-music:FM_fake_songs_wav_fake_30479_udio_0",
+      "kind": "sonics_joint_original",
+      "generator": "sonics:udio-30s",
+      "panns": "0.18945316970348358",
+      "demucs_db": "-1.5566934203817597",
+      "rule": "joint_voice_and_accompaniment_presence"
+    },
+    {
+      "source_id": "007527",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2751982808113098",
+      "demucs_db": "-11.68804396416968",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "010677",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.30180275440216064",
+      "demucs_db": "-10.85073742626692",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "049846",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.32554349303245544",
+      "demucs_db": "-3.1444233673073696",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "054376",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.45041826367378235",
+      "demucs_db": "-4.104732888542123",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "065892",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.31806471943855286",
+      "demucs_db": "-5.941248855813111",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "075692",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2671501040458679",
+      "demucs_db": "-5.503783996966302",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "079567",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.29151538014411926",
+      "demucs_db": "-7.544959157405824",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "107814",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.5005545616149902",
+      "demucs_db": "-6.041414203367438",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "117843",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.20720428228378296",
+      "demucs_db": "-7.0833732002783725",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "119759",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.8019487261772156",
+      "demucs_db": "-1.7844888800249838",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "131122",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.26464807987213135",
+      "demucs_db": "-6.139881865831668",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "042920",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.2508750259876251",
+      "demucs_db": "-4.143949453459807",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "060528",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.232705757021904",
+      "demucs_db": "-10.31038719984198",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "093063",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.29190558195114136",
+      "demucs_db": "-11.349844326493574",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "103806",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.456616073846817",
+      "demucs_db": "-8.865831725904389",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "123147",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.4532610774040222",
+      "demucs_db": "-3.845532956143429",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "124887",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.35823601484298706",
+      "demucs_db": "-11.797563106396085",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "000740",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.25103023648262024",
+      "demucs_db": "-12.131087051962485",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "032681",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.21529707312583923",
+      "demucs_db": "-4.008158388709172",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "144552",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.23601140081882477",
+      "demucs_db": "-1.6404491418343885",
+      "rule": "instrumental_voice_absence"
+    },
+    {
+      "source_id": "129699",
+      "kind": "fma_instrumental",
+      "generator": "FMA",
+      "panns": "0.22253020107746124",
+      "demucs_db": "-29.750851722687216",
+      "rule": "instrumental_voice_absence"
+    }
+  ],
+  "replacement_history": [
+    {
+      "old": "001419",
+      "new": "117843",
+      "generator": "FMA"
+    },
+    {
+      "old": "003519",
+      "new": "075692",
+      "generator": "FMA"
+    },
+    {
+      "old": "004782",
+      "new": "110688",
+      "generator": "FMA"
+    },
+    {
+      "old": "010951",
+      "new": "049846",
+      "generator": "FMA"
+    },
+    {
+      "old": "020155",
+      "new": "139936",
+      "generator": "FMA"
+    },
+    {
+      "old": "037460",
+      "new": "119759",
+      "generator": "FMA"
+    },
+    {
+      "old": "044895",
+      "new": "010677",
+      "generator": "FMA"
+    },
+    {
+      "old": "044920",
+      "new": "079567",
+      "generator": "FMA"
+    },
+    {
+      "old": "051646",
+      "new": "097958",
+      "generator": "FMA"
+    },
+    {
+      "old": "055479",
+      "new": "065892",
+      "generator": "FMA"
+    },
+    {
+      "old": "058605",
+      "new": "071938",
+      "generator": "FMA"
+    },
+    {
+      "old": "064739",
+      "new": "054376",
+      "generator": "FMA"
+    },
+    {
+      "old": "066448",
+      "new": "107814",
+      "generator": "FMA"
+    },
+    {
+      "old": "093394",
+      "new": "047915",
+      "generator": "FMA"
+    },
+    {
+      "old": "094237",
+      "new": "099034",
+      "generator": "FMA"
+    },
+    {
+      "old": "127056",
+      "new": "050371",
+      "generator": "FMA"
+    },
+    {
+      "old": "140561",
+      "new": "110436",
+      "generator": "FMA"
+    },
+    {
+      "old": "146149",
+      "new": "007527",
+      "generator": "FMA"
+    },
+    {
+      "old": "147415",
+      "new": "131122",
+      "generator": "FMA"
+    },
+    {
+      "old": "148213",
+      "new": "048370",
+      "generator": "FMA"
+    },
+    {
+      "old": "FM_mustango_2_kLD3IbF2c",
+      "new": "FM_mustango_ng9Dpk4qiP4",
+      "generator": "mustango"
+    },
+    {
+      "old": "FM_stable_audio_open_w35p3oCU0g4",
+      "new": "FM_stable_audio_open_tbovKStEnME",
+      "generator": "stable_audio_open"
+    },
+    {
+      "old": "sonics-music:FM_fake_songs_wav_fake_27442_udio_0",
+      "new": "sonics-music:FM_fake_songs_wav_fake_35990_udio_1",
+      "generator": "sonics:udio-30s"
+    },
+    {
+      "old": "sonics-music:FM_fake_songs_wav_fake_30479_udio_0",
+      "new": "sonics-music:FM_fake_songs_wav_fake_38893_udio_1",
+      "generator": "sonics:udio-30s"
+    },
+    {
+      "old": "007527",
+      "new": "112764",
+      "generator": "FMA"
+    },
+    {
+      "old": "010677",
+      "new": "149669",
+      "generator": "FMA"
+    },
+    {
+      "old": "049846",
+      "new": "093063",
+      "generator": "FMA"
+    },
+    {
+      "old": "054376",
+      "new": "060528",
+      "generator": "FMA"
+    },
+    {
+      "old": "065892",
+      "new": "123147",
+      "generator": "FMA"
+    },
+    {
+      "old": "075692",
+      "new": "050273",
+      "generator": "FMA"
+    },
+    {
+      "old": "079567",
+      "new": "042920",
+      "generator": "FMA"
+    },
+    {
+      "old": "107814",
+      "new": "026673",
+      "generator": "FMA"
+    },
+    {
+      "old": "117843",
+      "new": "124887",
+      "generator": "FMA"
+    },
+    {
+      "old": "119759",
+      "new": "103806",
+      "generator": "FMA"
+    },
+    {
+      "old": "131122",
+      "new": "052044",
+      "generator": "FMA"
+    },
+    {
+      "old": "042920",
+      "new": "000740",
+      "generator": "FMA"
+    },
+    {
+      "old": "060528",
+      "new": "144552",
+      "generator": "FMA"
+    },
+    {
+      "old": "093063",
+      "new": "073572",
+      "generator": "FMA"
+    },
+    {
+      "old": "103806",
+      "new": "112379",
+      "generator": "FMA"
+    },
+    {
+      "old": "123147",
+      "new": "071203",
+      "generator": "FMA"
+    },
+    {
+      "old": "124887",
+      "new": "032681",
+      "generator": "FMA"
+    },
+    {
+      "old": "000740",
+      "new": "109485",
+      "generator": "FMA"
+    },
+    {
+      "old": "032681",
+      "new": "064454",
+      "generator": "FMA"
+    },
+    {
+      "old": "144552",
+      "new": "129699",
+      "generator": "FMA"
+    },
+    {
+      "old": "129699",
+      "new": "013929",
+      "generator": "FMA"
+    }
+  ]
+}

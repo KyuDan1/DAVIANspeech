@@ -263,6 +263,73 @@ def apply_fixed_task_moe_fusion(
     temporary.replace(submission_path)
 
 
+def apply_standalone_task_fusion(
+    submission_path: Path,
+    wpt_ids: np.ndarray,
+    wpt_probabilities: np.ndarray,
+    voice_weight: float = .05,
+    file_weight: float = 0.0,
+) -> None:
+    """Apply a small direct WPT residual while preserving Music and CPS."""
+    if not 0 <= voice_weight <= 1 or not 0 <= file_weight <= 1:
+        raise ValueError("standalone WPT weights must lie in [0, 1]")
+    wpt_ids = np.asarray(wpt_ids).astype(str)
+    probabilities = np.asarray(wpt_probabilities, dtype=np.float64)
+    if probabilities.shape != (len(wpt_ids), 3):
+        raise ValueError("WPT probabilities must have shape [files, 3]")
+    if len(set(wpt_ids)) != len(wpt_ids):
+        raise ValueError("WPT predictions contain duplicate IDs")
+    expert_by_id = dict(zip(wpt_ids, probabilities))
+    submission_path = Path(submission_path)
+    with submission_path.open(encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        columns = list(reader.fieldnames or [])
+        rows = list(reader)
+    if {row["ID"] for row in rows} != set(wpt_ids):
+        raise ValueError("submission and WPT prediction IDs differ")
+    for row in rows:
+        expert = expert_by_id[row["ID"]]
+        row["VOICE_FAKE_PROB"] = round(float(_sigmoid(
+            (1 - voice_weight) * _logit(float(row["VOICE_FAKE_PROB"]))
+            + voice_weight * _logit(expert[0])
+        )), 10)
+        row["FILE_FAKE_PROB"] = round(float(_sigmoid(
+            (1 - file_weight) * _logit(float(row["FILE_FAKE_PROB"]))
+            + file_weight * _logit(expert[2])
+        )), 10)
+    temporary = submission_path.with_suffix(".tmp.csv")
+    with temporary.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(rows)
+    temporary.replace(submission_path)
+
+
+def apply_wpt_standalone_fusion(
+    test_dir: Path,
+    submission_path: Path,
+    model_dir: Path,
+    checkpoint_path: Path,
+    device: str = "cuda",
+    file_batch_size: int = 4,
+    voice_weight: float = .05,
+    file_weight: float = 0.0,
+) -> None:
+    """Score original audio once and add the selected direct WPT residual."""
+    submission_path = Path(submission_path)
+    with submission_path.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    audio_paths = order_by_submission(find_audio_files(Path(test_dir)), rows)
+    probabilities = predict_wpt_tasks(
+        audio_paths, model_dir, checkpoint_path,
+        device=device, file_batch_size=file_batch_size,
+    )
+    apply_standalone_task_fusion(
+        submission_path, np.asarray([row["ID"] for row in rows]),
+        probabilities, voice_weight=voice_weight, file_weight=file_weight,
+    )
+
+
 def apply_wpt_fixed_moe_fusion(
     test_dir: Path,
     submission_path: Path,

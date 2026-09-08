@@ -1,0 +1,154 @@
+{
+  "status": "complete",
+  "gate": {
+    "passed": false,
+    "cells": [
+      {
+        "BANK": "uniform",
+        "AXIS": "ALL",
+        "GROUP": "ALL",
+        "delta": -0.036111111111111094,
+        "maximum_allowed_delta": -0.01,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "DURATION",
+        "GROUP": "30",
+        "delta": -0.050000000000000044,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "DURATION",
+        "GROUP": "45",
+        "delta": -0.04999999999999993,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "DURATION",
+        "GROUP": "60",
+        "delta": 0.008333333333333415,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "CHANNEL",
+        "GROUP": "clean",
+        "delta": -0.025000000000000022,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "CHANNEL",
+        "GROUP": "g711_ulaw",
+        "delta": -0.008333333333333304,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "uniform",
+        "AXIS": "CHANNEL",
+        "GROUP": "opus_nb_8k",
+        "delta": -0.008333333333333304,
+        "maximum_allowed_delta": 0.025,
+        "passed": true
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "ALL",
+        "GROUP": "ALL",
+        "delta": 0.08333333333333337,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "DURATION",
+        "GROUP": "30",
+        "delta": 0.05277777777777781,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "DURATION",
+        "GROUP": "45",
+        "delta": 0.0805555555555556,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "DURATION",
+        "GROUP": "60",
+        "delta": 0.11666666666666659,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "CHANNEL",
+        "GROUP": "clean",
+        "delta": 0.20833333333333337,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "CHANNEL",
+        "GROUP": "g711_ulaw",
+        "delta": 0.18333333333333332,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      },
+      {
+        "BANK": "fixed",
+        "AXIS": "CHANNEL",
+        "GROUP": "opus_nb_8k",
+        "delta": 0.09444444444444444,
+        "maximum_allowed_delta": 0.025,
+        "passed": false
+      }
+    ]
+  },
+  "bootstrap": {
+    "uniform": {
+      "group_count": 20,
+      "repetitions": 1000,
+      "file_eer_delta_ci95": [
+        -0.09864583333333331,
+        0.025000000000000022
+      ],
+      "scope": "source-group bootstrap; fixed/uniform share source groups"
+    },
+    "fixed": {
+      "group_count": 20,
+      "repetitions": 1000,
+      "file_eer_delta_ci95": [
+        0.024513888888888877,
+        0.15000000000000002
+      ],
+      "scope": "source-group bootstrap; fixed/uniform share source groups"
+    }
+  },
+  "frozen_sha256": "189661adda8790b252c5af6a15d7ead2121003ad5e4e1f3503f75144e7ea8819",
+  "prediction_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/anchor/shard_0/output/submission.csv": "1f43442a519796fb69df045e931a16814980d8f36d5c5e98468f05c248273e92",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/anchor/shard_1/output/submission.csv": "12defae445314fe4dcb73be39f310e9c5314aea64c5674b7eb594832ac738c0d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/anchor/shard_2/output/submission.csv": "2daa72dd3165d9440230a95ea75dfbe8b34862fbcf374b43936166b09869bb68",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/anchor/shard_3/output/submission.csv": "a94bd69bb116f8673bc1354f7646af1e811ad79e3a65df0465345bbea9b42d1d",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/candidate/shard_0/output/submission.csv": "ddad5a28d9cdcf59b2cf22dbcc2cac4097a6ab746efee8d79b7d295004318695",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/candidate/shard_1/output/submission.csv": "382506154c004f1b1edce4318907768236081a8ef4e7a5dc13ad2cd875150756",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/candidate/shard_2/output/submission.csv": "be7f5355eccd736afdaac95fc565fba44cce0cd22f74ad988c2da11984c02050",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/candidate/shard_3/output/submission.csv": "919c103f69120323bba183e4c295fd112f6f282bc777cc4fab7b7ef9ba001407"
+  },
+  "no_retuning": true,
+  "automatic_submission_allowed": false,
+  "scope": "synthetic held-source long voice only; NOT music/CPS/natural-call/leaderboard validation"
+}

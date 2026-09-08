@@ -1,0 +1,15 @@
+{
+  "status": "locked_unscored",
+  "registered_role": "locked_eval",
+  "truth_path": "data/eval/codec_mixed_blind_v8/truth.csv",
+  "truth_sha256": "7c299e957541c8bb7431f256e43c2ae9576a968366d62dcd0519e3141abcb342",
+  "reservation_sha256": "6532bf244444d868fef351c1b24d35c70152a1ba0460d0040ea496cafb82301b",
+  "source_validation_status": "PASS",
+  "bank_validation_status": "PASS",
+  "data_partitions_sha256_at_registration": "8b4234a904078de8bcb6c28fb989af380061f93371032c8a35178205c4296b79",
+  "frozen_config_sha256": "60afa13e43fce5ff6ea1e3cef16e0f7477dbebcff0b1e15debd847b51583280e",
+  "authenticity_detector_inference_completed": false,
+  "authenticity_score_computed": false,
+  "score_open_count": 0,
+  "registered_before_authenticity_prediction": true
+}

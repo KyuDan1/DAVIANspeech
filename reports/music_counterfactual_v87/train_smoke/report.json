@@ -1,0 +1,17 @@
+{
+  "status": "complete_smoke",
+  "history": [
+    {
+      "epoch": 1,
+      "losses": {
+        "bce": 0.4747361339395866,
+        "invariant": 0.5072287915390916
+      }
+    }
+  ],
+  "results": [],
+  "seconds": 8.38877565227449,
+  "peak_cuda_mib": 3091.677734375,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

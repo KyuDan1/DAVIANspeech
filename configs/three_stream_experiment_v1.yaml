@@ -1,0 +1,95 @@
+# Frozen before any detector score on codec_mixed_dev_v4 was read.
+schema_version: three_stream_experiment_v1
+seed: 20260904
+anchor: exact_component_query_or_v47
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+train_all:
+  - forensic_call_train_v1
+  - temporal_mixed_train_v2
+  - temporal_mixed_train_v1
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - channel_invariant_factorial_train_v1
+
+# Development means the complete role in configs/data_partitions.yaml,
+# including the 30/30-validated codec_mixed_dev_v4. Retrospective and locked
+# roles are forbidden to the trainer and are not experiment inputs.
+variants:
+  robust_l1_core:
+    train_set: train_core
+    xlsr: true
+    residual_limits: [1.0, 1.0, 1.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  robust_l2_core:
+    train_set: train_core
+    xlsr: true
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  robust_l2_strong_channel_core:
+    train_set: train_core
+    xlsr: true
+    residual_limits: [2.0, 2.0, 2.0]
+    ranking_weight: 0.15
+    logit_consistency_weight: 0.10
+    latent_consistency_weight: 0.02
+    group_dro_weight: 0.30
+  robust_l1_all:
+    train_set: train_all
+    xlsr: true
+    residual_limits: [1.0, 1.0, 1.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  robust_l1_no_xlsr_core:
+    train_set: train_core
+    xlsr: false
+    residual_limits: [1.0, 1.0, 1.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+
+fixed_training:
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  group_dro_temperature: 0.10
+
+decision_rule:
+  primary: highest_selection_formula
+  constraints:
+    - pooled_development_ads_must_not_regress_from_anchor
+    - codec_mixed_dev_v4_ads_must_improve_from_anchor
+    - clean_and_g722_codec_mixed_dev_v4_ads_must_not_regress_by_more_than_0.01
+  next_stage: >-
+    After choosing one configuration, train two additional seeds and accept a
+    low-weight ensemble only if every development constraint remains satisfied.

@@ -1,0 +1,13 @@
+{
+  "selected": {
+    "ALPHA": 0.003,
+    "SEED": 20260902,
+    "SELECTION": 0.999809375,
+    "pure_source_disjoint": 1.0,
+    "mixed_source_disjoint": 0.9997458333333333
+  },
+  "train_rows": 7200,
+  "train_positive": 5304,
+  "train_negative": 1896,
+  "protocol": "phone-factorial is excluded from fitting and selection"
+}

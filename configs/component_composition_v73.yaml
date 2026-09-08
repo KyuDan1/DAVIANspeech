@@ -1,0 +1,18 @@
+# Frozen before evaluating either composed output. Development-only diagnostics.
+schema: component_composition_v73
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+predictions:
+  xlsr: reports/common_encoder_probe/xlsr_file_local_mean/development_predictions.csv
+  eat: reports/common_eat_adaptation/full_file_local/development_predictions.csv
+  spear: reports/common_encoder_probe/spear_independent_file_local_mean/development_predictions.csv
+variants:
+  xlsr_voice_eat_music: xlsr
+  equal_voice_pair_eat_music: equal_xlsr_spear_logits
+music_source: eat
+presence_source: eat
+file_rule: noisy_or_of_presence_weighted_components
+voice_pair_weights: [0.5, 0.5]
+probability_clip_for_logit: 0.000001
+weight_or_temperature_search: false
+no_automatic_submission: true

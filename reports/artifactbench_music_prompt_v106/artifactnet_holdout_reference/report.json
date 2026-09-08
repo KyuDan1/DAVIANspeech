@@ -1,0 +1,64 @@
+{
+  "rows": 1800,
+  "views": 3,
+  "manifest_sha256": "40bfe326fb40a2faaa08e87d999458b3796c8dd96889dcce119ce2de8fe74bae",
+  "model_sha256": "a923b53899fbb01fcf4436cc5e1837628516de6044c9f238b31b4b02ed601a19",
+  "all_fake_mean": 0.8484637030627993,
+  "all_fake_fraction_above_0_5": 0.795,
+  "by_source": {
+    "sonics_chirp-v2-xxl-alpha": {
+      "rows": 200,
+      "mean": 0.9001578119397163,
+      "p10": 0.5,
+      "fraction_above_0_5": 0.805
+    },
+    "sonics_chirp-v3": {
+      "rows": 200,
+      "mean": 0.9995590153336525,
+      "p10": 0.9996341705322266,
+      "fraction_above_0_5": 1.0
+    },
+    "sonics_chirp-v3.5": {
+      "rows": 200,
+      "mean": 0.9859985852241516,
+      "p10": 0.9962852418422699,
+      "fraction_above_0_5": 0.99
+    },
+    "sonics_udio-120s": {
+      "rows": 200,
+      "mean": 0.8173051735758782,
+      "p10": 0.5,
+      "fraction_above_0_5": 0.675
+    },
+    "sonics_udio-30s": {
+      "rows": 200,
+      "mean": 0.8763805484771728,
+      "p10": 0.49952570199966434,
+      "fraction_above_0_5": 0.855
+    },
+    "suno_cdn_latest": {
+      "rows": 200,
+      "mean": 0.8270341527462005,
+      "p10": 0.5,
+      "fraction_above_0_5": 0.82
+    },
+    "suno_extra": {
+      "rows": 200,
+      "mean": 0.9018834027647972,
+      "p10": 0.5351866006851197,
+      "fraction_above_0_5": 0.91
+    },
+    "udio_cdn_latest": {
+      "rows": 200,
+      "mean": 0.6972537901997566,
+      "p10": 0.11307682394981387,
+      "fraction_above_0_5": 0.6
+    },
+    "udio_extra": {
+      "rows": 200,
+      "mean": 0.6306008473038673,
+      "p10": 0.12277926206588748,
+      "fraction_above_0_5": 0.5
+    }
+  }
+}

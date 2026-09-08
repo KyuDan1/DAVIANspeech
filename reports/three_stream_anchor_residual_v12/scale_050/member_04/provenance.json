@@ -1,0 +1,8 @@
+{
+  "method": "anchor_reconstructed_residual_scale",
+  "scale": 0.5,
+  "component_weight": 0.3,
+  "input": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v2/matrix_v2/disentangle_l2/dev_predictions.csv",
+  "input_sha256": "cc6217ac72585aa475698feebab45fa956c841e40406a1264f77b54226c59903",
+  "output_sha256": "fd02855b77798f9df7cfc0c411ea558e65ae513cd18dd271f666fb4b8f7fbc52"
+}

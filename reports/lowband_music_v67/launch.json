@@ -1,0 +1,37 @@
+{
+  "config": "/home/nas_main/kyudanjung/DAVIANspeech/configs/lowband_music_v67.yaml",
+  "config_sha256": "10b43d36cf8367c28aaf7e19929edc295566c2c89a066c14ab244bd114ca2e33",
+  "python": "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+  "runs": [
+    {
+      "name": "magnitude",
+      "gpu": "2",
+      "pid": 2213562,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_lowband_music_v67.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/lowband_music_v67.yaml",
+        "--variant",
+        "magnitude",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/lowband_music_v67/magnitude"
+      ]
+    },
+    {
+      "name": "magnitude_phase",
+      "gpu": "4",
+      "pid": 2213563,
+      "command": [
+        "/home/nas_main/kyudanjung/conda_envs/envs/davianspeech/bin/python",
+        "/home/nas_main/kyudanjung/DAVIANspeech/scripts/train_lowband_music_v67.py",
+        "--config",
+        "/home/nas_main/kyudanjung/DAVIANspeech/configs/lowband_music_v67.yaml",
+        "--variant",
+        "magnitude_phase",
+        "--output",
+        "/home/nas_main/kyudanjung/DAVIANspeech/reports/lowband_music_v67/magnitude_phase"
+      ]
+    }
+  ]
+}

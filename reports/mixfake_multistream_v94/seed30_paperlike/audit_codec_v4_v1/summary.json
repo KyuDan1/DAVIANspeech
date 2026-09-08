@@ -1,0 +1,44 @@
+{
+  "task": "music",
+  "rows": 600,
+  "views": 1,
+  "checkpoint": "reports/mixfake_multistream_v94/seed30_paperlike/multistream_prompt.pt",
+  "checkpoint_sha256": "88d89363a1f90c15afc18a370011b89499dccc5f437cc15171917705bdf1e079",
+  "manifest": "data/eval/codec_mixed_dev_v4/truth.csv",
+  "manifest_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.39,
+      "task_eer": {
+        "music": 0.39
+      },
+      "ads": null,
+      "subgroup_eer": {
+        "voice_real": 0.4066666666666666,
+        "voice_fake": 0.38
+      },
+      "manifest_channel_eer": {
+        "clean": 0.3833333333333333,
+        "g711_ulaw": 0.25,
+        "g722_wb": 0.3916666666666667,
+        "opus_nb_8k": 0.4083333333333333,
+        "transcode_g711_opus": 0.3833333333333333
+      },
+      "layout_eer": {
+        "concurrent": 0.37,
+        "partial_overlap": 0.43000000000000005,
+        "sequential": 0.37
+      },
+      "mean_score_by_case": {
+        "RR": 0.3784186840057373,
+        "RF": 0.5434034466743469,
+        "FR": 0.35591810941696167,
+        "FF": 0.534589946269989
+      }
+    }
+  ],
+  "mean_eer": 0.39,
+  "worst_eer": 0.39,
+  "locked_scores_read": false
+}

@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "checks": {
+    "registered_once_locked_eval": true,
+    "all_other_registered_exact_identity_overlap_zero": true,
+    "all_other_registered_canonical_music_overlap_zero": true,
+    "all_other_registered_voice_speaker_overlap_zero": true,
+    "49_preexisting_manifests_checked": true,
+    "48_unique_voice_sources": true,
+    "48_unique_music_sources": true,
+    "48_unique_music_groups": true,
+    "240_unique_rendered_ids": true,
+    "cmbv6_id_prefix": true,
+    "balanced_12_recipe_cells": true,
+    "five_paired_channels": true,
+    "three_fake_generators_8_each": true,
+    "24_acoustic_sources_all_pass": true,
+    "frozen_acoustic_thresholds": true,
+    "240_audio_files_exact_ids": true,
+    "audio_16khz_mono_4_to_60s": true,
+    "240_audio_hashes_match": true,
+    "96_selected_source_hashes_match": true,
+    "truth_hash_matches_provenance": true,
+    "unscored_provenance": true,
+    "archive_67_volumes_all_hashes_pass": true
+  },
+  "checks_passed": 22,
+  "checks_total": 22,
+  "preexisting_registered_manifests": 49,
+  "truth_sha256": "c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a",
+  "reservation_sha256": "c0c85b4ac831ca27fbefd27aa3450b4bc1adf116039b6ca7f9248c76845cc56d",
+  "audio_duration_seconds": {
+    "min": 8.0,
+    "max": 18.0
+  },
+  "authenticity_detector_scores_read": false
+}

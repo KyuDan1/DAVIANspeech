@@ -1,0 +1,142 @@
+[
+  {
+    "epoch": 0,
+    "train_loss": null,
+    "pooled_eer": 0.2548699832343034,
+    "macro_domain_eer": 0.26188251563251563,
+    "worst_domain_eer": 0.3866666666666667,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.3866666666666667,
+      "echoes_fma_paired_v3": 0.2883116883116883,
+      "external_mixed_v1": 0.17750000000000002,
+      "external_mixed_v1_telephone_v1": 0.3075,
+      "factorial_eval_1200_v2": 0.32571428571428573,
+      "mixfake_music_dev_v1": 0.21125000000000002,
+      "source_disjoint_mixed_v1": 0.17500000000000002,
+      "source_disjoint_mixed_v1_telephone_v1": 0.38,
+      "source_disjoint_music_v1": 0.10499999999999998
+    },
+    "selection": 0.7166669203597602,
+    "seconds": 12.276856627315283
+  },
+  {
+    "epoch": 1,
+    "train_loss": 0.3428599667386152,
+    "pooled_eer": 0.2682468500979284,
+    "macro_domain_eer": 0.2650093193843194,
+    "worst_domain_eer": 0.40166666666666667,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.40166666666666667,
+      "echoes_fma_paired_v3": 0.27029220779220775,
+      "external_mixed_v1": 0.21499999999999997,
+      "external_mixed_v1_telephone_v1": 0.30000000000000004,
+      "factorial_eval_1200_v2": 0.31999999999999995,
+      "mixfake_music_dev_v1": 0.213125,
+      "source_disjoint_mixed_v1": 0.18000000000000002,
+      "source_disjoint_mixed_v1_telephone_v1": 0.33999999999999997,
+      "source_disjoint_music_v1": 0.14500000000000002
+    },
+    "selection": 0.7060404458024067,
+    "seconds": 39.32851851731539
+  },
+  {
+    "epoch": 2,
+    "train_loss": 0.29688427079236135,
+    "pooled_eer": 0.24876790856196151,
+    "macro_domain_eer": 0.2655050505050505,
+    "worst_domain_eer": 0.39,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.39,
+      "echoes_fma_paired_v3": 0.30633116883116884,
+      "external_mixed_v1": 0.18500000000000003,
+      "external_mixed_v1_telephone_v1": 0.275,
+      "factorial_eval_1200_v2": 0.32571428571428573,
+      "mixfake_music_dev_v1": 0.19999999999999998,
+      "source_disjoint_mixed_v1": 0.18000000000000002,
+      "source_disjoint_mixed_v1_telephone_v1": 0.35,
+      "source_disjoint_music_v1": 0.17750000000000002
+    },
+    "selection": 0.7179645305675041,
+    "seconds": 62.99106458295137
+  },
+  {
+    "epoch": 3,
+    "train_loss": 0.28582566714612767,
+    "pooled_eer": 0.25416564772649664,
+    "macro_domain_eer": 0.26283970658970657,
+    "worst_domain_eer": 0.36833333333333335,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.36833333333333335,
+      "echoes_fma_paired_v3": 0.30633116883116884,
+      "external_mixed_v1": 0.20499999999999996,
+      "external_mixed_v1_telephone_v1": 0.2975,
+      "factorial_eval_1200_v2": 0.3371428571428572,
+      "mixfake_music_dev_v1": 0.19625000000000004,
+      "source_disjoint_mixed_v1": 0.21999999999999997,
+      "source_disjoint_mixed_v1_telephone_v1": 0.30000000000000004,
+      "source_disjoint_music_v1": 0.135
+    },
+    "selection": 0.720398597493173,
+    "seconds": 89.38630067091435
+  },
+  {
+    "epoch": 4,
+    "train_loss": 0.27500474033877254,
+    "pooled_eer": 0.2555737679636398,
+    "macro_domain_eer": 0.26874939874939874,
+    "worst_domain_eer": 0.4066666666666666,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.4066666666666666,
+      "echoes_fma_paired_v3": 0.27029220779220775,
+      "external_mixed_v1": 0.19499999999999998,
+      "external_mixed_v1_telephone_v1": 0.29500000000000004,
+      "factorial_eval_1200_v2": 0.3142857142857143,
+      "mixfake_music_dev_v1": 0.1975,
+      "source_disjoint_mixed_v1": 0.24,
+      "source_disjoint_mixed_v1_telephone_v1": 0.37,
+      "source_disjoint_music_v1": 0.13
+    },
+    "selection": 0.7102549630600272,
+    "seconds": 116.86227575223893
+  },
+  {
+    "epoch": 5,
+    "train_loss": 0.2510923327790806,
+    "pooled_eer": 0.24806401367693098,
+    "macro_domain_eer": 0.259464886964887,
+    "worst_domain_eer": 0.3733333333333333,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.3733333333333333,
+      "echoes_fma_paired_v3": 0.3332792207792208,
+      "external_mixed_v1": 0.19499999999999998,
+      "external_mixed_v1_telephone_v1": 0.2475,
+      "factorial_eval_1200_v2": 0.3085714285714286,
+      "mixfake_music_dev_v1": 0.2025,
+      "source_disjoint_mixed_v1": 0.22999999999999998,
+      "source_disjoint_mixed_v1_telephone_v1": 0.32999999999999996,
+      "source_disjoint_music_v1": 0.11499999999999999
+    },
+    "selection": 0.7234618604054017,
+    "seconds": 137.00550231710076
+  },
+  {
+    "epoch": 6,
+    "train_loss": 0.2355406429269351,
+    "pooled_eer": 0.2520535224486289,
+    "macro_domain_eer": 0.2665680615680615,
+    "worst_domain_eer": 0.37,
+    "domain_eers": {
+      "codec_mixed_dev_v4": 0.3533333333333334,
+      "echoes_fma_paired_v3": 0.3332792207792208,
+      "external_mixed_v1": 0.19499999999999998,
+      "external_mixed_v1_telephone_v1": 0.27,
+      "factorial_eval_1200_v2": 0.31999999999999995,
+      "mixfake_music_dev_v1": 0.185,
+      "source_disjoint_mixed_v1": 0.22499999999999998,
+      "source_disjoint_mixed_v1_telephone_v1": 0.37,
+      "source_disjoint_music_v1": 0.14750000000000002
+    },
+    "selection": 0.7200028203052671,
+    "seconds": 162.21286401338875
+  }
+]

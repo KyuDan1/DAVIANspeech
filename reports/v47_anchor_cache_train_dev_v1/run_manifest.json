@@ -1,0 +1,687 @@
+{
+  "allowed_roles": [
+    "development",
+    "train"
+  ],
+  "cache_pass": "one opt-in post-prediction original-mixture XLS-R pass",
+  "current_pipeline": "/home/nas_main/kyudanjung/DAVIANspeech/src/pipeline.py",
+  "current_pipeline_sha256": "4a6f17c130ec74de813346290c85b5b12f3344921a17f1ede3b13eebe7c0d193",
+  "dataset_map_sha256": "ad7d1d68b7b8c3a366c6a081aeb61b4429704ed3489779e5e921382ed1aa7cf5",
+  "datasets": [
+    {
+      "ids_sha256": "ba06d446918000cd24dd3b88b4ab899e51b4fed6bfb241bf97073138c07f74c4",
+      "key": "forensic_call_train_v1",
+      "role": "train",
+      "rows": 384,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/forensic_call_train_v1/truth_train.csv",
+      "truth_sha256": "37228340ff587003bea23a7ced9928fc7d06a1b7537c5bdb673b4bd2a119e3fe"
+    },
+    {
+      "ids_sha256": "c768db8fa46f52fcb7502089f1d89700523afdfcb40430892c081298dd80d32f",
+      "key": "temporal_mixed_train_v2",
+      "role": "train",
+      "rows": 2560,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v2/truth_train.csv",
+      "truth_sha256": "f9e812a0d7e4d9cae889449d3b630f4585a1ecfd4037a4942ce200c16149c68d"
+    },
+    {
+      "ids_sha256": "c768db8fa46f52fcb7502089f1d89700523afdfcb40430892c081298dd80d32f",
+      "key": "temporal_mixed_train_v1",
+      "role": "train",
+      "rows": 2560,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/temporal_mixed_train_v1/truth_train.csv",
+      "truth_sha256": "2c5c0876c7665d7cb7a8d8ac187b7ea12d806fbdbf496ee2698785b04245c1c9"
+    },
+    {
+      "ids_sha256": "fdc3a8ae170b208e11531a97adb5aa3ce15270e1c3ffcc5c71787ac6ce8a64dc",
+      "key": "external_mixed_train_v1",
+      "role": "train",
+      "rows": 800,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_train_v1/truth.csv",
+      "truth_sha256": "e68436b27d92dce2e6ec7a287ee31be14d42f083fdd01f3ea21cec533d923090"
+    },
+    {
+      "ids_sha256": "0d6c6bbe111bf82eb81e38dee4cd325d73688f7bb9b8f595b038856571ff46ae",
+      "key": "mixed_devvoice_train_v1",
+      "role": "train",
+      "rows": 800,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_devvoice_train_v1/truth.csv",
+      "truth_sha256": "edbb002ac3c153a12447797afaf0d44954d2a159022012da08cca365aef2b566"
+    },
+    {
+      "ids_sha256": "e068fd83c43aab8e5d32b425e6e1cddd31185ff082c8d8bd1bb8ffe040f4bd03",
+      "key": "mixed_fmc_music_train_v1",
+      "role": "train",
+      "rows": 800,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixed_fmc_music_train_v1/truth.csv",
+      "truth_sha256": "c70b7e0b73cdad037bbf1e81176adaa849bdeb69b86be383110ab80f55b14a60"
+    },
+    {
+      "ids_sha256": "ae6a07e320e04a874ece35de9a224f0d721087d45205701b49e5b44ed7921f09",
+      "key": "mixfake_music_train_v1",
+      "role": "train",
+      "rows": 8000,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_train_v1/truth.csv",
+      "truth_sha256": "0ca558fded2c8d8985a0c61d7c5cccee80d2ba0018f86d9d31db05020a9d2822"
+    },
+    {
+      "ids_sha256": "a47b577a0cd7d4be0cca11e6066a3b1db712ad024db3e4996029f292d114c6f9",
+      "key": "telephone_mixed_train_v1",
+      "role": "train",
+      "rows": 2400,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/telephone_mixed_train_v1/truth.csv",
+      "truth_sha256": "858b67ad005f61fdcfd2e3477a8b9804e9eed0a8c68985c18c1b866c28dae8a2"
+    },
+    {
+      "ids_sha256": "6253d0b35ef5fe81b8d696023a397f739bc689a9e0b5595750b3675d2abbe242",
+      "key": "channel_invariant_factorial_train_v1",
+      "role": "train",
+      "rows": 3000,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/channel_invariant_factorial_train_v1/truth.csv",
+      "truth_sha256": "c1638c1c34832d6459b5098b7a181edc8e488c7237fde9439a71ee8ad948644d"
+    },
+    {
+      "ids_sha256": "e2f11bcb04fa0c4f6a7b1b6ebb965a86af2f365c593f84c735f8f5855369940d",
+      "key": "mixfake_music_dev_v1",
+      "role": "development",
+      "rows": 1600,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/mixfake_music_dev_v1/truth.csv",
+      "truth_sha256": "573ce51bcf538642aefe91e707df77f0821c2c330f451eae3b8ecc717c34dfc1"
+    },
+    {
+      "ids_sha256": "5c70ce055e2509d953ec7593bb69bf811997f813d1726fb4e32db4b6bc1d9b02",
+      "key": "factorial_eval_1200_v2",
+      "role": "development",
+      "rows": 400,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/factorial_eval_1200_v2/truth_dev.csv",
+      "truth_sha256": "5c37cf92eeb7ee9ab5c6d56f2e1c4a01094a8e8792e82f2f8735d564a445cf87"
+    },
+    {
+      "ids_sha256": "98326d51908bf2d5bd1a55292903b3381affbf55fba2c27e4092d6fa3e984ae7",
+      "key": "external_mixed_v1",
+      "role": "development",
+      "rows": 400,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1/truth.csv",
+      "truth_sha256": "fd3d366121f7fdd45453b76c0525dc9b6c937ba5c60491f53ca289cb5f19a264"
+    },
+    {
+      "ids_sha256": "d154a52d725a4584e726c35115290af4f874028cfe5ab2c2a6efd82a20670651",
+      "key": "source_disjoint_mixed_v1",
+      "role": "development",
+      "rows": 200,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1/truth.csv",
+      "truth_sha256": "0fa827ea96058cbf3e560b5530551901271f9ed1e33665228ac1e1d355da15c9"
+    },
+    {
+      "ids_sha256": "b3de0d327abb519906a1ec74ee21df6b58fa70cd4708b32e1a8ff53674551fd7",
+      "key": "source_disjoint_mixed_equal_v1",
+      "role": "development",
+      "rows": 200,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_equal_v1/truth.csv",
+      "truth_sha256": "80319abef8354949981c20e2e9788d92c6f8cc79cca5306c6c88fe1a7afdfa47"
+    },
+    {
+      "ids_sha256": "40110c5369806a9f2161ce251e2ce7aad78c63f65d3d1f64788ea7aaa45be48a",
+      "key": "source_disjoint_music_v1",
+      "role": "development",
+      "rows": 400,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_music_v1/truth.csv",
+      "truth_sha256": "c8f993d7cec793fda7614b61db35b1a347329f282c8f88a6cb6af7b8d53260a0"
+    },
+    {
+      "ids_sha256": "40bb0a524600902bf69b2853113a4c96f551e893906a142b3efe4092de9777f3",
+      "key": "asvspoof_voice_wav_dev_v1",
+      "role": "development",
+      "rows": 176,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/asvspoof_voice_wav_dev_v1/truth.csv",
+      "truth_sha256": "7b67fc354ea5a20508319284f1ebbf296c8e8641fea1f10345e5ca56c731b3cf"
+    },
+    {
+      "ids_sha256": "660e063c86759b495d200c7680edf50b473cc80b076951a62fd82d06b409f2d6",
+      "key": "external_mixed_v1_telephone_v1",
+      "role": "development",
+      "rows": 400,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/external_mixed_v1_telephone_v1/truth.csv",
+      "truth_sha256": "db022924235f4e6683bab72063dcfcec9623dc18008a4ab371389714aa5cb3a9"
+    },
+    {
+      "ids_sha256": "0fa059a17170bf54e3ef3ce626a0590faf6d46c72af2e12eb5fb270362982fdf",
+      "key": "source_disjoint_mixed_v1_telephone_v1",
+      "role": "development",
+      "rows": 200,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/source_disjoint_mixed_v1_telephone_v1/truth.csv",
+      "truth_sha256": "e6550ead73ec783f64012f83b1d6da527557792cf9b41ce45a8485a70c41bd52"
+    },
+    {
+      "ids_sha256": "96bd69f583ff6752f4aed581197d680b9c66bbedfae762a1ea9f0f0519ce8a4c",
+      "key": "telephone_mixed_dev_v1",
+      "role": "development",
+      "rows": 600,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/telephone_mixed_dev_v1/truth.csv",
+      "truth_sha256": "2608398b9bf6fcd29f4054073f4fd1b08c93ea662bfd2ec8870da0976a289e9a"
+    },
+    {
+      "ids_sha256": "933b2cf91bb2e7cc263cdf28d37ae728bbe06717c4417ce5b4390a921b439fbc",
+      "key": "multigen_voice_v2",
+      "role": "development",
+      "rows": 90,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/multigen_voice_v2/truth_dev.csv",
+      "truth_sha256": "e03157a88ecb74192087b4cc3a602d65d4e2ffeb5d34f56e5d5b1db5a16ed17b"
+    },
+    {
+      "ids_sha256": "5c9cea3a85ef154f568523e97867043f01843dd483b5b3f7ec9ded87e570f962",
+      "key": "echoes_fma_paired_v3",
+      "role": "development",
+      "rows": 111,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/echoes_fma_paired_v3/truth_dev.csv",
+      "truth_sha256": "368d2443c61805158936bfc20e1fb2b980af3b64f3c2cedec3b774753ef22309"
+    },
+    {
+      "ids_sha256": "a22d8184133dfd1ba9106c8354fee885f9c4bb10e70323bc61ae103a1352842c",
+      "key": "codec_mixed_dev_v4",
+      "role": "development",
+      "rows": 600,
+      "truth_path": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/codec_mixed_dev_v4/truth.csv",
+      "truth_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b"
+    }
+  ],
+  "entrypoint_overlay_sha256": "dfe0af1e6645d786d50755f2ddf632fe33b5eb1e69975e949d2a2663f9da321e",
+  "forbidden_roles": [
+    "invalid_eval",
+    "locked_eval",
+    "ood_holdout",
+    "retrospective_diagnostic",
+    "stress_eval"
+  ],
+  "num_shards": 4,
+  "overlay_sha256": "5d714f1fd9ce83bdaf3a5518645bba0757822f018ddb8ca9f61f5b47ee619d69",
+  "package_dir": "/home/nas_main/kyudanjung/DAVIANspeech/component_query_or_v47",
+  "package_model_inventory": [
+    {
+      "path": "artifactnet/.gitattributes",
+      "sha256": "24bf08d398b9f863039bcd7f3bea027e6a23a623b8699b3f862ef43e468c6671",
+      "size": 1586
+    },
+    {
+      "path": "artifactnet/README.md",
+      "sha256": "6301ad78defc542b04162a32d831c27274d91568d54adcb85e35497dfc009d3f",
+      "size": 4646
+    },
+    {
+      "path": "artifactnet/artifactnet_v94_full.onnx",
+      "sha256": "a923b53899fbb01fcf4436cc5e1837628516de6044c9f238b31b4b02ed601a19",
+      "size": 226020
+    },
+    {
+      "path": "artifactnet/artifactnet_v94_full.onnx.data",
+      "sha256": "d3f291b4f531e22e5c17dff8b3888050033d301c7b7f3cb24bf4741cdaabbc05",
+      "size": 16973824
+    },
+    {
+      "path": "channel-invariant/dual_domain_head.pt",
+      "sha256": "8b689e2103716ddd23d56a9f345317dad63ffe2209a91e886aa495fea115bd4c",
+      "size": 3163957
+    },
+    {
+      "path": "component-query/head.pt",
+      "sha256": "287fc1308bdc41dc1f2744100504652740ad18463edb4633390f0b9d264ba831",
+      "size": 3615033
+    },
+    {
+      "path": "eat/.cache/huggingface/.gitignore",
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "size": 1
+    },
+    {
+      "path": "eat/.cache/huggingface/CACHEDIR.TAG",
+      "sha256": "f6572428f6d5e1575e73a1502895a8731f10757dfbb634909c6e154b849af91d",
+      "size": 191
+    },
+    {
+      "path": "eat/.cache/huggingface/download/.gitattributes.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/.gitattributes.metadata",
+      "sha256": "f1864742c8409a496beebd85448d3a6bb5bcf8c8781187aa0c01c1a6beca39c9",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/README.md.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/README.md.metadata",
+      "sha256": "887bb40bafb3f0685f05efd4ddce8161d6172f5a3fa5760bf179e6eccf901c7f",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/config.json.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/config.json.metadata",
+      "sha256": "45f23ff409e3d07847cf4c688f0b635ad4bde42b253cee9760ecc0f83bf2d375",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/configuration_eat.py.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/configuration_eat.py.metadata",
+      "sha256": "c963a483bf45317ef560f1ba41d2de538d6b3e3ef68fcd450a1bd85c6cd26ddb",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/eat_model.py.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/eat_model.py.metadata",
+      "sha256": "0a4f2fa76b2aa7091a9f619b8b90800642186baa0990b112c721fe6aea265a12",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/model.safetensors.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/model.safetensors.metadata",
+      "sha256": "1e74e3fcf11b0b2ee3ef661ae22345670d48c07240090dbceb93d27201dff8e6",
+      "size": 125
+    },
+    {
+      "path": "eat/.cache/huggingface/download/model_core.py.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/model_core.py.metadata",
+      "sha256": "05b68f5a91e763a819375bce3033ece30b2822b773b2ce38252dd70aa16561a7",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/download/modeling_eat.py.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "eat/.cache/huggingface/download/modeling_eat.py.metadata",
+      "sha256": "2b0141dcce7c71f0798f7c17b8be434747ed7685c9727ef6786bba751388624b",
+      "size": 101
+    },
+    {
+      "path": "eat/.cache/huggingface/trees/60d61e8b2e9e5ba3be6860285de80cb7d625ccbb.json",
+      "sha256": "0498fccdc669ebbb1e55f26472ecee1a41d405e7f20f573010d0ae3868526cfb",
+      "size": 1043
+    },
+    {
+      "path": "eat/config.json",
+      "sha256": "1ef430641081c2dc8bb558aece34f278083b69b3701ac4dde36765f539781be9",
+      "size": 779
+    },
+    {
+      "path": "eat/configuration_eat.py",
+      "sha256": "761f19555f0d53aa7725ffb83a6e4eec652af97244134ea5147edca71be9b9e5",
+      "size": 1768
+    },
+    {
+      "path": "eat/eat_model.py",
+      "sha256": "9a836c65a7e02e7b3df80cca93324ff96d50b3c380a777c393803671e17faf37",
+      "size": 3670
+    },
+    {
+      "path": "eat/model.safetensors",
+      "sha256": "5fa59385650eeb7b6c74414461306e055d943523cd7206c181e2d329969fff1b",
+      "size": 361533396
+    },
+    {
+      "path": "eat/model_core.py",
+      "sha256": "f0157ab1d7f59e07db6da9d7845099dac7b818e1ea69322936da83364d8a2768",
+      "size": 6928
+    },
+    {
+      "path": "eat/modeling_eat.py",
+      "sha256": "828987c753963b7419447e115cdcbacf5231f7405fac309762ea41fd50539a6e",
+      "size": 651
+    },
+    {
+      "path": "eat-patch-graph/head.pt",
+      "sha256": "577e0f101c0ac13c5562780b2c451b186e0798f1c0d82e5f165c9119404f58d6",
+      "size": 1916503
+    },
+    {
+      "path": "eat-presence-head-v1.npz",
+      "sha256": "f962535046e1377c872d484cc44187c1912c846a6b7af8cbfec4c31429e066b6",
+      "size": 91215
+    },
+    {
+      "path": "htdemucs/955717e8-8726e21a.th",
+      "sha256": "8726e21a993978c7ba086d3872e7608d7d5bfca646ca4aca459ffda844faa8b4",
+      "size": 84141911
+    },
+    {
+      "path": "htdemucs/htdemucs.yaml",
+      "sha256": "239c445d0b14454d541ad8bd9bb271c9e536d267e8a4625208744cbb2e7bb66c",
+      "size": 21
+    },
+    {
+      "path": "modern-fakeprint/LICENSE",
+      "sha256": "2a7f7ac65322b9d24d21a783c31020201013f9ad3f76543a64387833af0fe261",
+      "size": 1071
+    },
+    {
+      "path": "modern-fakeprint/weights.npz",
+      "sha256": "d0bc3877a5d575bbe46a97794a72e463fd772258c395a2cbf3d4117aec72a29c",
+      "size": 15106
+    },
+    {
+      "path": "panns/Cnn14_mAP=0.431.pth",
+      "sha256": "0dc499e40e9761ef5ea061ffc77697697f277f6a960894903df3ada000e34b31",
+      "size": 327428481
+    },
+    {
+      "path": "panns/class_labels_indices.csv",
+      "sha256": "cdd1049833c4b86127c2773ac0d14a2754b6a6d0d1798002ed5c66e699708429",
+      "size": 14675
+    },
+    {
+      "path": "panns/component_labels.json",
+      "sha256": "e68f1106c4b4424123f9aa4c5460e61ff6e5cc1282aaf310dd0276b21b67109e",
+      "size": 1038
+    },
+    {
+      "path": "phone-voice-presence-head.npz",
+      "sha256": "92052388947b479354e9fdc2d937d8d4a3452e494e70bae8f2985534e0de0fe5",
+      "size": 68059
+    },
+    {
+      "path": "sofia-mert/mert/config.json",
+      "sha256": "ea2627c4c7825cd66f3c944b6b966331604c35928174e0100cd4a82829424e32",
+      "size": 1817
+    },
+    {
+      "path": "sofia-mert/mert/configuration_MERT.py",
+      "sha256": "ae0ec2bab8f59c724ba9878a7c20b67210189536ea62d34a56775968e9decb03",
+      "size": 5340
+    },
+    {
+      "path": "sofia-mert/mert/modeling_MERT.py",
+      "sha256": "6c3ee73cef6f0c30ef494f88d96f891fa6925ffe663fa391b512f4b57abecc6c",
+      "size": 18033
+    },
+    {
+      "path": "sofia-mert/mert/preprocessor_config.json",
+      "sha256": "cc5a5e4a5d3b1a758a5ed984b2eaa15bb0522d811d44a9eed82bfca4baa0dc8f",
+      "size": 211
+    },
+    {
+      "path": "sofia-mert/mert/pytorch_model.bin",
+      "sha256": "a2b8b747f72c06e0595aeae41ae5473f4364938c6b39b2c58be38c48e6bd3fcd",
+      "size": 377552987
+    },
+    {
+      "path": "sofia-mert/sofia_g1_mert_head.pt",
+      "sha256": "1b692a7d84e834bf2cf3c4e81d22ee65e9a6e6868ae0287264abcfbe97398ec1",
+      "size": 1852613
+    },
+    {
+      "path": "spear/.gitattributes",
+      "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "size": 1519
+    },
+    {
+      "path": "spear/config.json",
+      "sha256": "2db3f5e02610635a9bc5f47b8c215dd8b218e0bc05cfad40d113240bb5f1e76f",
+      "size": 730
+    },
+    {
+      "path": "spear/configuration_spear.py",
+      "sha256": "756fd33eb7a6e247484b07a9101c11511a9e3d1af1ae6db48a69468ba92755bf",
+      "size": 1451
+    },
+    {
+      "path": "spear/model.safetensors",
+      "sha256": "2430597be74dee2271e44f71dbb48f7942423c20313147a5fb85e2af3402e266",
+      "size": 2387980808
+    },
+    {
+      "path": "spear/modeling_spear.py",
+      "sha256": "6aa3c3885d3aef09cd01b1e971346f6bd00f41af10432800fc52fad78fd7a698",
+      "size": 505
+    },
+    {
+      "path": "spear/spear_model.py",
+      "sha256": "67fb98cece56404a3b1addfd5e1c4567f60705d86a8966cb2081e77171f8a23e",
+      "size": 35493
+    },
+    {
+      "path": "spear/spear_modules.py",
+      "sha256": "0aa0c542b0e4139c3861c821348a13f56179c5b6ac64c8645f776becf49a7288",
+      "size": 72759
+    },
+    {
+      "path": "spear/zipformer.py",
+      "sha256": "c5535c4cd2a6acd54fc385af6a1448e7e11d4dd6ffb0dad639e4d26b87976021",
+      "size": 107556
+    },
+    {
+      "path": "spear-cross-component-joint-v1.npz",
+      "sha256": "bca8f2130638efdcce383d3787c6f7309c03271cca354f817ad0ae7665d4af58",
+      "size": 492453
+    },
+    {
+      "path": "spear-mixed-music-head.npz",
+      "sha256": "d3b0c106ebe7aa515780f330068d2c6911bad7798781c8ff1f8c6e9a4b769f24",
+      "size": 5597
+    },
+    {
+      "path": "src/anchor_spear_fusion.py",
+      "sha256": "29a9d71e0bf782908bacfd614b6f50aebd81a9b199ff03c77beb00b7f9a67522",
+      "size": 3092
+    },
+    {
+      "path": "src/anchor_spear_stats_fusion.py",
+      "sha256": "fff57826196d8ea76707f3fd548363366011fddc7caf5c6282fe112952b7d20e",
+      "size": 5380
+    },
+    {
+      "path": "src/artifactnet_detector.py",
+      "sha256": "e06d74e136e3307f361713a4e14a8730d3ea8371af3ccc56f86621db2b0d1996",
+      "size": 1902
+    },
+    {
+      "path": "src/component_query_mhfa.py",
+      "sha256": "60af86572a744d943d528cccdb255a444fbc7e8dd8a6e315a1b9a3528b8f462a",
+      "size": 15648
+    },
+    {
+      "path": "src/component_query_mhfa_inference.py",
+      "sha256": "3896bbf9717c476ea4d8205056f412ada98f72ba8dba804555a827a548e8a39d",
+      "size": 5604
+    },
+    {
+      "path": "src/dual_domain_head.py",
+      "sha256": "dd09e5defc522168e713dc00033dfd432f9d4bc5415ee4c8a19038039c482c73",
+      "size": 7190
+    },
+    {
+      "path": "src/dual_domain_inference.py",
+      "sha256": "48378afdc64c0d8f3d3ef37a4cf62b9e7acc859a43a0c4c8cb81deed8f4d7f0f",
+      "size": 5864
+    },
+    {
+      "path": "src/dual_domain_stats.py",
+      "sha256": "6a211801a40eefe95062af80816c35652fefcf308b9803b8b9c127becce3955a",
+      "size": 6637
+    },
+    {
+      "path": "src/eat_detector.py",
+      "sha256": "97d16d262d3c0bdca00f826e1d19d2d5a82efc39e678d03bc392df4cb31714f5",
+      "size": 3954
+    },
+    {
+      "path": "src/eat_hierarchical.py",
+      "sha256": "6d6263df28dd6d27cbec910b5b357352fd4b7f8e38b317acaef5e83d4eea2a03",
+      "size": 3543
+    },
+    {
+      "path": "src/eat_patch_graph.py",
+      "sha256": "56ee408e241f00a30ccb5e47b52003ef0870661c3efdb987c7378e24123b255f",
+      "size": 15036
+    },
+    {
+      "path": "src/eat_patch_graph_inference.py",
+      "sha256": "c6b61730214b6ddb4be4f7284c660ee309fda921b62dedaca6d96f50446f7e5a",
+      "size": 4781
+    },
+    {
+      "path": "src/eat_presence.py",
+      "sha256": "129cf3378b02ec4960dd31660b6310046232428d65c9cab95cfc364aaeca3eb9",
+      "size": 11493
+    },
+    {
+      "path": "src/eat_presence_fusion.py",
+      "sha256": "5965ffee95669ae442283d8c5c76b0456fb7c54d700b3c4c9258e22aef22e157",
+      "size": 14665
+    },
+    {
+      "path": "src/eat_timm_compat.py",
+      "sha256": "f09fc0d648634d4fe68f73c25f92430e3ea4beff95edcbe54dc573e8eeffb701",
+      "size": 2750
+    },
+    {
+      "path": "src/invariant_dual_domain_head.py",
+      "sha256": "e5d1c2744fc02fe915fe64c5511c5e089f8a5ad4fd46c2de7cefa4c46a890382",
+      "size": 2053
+    },
+    {
+      "path": "src/modern_fakeprint_detector.py",
+      "sha256": "b473290625e03f682a84da6cd3c401b31000631095132318dc8317f777eccf93",
+      "size": 5658
+    },
+    {
+      "path": "src/pipeline.py",
+      "sha256": "5247ae12588f93bf80d6d4c1a1d6e12fe088b9f78dddaf1bd7315b7de967f437",
+      "size": 12919
+    },
+    {
+      "path": "src/presence.py",
+      "sha256": "166bb3c38a34211fe24c688d9d732d72c4d3fad1a951f1b844ccde8aeec1c797",
+      "size": 2849
+    },
+    {
+      "path": "src/separation.py",
+      "sha256": "7a0381faafc4dc58fd67f3f5668633064eded0d53faa0de94efc608d5b6865ec",
+      "size": 7611
+    },
+    {
+      "path": "src/sofia_mert_detector.py",
+      "sha256": "e909392ccfeaefb6a7ed66fa8445e0ffe81028618b092f36de6f5b2815d0b0e2",
+      "size": 9137
+    },
+    {
+      "path": "src/sonics_detector.py",
+      "sha256": "81666d9d81e6d1b276083251cec29e6ba29f4ccfeb2cfea7b92f1784104593b3",
+      "size": 6336
+    },
+    {
+      "path": "src/spear_detector.py",
+      "sha256": "6d6cb86520a29ebf687667a6d7fa0c02bf303d304a38240cf3389b5b7b394947",
+      "size": 10160
+    },
+    {
+      "path": "src/spear_temporal_bins.py",
+      "sha256": "4a672c49f2981ed35d8ff10ae5149c3aef6f1d0ae35291b2d44ca25b7e7f8755",
+      "size": 4014
+    },
+    {
+      "path": "src/telephone_router.py",
+      "sha256": "1b99ae73826c2d7d9b515e43f872c91a8559b0ff0e2a7963c5c91a6d77e72097",
+      "size": 5713
+    },
+    {
+      "path": "src/temporal_dual_domain_head.py",
+      "sha256": "f5d56fb13e4a6ff73ba46e084e53ece2ae1a98ccc318ae0284827235193da62f",
+      "size": 9530
+    },
+    {
+      "path": "src/temporal_dual_domain_inference.py",
+      "sha256": "42d22b7464175ac8261b6b1bda90e1f505d1b598120ee92ad2ef95d702b4505d",
+      "size": 5466
+    },
+    {
+      "path": "src/xlsr_antideepfake.py",
+      "sha256": "c493c19ec732a7cb9a83c47b8e9cc7f67990ed542213dd31a1cbc29d97d69d3e",
+      "size": 8279
+    },
+    {
+      "path": "telephone-router.npz",
+      "sha256": "a8ef1a7d5e82d06e5803e19a6324e95e70e4de8c5cdedf688f275a82cf6c8ad5",
+      "size": 6235
+    },
+    {
+      "path": "temporal-domain-v1/seed_00.pt",
+      "sha256": "c86c875593fe280d91857d1f9bf36d46ec1d999fb3e52f9409ddc6420f1d8676",
+      "size": 3311700
+    },
+    {
+      "path": "temporal-domain-v1/seed_01.pt",
+      "sha256": "d3eb3710c1c67573014eab072437852e37fe25ff45a7abbeabf76360b3f560e2",
+      "size": 3311700
+    },
+    {
+      "path": "temporal-domain-v1/seed_02.pt",
+      "sha256": "0cd193e1ff4cd520383ad8a1f46e7af82b4f518b46e1645f43eea3fd3c292227",
+      "size": 3311700
+    },
+    {
+      "path": "temporal-domain-v2/seed_00.pt",
+      "sha256": "f20260c30d9a8fd72e88e86bf94205ebf90f0f88d43f062bf6a20fa303ab2e71",
+      "size": 3312020
+    },
+    {
+      "path": "temporal-domain-v2/seed_01.pt",
+      "sha256": "21daa84a9886f9580b2025b5045170f8ad5f6a5424d3fd6d5c70445f57b9f7e6",
+      "size": 3312020
+    },
+    {
+      "path": "temporal-domain-v2/seed_02.pt",
+      "sha256": "8b5beb127690c87268d18f3fc7a9b3f023b4e79a4fe9689a79314ddd28aca0ae",
+      "size": 3312020
+    },
+    {
+      "path": "xlsr/model-00001-of-00003.safetensors",
+      "sha256": "2820500be4372136533d77cef5ba5bc046e7a4d0c9cb52fe7fb4ea480a14b88f",
+      "size": 2124635128
+    },
+    {
+      "path": "xlsr/model-00002-of-00003.safetensors",
+      "sha256": "cdc49ba6e43f10a683615b4ba2db9fb7b340f38b60bb296e9355965a6131926e",
+      "size": 2124600608
+    },
+    {
+      "path": "xlsr/model-00003-of-00003.safetensors",
+      "sha256": "4c364b39a129db94dfa87e51979927b45fb7d764b7ad014afaecef72820cba10",
+      "size": 76736548
+    }
+  ],
+  "package_pipeline_sha256": "5247ae12588f93bf80d6d4c1a1d6e12fe088b9f78dddaf1bd7315b7de967f437",
+  "package_script_sha256": "8c4446e7f316ca31e9733bd501de18a57c3dc7c6eb2a2b1c802989631b57a4f9",
+  "partition_config": "/home/nas_main/kyudanjung/DAVIANspeech/configs/data_partitions.yaml",
+  "partition_config_sha256": "5a3da174e5f5f300c4953b3bf443d82cf541d0f2b8375bb1964528afcbba2c9c",
+  "retained_exact_v47_caches": [
+    "eat_patch_graph",
+    "spear_component_bins"
+  ],
+  "rows": 26681,
+  "sample_submission_sha256": "f19d3edd21f0746682c105617afa2788300857a60b38ad792d494983400411b2",
+  "schema_version": 1
+}

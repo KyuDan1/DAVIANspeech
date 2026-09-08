@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "archive": "v108_generator_codec.zip",
+  "archive_sha256": "0add6b804f070ce4307dca5cfe9aa7a49cc0b24f984293f8c75a696a48f00fe6",
+  "rows": 5,
+  "formats": [
+    "wav",
+    "mp3",
+    "flac"
+  ],
+  "stereo_and_60s": true,
+  "crc_verified": true,
+  "network_connections_blocked": true,
+  "input_unchanged": true,
+  "python": "/tmp/davian_grader_v77.o2Sm4v/venv/bin/python",
+  "seconds": 127.55087591521442,
+  "runtime": {
+    "seconds": 114.20609136577696,
+    "peak_cuda_allocated_bytes": 12979987968,
+    "peak_cuda_reserved_bytes": 14889779200,
+    "max_rss_kib": 14551932
+  },
+  "limitation": "B200 with 6 CPU affinity; full L4 1200-file runtime not measured"
+}

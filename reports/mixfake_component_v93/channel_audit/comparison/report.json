@@ -1,0 +1,5267 @@
+{
+  "schema": "mixfake_component_readout_v93_development_comparison",
+  "channels": [
+    "clean",
+    "paired_fast",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "checkpoints": [
+    {
+      "name": "seed24_overall",
+      "path": "reports/mixfake_component_v93/seed24_overall/component_readout.pt",
+      "sha256": "4cc256319d58d7d3f97c40188212f8c5d4dc99ea4ec1ab5c76b1164355ebfcf0"
+    },
+    {
+      "name": "seed25_music",
+      "path": "reports/mixfake_component_v93/seed25_music/component_readout.pt",
+      "sha256": "f9820011e5187b8f393ce46a1a680aa650fb6c8498a0f57df25fd35f49e29ee7"
+    },
+    {
+      "name": "seed26_background",
+      "path": "reports/mixfake_component_v93/seed26_background/component_readout.pt",
+      "sha256": "3f64e135f4ec1cad38e0e6fd491001a9244e9592681bf606d8361f45f6353860"
+    }
+  ],
+  "locked_scores_read": false,
+  "families": {
+    "seed24_overall": {
+      "selected_task_weights": {
+        "voice": 0.8500000000000001,
+        "music": 0.75,
+        "file": 0.5
+      },
+      "development_ads_objective": 0.758295138888889,
+      "mean_ads": 0.7892361111111111,
+      "worst_ads": 0.7008333333333334,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.03749999999999999,
+          "music_eer": 0.17500000000000002,
+          "file_eer": 0.10208333333333332,
+          "ads": 0.8889583333333333,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6792199405906187,
+              "file_mean": 0.993420458912599
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.2902791533502538,
+              "file_mean": 0.9725800939458102
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.7302177801182654,
+              "file_mean": 0.7883633052700703
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.2959169798488368,
+              "file_mean": 0.3651802267256973
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.19999999999999998
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.2375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.1864583333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.16770833333333332
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.13084239130434783
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.23739406779661018
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.08750000000000001,
+          "music_eer": 0.30625,
+          "file_eer": 0.17500000000000002,
+          "ads": 0.803125,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6123550905123857,
+              "file_mean": 0.9716751086395276
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.41365404313585363,
+              "file_mean": 0.9356790090411223
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6983646919890572,
+              "file_mean": 0.7602216121762362
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.4390784529017736,
+              "file_mean": 0.5411756159514596
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.221875
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.44375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6677083333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.23156702898550727
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3739406779661017
+            }
+          }
+        },
+        "g711_ulaw": {
+          "voice_eer": 0.11875000000000001,
+          "music_eer": 0.30625,
+          "file_eer": 0.1875,
+          "ads": 0.790625,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5799880865997815,
+              "file_mean": 0.9502038239636936
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3727902302588428,
+              "file_mean": 0.9023797545592014
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6255564347630918,
+              "file_mean": 0.7125778429440418
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3769564645423476,
+              "file_mean": 0.4782526643227012
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.221875
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.3
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.3260416666666667
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.24506340579710145
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.32351694915254237
+            }
+          }
+        },
+        "g722_wb": {
+          "voice_eer": 0.05625000000000001,
+          "music_eer": 0.26249999999999996,
+          "file_eer": 0.125,
+          "ads": 0.8475,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6443140729146858,
+              "file_mean": 0.9820707785343858
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.38586600520247016,
+              "file_mean": 0.9654894069850016
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.7550225517514033,
+              "file_mean": 0.8153605219362927
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.4071501209870435,
+              "file_mean": 0.47371210741668934
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.25
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.46875
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.25
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.21807065217391303
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3056673728813559
+            }
+          }
+        },
+        "opus_nb_8k": {
+          "voice_eer": 0.19999999999999998,
+          "music_eer": 0.38125,
+          "file_eer": 0.2895833333333333,
+          "ads": 0.7008333333333334,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.47104118326220173,
+              "file_mean": 0.8948800245608579
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3581764765544076,
+              "file_mean": 0.8353169823516481
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5444462526047728,
+              "file_mean": 0.6484237948553806
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.38470644935391707,
+              "file_mean": 0.5193741378945417
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.546875
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6333333333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.48125
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.288677536231884
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.4033898305084746
+            }
+          }
+        },
+        "transcode_g711_opus": {
+          "voice_eer": 0.20625000000000002,
+          "music_eer": 0.36875,
+          "file_eer": 0.2875,
+          "ads": 0.704375,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.47616217698181645,
+              "file_mean": 0.900100780330267
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.36288934272279005,
+              "file_mean": 0.8057267913056056
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5444140518935774,
+              "file_mean": 0.6646845984925809
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.37907195363365165,
+              "file_mean": 0.5214371900570571
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.50625
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6270833333333334
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.31879528985507244
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.4065148305084746
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8323958333333333,
+            "mean_eer": 0.13333333333333333,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8330729166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8330729166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.83375,
+            "mean_eer": 0.13125,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8359375,
+            "mean_eer": 0.13125,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8372916666666668,
+            "mean_eer": 0.12916666666666668,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.83796875,
+            "mean_eer": 0.12812500000000002,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.83796875,
+            "mean_eer": 0.12812500000000002,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.83796875,
+            "mean_eer": 0.12812500000000002,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8393229166666667,
+            "mean_eer": 0.12604166666666666,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8421875,
+            "mean_eer": 0.125,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8421875,
+            "mean_eer": 0.125,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.84640625,
+            "mean_eer": 0.12187500000000001,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8470833333333332,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8484375,
+            "mean_eer": 0.11875000000000001,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8513020833333333,
+            "mean_eer": 0.11770833333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8492708333333334,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8492708333333334,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8492708333333334,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.6524739583333333,
+            "mean_eer": 0.3192708333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33437500000000003,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.6499479166666666,
+            "mean_eer": 0.31979166666666664,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.6513020833333333,
+            "mean_eer": 0.3177083333333333,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.34375,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.6519791666666666,
+            "mean_eer": 0.3166666666666667,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.2875,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.6561979166666667,
+            "mean_eer": 0.31354166666666666,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.656875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.6540104166666667,
+            "mean_eer": 0.31354166666666666,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.6540104166666667,
+            "mean_eer": 0.31354166666666666,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.6582291666666666,
+            "mean_eer": 0.3104166666666666,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.6602604166666667,
+            "mean_eer": 0.3072916666666667,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.36250000000000004,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.6624479166666667,
+            "mean_eer": 0.3072916666666667,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.6659895833333334,
+            "mean_eer": 0.30520833333333336,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.6702083333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.2875,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.6702083333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.6715625000000001,
+            "mean_eer": 0.3,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.6681770833333334,
+            "mean_eer": 0.3052083333333333,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.6681770833333334,
+            "mean_eer": 0.30520833333333336,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.66734375,
+            "mean_eer": 0.303125,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.29374999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38125
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.7636631944444444,
+            "mean_eer": 0.19756944444444446,
+            "worst_eer": 0.30833333333333335,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30833333333333335
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7665277777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7665277777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.76765625,
+            "mean_eer": 0.1947916666666667,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7677083333333333,
+            "mean_eer": 0.19583333333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.18541666666666667,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.767482638888889,
+            "mean_eer": 0.19618055555555558,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7684375,
+            "mean_eer": 0.1958333333333333,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7673090277777778,
+            "mean_eer": 0.19756944444444444,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2979166666666666
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7709027777777777,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17708333333333334,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7713541666666668,
+            "mean_eer": 0.1958333333333333,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7722569444444446,
+            "mean_eer": 0.19444444444444442,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7718055555555556,
+            "mean_eer": 0.1951388888888889,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7688715277777779,
+            "mean_eer": 0.19965277777777776,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.19791666666666666,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7686458333333335,
+            "mean_eer": 0.19999999999999998,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.2104166666666667,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7707291666666668,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.1645833333333333,
+              "g711_ulaw": 0.2104166666666667,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.771857638888889,
+            "mean_eer": 0.19618055555555555,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.1645833333333333,
+              "g711_ulaw": 0.20208333333333336,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7709548611111111,
+            "mean_eer": 0.19756944444444444,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7705034722222224,
+            "mean_eer": 0.19826388888888888,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7684201388888889,
+            "mean_eer": 0.20034722222222223,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7634722222222223,
+            "mean_eer": 0.2034722222222222,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7598090277777779,
+            "mean_eer": 0.20798611111111112,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.12291666666666667,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          }
+        ]
+      }
+    },
+    "seed25_music": {
+      "selected_task_weights": {
+        "voice": 1.0,
+        "music": 0.9,
+        "file": 0.6000000000000001
+      },
+      "development_ads_objective": 0.756935763888889,
+      "mean_ads": 0.7857986111111112,
+      "worst_ads": 0.7033333333333334,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.043749999999999976,
+          "music_eer": 0.1875,
+          "file_eer": 0.11250000000000002,
+          "ads": 0.87875,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6682996622352084,
+              "file_mean": 0.9945697909720537
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.2925353087049943,
+              "file_mean": 0.9775616981006057
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6768312915173584,
+              "file_mean": 0.7643644178041781
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.2580905468869954,
+              "file_mean": 0.3596099785446417
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.221875
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.25
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.1864583333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.16770833333333332
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.144338768115942
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.2048199152542373
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.07499999999999998,
+          "music_eer": 0.29374999999999996,
+          "file_eer": 0.1875,
+          "ads": 0.8031250000000001,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5907395373982098,
+              "file_mean": 0.9761453452400459
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3956153626828181,
+              "file_mean": 0.9440132223644703
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6480272798912992,
+              "file_mean": 0.7391999104460852
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3885234457012695,
+              "file_mean": 0.524565436210849
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.290625
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.30625
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5375
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.23156702898550727
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.32351694915254237
+            }
+          }
+        },
+        "g711_ulaw": {
+          "voice_eer": 0.125,
+          "music_eer": 0.30000000000000004,
+          "file_eer": 0.19999999999999998,
+          "ads": 0.785,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5554449936063521,
+              "file_mean": 0.9543722276904365
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.35444611919198865,
+              "file_mean": 0.9121262629979976
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5701882380456536,
+              "file_mean": 0.6895544606502139
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3304810665678295,
+              "file_mean": 0.464947626770157
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.20937499999999998
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.484375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.4052083333333333
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.27518115942028987
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.32351694915254237
+            }
+          }
+        },
+        "g722_wb": {
+          "voice_eer": 0.0625,
+          "music_eer": 0.26249999999999996,
+          "file_eer": 0.13749999999999998,
+          "ads": 0.8400000000000001,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6347799635692101,
+              "file_mean": 0.9866070708923136
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.38788913024305355,
+              "file_mean": 0.9711618671668839
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.701846502222565,
+              "file_mean": 0.7960174261327594
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.35914018791587327,
+              "file_mean": 0.4538800654778079
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.25
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.48125
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.2625
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.20144927536231885
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.2878177966101695
+            }
+          }
+        },
+        "opus_nb_8k": {
+          "voice_eer": 0.21250000000000002,
+          "music_eer": 0.38125,
+          "file_eer": 0.27708333333333335,
+          "ads": 0.7045833333333333,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.44382167095409814,
+              "file_mean": 0.899135468000851
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.33283206018458367,
+              "file_mean": 0.8503996431270849
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.4928871776365925,
+              "file_mean": 0.6306063331647561
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3394909695208012,
+              "file_mean": 0.5103873751818458
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.690625
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6489583333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.3052989130434783
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.4065148305084746
+            }
+          }
+        },
+        "transcode_g711_opus": {
+          "voice_eer": 0.20625000000000002,
+          "music_eer": 0.36875,
+          "file_eer": 0.2895833333333333,
+          "ads": 0.7033333333333334,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.45316532601463677,
+              "file_mean": 0.9059850791103818
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3338890254685262,
+              "file_mean": 0.8137869949091787
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.49347564627415974,
+              "file_mean": 0.6544466105393354
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.33253541373828815,
+              "file_mean": 0.5192744734864156
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.540625
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6645833333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.38866525423728815
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8359375,
+            "mean_eer": 0.13125,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.838125,
+            "mean_eer": 0.13125,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21875,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8394791666666667,
+            "mean_eer": 0.12916666666666668,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21875,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.8394791666666667,
+            "mean_eer": 0.12916666666666668,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21875,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8394791666666667,
+            "mean_eer": 0.12916666666666668,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21875,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8436979166666667,
+            "mean_eer": 0.1260416666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8436979166666667,
+            "mean_eer": 0.1260416666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8450520833333333,
+            "mean_eer": 0.12395833333333334,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.84640625,
+            "mean_eer": 0.12187500000000001,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.84640625,
+            "mean_eer": 0.12187500000000001,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8470833333333334,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.07499999999999998,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.6524739583333333,
+            "mean_eer": 0.3192708333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33437500000000003,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.6513020833333333,
+            "mean_eer": 0.31770833333333337,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33125000000000004,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.650625,
+            "mean_eer": 0.31875,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.34375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.656875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.656875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.6589062499999999,
+            "mean_eer": 0.30937499999999996,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.6595833333333334,
+            "mean_eer": 0.3083333333333333,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.6610937499999999,
+            "mean_eer": 0.309375,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.6590625,
+            "mean_eer": 0.31250000000000006,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.6626041666666667,
+            "mean_eer": 0.3104166666666667,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.6639583333333334,
+            "mean_eer": 0.3083333333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.6702083333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.6688541666666667,
+            "mean_eer": 0.3041666666666667,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.375
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.375
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.6702083333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.6722395833333333,
+            "mean_eer": 0.29895833333333327,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.29374999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.6686979166666667,
+            "mean_eer": 0.30104166666666665,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.28125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.36875
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.6700520833333333,
+            "mean_eer": 0.2989583333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.2875,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.36250000000000004
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.7636631944444444,
+            "mean_eer": 0.19756944444444446,
+            "worst_eer": 0.30833333333333335,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30833333333333335
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7665277777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7661284722222222,
+            "mean_eer": 0.1982638888888889,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7661805555555555,
+            "mean_eer": 0.19930555555555554,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.17500000000000002,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2979166666666666
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7661284722222222,
+            "mean_eer": 0.1982638888888889,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.17500000000000002,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.7663541666666667,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.17500000000000002,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7647743055555556,
+            "mean_eer": 0.20034722222222223,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7650000000000001,
+            "mean_eer": 0.20000000000000004,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7634201388888889,
+            "mean_eer": 0.20243055555555556,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7630208333333334,
+            "mean_eer": 0.20416666666666664,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7634722222222223,
+            "mean_eer": 0.2034722222222222,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13541666666666666,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7680208333333334,
+            "mean_eer": 0.2020833333333333,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7681944444444444,
+            "mean_eer": 0.20069444444444443,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.27708333333333335,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7634201388888889,
+            "mean_eer": 0.20243055555555556,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.1875,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.27708333333333335,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7636458333333334,
+            "mean_eer": 0.2020833333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.27708333333333335,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7625173611111111,
+            "mean_eer": 0.20381944444444447,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.20208333333333336,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.28541666666666665,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7611631944444446,
+            "mean_eer": 0.20590277777777777,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7611631944444446,
+            "mean_eer": 0.20590277777777777,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7620659722222223,
+            "mean_eer": 0.20451388888888888,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17708333333333334,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7609375,
+            "mean_eer": 0.20625000000000002,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.12291666666666667,
+              "paired_fast": 0.17708333333333334,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7604861111111112,
+            "mean_eer": 0.20694444444444446,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.125,
+              "paired_fast": 0.17708333333333334,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          }
+        ]
+      }
+    },
+    "seed26_background": {
+      "selected_task_weights": {
+        "voice": 0.9500000000000001,
+        "music": 0.9,
+        "file": 0.4
+      },
+      "development_ads_objective": 0.7611319444444444,
+      "mean_ads": 0.7903472222222222,
+      "worst_ads": 0.7068749999999999,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.050000000000000024,
+          "music_eer": 0.1875,
+          "file_eer": 0.09999999999999999,
+          "ads": 0.88375,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6582905530271029,
+              "file_mean": 0.9940163507522337
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.26576633909577707,
+              "file_mean": 0.9736161845902543
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6678721987466953,
+              "file_mean": 0.7922812446035745
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.25354075262305054,
+              "file_mean": 0.3732839559693974
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.21249999999999997
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.23125
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.2916666666666667
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.1802083333333333
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.13084239130434783
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.2048199152542373
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.08125000000000002,
+          "music_eer": 0.3125,
+          "file_eer": 0.17291666666666664,
+          "ads": 0.8035416666666667,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5876317770210192,
+              "file_mean": 0.9725843772425267
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.39429293739449295,
+              "file_mean": 0.940274238005132
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6431706267238633,
+              "file_mean": 0.765279850396402
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3801187726275018,
+              "file_mean": 0.5478761805637495
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.4375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.24506340579710145
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.33511652542372883
+            }
+          }
+        },
+        "g711_ulaw": {
+          "voice_eer": 0.11250000000000002,
+          "music_eer": 0.30625,
+          "file_eer": 0.18958333333333333,
+          "ads": 0.7908333333333333,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5522777499716207,
+              "file_mean": 0.9522180889958062
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.344397618771301,
+              "file_mean": 0.9101947865983055
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5595345480061518,
+              "file_mean": 0.719739414455255
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3251841448769176,
+              "file_mean": 0.48620674073125886
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.19999999999999998
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.3291666666666667
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.26168478260869565
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.32351694915254237
+            }
+          }
+        },
+        "g722_wb": {
+          "voice_eer": 0.050000000000000024,
+          "music_eer": 0.26249999999999996,
+          "file_eer": 0.125,
+          "ads": 0.84875,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6328717544361167,
+              "file_mean": 0.9841771216889441
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.37974115864927144,
+              "file_mean": 0.9696059887303843
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6970308045753264,
+              "file_mean": 0.817335065274367
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.35751056676461584,
+              "file_mean": 0.48548597299717555
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.25
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.48125
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.25
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.20144927536231885
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3056673728813559
+            }
+          }
+        },
+        "opus_nb_8k": {
+          "voice_eer": 0.19374999999999998,
+          "music_eer": 0.36875,
+          "file_eer": 0.2875,
+          "ads": 0.7068749999999999,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.4452226938329753,
+              "file_mean": 0.9004899117749376
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3190176234158584,
+              "file_mean": 0.8499181606773998
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.4889336603720459,
+              "file_mean": 0.6565628347374057
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.33969071572686965,
+              "file_mean": 0.5291406713469
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.31562500000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.7125
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.509375
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.3052989130434783
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3739406779661017
+            }
+          }
+        },
+        "transcode_g711_opus": {
+          "voice_eer": 0.19374999999999998,
+          "music_eer": 0.38125,
+          "file_eer": 0.27708333333333335,
+          "ads": 0.7083333333333334,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.4606547625662829,
+              "file_mean": 0.9068250298920553
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3332313246750534,
+              "file_mean": 0.8209675113695534
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.4844694463113079,
+              "file_mean": 0.6759862857619486
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.33747187732571743,
+              "file_mean": 0.5329649241705181
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.728125
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5375
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.31879528985507244
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3770656779661017
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8323958333333333,
+            "mean_eer": 0.13333333333333333,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8388020833333333,
+            "mean_eer": 0.13020833333333334,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8436979166666667,
+            "mean_eer": 0.1260416666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8450520833333333,
+            "mean_eer": 0.12395833333333335,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.84859375,
+            "mean_eer": 0.12187500000000001,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.84859375,
+            "mean_eer": 0.12187500000000001,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8492708333333334,
+            "mean_eer": 0.12083333333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8499479166666666,
+            "mean_eer": 0.11979166666666669,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.850625,
+            "mean_eer": 0.11875000000000002,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8513020833333333,
+            "mean_eer": 0.11770833333333335,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8541666666666667,
+            "mean_eer": 0.11666666666666665,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8541666666666667,
+            "mean_eer": 0.11666666666666668,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8548437499999999,
+            "mean_eer": 0.11562500000000002,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8555208333333333,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8555208333333333,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8555208333333333,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8555208333333333,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8555208333333333,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8583854166666667,
+            "mean_eer": 0.11354166666666667,
+            "worst_eer": 0.19374999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19374999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8577083333333335,
+            "mean_eer": 0.11458333333333333,
+            "worst_eer": 0.19374999999999998,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11250000000000002,
+              "g722_wb": 0.050000000000000024,
+              "opus_nb_8k": 0.19374999999999998,
+              "transcode_g711_opus": 0.19374999999999998
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.6524739583333333,
+            "mean_eer": 0.3192708333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33437500000000003,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.6499479166666666,
+            "mean_eer": 0.31979166666666664,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.6519791666666668,
+            "mean_eer": 0.3166666666666667,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33125000000000004,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.6555208333333333,
+            "mean_eer": 0.3145833333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.6497916666666668,
+            "mean_eer": 0.3166666666666667,
+            "worst_eer": 0.4125,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4125
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.65265625,
+            "mean_eer": 0.31562500000000004,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.33125000000000004,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.656875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.6573958333333334,
+            "mean_eer": 0.3083333333333333,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.35624999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.6560416666666666,
+            "mean_eer": 0.3104166666666666,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.6573958333333334,
+            "mean_eer": 0.30833333333333335,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.6616145833333333,
+            "mean_eer": 0.3052083333333333,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.6622916666666666,
+            "mean_eer": 0.30416666666666664,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.6622916666666666,
+            "mean_eer": 0.30416666666666664,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.6595833333333333,
+            "mean_eer": 0.30833333333333335,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.6617708333333334,
+            "mean_eer": 0.30833333333333335,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.6646354166666667,
+            "mean_eer": 0.30729166666666663,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.6675,
+            "mean_eer": 0.30624999999999997,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.66546875,
+            "mean_eer": 0.309375,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.375
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.6632812499999999,
+            "mean_eer": 0.309375,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.6654687499999999,
+            "mean_eer": 0.309375,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.7636631944444444,
+            "mean_eer": 0.19756944444444446,
+            "worst_eer": 0.30833333333333335,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30833333333333335
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7665277777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7688368055555556,
+            "mean_eer": 0.19409722222222223,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7686631944444444,
+            "mean_eer": 0.1954861111111111,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2979166666666666
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7695659722222223,
+            "mean_eer": 0.19409722222222223,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.7693402777777779,
+            "mean_eer": 0.19444444444444442,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7736111111111111,
+            "mean_eer": 0.19236111111111112,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7734375,
+            "mean_eer": 0.19375,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.10208333333333332,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.18541666666666667,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7745659722222222,
+            "mean_eer": 0.19201388888888885,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.18958333333333333,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.27708333333333335
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7732118055555556,
+            "mean_eer": 0.19409722222222223,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.1645833333333333,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.7677083333333333,
+            "mean_eer": 0.1958333333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09791666666666667,
+              "paired_fast": 0.1645833333333333,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7677083333333333,
+            "mean_eer": 0.1958333333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09791666666666667,
+              "paired_fast": 0.1645833333333333,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7679340277777778,
+            "mean_eer": 0.1954861111111111,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19791666666666666,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7677083333333333,
+            "mean_eer": 0.1958333333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7679340277777778,
+            "mean_eer": 0.1954861111111111,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19791666666666666,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7688368055555556,
+            "mean_eer": 0.19409722222222223,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19791666666666666,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.27708333333333335
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7699652777777778,
+            "mean_eer": 0.19236111111111112,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.27708333333333335
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7699652777777778,
+            "mean_eer": 0.19236111111111112,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.27708333333333335
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7695138888888889,
+            "mean_eer": 0.19305555555555554,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16041666666666665,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7692881944444445,
+            "mean_eer": 0.19340277777777778,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16041666666666665,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.27708333333333335
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.7681597222222223,
+            "mean_eer": 0.1951388888888889,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.18541666666666667,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          }
+        ]
+      }
+    },
+    "uniform_ensemble": {
+      "selected_task_weights": {
+        "voice": 0.8500000000000001,
+        "music": 0.8,
+        "file": 0.25
+      },
+      "development_ads_objective": 0.7585225694444446,
+      "mean_ads": 0.788576388888889,
+      "worst_ads": 0.7027083333333334,
+      "metrics": {
+        "clean": {
+          "voice_eer": 0.03749999999999999,
+          "music_eer": 0.18125000000000002,
+          "file_eer": 0.11041666666666664,
+          "ads": 0.8829166666666667,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6710201514517857,
+              "file_mean": 0.9935950850566357
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.28219540992546815,
+              "file_mean": 0.9720715129999522
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.7062043811182037,
+              "file_mean": 0.8108692372248398
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.27818337168436064,
+              "file_mean": 0.3987793945608676
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.19999999999999998
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.23125
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.1864583333333333
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.16770833333333332
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.144338768115942
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.21641949152542372
+            }
+          }
+        },
+        "paired_fast": {
+          "voice_eer": 0.08125000000000002,
+          "music_eer": 0.3125,
+          "file_eer": 0.17500000000000002,
+          "ads": 0.8025,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6005697284384979,
+              "file_mean": 0.9721559616038047
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.40428269111663145,
+              "file_mean": 0.9403314902663734
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6771969231860021,
+              "file_mean": 0.7833424105127728
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.41607037417104636,
+              "file_mean": 0.5746069351210592
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.28125
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.4375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6614583333333334
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.24506340579710145
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3560911016949153
+            }
+          }
+        },
+        "g711_ulaw": {
+          "voice_eer": 0.11875000000000001,
+          "music_eer": 0.3125,
+          "file_eer": 0.17500000000000002,
+          "ads": 0.7949999999999999,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.5668555879402538,
+              "file_mean": 0.9534334311478421
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3601681503905868,
+              "file_mean": 0.9078969341471289
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.6002883245377708,
+              "file_mean": 0.741076996755555
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3564935804660572,
+              "file_mean": 0.5096352450095352
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.19999999999999998
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.44375
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.5
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.33229166666666665
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.24506340579710145
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.32351694915254237
+            }
+          }
+        },
+        "g722_wb": {
+          "voice_eer": 0.05625000000000001,
+          "music_eer": 0.26875000000000004,
+          "file_eer": 0.125,
+          "ads": 0.845625,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.6398324337585628,
+              "file_mean": 0.9837938812475471
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.38438393914955904,
+              "file_mean": 0.9671250885181216
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.7323832332109033,
+              "file_mean": 0.835472688086161
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3869952138197123,
+              "file_mean": 0.5085910239582444
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.25
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.475
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.259375
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.20457427536231884
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3056673728813559
+            }
+          }
+        },
+        "opus_nb_8k": {
+          "voice_eer": 0.19999999999999998,
+          "music_eer": 0.375,
+          "file_eer": 0.2895833333333333,
+          "ads": 0.7027083333333334,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.45856217574282565,
+              "file_mean": 0.9000087175255527
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.34202474057761023,
+              "file_mean": 0.8499527567814351
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5225395447223316,
+              "file_mean": 0.6773662563198238
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.3663280625609791,
+              "file_mean": 0.550258265433442
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.690625
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.540625
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.291802536231884
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.3917902542372881
+            }
+          }
+        },
+        "transcode_g711_opus": {
+          "voice_eer": 0.19999999999999998,
+          "music_eer": 0.375,
+          "file_eer": 0.2895833333333333,
+          "ads": 0.7027083333333334,
+          "cells": {
+            "FF": {
+              "n": 80,
+              "music_mean": 0.4685625539314085,
+              "file_mean": 0.9070695092344643
+            },
+            "FR": {
+              "n": 80,
+              "music_mean": 0.3497945303095492,
+              "file_mean": 0.8190341286574775
+            },
+            "RF": {
+              "n": 80,
+              "music_mean": 0.5213470395744019,
+              "file_mean": 0.6960717147204187
+            },
+            "RR": {
+              "n": 80,
+              "music_mean": 0.361289869973238,
+              "file_mean": 0.5534918443512291
+            }
+          },
+          "generators": {
+            "FakeMusicCaps:MusicGen_medium": {
+              "n_fake": 10,
+              "music_eer_vs_all_real": 0.30000000000000004
+            },
+            "FakeMusicCaps:audioldm2": {
+              "n_fake": 4,
+              "music_eer_vs_all_real": 0.546875
+            },
+            "FakeMusicCaps:musicldm": {
+              "n_fake": 6,
+              "music_eer_vs_all_real": 0.6302083333333334
+            },
+            "FakeMusicCaps:mustango": {
+              "n_fake": 12,
+              "music_eer_vs_all_real": 0.5
+            },
+            "SONICS:Suno": {
+              "n_fake": 69,
+              "music_eer_vs_all_real": 0.31879528985507244
+            },
+            "SONICS:Udio": {
+              "n_fake": 59,
+              "music_eer_vs_all_real": 0.4096398305084746
+            }
+          }
+        }
+      },
+      "task_sweeps": {
+        "voice": [
+          {
+            "weight": 0.0,
+            "objective": 0.8352604166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.8323958333333333,
+            "mean_eer": 0.13333333333333333,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.13124999999999998,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.8330729166666666,
+            "mean_eer": 0.13229166666666667,
+            "worst_eer": 0.23124999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.23124999999999998
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.8359375,
+            "mean_eer": 0.13125,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.8366145833333333,
+            "mean_eer": 0.13020833333333334,
+            "worst_eer": 0.22499999999999998,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09999999999999999,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.22499999999999998
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.8394791666666667,
+            "mean_eer": 0.12916666666666668,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.06874999999999999,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.8430208333333333,
+            "mean_eer": 0.12708333333333335,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.21250000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.8436979166666667,
+            "mean_eer": 0.1260416666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.125,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.8443749999999999,
+            "mean_eer": 0.12500000000000003,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.05625000000000001,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.8428645833333334,
+            "mean_eer": 0.12395833333333334,
+            "worst_eer": 0.21875,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21875
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.8457291666666666,
+            "mean_eer": 0.12291666666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.050000000000000024,
+              "paired_fast": 0.09375,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.20625000000000002,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.8477604166666666,
+            "mean_eer": 0.11979166666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.8477604166666666,
+            "mean_eer": 0.11979166666666667,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08750000000000001,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.8484375,
+            "mean_eer": 0.11875000000000001,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.043749999999999976,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.8491145833333333,
+            "mean_eer": 0.11770833333333335,
+            "worst_eer": 0.21250000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.21250000000000002
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.8519791666666667,
+            "mean_eer": 0.11666666666666668,
+            "worst_eer": 0.20625000000000002,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.20625000000000002
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.8548437499999999,
+            "mean_eer": 0.11562499999999999,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.05625000000000001,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.8541666666666667,
+            "mean_eer": 0.11666666666666665,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.08125000000000002,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.8548437499999999,
+            "mean_eer": 0.11562499999999998,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.07499999999999998,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.8548437499999999,
+            "mean_eer": 0.11562499999999998,
+            "worst_eer": 0.19999999999999998,
+            "channel_eers": {
+              "clean": 0.03749999999999999,
+              "paired_fast": 0.07499999999999998,
+              "g711_ulaw": 0.11875000000000001,
+              "g722_wb": 0.0625,
+              "opus_nb_8k": 0.19999999999999998,
+              "transcode_g711_opus": 0.19999999999999998
+            }
+          }
+        ],
+        "music": [
+          {
+            "weight": 0.0,
+            "objective": 0.6524739583333333,
+            "mean_eer": 0.3192708333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33437500000000003,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.6499479166666666,
+            "mean_eer": 0.31979166666666664,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.28125,
+              "opus_nb_8k": 0.39375000000000004,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.65265625,
+            "mean_eer": 0.315625,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33125000000000004,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.6519791666666666,
+            "mean_eer": 0.31666666666666665,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.6526562499999999,
+            "mean_eer": 0.315625,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.3375,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.6597395833333334,
+            "mean_eer": 0.31145833333333334,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.33125000000000004,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.6575520833333334,
+            "mean_eer": 0.31145833333333334,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.20625000000000002,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.6546875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19999999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.6546875,
+            "mean_eer": 0.3125,
+            "worst_eer": 0.40625,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.40625
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.6589062499999999,
+            "mean_eer": 0.30937499999999996,
+            "worst_eer": 0.4,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.31875,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.4
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.6638020833333333,
+            "mean_eer": 0.30520833333333336,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.29374999999999996,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.6680208333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.30625,
+              "g711_ulaw": 0.2875,
+              "g722_wb": 0.275,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.66515625,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.39375000000000004,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.2875,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.39375000000000004
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.6680208333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.16874999999999998,
+              "paired_fast": 0.32499999999999996,
+              "g711_ulaw": 0.30000000000000004,
+              "g722_wb": 0.25625,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.6680208333333333,
+            "mean_eer": 0.3020833333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.16874999999999998,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.30625,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.66734375,
+            "mean_eer": 0.303125,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.17500000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.36875,
+              "transcode_g711_opus": 0.38749999999999996
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.6710416666666666,
+            "mean_eer": 0.3041666666666667,
+            "worst_eer": 0.375,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.3125,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.375
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.66953125,
+            "mean_eer": 0.30312500000000003,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.375,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.6659895833333334,
+            "mean_eer": 0.3052083333333333,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.18125000000000002,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.6653125000000001,
+            "mean_eer": 0.30624999999999997,
+            "worst_eer": 0.38749999999999996,
+            "channel_eers": {
+              "clean": 0.1875,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26875000000000004,
+              "opus_nb_8k": 0.38749999999999996,
+              "transcode_g711_opus": 0.38125
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.6681770833333334,
+            "mean_eer": 0.30520833333333336,
+            "worst_eer": 0.38125,
+            "channel_eers": {
+              "clean": 0.19374999999999998,
+              "paired_fast": 0.30000000000000004,
+              "g711_ulaw": 0.3125,
+              "g722_wb": 0.26249999999999996,
+              "opus_nb_8k": 0.38125,
+              "transcode_g711_opus": 0.38125
+            }
+          }
+        ],
+        "file": [
+          {
+            "weight": 0.0,
+            "objective": 0.7636631944444444,
+            "mean_eer": 0.19756944444444446,
+            "worst_eer": 0.30833333333333335,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30833333333333335
+            }
+          },
+          {
+            "weight": 0.05,
+            "objective": 0.7665277777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.30208333333333337,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30208333333333337
+            }
+          },
+          {
+            "weight": 0.1,
+            "objective": 0.7677083333333333,
+            "mean_eer": 0.19583333333333333,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.09999999999999999,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.30000000000000004
+            }
+          },
+          {
+            "weight": 0.15000000000000002,
+            "objective": 0.7677604166666667,
+            "mean_eer": 0.196875,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2979166666666666
+            }
+          },
+          {
+            "weight": 0.2,
+            "objective": 0.7677604166666667,
+            "mean_eer": 0.196875,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17500000000000002,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2979166666666666
+            }
+          },
+          {
+            "weight": 0.25,
+            "objective": 0.772482638888889,
+            "mean_eer": 0.19409722222222223,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17500000000000002,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.30000000000000004,
+            "objective": 0.7674826388888888,
+            "mean_eer": 0.19618055555555558,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.17708333333333334,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.35000000000000003,
+            "objective": 0.7663541666666667,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.30000000000000004,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.18541666666666667,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.30000000000000004,
+              "transcode_g711_opus": 0.2895833333333333
+            }
+          },
+          {
+            "weight": 0.4,
+            "objective": 0.7673090277777778,
+            "mean_eer": 0.19756944444444446,
+            "worst_eer": 0.2979166666666666,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.125,
+              "opus_nb_8k": 0.2979166666666666,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.45,
+            "objective": 0.7709027777777778,
+            "mean_eer": 0.19652777777777777,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.12708333333333333,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.5,
+            "objective": 0.77,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.1875,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.55,
+            "objective": 0.7684722222222223,
+            "mean_eer": 0.20138888888888887,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.18541666666666667,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.6000000000000001,
+            "objective": 0.7682465277777779,
+            "mean_eer": 0.20173611111111112,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17708333333333334,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          },
+          {
+            "weight": 0.65,
+            "objective": 0.7696006944444445,
+            "mean_eer": 0.19965277777777776,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.21250000000000002,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.7000000000000001,
+            "objective": 0.7707291666666667,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17500000000000002,
+              "g711_ulaw": 0.20208333333333336,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.75,
+            "objective": 0.7711805555555555,
+            "mean_eer": 0.1972222222222222,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.17291666666666664,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.275
+            }
+          },
+          {
+            "weight": 0.8,
+            "objective": 0.7709548611111112,
+            "mean_eer": 0.19756944444444438,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.8500000000000001,
+            "objective": 0.7709548611111112,
+            "mean_eer": 0.19756944444444438,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.9,
+            "objective": 0.7709548611111112,
+            "mean_eer": 0.19756944444444438,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 0.9500000000000001,
+            "objective": 0.7709548611111112,
+            "mean_eer": 0.19756944444444438,
+            "worst_eer": 0.2875,
+            "channel_eers": {
+              "clean": 0.11041666666666664,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2875,
+              "transcode_g711_opus": 0.2875
+            }
+          },
+          {
+            "weight": 1.0,
+            "objective": 0.77,
+            "mean_eer": 0.19791666666666666,
+            "worst_eer": 0.2895833333333333,
+            "channel_eers": {
+              "clean": 0.11250000000000002,
+              "paired_fast": 0.16249999999999998,
+              "g711_ulaw": 0.19999999999999998,
+              "g722_wb": 0.13749999999999998,
+              "opus_nb_8k": 0.2895833333333333,
+              "transcode_g711_opus": 0.28541666666666665
+            }
+          }
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "clean": {
+      "voice_eer": 0.05625000000000001,
+      "music_eer": 0.19999999999999998,
+      "file_eer": 0.09999999999999999,
+      "ads": 0.8787499999999999,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.6797475832096043,
+          "file_mean": 0.992607475050935
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.3152443787961827,
+          "file_mean": 0.9676011016245901
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.8613690069908053,
+          "file_mean": 0.8362994204389466
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.43020238201873634,
+          "file_mean": 0.4342933604092184
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.19687499999999997
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.19375
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.16770833333333332
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.17708333333333331
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.1879528985507246
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.26996822033898304
+        }
+      }
+    },
+    "paired_fast": {
+      "voice_eer": 0.09999999999999999,
+      "music_eer": 0.33437500000000003,
+      "file_eer": 0.17500000000000002,
+      "ads": 0.7921874999999999,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.6344127504697197,
+          "file_mean": 0.9698414331681109
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.4643109039830282,
+          "file_mean": 0.9390454687494728
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.8297769114853626,
+          "file_mean": 0.8084020155175742
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.6150957781760592,
+          "file_mean": 0.6100179059589819
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.19374999999999998
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.290625
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.5
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.33229166666666665
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.27518115942028987
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.4065148305084746
+        }
+      }
+    },
+    "g711_ulaw": {
+      "voice_eer": 0.13124999999999998,
+      "music_eer": 0.30625,
+      "file_eer": 0.17708333333333334,
+      "ads": 0.7933333333333332,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.6117221188415299,
+          "file_mean": 0.9531871837488801
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.4258304581319951,
+          "file_mean": 0.9051449371959975
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.7831282168800147,
+          "file_mean": 0.7710946220655667
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.5510003671813177,
+          "file_mean": 0.5427416054813308
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.30000000000000004
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.25
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.3354166666666667
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.3197916666666667
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.288677536231884
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.3382415254237288
+        }
+      }
+    },
+    "g722_wb": {
+      "voice_eer": 0.06874999999999999,
+      "music_eer": 0.28125,
+      "file_eer": 0.125,
+      "ads": 0.839375,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.6587178647818883,
+          "file_mean": 0.9823387418381012
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.4144022303919447,
+          "file_mean": 0.9630987244104269
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.8750379684967869,
+          "file_mean": 0.857523401690537
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.5681033365233161,
+          "file_mean": 0.5458878460726124
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.30000000000000004
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.2125
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.3604166666666667
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.31666666666666665
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.21807065217391303
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.33511652542372883
+        }
+      }
+    },
+    "opus_nb_8k": {
+      "voice_eer": 0.21250000000000002,
+      "music_eer": 0.39375000000000004,
+      "file_eer": 0.30000000000000004,
+      "ads": 0.689375,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.5339918726377327,
+          "file_mean": 0.8986139752843462
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.4521341263727354,
+          "file_mean": 0.8520196627385307
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.7092895331629944,
+          "file_mean": 0.7069418414870257
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.553978233370756,
+          "file_mean": 0.5804752692610666
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.30312500000000003
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.528125
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.6583333333333334
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.41770833333333335
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.34578804347826086
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.4096398305084746
+        }
+      }
+    },
+    "transcode_g711_opus": {
+      "voice_eer": 0.22499999999999998,
+      "music_eer": 0.4,
+      "file_eer": 0.30833333333333335,
+      "ads": 0.6808333333333334,
+      "cells": {
+        "FF": {
+          "n": 80,
+          "music_mean": 0.5456850581451818,
+          "file_mean": 0.9070529123797918
+        },
+        "FR": {
+          "n": 80,
+          "music_mean": 0.4800314522334155,
+          "file_mean": 0.8212489788496423
+        },
+        "RF": {
+          "n": 80,
+          "music_mean": 0.7081447122019001,
+          "file_mean": 0.7246478388700028
+        },
+        "RR": {
+          "n": 80,
+          "music_mean": 0.5526019774792271,
+          "file_mean": 0.5814895502782824
+        }
+      },
+      "generators": {
+        "FakeMusicCaps:MusicGen_medium": {
+          "n_fake": 10,
+          "music_eer_vs_all_real": 0.375
+        },
+        "FakeMusicCaps:audioldm2": {
+          "n_fake": 4,
+          "music_eer_vs_all_real": 0.453125
+        },
+        "FakeMusicCaps:musicldm": {
+          "n_fake": 6,
+          "music_eer_vs_all_real": 0.6645833333333333
+        },
+        "FakeMusicCaps:mustango": {
+          "n_fake": 12,
+          "music_eer_vs_all_real": 0.4875
+        },
+        "SONICS:Suno": {
+          "n_fake": 69,
+          "music_eer_vs_all_real": 0.33229166666666665
+        },
+        "SONICS:Udio": {
+          "n_fake": 59,
+          "music_eer_vs_all_real": 0.44221398305084747
+        }
+      }
+    }
+  },
+  "winner": "seed26_background",
+  "winner_weights": {
+    "voice": 0.9500000000000001,
+    "music": 0.9,
+    "file": 0.4
+  }
+}

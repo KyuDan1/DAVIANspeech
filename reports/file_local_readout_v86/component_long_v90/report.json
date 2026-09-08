@@ -1,0 +1,54 @@
+{
+  "status": "complete_exposed_component_audit",
+  "rows": 2160,
+  "results": [
+    {
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "parent",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.24267040149393093
+    },
+    {
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2318860877684407
+    },
+    {
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "local",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.265219421101774
+    },
+    {
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "eat_control",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2616713352007469
+    },
+    {
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "eat_adapted",
+      "n": 2160,
+      "real_n": 630,
+      "fake_n": 1530,
+      "FILE_EER": 0.2541083099906629
+    }
+  ],
+  "selection_allowed": false,
+  "automatic_submission_allowed": false,
+  "caveat": "Development-derived synthetic sources; reject failures, never claim natural-call OOD confirmation."
+}

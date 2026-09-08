@@ -1,0 +1,52 @@
+{
+  "status": "complete",
+  "history": [
+    {
+      "epoch": 1,
+      "loss": {
+        "global": 0.360264291638859,
+        "local": 0.4846429119737912
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": {
+        "global": 0.32581403812927723,
+        "local": 0.39675738776510994
+      }
+    },
+    {
+      "epoch": 3,
+      "loss": {
+        "global": 0.3534746483414525,
+        "local": 0.43247624513712646
+      }
+    },
+    {
+      "epoch": 4,
+      "loss": {
+        "global": 0.30316745301640236,
+        "local": 0.38602163387510696
+      }
+    }
+  ],
+  "results": [
+    {
+      "model": "parent",
+      "FILE_EER": 0.19822484596149986
+    },
+    {
+      "model": "global",
+      "FILE_EER": 0.20428542977280723
+    },
+    {
+      "model": "local",
+      "FILE_EER": 0.21693168432099846
+    }
+  ],
+  "seconds": 1202.7876226250082,
+  "peak_cuda_mib": 8485.23779296875,
+  "trainable_parameters_per_head": 193,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

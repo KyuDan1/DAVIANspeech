@@ -1,0 +1,55 @@
+{
+  "status": "complete_retrospective_mechanism_probe",
+  "rows": 600,
+  "results": [
+    {
+      "AXIS": "ALL",
+      "GROUP": "ALL",
+      "MODEL": "MUSIC_FAKE_PROB",
+      "N": 480,
+      "REAL_N": 240,
+      "FAKE_N": 240,
+      "MUSIC_EER": 0.3041666666666667
+    },
+    {
+      "AXIS": "ALL",
+      "GROUP": "ALL",
+      "MODEL": "FIRST",
+      "N": 480,
+      "REAL_N": 240,
+      "FAKE_N": 240,
+      "MUSIC_EER": 0.5083333333333333
+    },
+    {
+      "AXIS": "ALL",
+      "GROUP": "ALL",
+      "MODEL": "MEAN",
+      "N": 480,
+      "REAL_N": 240,
+      "FAKE_N": 240,
+      "MUSIC_EER": 0.48750000000000004
+    },
+    {
+      "AXIS": "ALL",
+      "GROUP": "ALL",
+      "MODEL": "LME5",
+      "N": 480,
+      "REAL_N": 240,
+      "FAKE_N": 240,
+      "MUSIC_EER": 0.49583333333333335
+    },
+    {
+      "AXIS": "ALL",
+      "GROUP": "ALL",
+      "MODEL": "MAX",
+      "N": 480,
+      "REAL_N": 240,
+      "FAKE_N": 240,
+      "MUSIC_EER": 0.5
+    }
+  ],
+  "selection_allowed": false,
+  "automatic_submission_allowed": false,
+  "checkpoint_source": "Huzaifanasir95/AI-Music-DeepFake-Detector (MIT)",
+  "caveat": "v91 labels were already opened; results may reject or motivate a new design only."
+}

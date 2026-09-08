@@ -1,0 +1,19 @@
+{
+  "rows": 8,
+  "maximum_absolute_difference": 5.551115123125783e-17,
+  "mean_absolute_difference": 3.469446951953614e-17,
+  "tolerance": 0.0005,
+  "saved_evaluation_close": true,
+  "file_order_bit_exact": true,
+  "pass_check": true,
+  "scope": "inference equivalence only, not generalization or official score",
+  "smoke": true,
+  "task": "MUSIC",
+  "artifacts": {
+    "reports/lowband_music_v67_smoke/best.pt": "7b277c1a31c36726259e6aba5e7dcc29891b660de12112533ad6c2194d174b78",
+    "reports/lowband_music_v67_smoke/dev_predictions.csv": "f2f86dfa6e22a2f595b290f572a047e69e6d43a03314be04bd7486aa25545e37"
+  },
+  "verifier_source_sha256": "174df83bef9576434e6a024a021f4b49593addc2e0d748fe219655b65e4832d5",
+  "inference_source_sha256": "d51baa8adc4e88f1bbc59cfd85e7cddbf16442ac34233de5a621496d261cbc61",
+  "gpu": "NVIDIA B200"
+}

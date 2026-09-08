@@ -1,0 +1,6 @@
+# Same data/draws/head initialization as v71 dense_supervised.
+# Only the existing small representation adapters additionally receive gradients.
+base_config: configs/dense_component_v71.yaml
+schema: dense_component_adapter_v72
+adapter_learning_rate: 0.0001
+no_automatic_submission: true

@@ -1,0 +1,10 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/invariant_dual_domain_v4_paired/seed00_fixedteacher_lr1e4/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.7771809649414401,
+  "mean_ads": 0.8147255662465165,
+  "worst_ads": 0.7396363636363636
+}

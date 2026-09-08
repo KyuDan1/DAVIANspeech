@@ -1,0 +1,9 @@
+DATASET,LINKED_MUSIC_SOURCE_HAS_VOICE_REVIEW_FLAG,VOICE_ABSENCE_TARGET_REQUIRES_REVIEW,VOICE_REAL_TARGET_WITH_FLAGGED_FAKE_BACKGROUND,MIXFAKE_RF_SUNO_UDIO_BACKGROUND_UNVERIFIED
+channel_invariant_factorial_train_v1,0,0,0,0
+external_mixed_train_v1,63,0,8,0
+forensic_call_train_v1,14,0,1,0
+mixed_devvoice_train_v1,61,0,5,0
+mixed_fmc_music_train_v1,8,0,0,0
+mixfake_music_train_v1,0,0,0,667
+telephone_mixed_train_v1,132,0,13,0
+temporal_mixed_train_v2,140,0,8,0

@@ -1,0 +1,8 @@
+{
+  "best_epoch": 270,
+  "selection": 0.7556632653061224,
+  "mean_dev_eer": 0.2136734693877551,
+  "worst_dev_eer": 0.275,
+  "feature_mode": "both",
+  "group_dro_temperature": 0.1
+}

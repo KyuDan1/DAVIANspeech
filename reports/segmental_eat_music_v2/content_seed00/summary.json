@@ -1,0 +1,8 @@
+{
+  "best_selection": 0.7859353741496599,
+  "best_epoch": 33,
+  "train_examples": 18400,
+  "parameters": 632977,
+  "branch_mode": "content",
+  "max_views": 8
+}

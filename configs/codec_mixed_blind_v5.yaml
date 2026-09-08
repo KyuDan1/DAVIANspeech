@@ -1,0 +1,77 @@
+# Frozen before three-stream v1/v2 candidate selection completed and before any
+# detector prediction was produced for this bank.
+schema_version: codec_mixed_blind_v5
+status: built_validated_registered_locked_unscored
+purpose: one_time_final_candidate_check
+seed: 20260906
+id_prefix: cmbv5
+per_cell: 4
+base_rows: 48
+rendered_rows: 240
+
+reservation_history:
+  - design: four_generators_12_sources_each_480_renders
+    outcome: failed_before_reservation_write_or_detector_inference
+    reason: >-
+      With every registered identity protected, only 7 unused mustango groups
+      remained; 12 were required.
+  - design: three_generators_8_sources_each_240_renders
+    basis: metadata_capacity_only_no_detector_score
+    outcome: source_and_semantic_screen_passed_but_generated_id_collision_found
+    reason: legacy pmv3 sample IDs overlap the registered codec development bank
+  - design: same_sources_with_unique_cmbv5_id_prefix
+    basis: structural_identity_validation_only_no_detector_score
+    outcome: rejected_before_scoring_due_asvspoof2019_speaker_overlap
+  - design: external_voice_source_and_speaker_disjoint
+    basis: structural_identity_validation_only_no_detector_score
+    real_voice: LibriSpeech_test-clean_24_unique_speakers
+    fake_voice: ASVspoof2021_DF_nocodec_24_sources_13_speakers_24_attacks
+    outcome: final_18_of_18_validation_pass_registered_locked_unscored
+
+component_cells:
+  - RR
+  - RF
+  - FR
+  - FF
+layouts:
+  - concurrent
+  - partial_overlap
+  - sequential
+channels:
+  - clean
+  - g711_ulaw
+  - g722_wb
+  - opus_nb_8k
+  - transcode_g711_opus
+
+# musicldm and mustango are deliberately omitted: after excluding every
+# registered role they have only 2 and 7 eligible canonical source groups.
+# No source is reused to fill those shortages.
+fake_music_generators:
+  - MusicGen_medium
+  - audioldm2
+  - stable_audio_open
+fake_music_sources_per_generator: 8
+
+leakage_policy:
+  protect_all_roles_in: configs/data_partitions.yaml
+  source_identity_disjoint: true
+  canonical_music_group_disjoint: true
+  within_bank_source_reuse: paired_channel_variants_only
+  generator_ood_claim: false
+
+semantic_policy:
+  text_screen: musiccaps_instrumental_text_v1
+  acoustic_screen:
+    panns_speech_probability_max: 0.20
+    demucs_vocals_to_mixture_db_max: -1.5
+  failed_source_action: replace_with_same_generator_before_render
+
+decision_policy:
+  score_times: 1
+  candidates: selected_three_stream_configuration_extra_seed_ensemble_and_anchor
+  no_weight_or_threshold_tuning: true
+  acceptance:
+    - overall_ads_above_exact_v47_anchor
+    - no_channel_ads_regression_over_0.01_on_clean_or_g722
+    - g711_opus_and_transcode_mean_ads_above_exact_v47_anchor

@@ -1,0 +1,17 @@
+# Frozen before the full 600-file normalization accuracy comparison.
+schema_version: wpt_peak_normalization_v63
+data_matrix: configs/music_specialist_v58.yaml
+checkpoint: existing_submitted_wpt_seed06
+only_change: peak_normalize_each_preemphasized_window_before_wpt_encoder
+file_views: 5
+temperature: 2.0
+slot_weight: 0.4
+other_four_outputs: unchanged
+development_subset: [codec_mixed_dev_v4]
+decision:
+  minimum_pooled_file_eer_gain: 0.01
+  maximum_domain_file_eer_regression: 0.025
+  maximum_channel_file_eer_regression: 0.025
+  require_mean_domain_improvement: true
+  require_worst_domain_nonworse: true
+  no_automatic_submission: true

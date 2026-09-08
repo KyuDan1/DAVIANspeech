@@ -1,0 +1,18 @@
+schema: presence_repair_v76
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+parent_checkpoint: reports/common_eat_adaptation/full/adapted/head.pt
+review: reports/train_presence_negatives_v75/review.csv
+seed: 20260905
+epochs: 6
+samples_per_epoch: 4096
+batch_size: 64
+learning_rate: 0.001
+weight_decay: 0.01
+temperature: 2.0
+workers: 4
+threads_per_worker: 2
+variants: [control, mask_reviewed_negatives]
+selection: fixed_final_epoch_no_early_stopping
+scope: only_voice_presence_output_weight_and_bias_are_trainable
+no_automatic_submission: true

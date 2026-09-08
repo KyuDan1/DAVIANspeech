@@ -1,0 +1,48 @@
+{
+  "selected": {
+    "FILE": {
+      "mode": "logit",
+      "weight": 0.4,
+      "metrics": {
+        "TASK": "FILE",
+        "MODE": "logit",
+        "WEIGHT": 0.4,
+        "SELECTION": 0.8138586956521738,
+        "MAX_BANK_REGRESSION": -0.12771739130434778,
+        "EER_yue_cross_component_audit_v1:truth": 0.1861413043478261
+      }
+    },
+    "VOICE": {
+      "mode": "logit",
+      "weight": 0.2,
+      "metrics": {
+        "TASK": "VOICE",
+        "MODE": "logit",
+        "WEIGHT": 0.2,
+        "SELECTION": 0.8979166666666667,
+        "MAX_BANK_REGRESSION": -0.045833333333333365,
+        "EER_yue_cross_component_audit_v1:truth": 0.10208333333333333
+      }
+    },
+    "MUSIC": {
+      "mode": "logit",
+      "weight": 0.5,
+      "metrics": {
+        "TASK": "MUSIC",
+        "MODE": "logit",
+        "WEIGHT": 0.5,
+        "SELECTION": 0.7903225806451613,
+        "MAX_BANK_REGRESSION": -0.032258064516129004,
+        "EER_yue_cross_component_audit_v1:truth": 0.20967741935483875
+      }
+    }
+  },
+  "banks": {
+    "yue_cross_component_audit_v1:truth": {
+      "FILE_EER": 0.1861413043478261,
+      "VOICE_EER": 0.10208333333333333,
+      "MUSIC_EER": 0.20967741935483875,
+      "ADS": 0.8236094553529686
+    }
+  }
+}

@@ -1,0 +1,125 @@
+schema_version: spear_voice_mil_v53_frozen_v1
+frozen_at_utc: "2026-09-04"
+status: frozen_before_v4_v5_v6_v7_retrospective_diagnostics
+
+objective:
+  output_axis: VOICE_FAKE_PROB
+  original_mixture: true
+  source_separation: none
+  extra_backbone_passes: 0
+  internal_router: speech_presence_aware_segment_weights
+
+features:
+  source: existing_v47_spear_component_bins
+  ssl_model: marcoyang/spear-xlarge-speech-audio-v2
+  layers: [0, 1, 2, 3]
+  views: 3
+  temporal_bins: 8
+  statistics_per_layer: 4
+  projected_width: 64
+  xlsr_anchor: nii-yamagishilab/xls-r-2b-anti-deepfake_existing_voice_score
+
+training:
+  examples: 17760
+  fake_tts_generator_groups: 11
+  generator_and_dataset_balanced_sampling: true
+  segment_presence_loss_weight: 0.20
+  segment_fake_loss_weight: 0.40
+  train_specs:
+    - external_mixed_train_v1:truth.csv
+    - mixed_devvoice_train_v1:truth.csv
+    - mixed_fmc_music_train_v1:truth.csv
+    - mixfake_music_train_v1:truth.csv
+    - telephone_mixed_train_v1:truth.csv
+    - channel_invariant_factorial_train_v1:truth.csv
+    - temporal_mixed_train_v2:truth_train.csv
+  forbidden_training_or_selection_banks:
+    - codec_mixed_dev_v4
+    - codec_mixed_blind_v5
+    - codec_mixed_blind_v6
+    - codec_mixed_blind_v7
+
+development_selection:
+  source_disjoint_and_authorized_only: true
+  specs:
+    - mixfake_music_dev_v1:truth.csv
+    - external_mixed_v1:truth.csv
+    - external_mixed_v1_telephone_v1:truth.csv
+    - source_disjoint_mixed_v1:truth.csv
+    - source_disjoint_mixed_v1_telephone_v1:truth.csv
+    - source_disjoint_mixed_equal_v1:truth.csv
+    - telephone_mixed_dev_v1:truth.csv
+    - factorial_eval_1200_v2:truth_dev.csv
+    - multigen_voice_v2:truth_dev.csv
+    - temporal_mixed_train_v2:truth_dev.csv
+  fusion_selection_excludes_temporal_dev_without_exact_anchor_prediction: true
+  fixed_member_fusion: uniform_logit_mean
+  fixed_voice_logit_weight: 0.15
+  weight_rationale: largest_checked_weight_with_no_worst_channel_eer_regression
+  anchor_vs_frozen:
+    robust_selection: [0.758804, 0.783572]
+    mean_dataset_voice_eer: [0.194987, 0.174398]
+    worst_dataset_voice_eer: [0.320000, 0.280000]
+    mean_generator_voice_eer: [0.203310, 0.180979]
+    worst_generator_voice_eer: [0.397674, 0.394817]
+    mean_telephone_voice_eer: [0.238889, 0.202778]
+    worst_channel_voice_eer: [0.310345, 0.310345]
+
+members:
+  - seed: 20260921
+    channel_consistency_weight: 0.0
+    best_epoch: 6
+    checkpoint: reports/spear_voice_mil_v53/all_cc0_seed21/spear_voice_mil_head.pt
+    sha256: 2beec339c73e3e88446ab5f63ef56ae09ab2e6a4a1a27b747b5518de93a5bc6e
+  - seed: 20260922
+    channel_consistency_weight: 0.01
+    best_epoch: 24
+    checkpoint: reports/spear_voice_mil_v53/all_cc001_seed22/spear_voice_mil_head.pt
+    sha256: b02711887ba2127ddd392ac94a01f328299eb15d785d18d7a27c9eb675700d4a
+  - seed: 20260923
+    channel_consistency_weight: 0.05
+    best_epoch: 16
+    checkpoint: reports/spear_voice_mil_v53/all_cc005_seed23/spear_voice_mil_head.pt
+    sha256: 4658598b5165589b49de1002e5924c54348a130e2571a8aef4aa01965111a259
+
+logo_audit:
+  protocol: three_disjoint_partitions_of_11_tts_generators
+  fold_a_heldout_mean_max_eer: [0.180676, 0.234835]
+  fold_b_heldout_mean_max_eer: [0.217844, 0.262202]
+  fold_c_heldout_mean_max_eer: [0.172180, 0.193029]
+  use_for_final_weight_tuning: false
+
+blind_policy:
+  frozen_before_any_new_head_prediction_on_v4_v5_v6_v7: true
+  v4_v5_v6_allowed_use_after_freeze: retrospective_diagnostic_only
+  v7_allowed_use: none_without_explicit_parent_authorization
+  post_diagnostic_tuning: forbidden
+
+retrospective_diagnostic_after_freeze:
+  used_for_training_selection_or_tuning: false
+  v7_inferred_or_scored: false
+  decision: reject_from_deployment
+  reason: >-
+    The fixed residual improved v4 but regressed v5 and v6, including the
+    Opus/transcode conditions it was intended to protect. The tiny head and
+    reports remain a research artifact, but the residual must not be added to
+    sota_candidate_v52_frozen.
+  codec_mixed_dev_v4:
+    anchor_voice_eer: 0.2066666667
+    frozen_voice_eer: 0.2000000000
+    anchor_ads: 0.7660000000
+    frozen_ads: 0.7673333333
+  codec_mixed_blind_v5:
+    anchor_voice_eer: 0.1166666667
+    frozen_voice_eer: 0.1333333333
+    anchor_ads: 0.8133333333
+    frozen_ads: 0.8100000000
+  codec_mixed_blind_v6:
+    anchor_voice_eer: 0.0833333333
+    frozen_voice_eer: 0.1000000000
+    anchor_ads: 0.7891666667
+    frozen_ads: 0.7858333333
+  artifacts:
+    v4: reports/spear_voice_mil_v53/retrospective_v4_frozen
+    v5: reports/spear_voice_mil_v53/retrospective_v5_frozen
+    v6: reports/spear_voice_mil_v53/retrospective_v6_frozen

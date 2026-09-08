@@ -1,0 +1,14 @@
+{
+  "status": "complete_smoke_only",
+  "results": [],
+  "seconds": 26.474870327860117,
+  "maximum_parent_logit_difference": 7.152557373046875e-07,
+  "peak_cuda_mib": 8485.90234375,
+  "trainable_parameters_per_head": 193,
+  "both_heads_updated": true,
+  "initial_heads_bit_exact": true,
+  "frozen_encoder_gradients_absent": true,
+  "frozen_sha256": "07d2a516399897ad175c72bb4780de7359433e8a098bc144120415a84e7a6473",
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

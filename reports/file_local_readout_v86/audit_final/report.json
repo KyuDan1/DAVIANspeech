@@ -1,0 +1,87 @@
+{
+  "status": "complete_snapshot_audit",
+  "rows": 4096,
+  "training_finished": false,
+  "counts": {
+    "kind": {
+      "original_train": 2061,
+      "synthetic_train": 2035
+    },
+    "corpus": {
+      "temporal_mixed_train_v2": 263,
+      "mixfake_music_train_v1": 246,
+      "mixed_fmc_music_train_v1": 267,
+      "channel_invariant_factorial_train_v1": 277,
+      "telephone_mixed_train_v1": 252,
+      "external_mixed_train_v1": 256,
+      "forensic_call_train_v1": 240,
+      "mixed_devvoice_train_v1": 260
+    },
+    "layout": {
+      "pure_voice": 285,
+      "sparse_music": 294,
+      "sequential_voice_first": 280,
+      "sparse_voice": 276,
+      "pure_music": 302,
+      "concurrent": 301,
+      "sequential_music_first": 297
+    },
+    "channel": {
+      "g722_wb": 402,
+      "transcode_g711_opus": 436,
+      "opus_nb_8k": 391,
+      "clean": 393,
+      "g711_ulaw": 413
+    },
+    "duration": {
+      "8.0": 405,
+      "60.0": 403,
+      "4.0": 398,
+      "32.0": 419,
+      "16.0": 410
+    },
+    "actual_case": {
+      "R-": 142,
+      "FF": 372,
+      "RR": 327,
+      "-R": 151,
+      "-F": 151,
+      "RF": 385,
+      "FR": 364,
+      "F-": 143
+    },
+    "file_label": {
+      "0": 1645,
+      "1": 2451
+    }
+  },
+  "snapshots": [
+    {
+      "path": "reports/file_local_readout_v86/full/epoch_1_traces.jsonl",
+      "complete_rows": 1024,
+      "bytes": 735188,
+      "sha256": "e2280d4deaabbb6b07932aac124c288ad74b56c326ae5bd270169581ebd691cf"
+    },
+    {
+      "path": "reports/file_local_readout_v86/full/epoch_2_traces.jsonl",
+      "complete_rows": 1024,
+      "bytes": 790649,
+      "sha256": "ca2ad62368afd0b4df37a0065b0e3295c5b7760cc60d8884449d898b31a8896f"
+    },
+    {
+      "path": "reports/file_local_readout_v86/full/epoch_3_traces.jsonl",
+      "complete_rows": 1024,
+      "bytes": 803127,
+      "sha256": "e172913888e83c28bdfe97002a0daf6230384cddc5e7f41f0cabfac12fcad075"
+    },
+    {
+      "path": "reports/file_local_readout_v86/full/epoch_4_traces.jsonl",
+      "complete_rows": 1024,
+      "bytes": 793944,
+      "sha256": "e50bbd99c514cadab2847367d563474e2db0f992166920081f6998d2dd8d2bf9"
+    }
+  ],
+  "original_rows_match_train_inventory": true,
+  "synthetic_File_OR_labels_valid": true,
+  "caveat": "Snapshot of consumed TRAIN records only; pure-audio cases use actual presence/labels, not unused template case."
+}

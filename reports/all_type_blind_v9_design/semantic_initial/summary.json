@@ -1,0 +1,9 @@
+{
+  "purpose": "presence semantics only",
+  "sources": 96,
+  "passes": 74,
+  "failures": 22,
+  "reservation_sha256": "01895f0d8b390959973afd15a55dddf53f303177d50a940c616d4d0d3fbd3e6a",
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false
+}

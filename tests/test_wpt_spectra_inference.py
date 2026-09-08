@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 
 from src.wpt_spectra_inference import (
+    apply_standalone_task_fusion,
     aggregate_view_logits, apply_fixed_task_moe_fusion, fixed_windows,
     nested_view_indices,
 )
@@ -66,3 +67,63 @@ def test_fixed_moe_changes_only_voice_and_file(tmp_path: Path):
             "MUSIC_FAKE_PROB", "VOICE_PRESENT_PROB", "MUSIC_PRESENT_PROB",
         ):
             assert float(after[column]) == before[column]
+
+
+def test_standalone_wpt_preserves_music_and_presence(tmp_path: Path):
+    ids = np.asarray(["a", "b"])
+    columns = [
+        "ID", "FILE_FAKE_PROB", "VOICE_FAKE_PROB", "MUSIC_FAKE_PROB",
+        "VOICE_PRESENT_PROB", "MUSIC_PRESENT_PROB",
+    ]
+    original = [{
+        "ID": item, "FILE_FAKE_PROB": .45, "VOICE_FAKE_PROB": .35,
+        "MUSIC_FAKE_PROB": .55, "VOICE_PRESENT_PROB": .65,
+        "MUSIC_PRESENT_PROB": .75,
+    } for item in ids]
+    submission = tmp_path / "submission.csv"
+    with submission.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(original)
+    wpt = np.asarray([[.9, .1, .8], [.1, .9, .2]], np.float32)
+    apply_standalone_task_fusion(
+        submission, ids, wpt, voice_weight=.075, file_weight=.01
+    )
+    with submission.open(newline="") as handle:
+        updated = list(csv.DictReader(handle))
+    for before, after in zip(original, updated):
+        assert float(after["FILE_FAKE_PROB"]) != before["FILE_FAKE_PROB"]
+        assert float(after["VOICE_FAKE_PROB"]) != before["VOICE_FAKE_PROB"]
+        for column in (
+            "MUSIC_FAKE_PROB", "VOICE_PRESENT_PROB", "MUSIC_PRESENT_PROB",
+        ):
+            assert float(after[column]) == before[column]
+
+
+def test_standalone_wpt_safe_defaults_change_voice_only(tmp_path: Path):
+    ids = np.asarray(["a"])
+    columns = [
+        "ID", "FILE_FAKE_PROB", "VOICE_FAKE_PROB", "MUSIC_FAKE_PROB",
+        "VOICE_PRESENT_PROB", "MUSIC_PRESENT_PROB",
+    ]
+    original = {
+        "ID": "a", "FILE_FAKE_PROB": .45, "VOICE_FAKE_PROB": .35,
+        "MUSIC_FAKE_PROB": .55, "VOICE_PRESENT_PROB": .65,
+        "MUSIC_PRESENT_PROB": .75,
+    }
+    submission = tmp_path / "submission.csv"
+    with submission.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer.writeheader()
+        writer.writerow(original)
+    apply_standalone_task_fusion(
+        submission, ids, np.asarray([[.9, .1, .8]], np.float32)
+    )
+    with submission.open(newline="") as handle:
+        updated = next(csv.DictReader(handle))
+    assert float(updated["VOICE_FAKE_PROB"]) != original["VOICE_FAKE_PROB"]
+    for column in (
+        "FILE_FAKE_PROB", "MUSIC_FAKE_PROB", "VOICE_PRESENT_PROB",
+        "MUSIC_PRESENT_PROB",
+    ):
+        assert float(updated[column]) == original[column]

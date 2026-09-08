@@ -1,0 +1,560 @@
+{
+  "status": "complete_fixed_composition_diagnostic",
+  "results": [
+    {
+      "bank": "codec_mixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "anchor",
+      "rows": 600,
+      "FILE_EER": 0.2333333333333333
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 600,
+      "FILE_EER": 0.31999999999999995
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_max",
+      "rows": 600,
+      "FILE_EER": 0.32555555555555554
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "anchor",
+      "rows": 120,
+      "FILE_EER": 0.09999999999999999
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 120,
+      "FILE_EER": 0.20555555555555557
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_max",
+      "rows": 120,
+      "FILE_EER": 0.19444444444444445
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "anchor",
+      "rows": 120,
+      "FILE_EER": 0.19999999999999998
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 120,
+      "FILE_EER": 0.19444444444444445
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_max",
+      "rows": 120,
+      "FILE_EER": 0.22777777777777777
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g722_wb",
+      "rule": "anchor",
+      "rows": 120,
+      "FILE_EER": 0.16666666666666663
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g722_wb",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 120,
+      "FILE_EER": 0.2666666666666667
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "g722_wb",
+      "rule": "presence_weighted_max",
+      "rows": 120,
+      "FILE_EER": 0.19999999999999998
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "anchor",
+      "rows": 120,
+      "FILE_EER": 0.33333333333333337
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 120,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_max",
+      "rows": 120,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "transcode_g711_opus",
+      "rule": "anchor",
+      "rows": 120,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "transcode_g711_opus",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 120,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "CHANNEL",
+      "group": "transcode_g711_opus",
+      "rule": "presence_weighted_max",
+      "rows": 120,
+      "FILE_EER": 0.4388888888888889
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "concurrent",
+      "rule": "anchor",
+      "rows": 200,
+      "FILE_EER": 0.28
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "concurrent",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 200,
+      "FILE_EER": 0.36
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "concurrent",
+      "rule": "presence_weighted_max",
+      "rows": 200,
+      "FILE_EER": 0.31999999999999995
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "partial_overlap",
+      "rule": "anchor",
+      "rows": 200,
+      "FILE_EER": 0.25666666666666665
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "partial_overlap",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 200,
+      "FILE_EER": 0.33999999999999997
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "partial_overlap",
+      "rule": "presence_weighted_max",
+      "rows": 200,
+      "FILE_EER": 0.36
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "sequential",
+      "rule": "anchor",
+      "rows": 200,
+      "FILE_EER": 0.1433333333333333
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "sequential",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 200,
+      "FILE_EER": 0.24333333333333335
+    },
+    {
+      "bank": "codec_mixed",
+      "axis": "MIX_MODE",
+      "group": "sequential",
+      "rule": "presence_weighted_max",
+      "rows": 200,
+      "FILE_EER": 0.28
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.41388888888888886
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.44166666666666665
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.375
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.4083333333333333
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.5
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.4833333333333333
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.3916666666666667
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "anchor",
+      "rows": 240,
+      "FILE_EER": 0.41666666666666663
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 240,
+      "FILE_EER": 0.44999999999999996
+    },
+    {
+      "bank": "long_uniform",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "presence_weighted_max",
+      "rows": 240,
+      "FILE_EER": 0.43333333333333335
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "anchor",
+      "rows": 2160,
+      "FILE_EER": 0.312037037037037
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 2160,
+      "FILE_EER": 0.4111111111111111
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "rule": "presence_weighted_max",
+      "rows": 2160,
+      "FILE_EER": 0.4092592592592592
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.19166666666666665
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.3666666666666667
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "clean",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.37777777777777777
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.23055555555555554
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.37777777777777777
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "g711_ulaw",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.37222222222222223
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.3388888888888889
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.46944444444444444
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "CHANNEL",
+      "group": "opus_nb_8k",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.4638888888888889
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.3194444444444444
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.4111111111111111
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "30",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.4194444444444444
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.3138888888888889
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.4027777777777778
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "45",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.4027777777777778
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "anchor",
+      "rows": 720,
+      "FILE_EER": 0.30000000000000004
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "presence_weighted_noisy_or",
+      "rows": 720,
+      "FILE_EER": 0.41388888888888886
+    },
+    {
+      "bank": "long_fixed",
+      "axis": "DURATION",
+      "group": "60",
+      "rule": "presence_weighted_max",
+      "rows": 720,
+      "FILE_EER": 0.4083333333333333
+    }
+  ],
+  "probability_calibration_assumed_not_proven": true,
+  "automatic_submission_allowed": false,
+  "caveat": "Noisy OR assumes component-event independence; max is an alternative heuristic, neither follows uniquely from File=OR labels."
+}

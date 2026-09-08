@@ -1,0 +1,8 @@
+{
+  "all_train_rows": 21304,
+  "optimization_rows": 512,
+  "selection_rows": 64,
+  "all_groups": 4187,
+  "optimization_groups": 2803,
+  "selection_groups": 1384
+}

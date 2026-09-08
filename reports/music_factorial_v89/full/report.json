@@ -1,0 +1,95 @@
+{
+  "status": "complete",
+  "history": [
+    {
+      "epoch": 1,
+      "losses": {
+        "factorial_bce": 0.21930485561141064,
+        "factorial_ranked": 0.24756890396382256
+      },
+      "loss_parts": {
+        "factorial_bce": {
+          "bce": 0.21930485561141064,
+          "rank": 0.08860985237744368,
+          "invariant": 1.900265617330054
+        },
+        "factorial_ranked": {
+          "bce": 0.2067834663710911,
+          "rank": 0.07920743061875944,
+          "invariant": 1.2471975912558264
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "losses": {
+        "factorial_bce": 0.16575702040155046,
+        "factorial_ranked": 0.17561234984947363
+      },
+      "loss_parts": {
+        "factorial_bce": {
+          "bce": 0.16575702040155046,
+          "rank": 0.03761161307215546,
+          "invariant": 2.04887666861517
+        },
+        "factorial_ranked": {
+          "bce": 0.14995822447707555,
+          "rank": 0.03597305253558688,
+          "invariant": 0.9229757205509941
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "losses": {
+        "factorial_bce": 0.1921986164861947,
+        "factorial_ranked": 0.19789178997213122
+      },
+      "loss_parts": {
+        "factorial_bce": {
+          "bce": 0.1921986164861947,
+          "rank": 0.06355529614655615,
+          "invariant": 1.9588860885920287
+        },
+        "factorial_ranked": {
+          "bce": 0.17191804074215966,
+          "rank": 0.05600248076234862,
+          "invariant": 0.7386626437566974
+        }
+      }
+    },
+    {
+      "epoch": 4,
+      "losses": {
+        "factorial_bce": 0.16529838626110704,
+        "factorial_ranked": 0.17432110382022378
+      },
+      "loss_parts": {
+        "factorial_bce": {
+          "bce": 0.16529838626110704,
+          "rank": 0.0717506551549348,
+          "invariant": 1.9194889951989655
+        },
+        "factorial_ranked": {
+          "bce": 0.14920768249771754,
+          "rank": 0.0588400752734749,
+          "invariant": 0.667270313452415
+        }
+      }
+    }
+  ],
+  "results": [
+    {
+      "model": "factorial_bce",
+      "MUSIC_EER": 0.14268951736384206
+    },
+    {
+      "model": "factorial_ranked",
+      "MUSIC_EER": 0.14503638442574737
+    }
+  ],
+  "seconds": 2002.094080965966,
+  "peak_cuda_mib": 3311.015625,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

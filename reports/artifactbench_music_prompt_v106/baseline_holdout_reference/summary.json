@@ -1,0 +1,36 @@
+{
+  "task": "music",
+  "rows": 1800,
+  "views": 1,
+  "checkpoint": "reports/mixfake_multistream_v96/seed35_music_exactcodec_paperwarm/multistream_prompt.pt",
+  "checkpoint_sha256": "95bad61d3d11ba515d981ef6584a3b8d6af6df738eee5ae90abbc79b0d5cb468",
+  "manifest": "data/external/artifactbench_v1/prepared_v106/holdout_fake_eval.csv",
+  "manifest_sha256": "40bfe326fb40a2faaa08e87d999458b3796c8dd96889dcce119ce2de8fe74bae",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": NaN,
+      "task_eer": {
+        "music": NaN
+      },
+      "ads": null,
+      "subgroup_eer": {
+        "voice_real": NaN,
+        "voice_fake": NaN
+      },
+      "manifest_channel_eer": {
+        "original_16k": NaN
+      },
+      "layout_eer": {},
+      "mean_score_by_case": {
+        "RR": NaN,
+        "RF": NaN,
+        "FR": NaN,
+        "FF": NaN
+      }
+    }
+  ],
+  "mean_eer": NaN,
+  "worst_eer": NaN,
+  "locked_scores_read": false
+}

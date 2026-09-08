@@ -1,0 +1,42 @@
+{
+  "status": "complete_archive_validation",
+  "archive": "/home/nas_main/kyudanjung/DAVIANspeech/artifactbench_codec_music_moe_v108.zip",
+  "sha256": "f5330d223dca915279b51f49bd58de31374b98b2ac9a39ffec77966acef474f5",
+  "bytes": 9067216258,
+  "inventory": {
+    "members": 134,
+    "expanded_bytes": 10484844218,
+    "compressed_bytes": 9067194338,
+    "duplicates": [],
+    "unsafe_paths": [],
+    "top_level": [
+      "model",
+      "requirements.txt",
+      "script.py"
+    ],
+    "maximum_member_bytes": 2387980808
+  },
+  "base_archive": "/home/nas_main/kyudanjung/DAVIANspeech/best_eat_music_v83.zip",
+  "base_sha256": "92d5f2f3508f7b3d7748f2214a7319c5a9029d826f85779bb8ccb64f18ecf48f",
+  "joint_checkpoint_sha256": "c272ef97ecbb3f898a3542a180cddf144e906c017beb6a5d0bc71a2dda04b474",
+  "music_checkpoint_sha256": "b3aeee955a0dbaff113067e71d761834c64ba95979f14e1c2eac4cd875da0842",
+  "changed_outputs": [
+    "FILE_FAKE_PROB",
+    "VOICE_FAKE_PROB",
+    "MUSIC_FAKE_PROB"
+  ],
+  "weights": {
+    "file": 0.4,
+    "voice": 0.12,
+    "music": 0.37
+  },
+  "file_or_weight": 0.15,
+  "views": {
+    "joint": 3,
+    "music": 1
+  },
+  "all_crc_verified": true,
+  "module_smoke_verified": true,
+  "official_submitted": false,
+  "full_pipeline_smoke_verified": false
+}

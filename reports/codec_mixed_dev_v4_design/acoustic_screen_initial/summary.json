@@ -1,0 +1,58 @@
+{
+  "purpose": "truth semantic audit; not authenticity-model evaluation",
+  "authenticity_detector_scores_read": false,
+  "panns_threshold_calibration": {
+    "threshold": 0.2,
+    "threshold_rule": "frozen CLI threshold",
+    "calibration_read": false
+  },
+  "panns_labels": {
+    "vocal_singing": [
+      "Singing",
+      "Male singing",
+      "Female singing",
+      "Child singing",
+      "Synthetic singing",
+      "Choir",
+      "Yodeling",
+      "Chant",
+      "Rapping",
+      "Humming",
+      "Opera",
+      "Vocal music"
+    ],
+    "speech": [
+      "Speech",
+      "Male speech, man speaking",
+      "Female speech, woman speaking",
+      "Child speech, kid speaking",
+      "Conversation",
+      "Narration, monologue",
+      "Speech synthesizer",
+      "Whispering",
+      "Hubbub, speech noise, speech babble"
+    ],
+    "aggregation": "maximum label probability over all 4.04 s segments"
+  },
+  "reservation_path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_dev_v4_design/reservation_initial/reservation.csv",
+  "reservation_present_at_start": true,
+  "demucs_requested": true,
+  "demucs_threshold_calibration": {
+    "threshold_db": -1.5,
+    "threshold_rule": "frozen CLI threshold",
+    "calibration_read": false
+  },
+  "status": "completed",
+  "reservation_sha256": "bcdb086a740280314bb41680bccc4f21fbad226cdba3675b3dc0fab83daffc90",
+  "candidate_sources_scored": 60,
+  "panns_flags": 0,
+  "demucs_flags": 0,
+  "acoustic_screen_passes": 60,
+  "acoustic_screen_failures": 0,
+  "selection_bias_limitations": [
+    "The authorized development reference was pre-screened with PANNs, so calibration is right-censored and cannot estimate sensitivity.",
+    "The reservation was text-screened before this acoustic audit; pass rates are conditional on that metadata selection.",
+    "PANNs and Demucs are weak semantic screens, not human annotations. Every flagged source and a random sample of passes need listening review before truth is frozen.",
+    "This audit must not be used to choose an authenticity detector or to estimate fake-detection performance."
+  ]
+}

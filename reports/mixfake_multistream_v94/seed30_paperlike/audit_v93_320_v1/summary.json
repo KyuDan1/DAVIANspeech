@@ -1,0 +1,54 @@
+{
+  "task": "music",
+  "rows": 320,
+  "views": 1,
+  "checkpoint": "reports/mixfake_multistream_v94/seed30_paperlike/multistream_prompt.pt",
+  "checkpoint_sha256": "88d89363a1f90c15afc18a370011b89499dccc5f437cc15171917705bdf1e079",
+  "manifest": "reports/mixfake_component_v93/channel_audit/development.csv",
+  "manifest_sha256": "042f32af0840753399c9fff9f09b4016e148c56bde88215443694af47bd842ff",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.08125000000000002,
+      "task_eer": {
+        "music": 0.08125000000000002
+      },
+      "ads": null,
+      "subgroup_eer": {
+        "voice_real": 0.07499999999999998,
+        "voice_fake": 0.11250000000000002
+      },
+      "manifest_channel_eer": {},
+      "layout_eer": {},
+      "mean_score_by_case": {
+        "RR": 0.13720138370990753,
+        "RF": 0.9453320503234863,
+        "FR": 0.1624414026737213,
+        "FF": 0.8777869939804077
+      }
+    },
+    {
+      "channel": "opus_nb_8k",
+      "eer": 0.346875,
+      "task_eer": {
+        "music": 0.346875
+      },
+      "ads": null,
+      "subgroup_eer": {
+        "voice_real": 0.3375,
+        "voice_fake": 0.35
+      },
+      "manifest_channel_eer": {},
+      "layout_eer": {},
+      "mean_score_by_case": {
+        "RR": 0.12386264652013779,
+        "RF": 0.2644059360027313,
+        "FR": 0.14156517386436462,
+        "FF": 0.29127150774002075
+      }
+    }
+  ],
+  "mean_eer": 0.2140625,
+  "worst_eer": 0.346875,
+  "locked_scores_read": false
+}

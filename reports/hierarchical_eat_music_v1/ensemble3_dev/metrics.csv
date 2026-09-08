@@ -1,0 +1,8 @@
+DATASET,MEMBER,N,MUSIC_EER
+mixfake_music_dev_v1,ensemble,1600,0.11750000000000002
+external_mixed_v1,ensemble,400,0.135
+source_disjoint_mixed_v1,ensemble,200,0.14
+source_disjoint_mixed_equal_v1,ensemble,200,0.13
+source_disjoint_music_v1,ensemble,400,0.07999999999999999
+factorial_eval_1200_v2_dev,ensemble,350,0.2457142857142857
+telephone_mixed_dev_v1,ensemble,600,0.22333333333333336

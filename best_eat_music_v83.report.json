@@ -1,0 +1,31 @@
+{
+  "status": "complete_archive_validation",
+  "archive": "/home/nas_main/kyudanjung/DAVIANspeech/best_eat_music_v83.zip",
+  "sha256": "92d5f2f3508f7b3d7748f2214a7319c5a9029d826f85779bb8ccb64f18ecf48f",
+  "bytes": 9012561340,
+  "inventory": {
+    "member_count": 130,
+    "expanded_bytes": 10425245571,
+    "compressed_member_bytes": 9012540344,
+    "top_level": [
+      "model",
+      "requirements.txt",
+      "script.py"
+    ],
+    "duplicates": [],
+    "unsafe_paths": [],
+    "symlinks": []
+  },
+  "all_crc_verified": true,
+  "source_archive_sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+  "script_matches_full_pipeline_verified_fast_script": true,
+  "only_entrypoint_changed": true,
+  "probability_change_from_v82": "none on three verified mixed files",
+  "official_submitted": false,
+  "L4_1200_file_time_verified": false,
+  "evidence_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_deadpass_v83/report.json": "7af93a047e80a7a02879afc728462a19a18c843daf7fc6c064f59e81129a76f1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_deadpass_v83/frozen.json": "20d2e34fccf24f6eed9f7285fb0393cad4a16fd456de86107669c4ef7c4c8297",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_deadpass_v83/fast/script.py": "f5a83464491cad35787cee3bed65a3210d8a363550ddc2cba7c8e9d49ac3de25"
+  }
+}

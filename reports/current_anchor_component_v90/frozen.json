@@ -1,0 +1,44 @@
+{
+  "schema": "current_anchor_component_v90",
+  "rows": 2160,
+  "shards": 4,
+  "runners": [
+    {
+      "shard": 0,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90/runner_0",
+      "sample_sha256": "41636c1d73b74c4c256bfcf2f9ce14c43d2db67c3d2272df08507121e02de069"
+    },
+    {
+      "shard": 1,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90/runner_1",
+      "sample_sha256": "41636c1d73b74c4c256bfcf2f9ce14c43d2db67c3d2272df08507121e02de069"
+    },
+    {
+      "shard": 2,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90/runner_2",
+      "sample_sha256": "41636c1d73b74c4c256bfcf2f9ce14c43d2db67c3d2272df08507121e02de069"
+    },
+    {
+      "shard": 3,
+      "root": "/home/nas_main/kyudanjung/DAVIANspeech/reports/current_anchor_component_v90/runner_3",
+      "sample_sha256": "41636c1d73b74c4c256bfcf2f9ce14c43d2db67c3d2272df08507121e02de069"
+    }
+  ],
+  "truth": "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_component_stress_v70/truth.csv",
+  "truth_sha256": "9c9f822fc724b8825e58ac332c9fd2d526b415e58781231a57512e0aac2ae922",
+  "validation_sha256": "bad4e81ad2794989217312c231612d6792bd845a258b457de6eac473b5cc615b",
+  "script": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/script_anchor.py",
+  "script_sha256": "aad2a5facff20650b733fc55c34e070baa9e9535da36cc9b136bf0c89ff50cde",
+  "package_smoke": {
+    "status": "complete_full_packaged_entrypoint_smoke",
+    "rows": 3,
+    "archive_sha256": "1267660ca5b4dc5168988bec6df4114ebcc81c04bd3c9f200fad38fdf5202082",
+    "seconds": 154.79084497876465,
+    "anchor_vs_candidate_non_music_maximum_difference": 0.0,
+    "scope": "B200, grader-core environment; not full 1200-file L4 deadline guarantee"
+  },
+  "anchor_identity": "v50+v57 script_anchor packaged alongside v82/v83 non-Music-exact smoke",
+  "scope": "PREVIOUSLY EXPOSED synthetic v70; diagnostic only",
+  "selection_allowed": false,
+  "automatic_submission_allowed": false
+}

@@ -1,0 +1,19 @@
+{
+  "rows": 8,
+  "maximum_absolute_difference": 0.00030428171157836914,
+  "mean_absolute_difference": 3.8035213947324766e-05,
+  "tolerance": 0.0005,
+  "saved_evaluation_close": true,
+  "file_order_bit_exact": true,
+  "pass_check": true,
+  "scope": "inference equivalence only, not generalization or official score",
+  "smoke": true,
+  "task": "FILE",
+  "artifacts": {
+    "reports/paired_peak_wpt_v64_smoke/best.pt": "95d84582db8a8ce5d8699647eb8c4b547364d0759b70fcfc4054c2f590f3334c",
+    "reports/paired_peak_wpt_v64_smoke/dev_predictions.csv": "1dafe9a760abfe505131b7af7ee0d6734065883b208cc5a3fc739d3d81b805d8"
+  },
+  "verifier_source_sha256": "174df83bef9576434e6a024a021f4b49593addc2e0d748fe219655b65e4832d5",
+  "inference_source_sha256": "949255503f60ae49e3cd5bf65f082c737be9ad181b41c66940d250681ed74f5d",
+  "gpu": "NVIDIA B200"
+}

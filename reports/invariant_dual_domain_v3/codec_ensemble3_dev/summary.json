@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "checkpoint": "reports/invariant_dual_domain_v3/codec_seed00/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/invariant_dual_domain_v3/codec_seed01/dual_domain_head.pt"
+    },
+    {
+      "checkpoint": "reports/invariant_dual_domain_v3/codec_seed02/dual_domain_head.pt"
+    }
+  ],
+  "selection": 0.803822601010101,
+  "mean_ads": 0.8474374098124097,
+  "worst_ads": 0.7602077922077922
+}

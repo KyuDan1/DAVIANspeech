@@ -1,0 +1,48 @@
+{
+  "status": "complete",
+  "smoke": true,
+  "results": [
+    {
+      "pipeline": "eat_parent",
+      "variant": "unchanged",
+      "smoke_only": true
+    },
+    {
+      "pipeline": "v73_composition",
+      "variant": "unchanged",
+      "smoke_only": true
+    },
+    {
+      "pipeline": "eat_parent",
+      "variant": "control",
+      "smoke_only": true
+    },
+    {
+      "pipeline": "v73_composition",
+      "variant": "control",
+      "smoke_only": true
+    },
+    {
+      "pipeline": "eat_parent",
+      "variant": "mask_reviewed_negatives",
+      "smoke_only": true
+    },
+    {
+      "pipeline": "v73_composition",
+      "variant": "mask_reviewed_negatives",
+      "smoke_only": true
+    }
+  ],
+  "cache_initial_maximum_difference": 0.0,
+  "v73_correspondence_maximum_difference": 1.1102230246251565e-16,
+  "features_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/presence_repair_v76/smoke/worker_0/features.npz": "3ce8b4bb21a2c20b1c353919c9ac5b5d736807c3013615158158eeb421f44d13",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/presence_repair_v76/smoke/worker_1/features.npz": "462d8a4a1260342be1730939a520f6998346f7d76784c4500d9412caeabb2185"
+  },
+  "trainable_parameters_per_variant": 193,
+  "training_seconds": 1.7684195144101977,
+  "final_epoch_only": true,
+  "automatic_submission_allowed": false,
+  "protected_evaluation_used": false,
+  "frozen_sha256": "4550fb080148b4b141b0f87b9a2f21d5a577e8e83a2bd01296dba1ac174987b2"
+}

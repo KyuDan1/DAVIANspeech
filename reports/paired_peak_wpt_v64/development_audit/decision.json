@@ -1,0 +1,91 @@
+{
+  "stage": "development_only",
+  "primary_decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": false,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": false
+    },
+    "pooled_gain": -0.021111111111111164,
+    "mean_domain_gain": -0.021111111111111164,
+    "worst_domain_gain": -0.021111111111111164,
+    "max_domain_regression": 0.021111111111111164,
+    "max_channel_regression": 0.03888888888888886
+  },
+  "matched_training_ablation": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": false,
+      "channels_nonregressing": false,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": false
+    },
+    "pooled_gain": -0.020902061938459837,
+    "mean_domain_gain": -0.019331252726601564,
+    "worst_domain_gain": -0.020000000000000018,
+    "max_domain_regression": 0.05999999999999997,
+    "max_channel_regression": 0.06666666666666674
+  },
+  "direct_replacement_diagnostic": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": false,
+      "channels_nonregressing": false,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": false
+    },
+    "pooled_gain": -0.08777777777777782,
+    "mean_domain_gain": -0.08777777777777782,
+    "worst_domain_gain": -0.08777777777777782,
+    "max_domain_regression": 0.08777777777777782,
+    "max_channel_regression": 0.13333333333333341
+  },
+  "candidate": {
+    "best_epoch": 6,
+    "selection": 0.7598416383447055,
+    "pooled_file_eer": 0.2287428705424972,
+    "files": {
+      "complete.json": "4698679b136c169195b96255677bdbfffffaf75ca2fef485036d07cb5baeed4a",
+      "best.pt": "30435883081e24990f801aaa3117f5919d08e593f839828490a4e402c899392f",
+      "dev_predictions.csv": "02d0925df1c55c761491afa64928e8b19b4063ff37fce2b7aa80384fa1dac23a",
+      "history.csv": "c5c0714d416c01ab09a02744030ef41f6477c651be3f3442a754e5f9fc678eb1",
+      "manifest.json": "91afab9f03c0b9ae0bb7f5cf40d7b4aa86ffffbe2c0a7a618b8d570cafdadab5"
+    }
+  },
+  "control": {
+    "best_epoch": 6,
+    "selection": 0.7801254824955858,
+    "pooled_file_eer": 0.2078408086040374,
+    "files": {
+      "complete.json": "89d0f5c7bd91bb9d5dd9a0e35001b14375390c972ec4fd08f82c909dff0360ba",
+      "best.pt": "2e5db771956af33c6db3d8ca478d79fc05b2895ffded06413828fe49a66acd7f",
+      "dev_predictions.csv": "b4a16c0117815999fd64b0fc97e575f89b0cea86232e1566104fae917dc6abbc",
+      "history.csv": "cebfa71f31ac992cde4195c83243b4d29dd56b4659fffb69c2b049a8d04082a5",
+      "manifest.json": "9f3e57a9b2651b5438004cee2de05e21d3375ca7584b61193cf719b6e46bfea1"
+    }
+  },
+  "slot_weight": 0.4,
+  "normalization_enabled": true,
+  "other_four_slot_outputs_text_exact": true,
+  "official_improvement_verified": false,
+  "automatic_submission_allowed": false,
+  "remaining_if_pass": [
+    "independent_file_equivalence",
+    "prospective_all_type",
+    "long_voice",
+    "L4_runtime",
+    "offline_package"
+  ],
+  "files": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/paired_peak_wpt_v64.yaml": "96f351cedace22f74b36c051bbef8fd12a004d901ca6127074756d2f97cbf0b8",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wpt_slot_v62/anchor_verification/predictions.csv": "bb3cd20eecd8b3ce20830fe2b1c2e1af382e85d3a4818141c242f08a890ddb80",
+    "reports/paired_peak_wpt_v64/development_audit/slot_predictions.csv": "576a366e37da82f61c24810318380749db1f26f21fef7300bbf9cf95dccd3df6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wpt_slot_v62/anchor_verification/verification.json": "55b96e8251b690d8ab354fc7f0ffd1b6536d5aa20476e867e835736f57e87477"
+  }
+}

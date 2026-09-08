@@ -1,0 +1,47 @@
+{
+  "frozen_before_inference": true,
+  "evaluation_status": "scored_once_and_retired",
+  "date": "2026-09-04T07:56:25+00:00",
+  "baseline": {
+    "archive": "component_query_or_v47.zip",
+    "sha256": "0ddb1d9d3d21def4f2e3b761e074f52145db45caebfe5c2198976a0af2ce25ed",
+    "bytes": 7913418225
+  },
+  "candidate": {
+    "archive": "component_query_wpt_voice_v48_final.zip",
+    "sha256": "bdc5e0278a3f1b8ca9338022bde35f9c1f695c51865662a3fe7a48ea6eceb3b6",
+    "bytes": 8279337977,
+    "delta_from_baseline": "standalone original-audio WPT Voice logit residual only",
+    "voice_weight": 0.05,
+    "file_weight": 0.0,
+    "music_weight": 0.0,
+    "presence_changed": false
+  },
+  "selection_evidence": "factorial_eval_1200_v2_dev only",
+  "selection_record": {
+    "path": "reports/wpt_spectra_v1/v47_standalone_devselect/selection.json",
+    "sha256": "de6c561938e72e9db3ee1d28c9fd1dd572e5eec2980b79fe630cbddaabd21442"
+  },
+  "prospective_bank": {
+    "truth": "data/eval/prospective_mixed_phone_v3_instrumental_v2/truth.csv",
+    "truth_sha256": "d45c5a3ce0f20496e6d6d4754a94f8b43633cbe5cd1a273e1cf06599313cd388",
+    "reservation_sha256": "02ed5aa569078fba08a18155adef668ac6426cf9e9ad1bbd33bcdf4df4a310e1",
+    "rows": 1200,
+    "base_parents": 240,
+    "semantic_replacement_recheck_sha256": "d626fda2aa7fded6f7bf7154e3eda0db685c93da858eea135206b0ec2c97d48b"
+  },
+  "scorer": {
+    "path": "scripts/score_prospective_paired_eval.py",
+    "sha256": "6c9edfa6cb2cd6b344a96f95c237a90f954f81b433edffc58c2e98f97d187ca3",
+    "interface": "fixed v47 versus v48; no sweep, threshold, weight, or selection option"
+  },
+  "result": {
+    "directory": "reports/prospective_eval_v3_design/evaluation_instrumental_v2",
+    "evaluation_fingerprint": "7b50454cd3606f7af75cb2a1372cfb9b1f65fa83b61ba88e39b8962b3c3d81f0",
+    "v47_ads": 0.7333333333333333,
+    "v48_ads": 0.7353333333333334,
+    "v48_minus_v47_ads": 0.0020000000000001,
+    "retired_to": "retrospective_diagnostic"
+  },
+  "rule": "Run the exact baseline and candidate once, publish all channel/cell contrasts, and never use this bank to tune either frozen model. Retire the bank to retrospective_diagnostic immediately after scoring."
+}

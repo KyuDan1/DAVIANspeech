@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "checks": {
+    "bank_unscored": true,
+    "reservation_hash_carried": true,
+    "truth_hash": true,
+    "row_count": true,
+    "unique_ids": true,
+    "paired_channels": true,
+    "recipe_metadata": true,
+    "audio_id_alignment": true,
+    "audio_format": true,
+    "audio_hash_rows": true,
+    "audio_hash_values": true,
+    "source_count": true,
+    "source_id_alignment": true,
+    "acoustic_id_alignment": true,
+    "acoustic_all_pass": true,
+    "acoustic_thresholds": true,
+    "generator_balance": true,
+    "registered_identity_disjoint": true
+  },
+  "checks_passed": 18,
+  "checks_total": 18,
+  "base_rows": 48,
+  "rendered_rows": 240,
+  "fake_music_sources": 24,
+  "fake_music_by_generator": {
+    "audioldm2": 8,
+    "stable_audio_open": 8,
+    "MusicGen_medium": 8
+  },
+  "truth_sha256": "c780d61642cce109a8ac0b5960c4df9c7f7cd4f02781c7063e18c82b69ebdc4a",
+  "reservation_sha256": "c0c85b4ac831ca27fbefd27aa3450b4bc1adf116039b6ca7f9248c76845cc56d",
+  "authenticity_detector_scores_read": false
+}

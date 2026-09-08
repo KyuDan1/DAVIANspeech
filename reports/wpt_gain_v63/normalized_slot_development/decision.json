@@ -1,0 +1,28 @@
+{
+  "scope": "One normalization change to old WPT slot; development only",
+  "decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": true,
+      "mean_domain_improves": false,
+      "worst_domain_nonworse": false
+    },
+    "pooled_gain": -0.006666666666666682,
+    "mean_domain_gain": -0.006666666666666682,
+    "worst_domain_gain": -0.006666666666666682,
+    "max_domain_regression": 0.006666666666666682,
+    "max_channel_regression": 0.005555555555555591
+  },
+  "other_four_outputs_text_exact": true,
+  "official_improvement_verified": false,
+  "automatic_submission_allowed": false,
+  "files": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/wpt_peak_v63.yaml": "05b663fe02fb16767fb663341460548d8cf0fc41bbfc83064fde9c6d5505ee46",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wpt_slot_v62/anchor_verification/predictions.csv": "bb3cd20eecd8b3ce20830fe2b1c2e1af382e85d3a4818141c242f08a890ddb80",
+    "reports/wpt_gain_v63/normalized_slot_development/predictions.csv": "7d8dc6b40cb018a52ac3eb90bcdf402e6f7a37d7f1425af3546256cf8e124657",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wpt_slot_v62/anchor_verification/verification.json": "55b96e8251b690d8ab354fc7f0ffd1b6536d5aa20476e867e835736f57e87477"
+  }
+}

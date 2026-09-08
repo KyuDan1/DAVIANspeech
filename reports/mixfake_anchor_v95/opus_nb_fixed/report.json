@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "channel": "opus_nb_8k",
+  "rows": 320,
+  "seconds": 253.21141768991947,
+  "predictions_sha256": "00e2ef5e9d3731a707e92491218cd84ab5de14daa2ae5fde87708ec86b86bab9",
+  "frozen_sha256": "c6162c32aeb4400954e667e6ee3f4e85a9cf901f69227ead1f7bfea00f28880e"
+}

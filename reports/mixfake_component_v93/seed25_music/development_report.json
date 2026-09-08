@@ -1,0 +1,110 @@
+{
+  "clean": {
+    "voice_eer": 0.0646281121937726,
+    "music_eer": 0.1796550328058205,
+    "file_eer": 0.0821137925373484,
+    "ads": 0.8921209714508251,
+    "cells": {
+      "FF": {
+        "n": 555,
+        "music_mean": 0.6918952465057373,
+        "file_mean": 0.9905821084976196
+      },
+      "FR": {
+        "n": 624,
+        "music_mean": 0.29263418912887573,
+        "file_mean": 0.9588840007781982
+      },
+      "RF": {
+        "n": 219,
+        "music_mean": 0.6557610034942627,
+        "file_mean": 0.7210169434547424
+      },
+      "RR": {
+        "n": 244,
+        "music_mean": 0.2438177466392517,
+        "file_mean": 0.31216317415237427
+      }
+    },
+    "generators": {
+      "FakeMusicCaps:MusicGen_medium": {
+        "n_fake": 37,
+        "music_eer_vs_all_real": 0.27050379872960517
+      },
+      "FakeMusicCaps:audioldm2": {
+        "n_fake": 30,
+        "music_eer_vs_all_real": 0.17319508448540705
+      },
+      "FakeMusicCaps:musicldm": {
+        "n_fake": 34,
+        "music_eer_vs_all_real": 0.2345825426944972
+      },
+      "FakeMusicCaps:mustango": {
+        "n_fake": 39,
+        "music_eer_vs_all_real": 0.2566613494032849
+      },
+      "SONICS:Suno": {
+        "n_fake": 360,
+        "music_eer_vs_all_real": 0.14168586789554533
+      },
+      "SONICS:Udio": {
+        "n_fake": 274,
+        "music_eer_vs_all_real": 0.1863836657808874
+      }
+    }
+  },
+  "paired_fast": {
+    "voice_eer": 0.10978297308734386,
+    "music_eer": 0.2880660641350814,
+    "file_eer": 0.13941462041792727,
+    "ads": 0.8219162759330432,
+    "cells": {
+      "FF": {
+        "n": 555,
+        "music_mean": 0.6248916387557983,
+        "file_mean": 0.9732111692428589
+      },
+      "FR": {
+        "n": 624,
+        "music_mean": 0.39091968536376953,
+        "file_mean": 0.9202945232391357
+      },
+      "RF": {
+        "n": 219,
+        "music_mean": 0.6249001622200012,
+        "file_mean": 0.7038478851318359
+      },
+      "RR": {
+        "n": 244,
+        "music_mean": 0.3754308223724365,
+        "file_mean": 0.4537760615348816
+      }
+    },
+    "generators": {
+      "FakeMusicCaps:MusicGen_medium": {
+        "n_fake": 37,
+        "music_eer_vs_all_real": 0.3251805953418857
+      },
+      "FakeMusicCaps:audioldm2": {
+        "n_fake": 30,
+        "music_eer_vs_all_real": 0.43440860215053767
+      },
+      "FakeMusicCaps:musicldm": {
+        "n_fake": 34,
+        "music_eer_vs_all_real": 0.34870561127676875
+      },
+      "FakeMusicCaps:mustango": {
+        "n_fake": 39,
+        "music_eer_vs_all_real": 0.38470400567174756
+      },
+      "SONICS:Suno": {
+        "n_fake": 360,
+        "music_eer_vs_all_real": 0.23048515104966716
+      },
+      "SONICS:Udio": {
+        "n_fake": 274,
+        "music_eer_vs_all_real": 0.3177452992027986
+      }
+    }
+  }
+}

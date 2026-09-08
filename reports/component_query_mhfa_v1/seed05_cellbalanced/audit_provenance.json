@@ -1,0 +1,24 @@
+{
+  "purpose": "bounded alternative requested for component-query MHFA audit",
+  "source_checkpoint": "reports/component_query_mhfa_v1/seed04_base/component_query_mhfa.pt",
+  "alternative_checkpoint": "reports/component_query_mhfa_v1/seed05_cellbalanced/component_query_mhfa.pt",
+  "seed": 20260905,
+  "architecture_and_loss": "identical to seed04_base",
+  "sampling": "generator-balanced weights renormalized so each (dataset, layout, voice/music presence, voice/music authenticity) cell has equal mass within its dataset; original generator weights retained within each cell",
+  "temporal_concurrent_expected_per_epoch_before": {
+    "real_voice_real_music": 8.973571,
+    "fake_voice_real_music": 49.788780,
+    "real_voice_fake_music": 76.003807,
+    "fake_voice_fake_music": 392.684418
+  },
+  "temporal_concurrent_expected_per_epoch_after": {
+    "real_voice_real_music": 131.142857,
+    "fake_voice_real_music": 131.142857,
+    "real_voice_fake_music": 131.142857,
+    "fake_voice_fake_music": 131.142857
+  },
+  "best_epoch": 42,
+  "development_selection": 0.8209143089053803,
+  "development_mean_ads": 0.8312801226551226,
+  "development_worst_ads": 0.7725974025974027
+}

@@ -1,0 +1,9 @@
+{
+  "status": "complete_native_equivalence",
+  "files": 80,
+  "calls": 160,
+  "maximum_probability_difference": 1.1102230246251565e-16,
+  "reverse_order_bit_exact": true,
+  "seconds": 47.04114468023181,
+  "scope": "implementation correspondence, not accuracy or L4 benchmark"
+}

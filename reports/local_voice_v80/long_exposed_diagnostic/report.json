@@ -1,0 +1,79 @@
+{
+  "status": "complete_exposed_diagnostic",
+  "overall": [
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global_parent",
+      "rows": 720,
+      "VOICE_EER": 0.36111111111111116
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "file_only",
+      "rows": 720,
+      "VOICE_EER": 0.25555555555555554
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "dense",
+      "rows": 720,
+      "VOICE_EER": 0.27499999999999997
+    },
+    {
+      "bank": "uniform",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "actual_anchor_voice",
+      "rows": 720,
+      "VOICE_EER": 0.42500000000000004
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "global_parent",
+      "rows": 2160,
+      "VOICE_EER": 0.37777777777777777
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "file_only",
+      "rows": 2160,
+      "VOICE_EER": 0.26388888888888884
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "dense",
+      "rows": 2160,
+      "VOICE_EER": 0.26851851851851855
+    },
+    {
+      "bank": "fixed",
+      "axis": "ALL",
+      "group": "ALL",
+      "model": "actual_anchor_voice",
+      "rows": 2160,
+      "VOICE_EER": 0.39351851851851855
+    }
+  ],
+  "prediction_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/local_voice_v80/long_exposed_diagnostic/shard_0/predictions.csv": "324d2ab87ab41c1ffa9f2e98b0c39bfe1aeef9b4d806ba173fe15c66fb146bd6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/local_voice_v80/long_exposed_diagnostic/shard_1/predictions.csv": "bd54850cfda3be6984a98620ca7370db3dba4a1121c98471c9042b87c82be976",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/local_voice_v80/long_exposed_diagnostic/shard_2/predictions.csv": "e6531a996ccd21bf6fbc759c000718b67ffdb34ea69413eae1a448198cc0043c",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/local_voice_v80/long_exposed_diagnostic/shard_3/predictions.csv": "5a8bc39ed1157565180ee962ffa602bac5489b271e9d75cfc99f3a7af5c47267"
+  },
+  "frozen_sha256": "41213f10b5e54ed38ba5f3bb6bf52caa2c4be90dde2432a7a568908c8d076018",
+  "scope": "PREVIOUSLY EXPOSED source-disjoint synthetic long Voice diagnostic; NOT fresh blind validation",
+  "automatic_submission_allowed": false,
+  "limitation": "Voice only, no File/Music/CPS/official Score claim; exposure prevents treating this as fresh confirmation"
+}

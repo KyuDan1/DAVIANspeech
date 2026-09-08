@@ -1,0 +1,30 @@
+# Frozen before codec_mixed_blind_v5 detector inference.
+schema_version: three_stream_experiment_v5_task_moe
+base: robust_l2_core_seed_20260904
+experts:
+  voice: robust_l2_core_seed_20260904
+  music: robust_l2_core_seed_20260904
+  file: auc_l1_seed_20260904
+
+candidates:
+  file_auc_25:
+    file_base_logit_weight: 0.75
+    file_auc_logit_weight: 0.25
+  file_auc_100:
+    file_base_logit_weight: 0.0
+    file_auc_logit_weight: 1.0
+
+unchanged:
+  - VOICE_FAKE_PROB
+  - MUSIC_FAKE_PROB
+  - VOICE_PRESENT_PROB
+  - MUSIC_PRESENT_PROB
+
+decision_rule:
+  primary: >-
+    Same 0.50 pooled + 0.25 mean-domain + 0.25 worst-domain ADS used for
+    checkpoint selection.
+  constraints:
+    - codec_mixed_dev_v4_ads_must_improve_from_robust_l2_core
+    - clean_and_g722_codec_mixed_dev_v4_ads_must_not_regress_by_more_than_0.01
+    - no_more_than_two_development_domains_may_regress_by_more_than_0.01

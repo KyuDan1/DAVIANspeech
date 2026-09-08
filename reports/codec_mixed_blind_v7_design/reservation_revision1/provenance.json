@@ -1,0 +1,272 @@
+{
+  "schema_version": "codec_mixed_blind_v7",
+  "stage": "reserved_pending_semantic_screen",
+  "seed": 20260914,
+  "id_prefix": "cmbv7",
+  "per_cell": 6,
+  "base_rows": 72,
+  "rendered_rows_planned": 360,
+  "channels": [
+    "clean",
+    "g711_ulaw",
+    "g722_wb",
+    "opus_nb_8k",
+    "transcode_g711_opus"
+  ],
+  "provenance_mode": "strict_v7",
+  "inputs": {
+    "dev-00000-of-00001.parquet": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/echofake/dev-00000-of-00001.parquet",
+      "sha256": "c56eaddcd8e3d79b33f497b9ef7e10636cf5179d6cf8ea3f482b64502b3b20cc"
+    },
+    "open_set_eval-00000-of-00003.parquet": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/echofake/open_set_eval-00000-of-00003.parquet",
+      "sha256": "3f5476780b14ab6f2e5846abec5fcd866ac7c3594d5b54c7c1d34e8ef89706ec"
+    },
+    "open_set_eval-00001-of-00003.parquet": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/echofake/open_set_eval-00001-of-00003.parquet",
+      "sha256": "84722b0f6a1c384ef5d13d37efb85a6551d9c071816b7163b2112ea0de023b51"
+    },
+    "open_set_eval-00002-of-00003.parquet": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/echofake/open_set_eval-00002-of-00003.parquet",
+      "sha256": "b33d9b6361b9686851106e93aca6c744351918b49d0e3d533b9bd424c5d4c605"
+    },
+    "unmixed_details.csv": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/unmixed_details.csv",
+      "sha256": "8432062f5a743fd5830d23f05479b9e976f0a80184ca3427b183e3889588f9e7"
+    },
+    "Mixed_and_Back_BackLabel.txt": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/external/mixfake/MixFake/protocols/Mixed_and_Back_BackLabel.txt",
+      "sha256": "fd123a041a97fe5104d2825d9007f81ff7de43e1ea0b4ef53e780313f099a63f"
+    },
+    "musiccaps-public.csv": {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/data/sources/musiccaps_metadata/musiccaps-public.csv",
+      "sha256": "8cc109ac507b5e5aed8ea73a5c8f897a9d0793f7397427e000adf4c05f6021c7"
+    }
+  },
+  "protection": {
+    "truth_manifests": 83,
+    "source_hash_manifests": 6,
+    "exact_identity_variants": 110945,
+    "canonical_music_groups": 13128,
+    "known_source_audio_hashes": 1395,
+    "scope": "every pre-existing data/**/truth*.csv and source_hashes.csv"
+  },
+  "voice_candidate_counts": {
+    "eligible:bonafide:bonafide": 3360,
+    "eligible:fake:CosyVoice2": 294,
+    "eligible:fake:F5-TTS": 15,
+    "eligible:fake:FireRedTTS": 297,
+    "eligible:fake:IndexTTS": 274,
+    "eligible:fake:LLaSA": 20,
+    "eligible:fake:MaskGCT": 267,
+    "eligible:fake:OpenAudio-S1-mini": 18,
+    "eligible:fake:OpenVoice-V2": 298,
+    "eligible:fake:SpeechT5": 29,
+    "eligible:fake:StyleTTS2": 11,
+    "eligible:fake:XTTS-v2": 18,
+    "excluded_label:replay_bonafide": 7387,
+    "excluded_label:replay_fake": 7390,
+    "excluded_protected:bonafide": 4040,
+    "excluded_protected:fake": 5855
+  },
+  "music_candidate_counts": {
+    "eligible:0:FMA:panns_demucs_semantic_screen_pending_v7": 1606,
+    "eligible:1:MusicGen_medium:panns_demucs_semantic_screen_pending_v7": 69,
+    "eligible:1:audioldm2:panns_demucs_semantic_screen_pending_v7": 71,
+    "eligible:1:musicldm:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 2,
+    "eligible:1:musicldm:panns_demucs_semantic_screen_pending_v7": 86,
+    "eligible:1:mustango:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 4,
+    "eligible:1:mustango:panns_demucs_semantic_screen_pending_v7": 84,
+    "eligible:1:stable_audio_open:musiccaps_explicit_instrumental_or_no_vocal_no_positive_voice_v1": 123,
+    "eligible:1:stable_audio_open:panns_demucs_semantic_screen_pending_v7": 347,
+    "excluded_positive_voice_signal": 2715,
+    "excluded_protected:FMA": 394,
+    "excluded_protected:MusicGen_medium": 193,
+    "excluded_protected:audioldm2": 158,
+    "excluded_protected:musicldm": 174,
+    "excluded_protected:mustango": 157,
+    "excluded_protected:stable_audio_open": 817,
+    "excluded_sonics_suno_udio": 5000
+  },
+  "selection": {
+    "requested_fake_music_generators": [
+      "MusicGen_medium",
+      "audioldm2",
+      "musicldm",
+      "mustango",
+      "stable_audio_open"
+    ],
+    "fake_voice_generators": [
+      "CosyVoice2",
+      "F5-TTS",
+      "FireRedTTS",
+      "IndexTTS",
+      "LLaSA",
+      "MaskGCT",
+      "OpenAudio-S1-mini",
+      "OpenVoice-V2",
+      "SpeechT5",
+      "StyleTTS2",
+      "XTTS-v2"
+    ],
+    "speaker_reuse": false,
+    "canonical_music_group_reuse": false,
+    "suno_udio_selected": 0
+  },
+  "semantic_policy": {
+    "positive_vocal_text_rejection": true,
+    "every_selected_music_requires_frozen_panns_demucs_pass": true,
+    "pending_value": "panns_demucs_semantic_screen_pending_v7",
+    "pass_value": "musiccaps_no_positive_voice_text_panns_demucs_pass_v1"
+  },
+  "reservation_sha256": "3a265ac2444aa575257ae4a5584d5d7b98f73dd3c1ab7ba12eac9ba555711f01",
+  "candidate_pool_sha256": "8096200ba11c6954742696025e6622a479eb4846b6b3bdc599a7a3fb49559380",
+  "protected_inputs_sha256": "94870f99e1c8fdf69fc7f2cce068ebeea6900374cf5a128e6d1fee1b5f42d84c",
+  "builder_sha256": "c23bae1d99c7ffda8bcb78e99b85f6a783832e1165ac6ae7e0827eeee93d81f2",
+  "authenticity_detector_inference": false,
+  "authenticity_score_computed": false,
+  "parent_reservation_sha256": "2afcb424b9aa571d02f95d4a510ac54584def70c63968fbd3a19045681c1bcce",
+  "semantic_score_inputs": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_blind_v7_design/semantic_screen_initial/source_scores.csv",
+      "sha256": "6c0846213641a58c9d4892dbe29a25ff0928ffa4b2dad9bf5b852cd6d69b0425"
+    }
+  ],
+  "semantic_replacement_history": [
+    {
+      "excluded_source_id": "064547",
+      "excluded_group": "fma:64547",
+      "replacement_source_id": "081358",
+      "replacement_group": "fma:81358",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "056036",
+      "excluded_group": "fma:56036",
+      "replacement_source_id": "153335",
+      "replacement_group": "fma:153335",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "FM_musicldm_940MNbCeobw",
+      "excluded_group": "fmc:940MNbCeobw",
+      "replacement_source_id": "FM_musicldm_IUjzBX2Qm4k",
+      "replacement_group": "fmc:IUjzBX2Qm4k",
+      "generator": "musicldm"
+    },
+    {
+      "excluded_source_id": "063903",
+      "excluded_group": "fma:63903",
+      "replacement_source_id": "082687",
+      "replacement_group": "fma:82687",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "061172",
+      "excluded_group": "fma:61172",
+      "replacement_source_id": "108533",
+      "replacement_group": "fma:108533",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "029934",
+      "excluded_group": "fma:29934",
+      "replacement_source_id": "004264",
+      "replacement_group": "fma:4264",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "019657",
+      "excluded_group": "fma:19657",
+      "replacement_source_id": "014380",
+      "replacement_group": "fma:14380",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "011506",
+      "excluded_group": "fma:11506",
+      "replacement_source_id": "004235",
+      "replacement_group": "fma:4235",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "126919",
+      "excluded_group": "fma:126919",
+      "replacement_source_id": "018135",
+      "replacement_group": "fma:18135",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "004508",
+      "excluded_group": "fma:4508",
+      "replacement_source_id": "074954",
+      "replacement_group": "fma:74954",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "122184",
+      "excluded_group": "fma:122184",
+      "replacement_source_id": "020376",
+      "replacement_group": "fma:20376",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "106506",
+      "excluded_group": "fma:106506",
+      "replacement_source_id": "011778",
+      "replacement_group": "fma:11778",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "043028",
+      "excluded_group": "fma:43028",
+      "replacement_source_id": "130605",
+      "replacement_group": "fma:130605",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "067626",
+      "excluded_group": "fma:67626",
+      "replacement_source_id": "074908",
+      "replacement_group": "fma:74908",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "041958",
+      "excluded_group": "fma:41958",
+      "replacement_source_id": "009811",
+      "replacement_group": "fma:9811",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "FM_stable_audio_open_7ITwarmdyfI",
+      "excluded_group": "fmc:7ITwarmdyfI",
+      "replacement_source_id": "FM_stable_audio_open_Q8QXzYpl6Tw",
+      "replacement_group": "fmc:Q8QXzYpl6Tw",
+      "generator": "stable_audio_open"
+    },
+    {
+      "excluded_source_id": "053737",
+      "excluded_group": "fma:53737",
+      "replacement_source_id": "040631",
+      "replacement_group": "fma:40631",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "104074",
+      "excluded_group": "fma:104074",
+      "replacement_source_id": "075772",
+      "replacement_group": "fma:75772",
+      "generator": "FMA"
+    },
+    {
+      "excluded_source_id": "073098",
+      "excluded_group": "fma:73098",
+      "replacement_source_id": "060357",
+      "replacement_group": "fma:60357",
+      "generator": "FMA"
+    }
+  ],
+  "semantic_failures_this_revision": 19
+}

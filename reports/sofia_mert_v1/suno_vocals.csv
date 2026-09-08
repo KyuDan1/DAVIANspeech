@@ -1,0 +1,14 @@
+ID,FILE_FAKE,VOICE_FAKE,MUSIC_FAKE,VOICE_PRESENT,MUSIC_PRESENT,AUDIO_TYPE,SOURCE,GENERATOR,CONDITION,CODEC,GROUP_ID,SOURCE_FILE,CROP_START_SEC,DURATION_SEC,SOFIA_MERT_FAKE_PROB
+suno_vocal_000,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,All the Little Things,All the Little Things.mp3,50.313,60.0,0.9931483864784241
+suno_vocal_001,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Could This Wind Be You (1),Could This Wind Be You (1).mp3,158.806,60.0,0.45354029536247253
+suno_vocal_002,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Could This Wind Be You,Could This Wind Be You.mp3,128.218,60.0,0.8377259373664856
+suno_vocal_003,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Don't Forget,Don't Forget.mp3,42.772,60.0,0.9827471971511841
+suno_vocal_004,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Fading Face,Fading Face.mp3,75.879,60.0,0.6916044354438782
+suno_vocal_005,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,It's Okay to Be Clumsy,It's Okay to Be Clumsy.mp3,102.85,60.0,0.98628169298172
+suno_vocal_006,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Let It Go for Now (1),Let It Go for Now (1).mp3,70.03,60.0,0.9971725940704346
+suno_vocal_007,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Let It Go for Now (2),Let It Go for Now (2).mp3,39.079,60.0,0.9971773624420166
+suno_vocal_008,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Midnight Snack,Midnight Snack.mp3,24.245,60.0,0.9971816539764404
+suno_vocal_009,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,These Days I Play,These Days I Play.mp3,26.209,60.0,0.9968822002410889
+suno_vocal_010,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,This Is Love,This Is Love.mp3,107.927,60.0,0.9962126016616821
+suno_vocal_011,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Well Done (1),Well Done (1).mp3,88.944,60.0,0.9967228770256042
+suno_vocal_012,1,1,1,1,1,mixed,user_suno,Suno,vocal_song,common_flac16k,Well Done,Well Done.mp3,86.312,60.0,0.9932659864425659

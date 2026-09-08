@@ -1,0 +1,195 @@
+{
+  "status": "complete",
+  "rows": 4016,
+  "matched_ids_and_labels": true,
+  "source_sha256": {
+    "reports/wavlm_voice_lora_v79/full/control_development.csv": "c8727d3655497d3dde977870f098929886547f6dd18e7b3f6e0e968cb390a409",
+    "reports/wavlm_voice_lora_v79/full/adapted_development.csv": "488a3148c818afee86bc7a3eb1bb5d2e57a860371fb990c7605b22cf8f80c908",
+    "reports/common_encoder_probe/wavlm_file_local_mean/development_predictions.csv": "31e4b4549c0dfb635d516cf424ad0c7069cca6e300493a5c05c32a7ea8233d12",
+    "reports/common_encoder_probe/xlsr/mean/development_predictions.csv": "b5d99e82b611a8f8d176087018edaab7959b387a297f0067b193c250ae314f8e"
+  },
+  "script_sha256": "47009aad837868d131e71e184ba3113699f1b2d6645624e4e2494801edd8bf0a",
+  "overall": [
+    {
+      "variant": "control",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.1894919138519232,
+      "FPR_at_fixed_half": 0.23057644110275688,
+      "FNR_at_fixed_half": 0.1504205838693716
+    },
+    {
+      "variant": "lora",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.19297811574954205,
+      "FPR_at_fixed_half": 0.21804511278195488,
+      "FNR_at_fixed_half": 0.15784265215239981
+    },
+    {
+      "variant": "original_wavlm",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.20493080796994967,
+      "FPR_at_fixed_half": 0.06817042606516291,
+      "FNR_at_fixed_half": 0.41761504205838695
+    },
+    {
+      "variant": "xlsr_reference",
+      "axis": "ALL",
+      "group": "ALL",
+      "rows": 4016,
+      "real_rows": 1995,
+      "fake_rows": 2021,
+      "VOICE_EER": 0.12624547514258183,
+      "FPR_at_fixed_half": 0.0786967418546366,
+      "FNR_at_fixed_half": 0.19396338446313707
+    }
+  ],
+  "contexts": [
+    {
+      "variant": "control",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.20972972972972975,
+      "FPR_at_fixed_half": 0.29081081081081084,
+      "FNR_at_fixed_half": 0.14702702702702702
+    },
+    {
+      "variant": "control",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.221455938697318,
+      "FPR_at_fixed_half": 0.2482758620689655,
+      "FNR_at_fixed_half": 0.15204678362573099
+    },
+    {
+      "variant": "control",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.1589189189189189,
+      "FPR_at_fixed_half": 0.16756756756756758,
+      "FNR_at_fixed_half": 0.1535135135135135
+    },
+    {
+      "variant": "lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.20648648648648654,
+      "FPR_at_fixed_half": 0.2756756756756757,
+      "FNR_at_fixed_half": 0.14810810810810812
+    },
+    {
+      "variant": "lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.221455938697318,
+      "FPR_at_fixed_half": 0.23448275862068965,
+      "FNR_at_fixed_half": 0.18128654970760233
+    },
+    {
+      "variant": "lora",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.16108108108108105,
+      "FPR_at_fixed_half": 0.15783783783783784,
+      "FNR_at_fixed_half": 0.16324324324324324
+    },
+    {
+      "variant": "original_wavlm",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.21297297297297302,
+      "FPR_at_fixed_half": 0.061621621621621624,
+      "FNR_at_fixed_half": 0.3989189189189189
+    },
+    {
+      "variant": "original_wavlm",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.2342004436378302,
+      "FPR_at_fixed_half": 0.18620689655172415,
+      "FNR_at_fixed_half": 0.39766081871345027
+    },
+    {
+      "variant": "original_wavlm",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.1913513513513514,
+      "FPR_at_fixed_half": 0.05621621621621622,
+      "FNR_at_fixed_half": 0.44
+    },
+    {
+      "variant": "xlsr_reference",
+      "axis": "VOICE_CONTEXT",
+      "group": "fake_music_RF_vs_FF",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.1275675675675676,
+      "FPR_at_fixed_half": 0.08108108108108109,
+      "FNR_at_fixed_half": 0.18162162162162163
+    },
+    {
+      "variant": "xlsr_reference",
+      "axis": "VOICE_CONTEXT",
+      "group": "pure_voice",
+      "rows": 316,
+      "real_rows": 145,
+      "fake_rows": 171,
+      "VOICE_EER": 0.18029844726759425,
+      "FPR_at_fixed_half": 0.2,
+      "FNR_at_fixed_half": 0.15204678362573099
+    },
+    {
+      "variant": "xlsr_reference",
+      "axis": "VOICE_CONTEXT",
+      "group": "real_music_RR_vs_FR",
+      "rows": 1850,
+      "real_rows": 925,
+      "fake_rows": 925,
+      "VOICE_EER": 0.12540540540540546,
+      "FPR_at_fixed_half": 0.057297297297297295,
+      "FNR_at_fixed_half": 0.21405405405405406
+    }
+  ],
+  "limitation": "Development diagnostics, no statistical significance or official-score claim; RF vocal truth may be unverified.",
+  "thresholds_selected": false,
+  "model_or_submission_modified": false
+}

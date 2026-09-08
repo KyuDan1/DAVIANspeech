@@ -1,0 +1,98 @@
+schema_version: forensics_voice_file_v54_frozen_v1
+frozen_at_utc: "2026-09-04"
+status: frozen_package_ready_not_zipped_not_submitted
+
+base:
+  package: sparse_voice_wpt_file_v50_frozen
+  script_sha256: 238cc39a493e9df9e5a9e088c9f97494641e03ddee923df3c04c8f7806897713
+  unchanged_until_external_voice_stage: true
+
+forensics_voice:
+  model: eliya/forensics_0.3B_xlsr_wild_deepfake_classifier
+  revision: aa10055181a35eb7b4916175d2d72266def78c1b
+  license: CC-BY-NC-4.0
+  checkpoint_sha256: 39e37fa5a958c2b46ebb6a5937874c36c39003906dcdd5d0aba6154bc6b2dc21
+  input: original_mixture_mono_16khz
+  windows: 3
+  window_samples: 80000
+  window_seconds: 5.0
+  starts: evenly_spaced_first_middle_last
+  pooling: arithmetic_mean_of_fake_oriented_logits
+  file_batch_size: 8
+  frozen_voice_logit_weight: 0.075
+  formula: sigmoid(0.925*logit(v50_voice)+0.075*mean_forensics_fake_logit)
+  changed_output: VOICE_FAKE_PROB
+
+final_file_consistency:
+  execution_position: after_forensics_voice_and_before_cache_cleanup
+  file_logit_weight: 0.20
+  voice_presence_threshold: 0.10
+  music_presence_threshold: 0.20
+  component_evidence: max_final_voice_fake_final_music_fake
+  changed_output: FILE_FAKE_PROB
+
+output_contract:
+  file_fake_prob: v50_then_final_component_consistency
+  voice_fake_prob: v50_then_forensics_wild_0_075
+  byte_preserved_from_v50:
+    - MUSIC_FAKE_PROB
+    - VOICE_PRESENT_PROB
+    - MUSIC_PRESENT_PROB
+  sample_independence: true
+
+selection_and_retrospective_evidence:
+  weight_selected_on_development_only: true
+  no_post_retrospective_tuning: true
+  codec_mixed_dev_v4:
+    role: selection
+    v50_voice_eer: 0.2066666667
+    v54_voice_eer: 0.1966666667
+  codec_mixed_blind_v5:
+    role: retrospective_only
+    v50_voice_eer: 0.1166666667
+    v54_voice_eer: 0.1083333333
+  codec_mixed_blind_v6:
+    role: retrospective_only
+    v50_voice_eer: 0.0833333333
+    v54_voice_eer: 0.0750000000
+  codec_mixed_blind_v7:
+    role: retrospective_only
+    v50_voice_eer: 0.2000000000
+    v54_voice_eer: 0.1944444444
+  caveat: aggregate_eer_improves_but_some_opus_subgroups_regress
+
+package:
+  directory: forensics_voice_file_v54_frozen
+  builder: scripts/build_forensics_voice_file_v54_submission.py
+  top_level_entries: [model, script.py, requirements.txt]
+  file_count: 115
+  expanded_file_bytes: 10445056232
+  expanded_limit_bytes: 32000000000
+  counting_zip_estimate_bytes: 9470639888
+  zip_limit_bytes: 10000000000
+  zip_margin_bytes: 529360112
+  zip_created: false
+  script_sha256: 2d154389f173d9c64bbf688610f23eb237cd81a2eb8aef27f855bcd4ca7489fc
+  requirements_sha256: 978befe6e5c8a064cddd2690e7e55b4b153f87eabf0dcf3b0604a567f4edd6ed
+  requirements:
+    - onnxruntime-gpu==1.23.2
+
+verification:
+  offline_environment: HF_HUB_OFFLINE=1_TRANSFORMERS_OFFLINE=1
+  packaged_model_load: passed
+  packaged_model_forward_shape: [3]
+  packaged_model_forward_finite: true
+  b200_first_three_window_inference_seconds: 0.683
+  b200_steady_windows_per_second: 551.29
+  b200_peak_reserved_bytes_batch24: 5624561664
+  three_file_full_entrypoint_seconds: 109.441
+  three_file_v50_control_seconds: 128.073
+  full_entrypoint_exit_code: 0
+  base_archive_crc: sparse_voice_v49_base_zip_unzip_test_passed
+  music_and_cps_string_values_vs_v50: bit_exact_on_full_smoke
+  package_transients_removed: true
+  focused_tests:
+    command: python -m pytest -q tests/test_forensics_voice_file_v54.py
+    result: 5_passed
+  committed: false
+  submitted: false

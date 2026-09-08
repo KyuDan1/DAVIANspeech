@@ -1,0 +1,14 @@
+{
+  "rows": 8,
+  "maximum_absolute_difference": 0.0024170267999999995,
+  "by_column": {
+    "FILE_FAKE_PROB": 0.0008366102000000319,
+    "VOICE_FAKE_PROB": 0.0024170267999999995,
+    "MUSIC_FAKE_PROB": 0.0021218036329094248,
+    "VOICE_PRESENT_PROB": 0.0,
+    "MUSIC_PRESENT_PROB": 0.0
+  },
+  "pass_check": false,
+  "tolerance": 0.0005,
+  "scope": "small development runtime correspondence, NOT full equivalence or accuracy"
+}

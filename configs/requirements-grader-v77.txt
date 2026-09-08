@@ -1,0 +1,22 @@
+# LOCAL compatibility environment only. Do not use as submission requirements:
+# the grader already supplies these packages and its torch/torchaudio pair.
+torch==2.7.1+cu128
+torchaudio==2.7.1+cu128
+numpy==1.26.4
+pandas==2.0.3
+scipy==1.15.3
+scikit-learn==1.8.0
+joblib==1.5.3
+threadpoolctl==3.6.0
+transformers==4.57.6
+accelerate==1.9.0
+huggingface-hub==0.34.4
+safetensors==0.6.2
+sentencepiece==0.1.99
+regex==2023.12.25
+einops==0.8.1
+librosa==0.10.2.post1
+soundfile==0.12.1
+soxr==0.5.0.post1
+tqdm==4.66.4
+pyyaml==6.0.1

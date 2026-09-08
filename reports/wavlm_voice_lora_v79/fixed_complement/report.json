@@ -1,0 +1,27 @@
+{
+  "status": "complete_fixed_mixtures",
+  "input_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/xlsr/mean/development_predictions.csv": "b5d99e82b611a8f8d176087018edaab7959b387a297f0067b193c250ae314f8e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/common_encoder_probe/spear_independent/mean/development_predictions.csv": "9df1932148aab0f37cbc2e4e95cbe515dbe096bf0b500043cf7e75dea75c305b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wavlm_voice_lora_v79/full/control_development.csv": "c8727d3655497d3dde977870f098929886547f6dd18e7b3f6e0e968cb390a409",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/wavlm_voice_lora_v79/full/adapted_development.csv": "488a3148c818afee86bc7a3eb1bb5d2e57a860371fb990c7605b22cf8f80c908"
+  },
+  "outputs": [
+    {
+      "path": "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_spear.csv",
+      "sha256": "e29e82d293bf696051d29e284b06ee9e2f207bbb50b416e5f9ea7bccfce17332"
+    },
+    {
+      "path": "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_wavlm_control.csv",
+      "sha256": "e36730e0a72b57652933bdde82febaf7e1cadd5c9077796e7379120b1e3fcc33"
+    },
+    {
+      "path": "reports/wavlm_voice_lora_v79/fixed_complement/equal_xlsr_wavlm_lora.csv",
+      "sha256": "1366279376d6aa586e8a8ec770b6aff2e674336274c6f0a39586482fa471ddce"
+    }
+  ],
+  "script_sha256": "4c4b7190b1c58161990b2999fb986a6db92087e80c0bf2c88a5a7bd74a882a6e",
+  "weight": 0.5,
+  "epsilon": 1e-06,
+  "scope": "Voice-only development diagnostic, NOT a submission; no fitting or weight search"
+}

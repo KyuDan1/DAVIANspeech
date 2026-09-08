@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "checks": {
+    "protected_snapshot_unchanged": true,
+    "reservation_source_identity_disjoint": true,
+    "reservation_canonical_music_disjoint": true,
+    "source_audio_hash_disjoint": true,
+    "all_sources_resolve_once": true,
+    "all_music_semantic_pass": true,
+    "suno_udio_sources_zero": true,
+    "authenticity_inference_absent": true,
+    "authenticity_scoring_absent": true
+  },
+  "identity_overlap": [],
+  "music_group_overlap": [],
+  "source_hash_overlap": [],
+  "reservation_sha256": "950c57ece9132dfb77b7a6c7299872dcfb82160db774a711a35b35f65b393874",
+  "source_hashes_sha256": "f0d8a8d5b149c0fa19522287873ebf7aabfbfcd6c57fb97a28d7366f0bfc4d6b",
+  "protected_truth_manifests": 83,
+  "protected_source_hash_manifests": 6,
+  "authenticity_detector_scores_read": false
+}

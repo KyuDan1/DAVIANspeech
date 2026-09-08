@@ -1,0 +1,18 @@
+{
+  "status": "complete_smoke",
+  "history": [
+    {
+      "epoch": 1,
+      "loss": {
+        "global": 0.4541505128145218,
+        "local": 2.160446662455797
+      }
+    }
+  ],
+  "results": [],
+  "seconds": 13.06814237497747,
+  "peak_cuda_mib": 8485.03515625,
+  "trainable_parameters_per_head": 193,
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

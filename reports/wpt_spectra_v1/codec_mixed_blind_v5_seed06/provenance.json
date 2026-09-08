@@ -1,0 +1,9 @@
+[
+  {
+    "checkpoint": "reports/wpt_spectra_v1/seed_20260906/wpt_spectra_multitask.pt",
+    "model_type": "wpt_spectra_multitask",
+    "seed": 20260906,
+    "best_epoch": 7,
+    "selection": 0.8151568788224857
+  }
+]

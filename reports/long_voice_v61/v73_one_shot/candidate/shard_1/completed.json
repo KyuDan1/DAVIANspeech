@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "frozen_sha256": "26d5aab1c950c7d40593c702e6c156416af2034e7527e1b348e773eb5959eb9e",
+  "predictions_sha256": "382506154c004f1b1edce4318907768236081a8ef4e7a5dc13ad2cd875150756",
+  "rows": 720,
+  "repeat_bit_exact": true,
+  "repeat_files": 3,
+  "peak_allocated_mb": 12201.83740234375,
+  "seconds": 750.5723667005077,
+  "automatic_submission_allowed": false
+}

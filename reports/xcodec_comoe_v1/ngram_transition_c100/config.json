@@ -1,0 +1,7 @@
+{
+  "mode": "transition",
+  "C": 100.0,
+  "train_dataset": "temporal_mixed_train_v2",
+  "train_rows": 2560,
+  "feature_dim": 28672
+}

@@ -1,0 +1,6 @@
+{
+  "smoke": true,
+  "best_selection": 0.0,
+  "elapsed_seconds": 165.29384064208716,
+  "cuda_peak_mb": 3032.74072265625
+}

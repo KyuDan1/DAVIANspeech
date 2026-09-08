@@ -1,0 +1,30 @@
+{
+  "schema": "musicdet_zero_shot_v102",
+  "train_rows": 9007,
+  "development_rows": 4261,
+  "train_all_rows": 18010,
+  "train_target_counts": {
+    "0": 9007
+  },
+  "train_all_target_counts": {
+    "0": 9007,
+    "1": 9003
+  },
+  "development_target_counts": {
+    "0": 2131,
+    "1": 2130
+  },
+  "train_dataset_counts": {
+    "mixfake_music_train_v1": 3996,
+    "temporal_mixed_train_v2": 1280,
+    "channel_invariant_factorial_train_v1": 1203,
+    "telephone_mixed_train_v1": 1200,
+    "external_mixed_train_v1": 400,
+    "mixed_devvoice_train_v1": 400,
+    "mixed_fmc_music_train_v1": 400,
+    "forensic_call_train_v1": 128
+  },
+  "train_manifest_sha256": "671a9da1387fee46c44048fba0de696316e628705d497316253a2f3864d57538",
+  "development_manifest_sha256": "bd67e58b031bf62f6aab4b4c2cafd8e1fa631627efbc09dc3e65603499ecec37",
+  "locked_scores_read": false
+}

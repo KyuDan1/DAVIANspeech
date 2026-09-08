@@ -1,0 +1,43 @@
+{
+  "scope": "fixed checkpoint full file-local development, NOT official score",
+  "rows": 4577,
+  "pooling": "mean",
+  "encoder": "xlsr",
+  "elapsed_seconds": 300.6297288937494,
+  "repeated_file_indices": [
+    0,
+    2288,
+    4576
+  ],
+  "repeated_files_bit_exact": true,
+  "checkpoint_reselected": false,
+  "max_batch_vs_file_difference": 0.0045828232498168475,
+  "summary": {
+    "overall": {
+      "N": 4577,
+      "FILE_N": 4577,
+      "VOICE_N": 4016,
+      "MUSIC_N": 4261,
+      "FILE_EER": 0.19837983666205783,
+      "VOICE_EER": 0.12624547514258186,
+      "MUSIC_EER": 0.2356254530152918,
+      "VOICE_AUC": 0.9898414363934637,
+      "MUSIC_AUC": 0.9985413776405966,
+      "ADS": 0.8048733507358672,
+      "CPS": 0.9941914070170301,
+      "SCORE": 0.8238051563639834
+    },
+    "macro_ads": 0.8395744330872061,
+    "selection": 0.8222238919115367
+  },
+  "artifacts_sha256": {
+    "reports/common_encoder_probe/xlsr/mean/head.pt": "be7c69e27a0407fd341672e809aa044dfa5371f3d4b0f415ad9fc22926cc6d34",
+    "reports/common_encoder_probe/xlsr/mean/development_predictions.csv": "b5d99e82b611a8f8d176087018edaab7959b387a297f0067b193c250ae314f8e"
+  },
+  "automatic_submission_allowed": false,
+  "code_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/rescore_common_encoder_file_local.py": "cd37a5391dc155b6fdb877697c77026ae59754df18a28f5ad9cfca30d8ec6209",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe.py": "102a93fa491a1356d5868f6fcd73d83eed68a4773549fd13a458da58f9a42556",
+    "/home/nas_main/kyudanjung/DAVIANspeech/src/common_encoder_probe_inference.py": "52d51a05e93e4d5fc75b7f588b29daa39f4b5a2313c69bbea611acdb3d9c4c9e"
+  }
+}

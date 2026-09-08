@@ -1,0 +1,10 @@
+{
+  "dataset": "codec_mixed_dev_v4",
+  "selected_file_weight": 0.0,
+  "selected_music_weight": 0.1,
+  "selected_quality": 0.7541666666666667,
+  "note": "development sweep is diagnostic, not a frozen deployment weight",
+  "full_dev_music_only_weight": 0.1,
+  "full_dev_pooled_music_eer": 0.14779688385755763,
+  "full_dev_worst_music_eer": 0.2666666666666667
+}

@@ -1,0 +1,35 @@
+{
+  "purpose": "final truth semantic evidence; not authenticity-model evaluation",
+  "status": "completed_merged_initial_and_replacement",
+  "authenticity_detector_scores_read": false,
+  "reservation_path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_dev_v4_design/reservation_replacement/reservation.csv",
+  "reservation_sha256": "cf7f8e9fe355432ed4d87c3031e45b71049013ff697720a59e2fdbae34bcded5",
+  "panns_threshold": 0.2,
+  "demucs_threshold_db": -1.5,
+  "candidate_sources_scored": 60,
+  "panns_flags": 0,
+  "demucs_flags": 0,
+  "acoustic_screen_passes": 60,
+  "acoustic_screen_failures": 0,
+  "initial_screen": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_dev_v4_design/acoustic_screen_identity_corrected/source_scores.csv",
+    "sha256": "ae5c4add18665e36f01c2daacc15bbf21bed55eb34a26166acdc0c25b9cb7767",
+    "reservation_sha256": "3d8792f3955e0d5f06e5347a4db5ed1991d91211c0749daea3c6cb170a926842",
+    "rows": 60,
+    "failures": 1,
+    "excluded_source_ids": [
+      "FM_musicldm_940MNbCeobw"
+    ]
+  },
+  "replacement_recheck": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/codec_mixed_dev_v4_design/acoustic_recheck_replacement/source_scores.csv",
+    "sha256": "03350be96776dc92ed0011d3b2e6dc2e22c4a1943b7176823fb9c0ec5e025533",
+    "reservation_sha256": "cf7f8e9fe355432ed4d87c3031e45b71049013ff697720a59e2fdbae34bcded5",
+    "rows": 1,
+    "passes": 1,
+    "replacement_source_ids": [
+      "FM_musicldm_HH3ryAEP308"
+    ]
+  },
+  "selection_rule": "retain the 59 initial passes and substitute only the one deterministic same-generator replacement that passed the unchanged PANNs 0.20 and Demucs -1.5 dB gates"
+}

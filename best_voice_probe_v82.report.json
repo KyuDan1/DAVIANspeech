@@ -1,0 +1,20 @@
+{
+  "member_count": 110,
+  "expanded_bytes": 9185965963,
+  "compressed_member_bytes": 8238566668,
+  "top_level": [
+    "model",
+    "requirements.txt",
+    "script.py"
+  ],
+  "duplicates": [],
+  "unsafe_paths": [],
+  "symlinks": [],
+  "archive": "best_voice_probe_v82.zip",
+  "sha256": "e9e35a18e720b72bf26f33f78e055bc5341a3c2f64762b525aecd0cf02fd58a9",
+  "base_sha256": "a5730fde4e0c49100ee9aca5cc373eb550bf02948517072f23afe02fd62b91d6",
+  "crc_verified": true,
+  "changed_column": "VOICE_FAKE_PROB",
+  "unchanged_members_except_script": true,
+  "purpose": "diagnostic_not_score_improvement"
+}

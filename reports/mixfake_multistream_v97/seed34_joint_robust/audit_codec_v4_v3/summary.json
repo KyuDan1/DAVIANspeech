@@ -1,0 +1,101 @@
+{
+  "task": "all",
+  "rows": 600,
+  "views": 3,
+  "checkpoint": "reports/mixfake_multistream_v97/seed34_joint_robust/multistream_prompt.pt",
+  "checkpoint_sha256": "c272ef97ecbb3f898a3542a180cddf144e906c017beb6a5d0bc71a2dda04b474",
+  "manifest": "data/eval/codec_mixed_dev_v4/truth.csv",
+  "manifest_sha256": "6a87bc333eb88306d3f31002ac519bb484f903dd1c419824bbe1c28a5b41881b",
+  "channels": [
+    {
+      "channel": "clean",
+      "eer": 0.3613333333333333,
+      "task_eer": {
+        "voice": 0.3466666666666667,
+        "music": 0.4066666666666666,
+        "file": 0.33999999999999997
+      },
+      "ads": 0.6386666666666667,
+      "subgroup_eer": {
+        "voice": {
+          "music_real": 0.31999999999999995,
+          "music_fake": 0.3666666666666667
+        },
+        "music": {
+          "voice_real": 0.3933333333333333,
+          "voice_fake": 0.4
+        },
+        "file": {}
+      },
+      "manifest_channel_eer": {
+        "clean": {
+          "voice": 0.2833333333333333,
+          "music": 0.3833333333333333,
+          "file": 0.30000000000000004
+        },
+        "g711_ulaw": {
+          "voice": 0.31666666666666665,
+          "music": 0.2833333333333333,
+          "file": 0.2388888888888889
+        },
+        "g722_wb": {
+          "voice": 0.31666666666666665,
+          "music": 0.33333333333333337,
+          "file": 0.2944444444444444
+        },
+        "opus_nb_8k": {
+          "voice": 0.33333333333333337,
+          "music": 0.4666666666666667,
+          "file": 0.4
+        },
+        "transcode_g711_opus": {
+          "voice": 0.30000000000000004,
+          "music": 0.44999999999999996,
+          "file": 0.43333333333333335
+        }
+      },
+      "layout_eer": {
+        "concurrent": {
+          "voice": 0.37,
+          "music": 0.37,
+          "file": 0.38
+        },
+        "partial_overlap": {
+          "voice": 0.35,
+          "music": 0.44999999999999996,
+          "file": 0.33999999999999997
+        },
+        "sequential": {
+          "voice": 0.31999999999999995,
+          "music": 0.36,
+          "file": 0.29666666666666663
+        }
+      },
+      "mean_score_by_case": {
+        "RR": {
+          "voice": 0.6093965768814087,
+          "music": 0.5707541704177856,
+          "file": 0.7877535223960876
+        },
+        "RF": {
+          "voice": 0.5939293503761292,
+          "music": 0.692298412322998,
+          "file": 0.8499725461006165
+        },
+        "FR": {
+          "voice": 0.8173494338989258,
+          "music": 0.6292803883552551,
+          "file": 0.901536226272583
+        },
+        "FF": {
+          "voice": 0.7553792595863342,
+          "music": 0.7445570230484009,
+          "file": 0.9197666645050049
+        }
+      }
+    }
+  ],
+  "mean_eer": 0.3613333333333333,
+  "worst_eer": 0.3613333333333333,
+  "locked_scores_read": false
+}

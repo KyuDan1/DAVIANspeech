@@ -1,0 +1,19 @@
+{
+  "method": "uniform_logit_mean",
+  "members": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v1/matrix_v1/robust_l2_core/dev_predictions.csv",
+      "sha256": "42c28b8949aa7ad366e403305281baaa096399088941a0d7201f68b089f81adf"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260905/dev_predictions.csv",
+      "sha256": "5c0ff2123f588e014cd48af5a3015b13c1db65e2910227c04800efd4a30639f4"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v4/matrix_v4/robust_l2_seed_20260906/dev_predictions.csv",
+      "sha256": "6e50a1e6b28713e370bf8bc3c75af505e7598655a4be2cf47a90ef70d5ea613f"
+    }
+  ],
+  "rows": 5377,
+  "prediction_sha256": "6d53601e9cdd547a8c64786a57dfae2e0869e5e816f73bca2684767966676450"
+}

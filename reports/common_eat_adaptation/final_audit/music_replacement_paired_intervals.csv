@@ -1,0 +1,4 @@
+task,base_count,rows,repetitions,delta_eer_ci_low,delta_eer_ci_high,sign
+FILE,120,600,500,0.0,0.0,candidate minus anchor; negative is better
+VOICE,120,600,500,0.0,0.0,candidate minus anchor; negative is better
+MUSIC,120,600,500,-0.08999999999999997,0.01166666666666666,candidate minus anchor; negative is better

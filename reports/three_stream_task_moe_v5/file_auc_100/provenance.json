@@ -1,0 +1,13 @@
+{
+  "method": "fixed_file_expert_logit_blend",
+  "file_expert_weight": 1.0,
+  "base": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v1/matrix_v1/robust_l2_core/dev_predictions.csv",
+    "sha256": "42c28b8949aa7ad366e403305281baaa096399088941a0d7201f68b089f81adf"
+  },
+  "file_expert": {
+    "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_anchor_residual_v2/matrix_v2/auc_l1/dev_predictions.csv",
+    "sha256": "74d2b0fa75903a2d1a7a2eb8d281dab0d0f5c94925a0411358f16ca64934e9dc"
+  },
+  "prediction_sha256": "b74cb7b3597e2613a93bc4396b444ee6ed59bc9b3329867ed968f74ce4b5795f"
+}

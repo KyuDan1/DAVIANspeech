@@ -1,0 +1,32 @@
+{
+  "status": "complete_TRAIN_data_smoke",
+  "pairs": 32,
+  "rendered_calls": 64,
+  "deterministic_bit_exact": true,
+  "counts": {
+    "music_label": {
+      "0": 19,
+      "1": 13
+    },
+    "layout": {
+      "concurrent": 7,
+      "music_first": 13,
+      "voice_first": 12
+    },
+    "channel": {
+      "opus_nb_8k": 5,
+      "g722_wb": 2,
+      "transcode_g711_opus": 11,
+      "g711_ulaw": 8,
+      "clean": 6
+    },
+    "seconds": {
+      "4": 16,
+      "8": 16
+    }
+  },
+  "tiled_sources": 32,
+  "consumed_source_slots": 96,
+  "trained": false,
+  "protected_evaluation_consumed": false
+}

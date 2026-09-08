@@ -1,0 +1,17 @@
+{
+  "scope": "paired synthetic mechanism stress only",
+  "independent_source_groups": 10,
+  "rows": 2160,
+  "candidates": [
+    "eat_control",
+    "eat_adapted"
+  ],
+  "selection_allowed": false,
+  "generalization_verified": false,
+  "automatic_submission_allowed": false,
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_component_stress_v70_comparison/eat_control/predictions.csv": "262cc434de8374818b217ace00df26080f42df11637459dedd2d0fd0542b04df",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_component_stress_v70_comparison/eat_adapted/predictions.csv": "64d65715e2c21867297edbbb9a250e37c3df942c59a81c0b4e832d5892809c27"
+  },
+  "frozen_sha256": "1732431c24845c389f0655c51dead7bd8fd647820b894e7d191af1d5b5eacf26"
+}

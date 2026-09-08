@@ -1,0 +1,65 @@
+schema_version: three_stream_all_type_v57_selected
+status: aggressive_one_shot_challenger
+anchor:
+  name: exact_sv_wpt_v50
+  archive: svwpt_v50_pkg.zip
+  archive_sha256: 887783b6447924fba2bb793831cdd4b7016ec36b11401da02cd98d4b2295d2df
+expert:
+  variant: v1_robust_l2_strict
+  checkpoint: reports/three_stream_all_type_v57_strict/v1_robust_l2/three_stream_anchor_residual.pt
+  checkpoint_sha256: 1f7904ee37f4fb16b0d699945e8898a0476c42e2fffb2e6c5971211bf3423b99
+  best_epoch: 20
+  task_mode: music
+  residual_scale: 1.0
+  changed_output: MUSIC_FAKE_PROB
+  preserved_outputs:
+    - FILE_FAKE_PROB
+    - VOICE_FAKE_PROB
+    - VOICE_PRESENT_PROB
+    - MUSIC_PRESENT_PROB
+package:
+  directory: v50_v57m_challenger_v2
+  archive: v50_v57m_challenger_v2.zip
+  archive_sha256: a5730fde4e0c49100ee9aca5cc373eb550bf02948517072f23afe02fd62b91d6
+  compressed_bytes: 8283677531
+  expanded_bytes: 9185965040
+  members: 110
+  root_entries:
+    - model
+    - script.py
+    - requirements.txt
+  crc_verified: true
+  offline_three_file_smoke:
+    exit_code: 0
+    protected_bit_exact: true
+    music_changed_rows: 3
+    total_rows: 3
+selection_evidence:
+  exact_v50_authorized_codec_dev_v4:
+    rows: 600
+    anchor_ads: 0.7600000000
+    candidate_ads: 0.7660000000
+    anchor_music_eer: 0.2733333333
+    candidate_music_eer: 0.2533333333
+  clean_development_4577_tradeoff:
+    anchor_ads: 0.8315377079
+    candidate_ads: 0.8291439035
+    ads_delta: -0.0023938044
+    mean_domain_ads_delta: -0.0008766234
+    worst_channel: noisy_flac
+    worst_channel_ads_delta: -0.0207142857
+decision:
+  rationale: >-
+    The only task-isolated residual that improves exact v50 on the authorised
+    codec development set. It is frozen as an aggressive one-shot challenger,
+    not accepted as a general replacement because the broader clean-dev audit
+    is slightly negative.
+  deploy_without_fixed_one_shot_win: false
+  alternatives_rejected: all full, Voice-only, File-only, and v2 residuals
+data_integrity:
+  train_rows_after_exclusion: 18738
+  development_rows: 4577
+  identity_overlap: 0
+  rendered_audio_sha256_overlap: 0
+  split_audit: reports/three_stream_all_type_v57_strict/split_audit.json
+  non_scope_roles_in_final_training_or_selection: []

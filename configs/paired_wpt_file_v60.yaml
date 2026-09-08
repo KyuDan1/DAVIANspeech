@@ -1,0 +1,40 @@
+# Frozen before v60 training or candidate scoring. Development is not test.
+schema_version: paired_full_coverage_wpt_file_v60
+seed: 20260905
+data_matrix: configs/music_specialist_v58.yaml
+partition_config: configs/data_partitions.yaml
+model_dir: models/external/spectra_aasist
+window: 64600
+temperature: 2.0
+batch_size: 4
+eval_batch_size: 8
+window_chunk_size: 16
+workers: 4
+epochs: 8
+eval_every: 2
+patience: 3
+samples_per_epoch: 4096
+prompt_lr: 0.0002
+backend_lr: 0.00005
+head_lr: 0.0002
+weight_decay: 0.01
+ranking_weight: 0.10
+channels: [g711_ulaw, g722_wb, opus_nb_8k, transcode_g711_opus]
+selection: 1-(0.50*pooled_file_EER+0.25*mean_domain_file_EER+0.25*worst_domain_file_EER)
+variants:
+  paired_bce:
+    consistency_weight: 0.0
+  paired_consistency:
+    consistency_weight: 0.2
+decision:
+  comparison: same development rows, File only
+  baseline: paired_bce
+  minimum_pooled_file_eer_gain: 0.01
+  maximum_domain_file_eer_regression: 0.025
+  maximum_channel_file_eer_regression: 0.025
+  require_mean_domain_improvement: true
+  require_worst_domain_nonworse: true
+  official_anchor_check_required: true
+  prospective_check_required: true
+  runtime_check_required: true
+  no_automatic_submission: true

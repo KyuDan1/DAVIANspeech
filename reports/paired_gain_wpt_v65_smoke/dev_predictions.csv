@@ -1,0 +1,9 @@
+DATASET,ID,FILE_FAKE_PROB
+mixfake_music_dev_v1,RS-RM_LA_D_1056044_083066,0.24548335373401642
+mixfake_music_dev_v1,RS-RM_LA_D_1056044_118052,0.025059176608920097
+mixfake_music_dev_v1,RS-RM_LA_D_1084356_130870,0.02843603305518627
+mixfake_music_dev_v1,RS-RM_LA_D_1096053_051299,0.12168574333190918
+mixfake_music_dev_v1,FS-FM_LA_D_1023711_XzwhTltRQcM,1.0
+mixfake_music_dev_v1,FS-FM_LA_D_1023711_cf-IIqhveKw,1.0
+mixfake_music_dev_v1,FS-FM_LA_D_1023711_fake_15050_udio_0,1.0
+mixfake_music_dev_v1,FS-FM_LA_D_1053530_kOREaTKeyZw,1.0

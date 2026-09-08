@@ -1,0 +1,56 @@
+# Predeclared after v1 showed robust_l2_core outperforming robust_l1_core and
+# many samples saturating the +/-2 residual bound. No blind-v5 detector score
+# existed when this matrix was frozen.
+schema_version: three_stream_experiment_v3_residual_range
+seed: 20260904
+anchor: exact_component_query_or_v47
+selection_formula: >-
+  0.50*pooled_official_ADS +
+  0.25*mean_normalized_available_domain_ADS +
+  0.25*worst_normalized_available_domain_ADS
+
+train_core:
+  - external_mixed_train_v1
+  - mixed_devvoice_train_v1
+  - mixed_fmc_music_train_v1
+  - mixfake_music_train_v1
+  - telephone_mixed_train_v1
+  - temporal_mixed_train_v2
+  - channel_invariant_factorial_train_v1
+
+variants:
+  robust_l3_core:
+    train_set: train_core
+    xlsr: true
+    residual_limits: [3.0, 3.0, 3.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+  robust_l4_core:
+    train_set: train_core
+    xlsr: true
+    residual_limits: [4.0, 4.0, 4.0]
+    ranking_weight: 0.10
+    logit_consistency_weight: 0.05
+    latent_consistency_weight: 0.01
+    group_dro_weight: 0.20
+
+fixed_training:
+  epochs: 60
+  eval_every: 2
+  patience: 8
+  batch_size: 48
+  eval_batch_size: 96
+  maximum_xlsr_windows: 16
+  learning_rate: 0.001
+  weight_decay: 0.02
+  residual_weight: 0.02
+  group_dro_temperature: 0.10
+
+decision_rule:
+  primary: highest_selection_formula
+  constraints:
+    - pooled_development_ads_must_not_regress_from_robust_l2_core
+    - codec_mixed_dev_v4_ads_must_improve_from_robust_l2_core
+    - clean_and_g722_codec_mixed_dev_v4_ads_must_not_regress_by_more_than_0.01

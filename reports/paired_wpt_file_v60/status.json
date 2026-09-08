@@ -1,0 +1,10 @@
+[
+  {
+    "name": "paired_consistency",
+    "returncode": 0
+  },
+  {
+    "name": "paired_bce",
+    "returncode": 0
+  }
+]

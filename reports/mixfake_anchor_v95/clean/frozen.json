@@ -1,0 +1,11 @@
+{
+  "schema": "frozen_anchor_manifest_v95",
+  "channel": "clean",
+  "rows": 320,
+  "manifest": "/home/nas_main/kyudanjung/DAVIANspeech/reports/mixfake_component_v93/channel_audit/development.csv",
+  "manifest_sha256": "042f32af0840753399c9fff9f09b4016e148c56bde88215443694af47bd842ff",
+  "script": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_only_submission_v82/full_package_smoke/script_anchor.py",
+  "script_sha256": "aad2a5facff20650b733fc55c34e070baa9e9535da36cc9b136bf0c89ff50cde",
+  "sample_sha256": "3f1bcd1ae145f98e3880fe2af48f4bfe8de31f36dea8b20a17804e0f17e06b50",
+  "locked_scores_read": false
+}

@@ -1,0 +1,10 @@
+{
+  "inputs_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/full/report.json": "7f4bb62a89845782cfdf85af97f3916855794ef56ab6cd14083cd3526ed3e7d1",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/full/parent_development.csv": "8feb4220d4a045ab4b54cd282d30042ca22d1d2a27717ff4b8d4a2b09c890cdd",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/full/global_development.csv": "90229a8e7cdcf2bb8c3934141470b0f70f35573040e1bcc66c2cdfe99ff661f2",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/full/local_development.csv": "fe2335dd3bacba2ca7fa3b76eb7d6be5cb9a1d375b407ae3e32d8fa7f8594eda"
+  },
+  "code_sha256": "991337d7c3ff3c41403e32ffc96475cc95ea45cf92a04a32ff3b319f53665631",
+  "scope": "Previously used development only; no official-score prediction; no selection/fitting"
+}

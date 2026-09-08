@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-04",
+  "candidate": "component_query_or_v47.zip",
+  "candidate_sha256": "0ddb1d9d3d21def4f2e3b761e074f52145db45caebfe5c2198976a0af2ce25ed",
+  "status": "aborted_before_any_prediction_was_written",
+  "completed_stage": "none",
+  "partial_stage": "PANNs presence",
+  "partial_stage_rows_processed": 506,
+  "prediction_rows_written": 0,
+  "predictions_inspected": false,
+  "reason": "Metadata audit found that selected fake-music sources could contain generated vocals, which would invalidate VOICE_FAKE labels under the competition semantics.",
+  "resolution": "Create a new immutable reservation using only provenance-screened instrumental fake music, rebuild under a new path, and freeze new truth/hash before restarting inference."
+}

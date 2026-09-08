@@ -1,0 +1,22 @@
+{
+  "task": "music",
+  "channel": "phone",
+  "rows": 4261,
+  "anchor_eer": 0.12015959356955122,
+  "expert_eer": 0.3325508974384395,
+  "best_fused_eer": 0.11546585944574059,
+  "selected_expert_weight": 0.13,
+  "anchor_subgroup_eer": {
+    "voice_real": 0.19999999999999998,
+    "voice_fake": 0.20666666666666667
+  },
+  "expert_subgroup_eer": {
+    "voice_real": 0.3666666666666667,
+    "voice_fake": 0.3666666666666667
+  },
+  "fused_subgroup_eer": {
+    "voice_real": 0.21333333333333337,
+    "voice_fake": 0.2333333333333333
+  },
+  "locked_scores_read": false
+}

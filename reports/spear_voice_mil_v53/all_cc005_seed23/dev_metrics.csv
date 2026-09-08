@@ -1,0 +1,11 @@
+DATASET,N,VOICE_EER
+mixfake_music_dev_v1,1600,0.14
+external_mixed_v1,400,0.245
+external_mixed_v1_telephone_v1,400,0.255
+source_disjoint_mixed_v1,200,0.20999999999999996
+source_disjoint_mixed_v1_telephone_v1,200,0.25
+source_disjoint_mixed_equal_v1,200,0.16000000000000003
+telephone_mixed_dev_v1,600,0.2533333333333333
+factorial_eval_1200_v2:truth_dev.csv,350,0.36571428571428577
+multigen_voice_v2:truth_dev.csv,90,0.33333333333333337
+temporal_mixed_train_v2:truth_dev.csv,640,0.19687500000000002

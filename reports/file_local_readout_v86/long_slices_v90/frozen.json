@@ -1,0 +1,18 @@
+{
+  "artifacts_sha256": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/scripts/analyze_file_local_long_slices_v90.py": "2da0d87240f251542517e4fea5702d228246d22b644152e9e6635ab4c9ed86a4",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/report.json": "76e425d0ccd6c8c5d55ff308cf394cacfe5973d11c67ee45a1b9c05e1bc5ff67",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/frozen.json": "d46a3fe024356784be959935d911665c2a831aa26f54f5bdfcde381de750c6e7",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_0/predictions.csv": "34d9de3632713506e99ea1181d58625e0334b02e21badabe70740ee5ac354801",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_0/report.json": "81d7e241f8c2c4ac6a2b8d75568113d0f51ab472c693e5e51d1a6e0567c04fd6",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_1/predictions.csv": "f6971b536ab73a52ffaacddb8acc8d12382019f5d8c5903979d2b5b7b72f4b0b",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_1/report.json": "98c1c13f44c7cbff47ae23abbc38a4851534c4cf96f3b80b6b0cd248f2536eae",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_2/predictions.csv": "7351b81287e00540bdfa1c045eb67147d328ffb5fafee016de4a0f023986d14e",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_2/report.json": "d953f5de70515469e518bfec6e37a1fccfff247e9f1b7c9180457b78ea9bd4b5",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_3/predictions.csv": "98ff02515fa1616972faa43954f2630cf0f2851550fed833287d601a8848ceb3",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/file_local_readout_v86/long_exposed/shard_3/report.json": "9d07b91bce5518306253173c0889f62d76d7b7cc246b6c6b05d489abe9b24670",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/long_voice_v61/v73_one_shot/comparison/anchor_predictions.csv": "0cefadf7c528dc78cf6caa08bb8bab593dc10a190c5c44512586dfe3300c3e13",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_uniform_v61/truth.csv": "c8d66f7cab9ca8b6931f919152569c01433ff2680856e70b993feef5e9d06c90",
+    "/home/nas_main/kyudanjung/DAVIANspeech/data/eval/long_voice_sparse_v61/truth.csv": "eca55bb31eee7029dbcaf4dbc132a500b937ffd0b0702aba02e12e5ea31d3afe"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "variant": "global_parent",
+      "rows": 4016,
+      "VOICE_EER": 0.12624547514258183
+    },
+    {
+      "variant": "file_only",
+      "rows": 4016,
+      "VOICE_EER": 0.20742095218253453
+    },
+    {
+      "variant": "dense",
+      "rows": 4016,
+      "VOICE_EER": 0.17031941556017705
+    }
+  ],
+  "seconds": 1242.3521231086925,
+  "maximum_parent_logit_difference": 3.814697265625e-06,
+  "peak_cuda_mib": 8486.74267578125,
+  "trainable_parameters_per_head": 193,
+  "both_heads_updated": true,
+  "initial_heads_bit_exact": true,
+  "frozen_encoder_gradients_absent": true,
+  "frozen_sha256": "0f528d6f3fc3cdc6096d2af4fc49eb1ffcd57251cba57b22149098a0b543e8e0",
+  "protected_evaluation_consumed": false,
+  "automatic_submission_allowed": false
+}

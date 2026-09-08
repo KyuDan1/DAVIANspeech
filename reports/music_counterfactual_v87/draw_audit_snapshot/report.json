@@ -1,0 +1,89 @@
+{
+  "status": "complete_snapshot_audit",
+  "rows": 1106,
+  "snapshots": [
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_counterfactual_v87/full_v2/epoch_1_traces.jsonl",
+      "bytes": 705232,
+      "complete_rows": 1024,
+      "sha256": "f1b711ec4427b78f1f3a930078bbc9e8ac20abf1aab1ff160c725a33674ddb24"
+    },
+    {
+      "path": "/home/nas_main/kyudanjung/DAVIANspeech/reports/music_counterfactual_v87/full_v2/epoch_2_traces.jsonl",
+      "bytes": 64756,
+      "complete_rows": 82,
+      "sha256": "006f8c4820bd6592b1fddb0e500983986ccf57b421b4b16e62f8175e8e3a946f"
+    }
+  ],
+  "training_complete": false,
+  "catalog_sha256": "75c582b2db1439f1c5ae87678d52796b6475c3fb51a42455c5f02041f00c15b9",
+  "counts": {
+    "kind": {
+      "TRAIN_music_counterfactual": 540,
+      "original_TRAIN_music_replay": 566
+    },
+    "music_label": {
+      "0": 661,
+      "1": 445
+    },
+    "synthetic_bank_label": {
+      "0:competition_v2_bad_presence": 177,
+      "1:echoes_v1": 182,
+      "1:competition_v2_bad_presence": 80,
+      "0:echoes_v1": 101
+    },
+    "synthetic_generator_label": {
+      "0:real": 278,
+      "1:elevenlabs": 17,
+      "1:stable_audio_open": 18,
+      "1:brev": 15,
+      "1:producer": 19,
+      "1:MusicGen_medium": 22,
+      "1:songgen": 13,
+      "1:udio": 13,
+      "1:mustango": 11,
+      "1:audioldm": 20,
+      "1:acestep": 15,
+      "1:suno": 7,
+      "1:diffrhythm": 21,
+      "1:mubert": 19,
+      "1:musicgen": 14,
+      "1:audioldm2": 12,
+      "1:stableaudio": 9,
+      "1:musicldm": 17
+    },
+    "layout": {
+      "concurrent": 191,
+      "voice_first": 176,
+      "music_first": 173
+    },
+    "channel": {
+      "opus_nb_8k": 104,
+      "g722_wb": 100,
+      "g711_ulaw": 119,
+      "transcode_g711_opus": 107,
+      "clean": 110
+    },
+    "replay_corpus": {
+      "telephone_mixed_train_v1": 77,
+      "mixfake_music_train_v1": 64,
+      "forensic_call_train_v1": 67,
+      "temporal_mixed_train_v2": 96,
+      "external_mixed_train_v1": 67,
+      "channel_invariant_factorial_train_v1": 65,
+      "mixed_fmc_music_train_v1": 59,
+      "mixed_devvoice_train_v1": 71
+    }
+  },
+  "catalog_music_bank_label": {
+    "0:echoes_v1": 79,
+    "1:echoes_v1": 366,
+    "0:competition_v2_bad_presence": 118,
+    "1:competition_v2_bad_presence": 104
+  },
+  "synthetic_unique_bank_group_by_label": {
+    "0": 109,
+    "1": 152
+  },
+  "caveat": "Snapshot, not final counts. Generator names are not independent families; bank/group IDs are not PCM uniqueness proof. No labels, sampler, or weights changed."
+}

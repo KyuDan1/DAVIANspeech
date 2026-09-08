@@ -1,0 +1,11 @@
+{
+  "status": "complete_equivalence",
+  "files": 80,
+  "calls": 160,
+  "maximum_probability_difference": 1.1102230246251565e-16,
+  "reverse_order_bit_exact": true,
+  "seconds": 13.699054912663996,
+  "peak_cuda_mib": 8484.98486328125,
+  "frozen_sha256": "0ca5246308aab781bc6f92c4c5884ca848ad89650dfeb428cb86f28466fc1a47",
+  "automatic_submission_allowed": false
+}

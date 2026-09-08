@@ -1,0 +1,11 @@
+{
+  "best_epoch": 275,
+  "selection": 0.7539583333333333,
+  "mean_dev_eer": 0.21708333333333332,
+  "worst_dev_eer": 0.275,
+  "feature_mode": "both",
+  "group_dro_temperature": 0.1,
+  "excluded_music_generators": [
+    "suno"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "stage": "development_only",
+  "chosen": "magnitude",
+  "variants": {
+    "magnitude": {
+      "best_epoch": 8,
+      "selection": 0.651895736295287,
+      "pooled_music_eer": 0.3313776291410279,
+      "files": {
+        "complete.json": "d8b830a5e81e3bd9cdd2fb145217c5f7a3f12bcfc62cf1a48d4ea9fd7682c223",
+        "manifest.json": "a6e7d5ea2469b40a902c98602cf16cb54f470c5014888ae1824e5baf9550293c",
+        "best.pt": "6389e68a29bba724c9ea8abc36a180df390fd97cb84fb8cef345b0625382adde",
+        "history.csv": "c35dea4b9f5aba29a73b2dc9be802b83900947e14792163a025819574d3f9cd1",
+        "dev_predictions.csv": "a25b2443c8841a1a44e666520c9aea32d9c160babb9fc77c0cc864725eb439b3"
+      }
+    },
+    "magnitude_phase": {
+      "best_epoch": 6,
+      "selection": 0.6464464999582394,
+      "pooled_music_eer": 0.3388876037391248,
+      "files": {
+        "complete.json": "7bbf83514fc053ffa1bfd426e1f05a9f829f512a206d7e30362d0ba14d4a21d6",
+        "manifest.json": "4903c6b2dfb36e2479ff712b7ff896b655921e4cc297f606692ae2a0ecef8b04",
+        "best.pt": "6a4bf6522615263766606d32f60c612d4239c8e833d203ebee723330e4d025d4",
+        "history.csv": "a72addab3b3c8aefe6cac75fa5557b20ee5c89412358d539111f6707244e9d2d",
+        "dev_predictions.csv": "7f1634f225602126b8997b737e8075d7d5ffd07eb2b517e1befdaab3f8155241"
+      }
+    }
+  },
+  "primary_decision": {
+    "pass_gate": false,
+    "checks": {
+      "pooled_improves": false,
+      "domains_nonregressing": true,
+      "channels_nonregressing": true,
+      "mean_domain_improves": true,
+      "worst_domain_nonworse": true
+    },
+    "pooled_gain": 0.006666666666666599,
+    "mean_domain_gain": 0.006666666666666599,
+    "worst_domain_gain": 0.006666666666666599,
+    "max_domain_regression": 0.0,
+    "max_channel_regression": 0.0
+  },
+  "music_logit_weight": 0.1,
+  "other_four_outputs_text_exact": true,
+  "official_improvement_verified": false,
+  "automatic_submission_allowed": false,
+  "remaining_if_pass": [
+    "source_and_generator_prospective",
+    "independent_file_inference",
+    "L4_runtime",
+    "offline_package"
+  ],
+  "files": {
+    "/home/nas_main/kyudanjung/DAVIANspeech/configs/lowband_music_v67.yaml": "10b43d36cf8367c28aaf7e19929edc295566c2c89a066c14ab244bd114ca2e33",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/three_stream_all_type_v57_strict/v50_authorized_v2/v1_strict__music_only_predictions.csv": "3d54bcd71a54e59cbcd996637e372f2aa157f856072b2d98309440cc898a9b5f",
+    "/home/nas_main/kyudanjung/DAVIANspeech/reports/lowband_music_v67/magnitude/dev_predictions.csv": "a25b2443c8841a1a44e666520c9aea32d9c160babb9fc77c0cc864725eb439b3",
+    "reports/lowband_music_v67/development_audit/blended_predictions.csv": "3952757600db183a8126e4c224c34cea2195b668b62af34274fb9e8b0f976764"
+  }
+}

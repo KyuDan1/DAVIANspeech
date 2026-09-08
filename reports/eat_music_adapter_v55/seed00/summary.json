@@ -1,0 +1,12 @@
+{
+  "best_v4_music_eer": 0.25,
+  "best_epoch": 5,
+  "train_examples": 17760,
+  "samples_per_epoch": 6144,
+  "trainable_parameters": 427341,
+  "paired_examples": 2400,
+  "source_overlap": {
+    "VOICE_SOURCE_ID": 0,
+    "MUSIC_SOURCE_ID": 0
+  }
+}
